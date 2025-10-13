@@ -14,6 +14,7 @@ The goal of this repository is to demonstrate solid Unity project structure and 
 
 ## 🗂️ Project Structure
 
+```
 Assets/
 ├── Art/ # Sprites, tilesets, UI, and animations
 │ ├── Characters/ # Player + NPC sprites and animations
@@ -45,6 +46,7 @@ Assets/
 ├── Settings/ # ScriptableObjects for global configuration
 │
 └── Resources/ # Assets loaded dynamically (if needed)
+```
 
 ProjectSettings/ # Unity project and build settings
 Packages/ # Dependency definitions (manifest.json)
