@@ -22,6 +22,12 @@ Assets/
 │ ├── Effects/ # Particle sprites, shaders
 │ └── UI/ # HUD, menus, icons
 │
+├── Tiles/
+│   ├── Palettes/            # Tile Palettes for painting
+│   ├── RuleTiles/           # RuleTile assets (auto-tiling)
+│   ├── TileAssets/          # Generated Tile assets from sprites
+│   └── Sprites/             # Source tileset textures (sliced)
+│
 ├── Audio/ # Sound effects and background music
 │ ├── SFX/
 │ └── BGM/
