@@ -10,8 +10,6 @@ public class Movement : NetworkBehaviour
   private float wallJumpCooldown;
   private float horizontalInput;
   private bool canMove = true;
-  private bool justWallJumped = false;
-  private float noSlideTimer = 0f;
 
   [Header("Layers")]
   [SerializeField] private LayerMask groundLayer;
@@ -26,15 +24,6 @@ public class Movement : NetworkBehaviour
   [SerializeField] private float shortHopCut;
   [SerializeField] private float fallMultiplier;
 
-  [Header("Wall Jump Adjustment")]
-  [SerializeField] private float wallJumpKickX;
-  [SerializeField] private float wallJumpKickY;
-  [SerializeField] private float wallJumpControlLock;
-  [SerializeField] private float wallJumpNoSlideTime = 0.12f;
-
-  [Header("Wall Slide Adjustment")]
-  [SerializeField] private float wallCheckDistance;
-  [SerializeField] private float wallSlideMaximumFallSpeed;
 
   private void Start()
   {
@@ -48,6 +37,13 @@ public class Movement : NetworkBehaviour
     }
   }
 
+  public override void OnNetworkSpawn()
+  {
+    body.simulated = IsOwner;
+    body.interpolation = IsOwner ? RigidbodyInterpolation2D.Interpolate : RigidbodyInterpolation2D.None;
+  }
+
+
   private void Awake()
   {
     // Get reference of Rigidbody2D and Animator
@@ -60,17 +56,6 @@ public class Movement : NetworkBehaviour
   }
   private void Update()
   {
-    if (!IsOwner) return;
-
-    if (canMove)
-    {
-      horizontalInput = Input.GetAxisRaw("Horizontal");
-      body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
-    }
-    else
-    {
-      body.linearVelocity = new Vector2(body.linearVelocity.x, body.linearVelocity.y);
-    }
 
     // Buat Flip Characternya
     if (horizontalInput > 0.01f)
@@ -97,26 +82,27 @@ public class Movement : NetworkBehaviour
 
   }
 
+  private void FixedUpdate()
+  {
+    if (!IsOwner) return;
+
+    if (canMove)
+    {
+      horizontalInput = Input.GetAxisRaw("Horizontal");
+      body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+    }
+    else
+    {
+      body.linearVelocity = new Vector2(body.linearVelocity.x, body.linearVelocity.y);
+    }
+  }
+
+
   private void Jump()
   {
     if (isGrounded())
     {
       body.linearVelocity = new Vector2(body.linearVelocity.x, jumpPower);
-    }
-
-    int direction = inputDirection();
-    float side = direction != 0 ? direction : Mathf.Sign(transform.localScale.x);
-
-    if (onWallDirection(side) && !isGrounded())
-    {
-      canMove = false;
-      transform.localScale = new Vector3(-side, 1, 1);
-
-      justWallJumped = true;
-      noSlideTimer = wallJumpNoSlideTime;
-
-      StartCoroutine(WallJumpExecute(-side));
-      animator.SetTrigger("jump");
     }
   }
 
@@ -127,59 +113,15 @@ public class Movement : NetworkBehaviour
 
     if (!isGrounded())
     {
-      if (noSlideTimer > 0f)
+      if (body.linearVelocity.y < 0f)
       {
-        noSlideTimer -= Time.deltaTime;
+        body.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1f) * Time.deltaTime;
       }
-
-      if (noSlideTimer <= 0f)
+      else if (body.linearVelocity.y > 0f && !Input.GetKey(KeyCode.Space))
       {
-        if (!HandleWallSlide())
-        {
-          if (!justWallJumped)
-          {
-            if (body.linearVelocity.y < 0f)
-            {
-              body.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1f) * Time.deltaTime;
-            }
-            else if (body.linearVelocity.y > 0f && !Input.GetKey(KeyCode.Space))
-            {
-              body.linearVelocity += Vector2.up * Physics2D.gravity.y * (shortJumpMultiplier - 1f) * Time.deltaTime;
-            }
-          }
-        }
-      }
-      else
-      {
-        animator.SetBool("wallSlide", false);
+        body.linearVelocity += Vector2.up * Physics2D.gravity.y * (shortJumpMultiplier - 1f) * Time.deltaTime;
       }
     }
-    else
-    {
-      animator.SetBool("wallSlide", false);
-    }
-  }
-
-
-  private bool HandleWallSlide()
-  {
-    int direction = inputDirection();
-    bool pressingIntoWall = direction != 0 && onWallDirection(direction);
-
-
-    if (pressingIntoWall && !isGrounded())
-    {
-      float targetSlideSpeed = wallSlideMaximumFallSpeed;
-
-      if (body.linearVelocity.y > targetSlideSpeed)
-        body.linearVelocity = new Vector2(body.linearVelocity.x, targetSlideSpeed);
-
-      animator.SetBool("wallSlide", true);
-      return true;
-    }
-
-    animator.SetBool("wallSlide", false);
-    return false;
   }
 
   private void HandleAnimations()
@@ -197,36 +139,5 @@ public class Movement : NetworkBehaviour
   {
     RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
     return raycastHit.collider != null;
-  }
-
-  private bool onWallDirection(float directionSign)
-  {
-    if (directionSign == 0)
-    {
-      return false;
-    }
-
-    Vector2 dir = new Vector2(Mathf.Sign(directionSign), 0f);
-    RaycastHit2D hit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0f, dir, wallCheckDistance, wallLayer);
-
-    return hit.collider != null;
-  }
-
-  private int inputDirection()
-  {
-    return horizontalInput > 0.01f ? 1 : (horizontalInput < -0.01f ? -1 : 0); ;
-  }
-
-  private IEnumerator WallJumpExecute(float side)
-  {
-    yield return new WaitForSeconds(0.05f);
-
-    body.linearVelocity = new Vector2(side * wallJumpKickX, wallJumpKickY);
-
-    yield return new WaitForSeconds(0.10f);
-    justWallJumped = false;
-
-    yield return new WaitForSeconds(wallJumpControlLock - 0.10f);
-    canMove = true;
   }
 }

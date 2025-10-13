@@ -216,16 +216,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   speed: 8
-  jumpPower: 8
+  jumpPower: 10
   shortJumpMultiplier: 1
-  shortHopCut: 1
-  fallMultiplier: 1
-  wallJumpKickX: 10
-  wallJumpKickY: 10
-  wallJumpControlLock: 10
-  wallJumpNoSlideTime: 0.12
-  wallCheckDistance: 0.1
-  wallSlideMaximumFallSpeed: 3.5
+  shortHopCut: 0
+  fallMultiplier: 3
 --- !u!95 &4587821935056208640
 Animator:
   serializedVersion: 7
