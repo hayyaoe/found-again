@@ -17,7 +17,6 @@ public class Movement : NetworkBehaviour
   private float fallDistance;
   private bool wasGroundedLastFrame;
   private bool pendingFallDeath; // True when player has fallen too far
-  private bool isDead;
 
   [Header("Layers")]
   [SerializeField] private LayerMask groundLayer;
@@ -34,6 +33,7 @@ public class Movement : NetworkBehaviour
   [SerializeField] private float fallMultiplier;
   [SerializeField] private float fallThreshold = 7f; // Die if fall > 4 units
   [SerializeField] private float fatalFallSpeed = 15f;
+
 
   private void Start()
   {
@@ -70,29 +70,22 @@ public class Movement : NetworkBehaviour
   }
   private void Update()
   {
-    if (!IsOwner || isDead) return;
+    if (!IsOwner) return;
 
     bool groundedNow = isGrounded();
 
     // --- Update last grounded Y ---
     if (groundedNow && !wasGroundedLastFrame)
     {
-        // Calculate final fall distance on landing
-        fallDistance = lastGroundY - transform.position.y;
-
-        // ✅ Only die if truly a long fall
-        if (fallDistance > fallThreshold && Mathf.Abs(body.linearVelocity.y) > fatalFallSpeed)
-        {
-            RequestDieServerRpc();
-            pendingFallDeath = false;
-            return;
-        }
-
-        // Reset fall tracking
+      if (pendingFallDeath || Mathf.Abs(body.linearVelocityY) > fatalFallSpeed)
+      {
+        RequestDieServerRpc();
         pendingFallDeath = false;
-        lastGroundY = transform.position.y;
-    }
+        return;
+      }
 
+      lastGroundY = transform.position.y;
+    }
 
     // --- Detect if falling past threshold ---
     if (!groundedNow)
@@ -205,12 +198,12 @@ public class Movement : NetworkBehaviour
   {
     Debug.Log($"{gameObject.name} died (client sync)");
     animator.SetTrigger("die");
-    isDead = true;
     body.linearVelocity = Vector2.zero;
     body.simulated = false;
 
     if (IsOwner)
     {
+      this.enabled = false;
       Invoke(nameof(HandleRespawn), 0.4f);
     }
   }
@@ -218,7 +211,7 @@ public class Movement : NetworkBehaviour
   private void HandleRespawn()
   {
     body.simulated = true;
-    isDead = false;
+    this.enabled = true;
     animator.ResetTrigger("die");
 
     if (respawnHandler != null)
