@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 7927638242955762793}
   - component: {fileID: -1088082737781596913}
   - component: {fileID: 4630648880170436102}
+  - component: {fileID: -1146337498437135947}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -185,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 121975268
+  GlobalObjectIdHash: 3569057997
   InScenePlacedSourceGlobalObjectIdHash: 3569057997
   DeferredDespawnTick: 0
   Ownership: 1
@@ -220,7 +221,7 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 128
-  speed: 6
+  speed: 5
   jumpPower: 14
   shortJumpMultiplier: 1
   shortHopCut: 0
@@ -339,11 +340,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822b5e2b008524b61890411debe11d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPushPull
-  interactRange: 1
+  interactRange: 2
   pushableLayer:
     serializedVersion: 2
     m_Bits: 8
-  pushSpeed: 2
+  pushSpeed: 1.5
 --- !u!114 &4630648880170436102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,3 +357,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f2d742c155a4ffaaa749b2560dfe25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRespawn
+--- !u!114 &-1146337498437135947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4911369873958072336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77691ff2c6f194aacb73123e7816d1cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Slope
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  maxSlopeAngle: 45
+  slideSpeed: 5

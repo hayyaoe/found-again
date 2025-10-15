@@ -204,7 +204,7 @@ public class Movement : NetworkBehaviour
     if (IsOwner)
     {
       this.enabled = false;
-      Invoke(nameof(HandleRespawn), 0.4f);
+      Invoke(nameof(HandleRespawn), 0.1f);
     }
   }
 
