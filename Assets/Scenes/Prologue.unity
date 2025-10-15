@@ -1238,6 +1238,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d487e8d954c456c8c1e17744e88b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DraggableStar
+  minX: -1
+  maxX: 1
+  returnSpeed: 3
 --- !u!114 &659179844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1550,7 +1553,7 @@ Camera:
   far clip plane: 6000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 6
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1575,7 +1578,7 @@ Transform:
   m_GameObject: {fileID: 770660567}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -28, y: 0, z: -10}
+  m_LocalPosition: {x: -30, y: -2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2255,7 +2258,7 @@ GameObject:
   - component: {fileID: 1783540557}
   - component: {fileID: 1783540559}
   m_Layer: 0
-  m_Name: Layer-7
+  m_Name: Layer-6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2328,7 +2331,7 @@ Transform:
   m_GameObject: {fileID: 1783540556}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 97.176834, y: -4.8460073, z: 179}
+  m_LocalPosition: {x: 97.37683, y: -4.8460073, z: 179}
   m_LocalScale: {x: 1.5181001, y: 1.5181001, z: 1.5181001}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2743,7 +2746,7 @@ GameObject:
   - component: {fileID: 2034760282}
   - component: {fileID: 2034760285}
   m_Layer: 6
-  m_Name: Layer-6
+  m_Name: Layer-5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3875,12 +3878,12 @@ PolygonCollider2D:
       - {x: -3.7239697, y: 2.0418355}
       - {x: -3.618175, y: 1.8937232}
       - {x: -3.6816518, y: 1.682134}
-      - {x: -3.7028108, y: 1.5128627}
-      - {x: -3.7028108, y: 0.92041296}
-      - {x: -3.7239697, y: 0.8569362}
-      - {x: -3.7239697, y: 0.39144}
-      - {x: -3.7028108, y: 0.010579459}
-      - {x: -4.6338034, y: 0.37028107}
+      - {x: -3.6734803, y: 1.516529}
+      - {x: -3.6694837, y: 0.98706746}
+      - {x: -3.6758308, y: 0.8458272}
+      - {x: -3.6758308, y: 0.38773704}
+      - {x: -3.6694837, y: -0.015341725}
+      - {x: -4.652558, y: -0.012305707}
       - {x: -4.654962, y: 0.8569362}
       - {x: -4.8030744, y: 1.0050486}
       - {x: -8.717475, y: 1.0050486}
@@ -5584,6 +5587,10 @@ PrefabInstance:
     - target: {fileID: 318036488423405662, guid: acc4d687c54ac4a9d95ed55bc303d33c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045367883331890125, guid: acc4d687c54ac4a9d95ed55bc303d33c, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7786662411218055685, guid: acc4d687c54ac4a9d95ed55bc303d33c, type: 3}
       propertyPath: m_Name

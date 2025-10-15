@@ -11,7 +11,7 @@ public class PlayerPushPull : MonoBehaviour
     private Rigidbody2D rb;
     private bool isPushing = false;
     private float horizontalInput;
-    private DistanceJoint2D joint;
+    private RelativeJoint2D joint;
 
 
     private void Awake()
@@ -32,11 +32,11 @@ public class PlayerPushPull : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isPushing && joint != null && currentObject != null)
-        {
-            // update joint distance to stay near contact point
-            joint.distance = Vector2.Distance(transform.position, currentObject.transform.position);
-        }
+        // if (isPushing && joint != null && currentObject != null)
+        // {
+        //     // update joint distance to stay near contact point
+        //     joint.distance = Vector2.Distance(transform.position, currentObject.transform.position);
+        // }
     }
 
     private void TryAttachToObject()
@@ -51,11 +51,12 @@ public class PlayerPushPull : MonoBehaviour
                 isPushing = true;
                 currentObject.StartPush();
 
-                joint = gameObject.AddComponent<DistanceJoint2D>();
-                joint.connectedBody = currentObject.GetComponent<Rigidbody2D>();
-                joint.autoConfigureDistance = false;
-                joint.distance = Vector2.Distance(transform.position, currentObject.transform.position);
-                joint.enableCollision = false;
+                var relJoint = gameObject.AddComponent<RelativeJoint2D>();
+                relJoint.connectedBody = currentObject.GetComponent<Rigidbody2D>();
+                relJoint.autoConfigureOffset = true; // keeps their current relative offset
+                relJoint.maxForce = 1000f;           // prevent excessive force jitter
+                relJoint.enableCollision = false;
+                joint = relJoint; // if you want to keep the same variable name
             }
         }
     }
@@ -65,6 +66,12 @@ public class PlayerPushPull : MonoBehaviour
         if (currentObject != null)
         {
             currentObject.StopPush();
+
+            // 🟡 If the object has a DraggableStar, tell it to return
+            DraggableStar star = currentObject.GetComponent<DraggableStar>();
+            if (star != null)
+                star.ReturnToStart();
+
             currentObject = null;
         }
 
