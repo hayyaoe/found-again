@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: de79f990a1817409e8caad3970851d54
+guid: 169e9e1a0ba7d4ba398cd40a7b602781
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5138226428741918026
-    second: Background Tutorial_0
+      213: 6409211925594666919
+    second: Platform Tutorial (no collision)_0
+  - first:
+      213: -1025961219318604319
+    second: Platform Tutorial (no collision)_1
+  - first:
+      213: 2195686603731280648
+    second: Platform Tutorial (no collision)_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -47,7 +53,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 1
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -72,7 +78,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -113,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Background Tutorial_0
+      name: Platform Tutorial (no collision)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 8664
-        height: 3049
+        height: 3035
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6b2605b594a51b8b0800000000000000
-      internalID: -5138226428741918026
+      spriteID: 7a77443f94812f850800000000000000
+      internalID: 6409211925594666919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Platform Tutorial (no collision)_1
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 2838
+        width: 285
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ed1031f4bd03c1f0800000000000000
+      internalID: -1025961219318604319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Platform Tutorial (no collision)_2
+      rect:
+        serializedVersion: 2
+        x: 971
+        y: 1894
+        width: 181
+        height: 1155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 803ac753555a87e10800000000000000
+      internalID: 2195686603731280648
       vertices: []
       indices: 
       edges: []
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Background Tutorial_0: -5138226428741918026
+      Platform Tutorial (no collision)_0: 6409211925594666919
+      Platform Tutorial (no collision)_1: -1025961219318604319
+      Platform Tutorial (no collision)_2: 2195686603731280648
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

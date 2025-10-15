@@ -17,6 +17,7 @@ public class Movement : NetworkBehaviour
   private float fallDistance;
   private bool wasGroundedLastFrame;
   private bool pendingFallDeath; // True when player has fallen too far
+  private bool isDead;
 
   [Header("Layers")]
   [SerializeField] private LayerMask groundLayer;
@@ -33,7 +34,6 @@ public class Movement : NetworkBehaviour
   [SerializeField] private float fallMultiplier;
   [SerializeField] private float fallThreshold = 7f; // Die if fall > 4 units
   [SerializeField] private float fatalFallSpeed = 15f;
-
 
   private void Start()
   {
@@ -70,32 +70,39 @@ public class Movement : NetworkBehaviour
   }
   private void Update()
   {
-    if (!IsOwner) return;
+    if (!IsOwner || isDead) return;
 
-    // bool groundedNow = isGrounded();
+    bool groundedNow = isGrounded();
 
-    // // --- Update last grounded Y ---
-    // if (groundedNow && !wasGroundedLastFrame)
-    // {
-    //   if (pendingFallDeath || Mathf.Abs(body.linearVelocityY) > fatalFallSpeed)
-    //   {
-    //     RequestDieServerRpc();
-    //     pendingFallDeath = false;
-    //     return;
-    //   }
+    // --- Update last grounded Y ---
+    if (groundedNow && !wasGroundedLastFrame)
+    {
+        // Calculate final fall distance on landing
+        fallDistance = lastGroundY - transform.position.y;
 
-    //   lastGroundY = transform.position.y;
-    // }
+        // ✅ Only die if truly a long fall
+        if (fallDistance > fallThreshold && Mathf.Abs(body.linearVelocity.y) > fatalFallSpeed)
+        {
+            RequestDieServerRpc();
+            pendingFallDeath = false;
+            return;
+        }
 
-    // // --- Detect if falling past threshold ---
-    // if (!groundedNow)
-    // {
-    //   fallDistance = lastGroundY - transform.position.y;
-    //   if (fallDistance >= fallThreshold)
-    //     pendingFallDeath = true;
-    // }
+        // Reset fall tracking
+        pendingFallDeath = false;
+        lastGroundY = transform.position.y;
+    }
 
-    // wasGroundedLastFrame = groundedNow;
+
+    // --- Detect if falling past threshold ---
+    if (!groundedNow)
+    {
+      fallDistance = lastGroundY - transform.position.y;
+      if (fallDistance >= fallThreshold)
+        pendingFallDeath = true;
+    }
+
+    wasGroundedLastFrame = groundedNow;
 
     // Buat Flip Characternya
     if (horizontalInput > 0.01f)
@@ -187,37 +194,36 @@ public class Movement : NetworkBehaviour
     return raycastHit.collider != null;
   }
 
-  // --- Death handling ---
-  // [ServerRpc]
-  // private void RequestDieServerRpc(ServerRpcParams rpcParams = default)
-  // {
-  //   DieClientRpc();
-  // }
+  [ServerRpc]
+  private void RequestDieServerRpc(ServerRpcParams rpcParams = default)
+  {
+    DieClientRpc();
+  }
 
-  // [ClientRpc]
-  // private void DieClientRpc(ClientRpcParams rpcParams = default)
-  // {
-  //   Debug.Log($"{gameObject.name} died (client sync)");
-  //   animator.SetTrigger("die");
-  //   body.linearVelocity = Vector2.zero;
-  //   body.simulated = false;
+  [ClientRpc]
+  private void DieClientRpc(ClientRpcParams rpcParams = default)
+  {
+    Debug.Log($"{gameObject.name} died (client sync)");
+    animator.SetTrigger("die");
+    isDead = true;
+    body.linearVelocity = Vector2.zero;
+    body.simulated = false;
 
-  //   if (IsOwner)
-  //   {
-  //     this.enabled = false;
-  //     Invoke(nameof(HandleRespawn), 0.4f);
-  //   }
-  // }
+    if (IsOwner)
+    {
+      Invoke(nameof(HandleRespawn), 0.4f);
+    }
+  }
 
-  // private void HandleRespawn()
-  // {
-  //   body.simulated = true;
-  //   this.enabled = true;
-  //   animator.ResetTrigger("die");
+  private void HandleRespawn()
+  {
+    body.simulated = true;
+    isDead = false;
+    animator.ResetTrigger("die");
 
-  //   if (respawnHandler != null)
-  //     respawnHandler.Respawn();
-  //   else
-  //     Debug.LogWarning("⚠️ PlayerRespawn component missing on player!");
-  // }
+    if (respawnHandler != null)
+      respawnHandler.Respawn();
+    else
+      Debug.LogWarning("⚠️ PlayerRespawn component missing on player!");
+  }
 }

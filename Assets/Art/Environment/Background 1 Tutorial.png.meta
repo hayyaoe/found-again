@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 0689589d66d174f8fb6180c7e3b01ca6
+guid: b1650006e460c4d0f87f650dadce1b16
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4662905765464372179
-    second: Mimi Sprite Test_0
+      213: -8462332019636604492
+    second: Background 1 Tutorial_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -47,11 +47,11 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 1
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 350
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Mimi Sprite Test_0
+      name: Background 1 Tutorial_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 555
-        height: 314
+        width: 8664
+        height: 3049
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3d3ff9ba618f5b040800000000000000
-      internalID: 4662905765464372179
+      spriteID: 4b1752e0dd1cf8a80800000000000000
+      internalID: -8462332019636604492
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Mimi Sprite Test_0: 4662905765464372179
+      Background 1 Tutorial_0: -8462332019636604492
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
