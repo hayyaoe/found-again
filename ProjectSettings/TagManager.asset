@@ -6,16 +6,17 @@ TagManager:
   tags:
   - Ground
   - Wall
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Pushable
   - Water
   - UI
   - Ground
   - Wall
-  - 
+  - Checkpoint
   - 
   - 
   - 

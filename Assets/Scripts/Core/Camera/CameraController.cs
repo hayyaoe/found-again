@@ -9,7 +9,7 @@ public class CameraMovement : MonoBehaviour
     [Header("Follow Settings")]
     [Tooltip("Smaller values = slower smoothing, typical range: 0.05–0.15")]
     [SerializeField] private float followSmoothTime;
-    [SerializeField] private Vector2 followOffset;
+    [SerializeField] private Vector2 followOffset = new Vector2(0f, 5f);
     [SerializeField] private Vector2 deadZone;
 
     [Header("Room Boundaries")]

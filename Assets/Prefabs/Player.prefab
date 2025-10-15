@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 6812062397745860341}
   - component: {fileID: 5404541804432084225}
   - component: {fileID: 7927638242955762793}
+  - component: {fileID: -1088082737781596913}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   m_GameObject: {fileID: 4911369873958072336}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -30, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -87,12 +88,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 4d3296b8c72ef4e3b981e1fac46de27a, type: 3}
+  m_Color: {r: 0.61877, g: 0.947543, b: 0.9716981, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.459, y: 0.836}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -136,8 +137,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 1.459, y: 0.836}
+    newSize: {x: 1.459, y: 0.836}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -159,7 +160,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -212,14 +213,19 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  steppableObjectLayer:
+    serializedVersion: 2
+    m_Bits: 8
   wallLayer:
     serializedVersion: 2
     m_Bits: 128
-  speed: 8
-  jumpPower: 10
+  speed: 6
+  jumpPower: 14
   shortJumpMultiplier: 1
   shortHopCut: 0
   fallMultiplier: 3
+  fallThreshold: 2
+  fatalFallSpeed: 4
 --- !u!95 &4587821935056208640
 Animator:
   serializedVersion: 7
@@ -320,3 +326,20 @@ MonoBehaviour:
   UseRigidBodyForMotion: 0
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
+--- !u!114 &-1088082737781596913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4911369873958072336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 822b5e2b008524b61890411debe11d5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPushPull
+  interactRange: 1
+  pushableLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  pushSpeed: 2
