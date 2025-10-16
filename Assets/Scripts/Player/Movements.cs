@@ -115,13 +115,12 @@ public class Movement : MonoBehaviour
     // Jump
     if (wallJumpCooldown > 0.2f && jumpAction != null && jumpAction.WasPressedThisFrame())
     {
-        if (!isGrounded())
-        {
-            animator.SetTrigger("jump");
-        }
-        
-        animator.SetBool("run", horizontalInput != 0 && !IsPushing);
-        animator.SetBool("grounded", isGrounded());
+      // Prevent jump if pushing/pulling
+      var pushPull = GetComponent<PlayerPushPull>();
+      if (pushPull != null && pushPull.isPushing)
+        return;
+
+      Jump();
     }
 
     // --- UPDATED ---
