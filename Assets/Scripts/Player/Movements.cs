@@ -94,12 +94,14 @@ public class Movement : MonoBehaviour
 
     if (!groundedNow)
     {
-      fallDistance = lastGroundY - transform.position.y;
-      if (fallDistance >= fallThreshold)
-        pendingFallDeath = true;
+        if (!IsOwner) return;
+
+        if (canMove && !IsPushing)
+        {
+            body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+        }
     }
 
-    wasGroundedLastFrame = groundedNow;
 
     // --- Input Reading ---
     horizontalInput = moveAction != null ? moveAction.ReadValue<Vector2>().x : Input.GetAxisRaw("Horizontal");
@@ -113,12 +115,21 @@ public class Movement : MonoBehaviour
     // Jump
     if (wallJumpCooldown > 0.2f && jumpAction != null && jumpAction.WasPressedThisFrame())
     {
-      Jump();
+        if (!isGrounded())
+        {
+            animator.SetTrigger("jump");
+        }
+        
+        animator.SetBool("run", horizontalInput != 0 && !IsPushing);
+        animator.SetBool("grounded", isGrounded());
     }
-    else
+
+    // --- UPDATED ---
+    public bool isGrounded()
     {
-      wallJumpCooldown += Time.deltaTime;
-    }
+        // Use a slightly longer distance for the cast to handle slopes gracefully.
+        float extraHeight = 0.25f; 
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0f, Vector2.down, extraHeight, groundLayer);
 
     HandleAirbornePhysics();
     HandleAnimations();
@@ -135,7 +146,8 @@ public class Movement : MonoBehaviour
   {
     if (isGrounded() || isOnSteppableObject())
     {
-      body.linearVelocity = new Vector2(body.linearVelocity.x, jumpPower);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0, Vector2.down, 0.1f, steppableObjectLayer);
+        return raycastHit.collider != null;
     }
   }
 
@@ -146,7 +158,8 @@ public class Movement : MonoBehaviour
       body.linearVelocity = new Vector2(body.linearVelocity.x, body.linearVelocity.y * shortHopCut);
     }
 
-    if (!isGrounded())
+    [ServerRpc]
+    private void RequestDieServerRpc(ServerRpcParams rpcParams = default)
     {
       if (body.linearVelocity.y < 0f)
       {
@@ -157,13 +170,20 @@ public class Movement : MonoBehaviour
         body.linearVelocity += Vector2.up * Physics2D.gravity.y * (shortJumpMultiplier - 1f) * Time.deltaTime;
       }
     }
-  }
 
-  private void HandleAnimations()
-  {
-    if (!isGrounded())
+    [ClientRpc]
+    private void DieClientRpc(ClientRpcParams rpcParams = default)
     {
-      animator.SetTrigger("jump");
+        Debug.Log($"{gameObject.name} died (client sync)");
+        animator.SetTrigger("die");
+        body.linearVelocity = Vector2.zero;
+        body.simulated = false;
+
+        if (IsOwner)
+        {
+            this.enabled = false;
+            Invoke(nameof(HandleRespawn), 0.1f);
+        }
     }
 
     animator.SetBool("run", Mathf.Abs(horizontalInput) > 0.01f);

@@ -160,7 +160,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 4
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: cee62ccb67dd74493b6fe08465aedb0e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -235,7 +235,7 @@ MonoBehaviour:
   pushableLayer:
     serializedVersion: 2
     m_Bits: 8
-  pushSpeed: 1.5
+  pushSpeed: 3
 --- !u!114 &4630648880170436102
 MonoBehaviour:
   m_ObjectHideFlags: 0
