@@ -1,65 +1,46 @@
 using System.Collections;
 using UnityEngine;
-using Unity.Netcode;
+using UnityEngine.InputSystem;
 
-public class Movement : NetworkBehaviour
+public class Movement : MonoBehaviour
 {
   private Rigidbody2D body;
   private Animator animator;
   private BoxCollider2D boxCollider2D;
-  private float wallJumpCooldown;
-  private float horizontalInput;
-  private bool canMove = true;
   private PlayerRespawn respawnHandler;
 
-  // Fall detection
-  private float lastGroundY;
-  private float fallDistance;
-  private bool wasGroundedLastFrame;
-  private bool pendingFallDeath; // True when player has fallen too far
+  [Header("Input System")]
+  [SerializeField] private PlayerInput playerInput; // Each player prefab should have its own PlayerInput
+  private InputAction moveAction;
+  private InputAction jumpAction;
+
+  [Header("Movement")]
+  [SerializeField] private float speed = 5f;
+  [SerializeField] private float jumpPower = 10f;
+
+  [Header("Jump Adjustment")]
+  [SerializeField] private float shortJumpMultiplier = 1.5f;
+  [SerializeField] private float shortHopCut = 0.5f;
+  [SerializeField] private float fallMultiplier = 2f;
+  [SerializeField] private float fallThreshold = 7f; // Die if fall > threshold units
+  [SerializeField] private float fatalFallSpeed = 15f;
 
   [Header("Layers")]
   [SerializeField] private LayerMask groundLayer;
   [SerializeField] private LayerMask steppableObjectLayer;
-  [SerializeField] private LayerMask wallLayer;
 
-  [Header("Movement")]
-  [SerializeField] private float speed;
-  [SerializeField] private float jumpPower;
+  // --- Fall detection ---
+  private float lastGroundY;
+  private float fallDistance;
+  private bool wasGroundedLastFrame;
+  private bool pendingFallDeath;
 
-  [Header("Jump Adjustment")]
-  [SerializeField] private float shortJumpMultiplier;
-  [SerializeField] private float shortHopCut;
-  [SerializeField] private float fallMultiplier;
-  [SerializeField] private float fallThreshold = 7f; // Die if fall > 4 units
-  [SerializeField] private float fatalFallSpeed = 15f;
-
-
-  private void Start()
-  {
-    if (!IsOwner) return;
-
-    CameraMovement cam = FindFirstObjectByType<CameraMovement>();
-
-    if (cam != null)
-    {
-      cam.setTarget(transform);
-    }
-  }
-
-  public override void OnNetworkSpawn()
-  {
-    body.simulated = IsOwner;
-    body.interpolation = IsOwner ? RigidbodyInterpolation2D.Interpolate : RigidbodyInterpolation2D.None;
-
-    if (isGrounded())
-      lastGroundY = transform.position.y;
-  }
-
+  private float horizontalInput;
+  private bool canMove = true;
+  private float wallJumpCooldown;
 
   private void Awake()
   {
-    // Get reference of Rigidbody2D and Animator
     body = GetComponent<Rigidbody2D>();
     animator = GetComponent<Animator>();
     boxCollider2D = GetComponent<BoxCollider2D>();
@@ -67,19 +48,43 @@ public class Movement : NetworkBehaviour
 
     body.freezeRotation = true;
     body.interpolation = RigidbodyInterpolation2D.Interpolate;
+
+    if (playerInput == null)
+      playerInput = GetComponent<PlayerInput>();
+
+    if (playerInput != null)
+    {
+      moveAction = playerInput.actions["Move"];
+      jumpAction = playerInput.actions["Jump"];
+    }
+    else
+    {
+      Debug.LogWarning("⚠️ PlayerInput not assigned on " + gameObject.name);
+    }
   }
+
+  private void Start()
+  {
+    CameraMovement cameraMovement = FindObjectOfType<CameraMovement>();
+    if (cameraMovement != null)
+    {
+      cameraMovement.setTarget(transform);
+    }
+    
+    if (isGrounded())
+      lastGroundY = transform.position.y;
+  }
+
   private void Update()
   {
-    if (!IsOwner) return;
-
     bool groundedNow = isGrounded();
 
-    // --- Update last grounded Y ---
+    // --- Fall Detection ---
     if (groundedNow && !wasGroundedLastFrame)
     {
       if (pendingFallDeath || Mathf.Abs(body.linearVelocityY) > fatalFallSpeed)
       {
-        RequestDieServerRpc();
+        Die();
         pendingFallDeath = false;
         return;
       }
@@ -87,7 +92,6 @@ public class Movement : NetworkBehaviour
       lastGroundY = transform.position.y;
     }
 
-    // --- Detect if falling past threshold ---
     if (!groundedNow)
     {
       fallDistance = lastGroundY - transform.position.y;
@@ -97,18 +101,17 @@ public class Movement : NetworkBehaviour
 
     wasGroundedLastFrame = groundedNow;
 
-    // Buat Flip Characternya
+    // --- Input Reading ---
+    horizontalInput = moveAction != null ? moveAction.ReadValue<Vector2>().x : Input.GetAxisRaw("Horizontal");
+
+    // Flip sprite
     if (horizontalInput > 0.01f)
-    {
       transform.localScale = new Vector3(1, 1, 1);
-    }
     else if (horizontalInput < -0.01f)
-    {
       transform.localScale = new Vector3(-1, 1, 1);
-    }
 
-
-    if (wallJumpCooldown > 0.2f && Input.GetKeyDown(KeyCode.Space))
+    // Jump
+    if (wallJumpCooldown > 0.2f && jumpAction != null && jumpAction.WasPressedThisFrame())
     {
       Jump();
     }
@@ -119,24 +122,14 @@ public class Movement : NetworkBehaviour
 
     HandleAirbornePhysics();
     HandleAnimations();
-
   }
 
   private void FixedUpdate()
   {
-    if (!IsOwner) return;
+    if (!canMove) return;
 
-    if (canMove)
-    {
-      horizontalInput = Input.GetAxisRaw("Horizontal");
-      body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
-    }
-    else
-    {
-      body.linearVelocity = new Vector2(body.linearVelocity.x, body.linearVelocity.y);
-    }
+    body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
   }
-
 
   private void Jump()
   {
@@ -148,8 +141,10 @@ public class Movement : NetworkBehaviour
 
   private void HandleAirbornePhysics()
   {
-    if (Input.GetKeyUp(KeyCode.Space) && body.linearVelocity.y > 0f)
+    if (jumpAction != null && jumpAction.WasReleasedThisFrame() && body.linearVelocity.y > 0f)
+    {
       body.linearVelocity = new Vector2(body.linearVelocity.x, body.linearVelocity.y * shortHopCut);
+    }
 
     if (!isGrounded())
     {
@@ -157,7 +152,7 @@ public class Movement : NetworkBehaviour
       {
         body.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1f) * Time.deltaTime;
       }
-      else if (body.linearVelocity.y > 0f && !Input.GetKey(KeyCode.Space))
+      else if (body.linearVelocity.y > 0f && (jumpAction == null || !jumpAction.IsPressed()))
       {
         body.linearVelocity += Vector2.up * Physics2D.gravity.y * (shortJumpMultiplier - 1f) * Time.deltaTime;
       }
@@ -170,42 +165,47 @@ public class Movement : NetworkBehaviour
     {
       animator.SetTrigger("jump");
     }
-    animator.SetBool("run", horizontalInput != 0);
+
+    animator.SetBool("run", Mathf.Abs(horizontalInput) > 0.01f);
     animator.SetBool("grounded", isGrounded());
   }
 
-  // Helper
   private bool isGrounded()
   {
-    RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
+    RaycastHit2D raycastHit = Physics2D.BoxCast(
+        boxCollider2D.bounds.center,
+        boxCollider2D.bounds.size,
+        0,
+        Vector2.down,
+        0.1f,
+        groundLayer
+    );
     return raycastHit.collider != null;
   }
 
   private bool isOnSteppableObject()
   {
-    RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0, Vector2.down, 0.1f, steppableObjectLayer);
+    RaycastHit2D raycastHit = Physics2D.BoxCast(
+        boxCollider2D.bounds.center,
+        boxCollider2D.bounds.size,
+        0,
+        Vector2.down,
+        0.1f,
+        steppableObjectLayer
+    );
     return raycastHit.collider != null;
   }
 
-  [ServerRpc]
-  private void RequestDieServerRpc(ServerRpcParams rpcParams = default)
+  private void Die()
   {
-    DieClientRpc();
-  }
+    Debug.Log($"{gameObject.name} died (local)");
 
-  [ClientRpc]
-  private void DieClientRpc(ClientRpcParams rpcParams = default)
-  {
-    Debug.Log($"{gameObject.name} died (client sync)");
     animator.SetTrigger("die");
     body.linearVelocity = Vector2.zero;
     body.simulated = false;
 
-    if (IsOwner)
-    {
-      this.enabled = false;
-      Invoke(nameof(HandleRespawn), 0.1f);
-    }
+    this.enabled = false;
+    Invoke(nameof(HandleRespawn), 0.1f);
   }
 
   private void HandleRespawn()
