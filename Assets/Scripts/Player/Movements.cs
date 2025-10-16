@@ -94,14 +94,12 @@ public class Movement : MonoBehaviour
 
     if (!groundedNow)
     {
-        if (!IsOwner) return;
-
-        if (canMove && !IsPushing)
-        {
-            body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
-        }
+      fallDistance = lastGroundY - transform.position.y;
+      if (fallDistance >= fallThreshold)
+        pendingFallDeath = true;
     }
 
+    wasGroundedLastFrame = groundedNow;
 
     // --- Input Reading ---
     horizontalInput = moveAction != null ? moveAction.ReadValue<Vector2>().x : Input.GetAxisRaw("Horizontal");
@@ -122,13 +120,10 @@ public class Movement : MonoBehaviour
 
       Jump();
     }
-
-    // --- UPDATED ---
-    public bool isGrounded()
+    else
     {
-        // Use a slightly longer distance for the cast to handle slopes gracefully.
-        float extraHeight = 0.25f; 
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0f, Vector2.down, extraHeight, groundLayer);
+      wallJumpCooldown += Time.deltaTime;
+    }
 
     HandleAirbornePhysics();
     HandleAnimations();
@@ -145,8 +140,7 @@ public class Movement : MonoBehaviour
   {
     if (isGrounded() || isOnSteppableObject())
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0, Vector2.down, 0.1f, steppableObjectLayer);
-        return raycastHit.collider != null;
+      body.linearVelocity = new Vector2(body.linearVelocity.x, jumpPower);
     }
   }
 
@@ -157,8 +151,7 @@ public class Movement : MonoBehaviour
       body.linearVelocity = new Vector2(body.linearVelocity.x, body.linearVelocity.y * shortHopCut);
     }
 
-    [ServerRpc]
-    private void RequestDieServerRpc(ServerRpcParams rpcParams = default)
+    if (!isGrounded())
     {
       if (body.linearVelocity.y < 0f)
       {
@@ -169,20 +162,13 @@ public class Movement : MonoBehaviour
         body.linearVelocity += Vector2.up * Physics2D.gravity.y * (shortJumpMultiplier - 1f) * Time.deltaTime;
       }
     }
+  }
 
-    [ClientRpc]
-    private void DieClientRpc(ClientRpcParams rpcParams = default)
+  private void HandleAnimations()
+  {
+    if (!isGrounded())
     {
-        Debug.Log($"{gameObject.name} died (client sync)");
-        animator.SetTrigger("die");
-        body.linearVelocity = Vector2.zero;
-        body.simulated = false;
-
-        if (IsOwner)
-        {
-            this.enabled = false;
-            Invoke(nameof(HandleRespawn), 0.1f);
-        }
+      animator.SetTrigger("jump");
     }
 
     animator.SetBool("run", Mathf.Abs(horizontalInput) > 0.01f);
