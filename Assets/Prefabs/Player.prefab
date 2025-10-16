@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822b5e2b008524b61890411debe11d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPushPull
-  interactRange: 1.5
+  interactRange: 2
   pushableLayer:
     serializedVersion: 2
     m_Bits: 8

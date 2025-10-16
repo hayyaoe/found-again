@@ -76,15 +76,15 @@ public class PlayerPushPull : MonoBehaviour
 
         if (besideObject && closeHorizontally)
         {
-            isPushing = true;
-            currentObject.StartPush();
+        isPushing = true;
+        currentObject.AddPushingPlayer(gameObject); // ✅ Instead of StartPush()
 
-            var relJoint = gameObject.AddComponent<RelativeJoint2D>();
-            relJoint.connectedBody = currentObject.GetComponent<Rigidbody2D>();
-            relJoint.autoConfigureOffset = true;
-            relJoint.maxForce = 1000f;
-            relJoint.enableCollision = false;
-            joint = relJoint;
+        var relJoint = gameObject.AddComponent<RelativeJoint2D>();
+        relJoint.connectedBody = currentObject.GetComponent<Rigidbody2D>();
+        relJoint.autoConfigureOffset = true;
+        relJoint.maxForce = 1000f;
+        relJoint.enableCollision = false;
+        joint = relJoint;
         }
         else
         {
@@ -96,7 +96,7 @@ public class PlayerPushPull : MonoBehaviour
     {
         if (currentObject != null)
         {
-            currentObject.StopPush();
+            currentObject.RemovePushingPlayer(gameObject); // ✅ Instead of StopPush()
 
             DraggableStar star = currentObject.GetComponent<DraggableStar>();
             if (star != null)
