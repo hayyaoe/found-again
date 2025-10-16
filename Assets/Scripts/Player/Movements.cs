@@ -113,6 +113,11 @@ public class Movement : MonoBehaviour
     // Jump
     if (wallJumpCooldown > 0.2f && jumpAction != null && jumpAction.WasPressedThisFrame())
     {
+      // Prevent jump if pushing/pulling
+      var pushPull = GetComponent<PlayerPushPull>();
+      if (pushPull != null && pushPull.isPushing)
+        return;
+
       Jump();
     }
     else
