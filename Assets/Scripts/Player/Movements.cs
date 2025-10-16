@@ -70,9 +70,12 @@ public class Movement : MonoBehaviour
     {
       cameraMovement.setTarget(transform);
     }
-    
+
     if (isGrounded())
       lastGroundY = transform.position.y;
+
+    // --- Apply player-specific customization ---
+    ApplyPlayerAppearance();
   }
 
   private void Update()
@@ -143,6 +146,40 @@ public class Movement : MonoBehaviour
       body.linearVelocity = new Vector2(body.linearVelocity.x, jumpPower);
     }
   }
+
+  private void ApplyPlayerAppearance()
+  {
+    if (playerInput == null) return;
+
+    SpriteRenderer sr = GetComponent<SpriteRenderer>();
+    BoxCollider2D col = GetComponent<BoxCollider2D>();
+
+    switch (playerInput.playerIndex)
+    {
+      case 0: // Player 1 (normal height)
+        sr.sprite = Resources.Load<Sprite>("Marie");
+        gameObject.layer = LayerMask.NameToLayer("Player1");
+
+        // Reset scale and collider for Player 1
+        transform.localScale = new Vector3(1f, 1f, 1f);
+        col.size = new Vector2(1f, 2.3f);   // your normal size
+        col.offset = new Vector2(0f, -0.1f);
+        break;
+
+      case 1: // Player 2 (twice as tall)
+        sr.sprite = Resources.Load<Sprite>("Mimi");
+        gameObject.layer = LayerMask.NameToLayer("Player2");
+
+        // Scale up vertically or adjust collider
+        transform.localScale = new Vector3(1f, 1f, 1f); // same scale — the sprite itself is taller
+
+        // Adjust collider height and offset
+        col.size = new Vector2(1f, 1f);   // your normal size
+        col.offset = new Vector2(0f, -0.1f);
+        break;
+    }
+  }
+
 
   private void HandleAirbornePhysics()
   {

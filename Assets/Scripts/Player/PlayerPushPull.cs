@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem; // ✅ Important
 
 public class PlayerPushPull : MonoBehaviour
 {
@@ -13,30 +14,46 @@ public class PlayerPushPull : MonoBehaviour
     private float horizontalInput;
     private RelativeJoint2D joint;
 
+    private InputAction interactAction; // ✅ New
+    private PlayerInput playerInput;    // ✅ New
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerInput = GetComponent<PlayerInput>(); // Get PlayerInput component
+    }
+
+    private void OnEnable()
+    {
+        // ✅ Get the Interact action from PlayerInput
+        interactAction = playerInput.actions["Interact"];
+
+        // ✅ Subscribe to the performed and canceled events
+        interactAction.performed += OnInteractPerformed;
+        interactAction.canceled += OnInteractCanceled;
+    }
+
+    private void OnDisable()
+    {
+        // Unsubscribe to prevent memory leaks
+        interactAction.performed -= OnInteractPerformed;
+        interactAction.canceled -= OnInteractCanceled;
     }
 
     private void Update()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-
-        if (Input.GetKeyDown(KeyCode.E))
-            TryAttachToObject();
-
-        if (Input.GetKeyUp(KeyCode.E))
-            DetachObject();
+        // Movement input can still be read like this:
+        horizontalInput = playerInput.actions["Move"].ReadValue<Vector2>().x;
     }
 
-    private void FixedUpdate()
+    private void OnInteractPerformed(InputAction.CallbackContext context)
     {
-        // if (isPushing && joint != null && currentObject != null)
-        // {
-        //     // update joint distance to stay near contact point
-        //     joint.distance = Vector2.Distance(transform.position, currentObject.transform.position);
-        // }
+        TryAttachToObject();
+    }
+
+    private void OnInteractCanceled(InputAction.CallbackContext context)
+    {
+        DetachObject();
     }
 
     private void TryAttachToObject()
@@ -52,12 +69,9 @@ public class PlayerPushPull : MonoBehaviour
 
         float verticalDifference = playerPos.y - objectPos.y;
         float horizontalDifference = Mathf.Abs(playerPos.x - objectPos.x);
-
-        // ✅ Get height of the object for more adaptive comparison
         float objectHeight = currentObject.GetComponent<Collider2D>().bounds.size.y;
 
-        // ✅ Allow some "corner" tolerance — can be slightly above the box and still push
-        bool besideObject = verticalDifference < objectHeight * 0.7f; // was 0.5f before
+        bool besideObject = verticalDifference < objectHeight * 0.7f;
         bool closeHorizontally = horizontalDifference < interactRange + 0.5f;
 
         if (besideObject && closeHorizontally)
@@ -74,12 +88,9 @@ public class PlayerPushPull : MonoBehaviour
         }
         else
         {
-            // 🚫 Block push if truly standing above
             Debug.Log("Can't push from above!");
         }
     }
-
-
 
     private void DetachObject()
     {
@@ -87,7 +98,6 @@ public class PlayerPushPull : MonoBehaviour
         {
             currentObject.StopPush();
 
-            // 🟡 If the object has a DraggableStar, tell it to return
             DraggableStar star = currentObject.GetComponent<DraggableStar>();
             if (star != null)
                 star.ReturnToStart();
@@ -95,18 +105,11 @@ public class PlayerPushPull : MonoBehaviour
             currentObject = null;
         }
 
-        // ✅ Remove the joint
         if (joint != null)
             Destroy(joint);
 
         isPushing = false;
     }
-
-    public bool IsPushing()
-    {
-        return isPushing;
-    }
-
 
     private void OnDrawGizmosSelected()
     {
