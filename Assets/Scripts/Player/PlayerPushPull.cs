@@ -13,33 +13,40 @@ public class PlayerPushPull : MonoBehaviour
     private float horizontalInput;
     private RelativeJoint2D joint;
 
+    private Movement movement;
+    private BoxCollider2D playerCollider;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        movement = GetComponent<Movement>();
+        playerCollider = GetComponent<BoxCollider2D>();
     }
 
     private void Update()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.E))
-            TryAttachToObject();
-
-        if (Input.GetKeyUp(KeyCode.E))
-            DetachObject();
+        if (Input.GetKeyDown(KeyCode.E) && !isAttemptingPush)
+            TryStartPush();
+        else if (Input.GetKeyUp(KeyCode.E) && isAttemptingPush)
+            TryStopPush();
+        
+        if (isAttemptingPush && !movement.isGrounded())
+        {
+            TryStopPush();
+        }
     }
 
     private void FixedUpdate()
     {
-        // if (isPushing && joint != null && currentObject != null)
-        // {
-        //     // update joint distance to stay near contact point
-        //     joint.distance = Vector2.Distance(transform.position, currentObject.transform.position);
-        // }
+        if (isPushing)
+        {
+            rb.linearVelocity = new Vector2(horizontalInput * pushSpeed, rb.linearVelocity.y);
+        }
     }
 
-    private void TryAttachToObject()
+    private void TryStartPush()
     {
         Collider2D hit = Physics2D.OverlapCircle(transform.position, interactRange, pushableLayer);
         if (hit == null) return;
@@ -85,21 +92,49 @@ public class PlayerPushPull : MonoBehaviour
     {
         if (currentObject != null)
         {
-            currentObject.StopPush();
+            currentObject.RemovePusher(this);
+        }
+        Detach();
+        isAttemptingPush = false;
+        currentObject = null;
+    }
 
-            // 🟡 If the object has a DraggableStar, tell it to return
-            DraggableStar star = currentObject.GetComponent<DraggableStar>();
-            if (star != null)
-                star.ReturnToStart();
+    // Called by PushPullObject when enough players have joined
+    public void OnPushSuccessful()
+    {
+        if (isAttemptingPush && !isPushing)
+        {
+            isPushing = true;
+            movement.IsPushing = true;
+            
+            var relJoint = gameObject.AddComponent<RelativeJoint2D>();
+            relJoint.connectedBody = currentObject.GetComponent<Rigidbody2D>();
+            relJoint.autoConfigureOffset = true;
+            relJoint.maxForce = 2000f; // Increased force for multiple players
+            relJoint.enableCollision = false;
+            joint = relJoint;
+        }
+    }
 
-            currentObject = null;
+    // Called by PushPullObject when not enough players are available
+    public void OnPushFailed()
+    {
+        Detach();
+    }
+
+    // Detaches the player from the object
+    private void Detach()
+    {
+        if (joint != null)
+        {
+            Destroy(joint);
         }
 
-        // ✅ Remove the joint
-        if (joint != null)
-            Destroy(joint);
-
-        isPushing = false;
+        if (isPushing)
+        {
+            isPushing = false;
+            movement.IsPushing = false;
+        }
     }
 
     public bool IsPushing()
