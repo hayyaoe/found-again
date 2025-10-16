@@ -14,6 +14,12 @@ public class Slope : MonoBehaviour
     private bool isSliding;
     private Vector2 slopeNormal;
 
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+
     void Update()
     {
         CheckSlope();
