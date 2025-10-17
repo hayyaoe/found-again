@@ -167,14 +167,14 @@ public class Movement : MonoBehaviour
         break;
 
       case 1: // Player 2 (twice as tall)
-        sr.sprite = Resources.Load<Sprite>("Mimi 1");
+        sr.sprite = Resources.Load<Sprite>("Mimi 2");
         gameObject.layer = LayerMask.NameToLayer("Player2");
 
         // Scale up vertically or adjust collider
         transform.localScale = new Vector3(1f, 1f, 1f); // same scale — the sprite itself is taller
 
         // Adjust collider height and offset
-        col.size = new Vector2(1f, 1f);   // your normal size
+        col.size = new Vector2(1f, 1.55f);   // your normal size
         col.offset = new Vector2(0f, -0.1f);
         break;
     }
