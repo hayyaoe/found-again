@@ -6,6 +6,7 @@ public class PlayerSpawner : MonoBehaviour
     public GameObject player1Prefab;
     public GameObject player2Prefab;
     [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private IntroTextController introTextController; // 👈 reference to the intro text
 
     private int playerCount = 0;
 
@@ -13,7 +14,13 @@ public class PlayerSpawner : MonoBehaviour
     {
         playerCount++;
 
-        // Assign a different prefab/sprite based on join order
+        // Fade out intro text once the first player joins
+        if (playerCount == 1 && introTextController != null)
+        {
+            introTextController.FadeOut();
+        }
+
+        // Assign prefab based on join order
         if (playerCount == 1)
         {
             ReplacePlayerPrefab(playerInput, player1Prefab);
