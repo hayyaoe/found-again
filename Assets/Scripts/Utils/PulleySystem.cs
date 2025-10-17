@@ -14,29 +14,47 @@ public class PulleySystem : MonoBehaviour
     [Header("Lift Settings")]
     public float ropeRatio = 1f; // 1 means equal movement
 
+    [Header("Lift Limits")]
+    public float minLiftY = -3f;
+    public float maxLiftY = 3f;
+
+    [Header("State (read-only flags)")]
+    public bool isAtMinHeight;   // ⬅️ add
+    public bool isAtMaxHeight;   // ⬅️ add
+
     private float baseLeftDistance;
     private float baseLiftY;
 
     void Start()
     {
         baseLeftDistance = Vector2.Distance(leftStar.position, pulleyPivot.position);
-        baseLiftY = lift.position.y; // store initial height
+        baseLiftY = lift.position.y;
     }
 
     void Update()
     {
-        // Distance from pulley to left star
         float currentLeftDistance = Vector2.Distance(leftStar.position, pulleyPivot.position);
-
-        // Difference from starting rope length
         float ropeDelta = currentLeftDistance - baseLeftDistance;
 
-        // Set lift height based on inverse rope change
+        float desiredY = baseLiftY + ropeDelta * ropeRatio;
+
+        // set flags based on where desiredY wants to go
+        isAtMinHeight = desiredY <= minLiftY;
+        isAtMaxHeight = desiredY >= maxLiftY;
+
         Vector3 liftPos = lift.position;
-        liftPos.y = baseLiftY + ropeDelta * ropeRatio; // no accumulation!
+        liftPos.y = Mathf.Clamp(desiredY, minLiftY, maxLiftY);
         lift.position = liftPos;
 
-        // Update rope visuals
+        if (isAtMaxHeight)
+        {
+            Debug.Log("🚀 Pulley reached MAX height");
+        }
+        else if (isAtMinHeight)
+        {
+            Debug.Log("⬇️ Pulley reached MIN height");
+        }
+
         UpdateRopes();
     }
 
