@@ -157,24 +157,24 @@ public class Movement : MonoBehaviour
     switch (playerInput.playerIndex)
     {
       case 0: // Player 1 (normal height)
-        sr.sprite = Resources.Load<Sprite>("Marie");
+        sr.sprite = Resources.Load<Sprite>("Marie 1");
         gameObject.layer = LayerMask.NameToLayer("Player1");
 
         // Reset scale and collider for Player 1
-        transform.localScale = new Vector3(1f, 1f, 1f);
-        col.size = new Vector2(1f, 2.3f);   // your normal size
+        transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        col.size = new Vector2(1f, 2.8f);   // your normal size
         col.offset = new Vector2(0f, -0.1f);
         break;
 
       case 1: // Player 2 (twice as tall)
-        sr.sprite = Resources.Load<Sprite>("Mimi");
+        sr.sprite = Resources.Load<Sprite>("Mimi 2");
         gameObject.layer = LayerMask.NameToLayer("Player2");
 
         // Scale up vertically or adjust collider
         transform.localScale = new Vector3(1f, 1f, 1f); // same scale — the sprite itself is taller
 
         // Adjust collider height and offset
-        col.size = new Vector2(1f, 1f);   // your normal size
+        col.size = new Vector2(1f, 1.55f);   // your normal size
         col.offset = new Vector2(0f, -0.1f);
         break;
     }
