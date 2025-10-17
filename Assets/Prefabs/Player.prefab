@@ -185,7 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Movement
   playerInput: {fileID: 6870637021373921649}
   speed: 5
-  jumpPower: 14
+  jumpPower: 12
   shortJumpMultiplier: 1
   shortHopCut: 0
   fallMultiplier: 3
