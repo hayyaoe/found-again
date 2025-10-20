@@ -8,26 +8,41 @@ public class CameraMovement : MonoBehaviour
 
     [Header("Follow Settings")]
     [Tooltip("Smaller values = slower smoothing, typical range: 0.05–0.15")]
-    [SerializeField] private float followSmoothTime;
+    [SerializeField] private float followSmoothTime = 0.1f;
     [SerializeField] private Vector2 followOffset = new Vector2(0f, 5f);
-    [SerializeField] private Vector2 deadZone;
+    [SerializeField] private Vector2 deadZone = new Vector2(1f, 1f);
 
     [Header("Room Boundaries")]
     [SerializeField] private Vector2 minBounds;
     [SerializeField] private Vector2 maxBounds;
 
     [Header("Look Ahead Settings")]
-    [SerializeField] private float lookAheadDistance;
-    [SerializeField] private float lookAheadLerpSpeed;
-    [SerializeField] private float lookAheadReturnSpeed;
-    [SerializeField] private float lookAheadThreshold;
+    [SerializeField] private float lookAheadDistance = 2f;
+    [SerializeField] private float lookAheadLerpSpeed = 5f;
+    [SerializeField] private float lookAheadReturnSpeed = 3f;
+    [SerializeField] private float lookAheadThreshold = 0.1f;
+    
+    [Header("Lock Settings")]
+    [SerializeField] private float lockSmoothTime = 0.3f; // Smaller = faster lock
+
 
     private float currentLookAheadX;
     private Vector3 targetPosition;
     private Vector3 cameraVelocity = Vector3.zero;
 
+    // --- New ---
+    private bool cameraLocked = false;
+    private Vector3 lockedPosition;
+
     private void LateUpdate()
     {
+        // If locked, hold position and skip all follow logic
+        if (cameraLocked)
+        {
+            transform.position = Vector3.SmoothDamp(transform.position, lockedPosition, ref cameraVelocity, lockSmoothTime);
+            return;
+        }
+
         if (player == null)
             return;
 
@@ -40,29 +55,26 @@ public class CameraMovement : MonoBehaviour
             targetLookAheadX = Mathf.Sign(playerVelocityX) * lookAheadDistance;
         }
 
-        // Smoothly interpolate look-ahead position
         currentLookAheadX = Mathf.MoveTowards(
             currentLookAheadX,
             targetLookAheadX,
             (targetLookAheadX == 0 ? lookAheadReturnSpeed : lookAheadLerpSpeed) * Time.deltaTime
         );
 
-        // --- 2. Build target position ---
         Vector3 playerTargetPosition = player.position + new Vector3(currentLookAheadX + followOffset.x, followOffset.y, 0f);
         Vector3 currentCameraPosition = transform.position;
 
-        // --- 3. Dead Zone logic ---
+        // Dead Zone logic
         if (Mathf.Abs(playerTargetPosition.x - currentCameraPosition.x) > deadZone.x)
             currentCameraPosition.x = Mathf.Lerp(currentCameraPosition.x, playerTargetPosition.x, 1f);
 
         if (Mathf.Abs(playerTargetPosition.y - currentCameraPosition.y) > deadZone.y)
             currentCameraPosition.y = Mathf.Lerp(currentCameraPosition.y, playerTargetPosition.y, 1f);
 
-        // --- 4. Clamp inside room boundaries ---
+        // Clamp inside room boundaries
         currentCameraPosition.x = Mathf.Clamp(currentCameraPosition.x, minBounds.x, maxBounds.x);
         currentCameraPosition.y = Mathf.Clamp(currentCameraPosition.y, minBounds.y, maxBounds.y);
 
-        // --- 5. SmoothDamp to target ---
         targetPosition = new Vector3(currentCameraPosition.x, currentCameraPosition.y, transform.position.z);
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref cameraVelocity, followSmoothTime);
     }
@@ -70,5 +82,23 @@ public class CameraMovement : MonoBehaviour
     public void setTarget(Transform target)
     {
         player = target;
+    }
+
+    // --- New Methods ---
+    public void LockToPosition(Vector3 position)
+    {
+        cameraLocked = true;
+        lockedPosition = new Vector3(position.x, position.y, transform.position.z);
+    }
+
+    public void UnlockCamera()
+    {
+        cameraLocked = false;
+    }
+
+    public void UpdateBounds(Vector2 newMin, Vector2 newMax)
+    {
+        minBounds = newMin;
+        maxBounds = newMax;
     }
 }
