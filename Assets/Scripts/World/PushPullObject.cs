@@ -28,13 +28,21 @@ public class PushPullObject : MonoBehaviour
     [SerializeField] private bool debugLogging = true;
     [SerializeField] private bool logEveryFixed = false;
 
+    [Header("Return Collision")]
+    [SerializeField] private bool stopReturnOnCollision = true;
+    [Tooltip("Layer objek yang boleh menghentikan return (mis. 'Pushable').")]
+    [SerializeField] private LayerMask returnBlockerMask;
+    [SerializeField] private float returnCastSkin = 0.02f;
+
     private const string LOG_TAG = "[PushPullObject]";
 
     private Rigidbody2D rb;
     private DraggableStar star;
+    private Collider2D col;
 
     private readonly HashSet<GameObject> pushingPlayers = new();
 
+    // return-to-start tracking
     private bool returningToStart;
     private float initialX;
     private float targetReturnX;
@@ -48,21 +56,30 @@ public class PushPullObject : MonoBehaviour
     private bool xFrozenByMax = false; // apakah FreezePositionX aktif karena MAX
     private float holdXAtMax = 0f;     // X saat pertama kali kena MAX ketika di-hold
 
+    // casts buffer
+    private readonly RaycastHit2D[] castHits = new RaycastHit2D[8];
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         star = GetComponent<DraggableStar>();
+        col = GetComponent<Collider2D>();
+        if (col == null) LogWarning("Collider2D tidak ditemukan. Return-collision guard tidak akan bekerja.");
+
+        // Auto-setup layer "Pushable" jika belum diisi di Inspector
+        if (returnBlockerMask.value == 0)
+            returnBlockerMask = LayerMask.GetMask("Pushable");
 
         if (pulley == null && autoFindPulleyInParent)   pulley = GetComponentInParent<PulleySystem>();
         if (pulley == null && autoFindPulleyInChildren) pulley = GetComponentInChildren<PulleySystem>();
-        if (pulley == null && autoFindPulleyInScene)    pulley = FindObjectOfType<PulleySystem>();
+        if (pulley == null && autoFindPulleyInScene)    pulley = FindFirstObjectByType<PulleySystem>();
 
         initialX = rb.position.x;
         targetReturnX = initialX;
 
         LockObject(); // idle = freeze X
 
-        Log($"Awake | initX={initialX:0.###}, pulley={(pulley ? pulley.name : "null")}, star={(star? "OK":"null")}, lockWhileAtLimit={lockWhileAtLimit}");
+        Log($"Awake | initX={initialX:0.###}, pulley={(pulley ? pulley.name : "null")}, star={(star ? "OK" : "null")}, lockWhileAtLimit={lockWhileAtLimit}");
         if (lockWhileAtLimit && pulley == null)
             LogWarning("lockWhileAtLimit=TRUE tapi PulleySystem BELUM di-assign.");
     }
@@ -77,9 +94,6 @@ public class PushPullObject : MonoBehaviour
     public void AddPushingPlayer(GameObject player)
     {
         Log($"AddPushingPlayer by {player.name} | push={isBeingPushed} return={returningToStart} hardLocked={pulleyHardLocked} atLimit={IsPulleyAtMax()}");
-
-        // Boleh mulai hold meskipun sedang MAX:
-        // - Kita izinkan hold, tapi dorongan akan di-hard stop (pin X) selama MAX.
 
         // Cancel return bila user hold lagi
         if (returningToStart)
@@ -140,7 +154,7 @@ public class PushPullObject : MonoBehaviour
 
         Log("StopPush.");
 
-        // Selalu boleh mulai return meski pulley masih MAX
+        // Mulai return (meski pulley masih MAX)
         if (star != null)
         {
             targetReturnX = initialX;
@@ -208,12 +222,24 @@ public class PushPullObject : MonoBehaviour
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
         }
 
-        // Return linear (Kinematic)
+        // ===== Return linear (Kinematic) — depenetrate dulu, lalu sweep sampai jarak aman =====
         if (returningToStart)
         {
             returnTimer += Time.fixedDeltaTime;
 
-            float nextX = Mathf.MoveTowards(rb.position.x, targetReturnX, returnSpeed * Time.fixedDeltaTime);
+            // A) Depenetration bila sudah overlap dengan blocker (hindari clip)
+            ResolveInitialOverlap();
+
+            // B) Hitung langkah target & batasi via sweep
+            float posX    = rb.position.x;
+            float maxStep = returnSpeed * Time.fixedDeltaTime;
+            float desired = Mathf.MoveTowards(posX, targetReturnX, maxStep);
+            float rawStep = desired - posX;
+
+            float safeStep = ComputeSafeStep(rawStep);
+            float nextX    = posX + safeStep;
+
+            // C) Gerakkan
             rb.MovePosition(new Vector2(nextX, rb.position.y));
             rb.linearVelocity = Vector2.zero;
 
@@ -226,8 +252,13 @@ public class PushPullObject : MonoBehaviour
                 returnTimer = 0f;
 
                 rb.bodyType = RigidbodyType2D.Dynamic;
-                LockObject(); // idle = freeze X lagi
+                LockObject(); // idle = freeze X
                 Log($"Return {(arrived ? "arrived" : "timedOut")} at x={nextX:0.###} → LockObject()");
+            }
+            else
+            {
+                if (Mathf.Approximately(safeStep, 0f))
+                    LogIf("Return blocked this frame (waiting for clear path)...", debugLogging && !logEveryFixed);
             }
         }
 
@@ -285,6 +316,83 @@ public class PushPullObject : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         LogIf($"UnlockObject | cons={rb.constraints}", debugLogging && !logEveryFixed);
+    }
+
+    // ===== Return collision utilities =====
+    private ContactFilter2D MakeReturnFilter()
+    {
+        var f = new ContactFilter2D
+        {
+            useLayerMask = true,
+            layerMask = returnBlockerMask,
+            useTriggers = false
+        };
+        return f;
+    }
+
+    // Tarik keluar jika sudah overlap dengan blocker (hindari clip dari frame sebelumnya)
+    private void ResolveInitialOverlap()
+    {
+        if (!stopReturnOnCollision || col == null) return;
+
+        var filter = MakeReturnFilter();
+        Collider2D[] overlaps = new Collider2D[8];
+        int n = col.Overlap(filter, overlaps);
+        if (n <= 0) return;
+
+        float pullX = 0f;
+
+        for (int i = 0; i < n; i++)
+        {
+            var other = overlaps[i];
+            if (other == null) continue;
+            if (other.GetComponent<PushPullObject>() == null) continue;
+
+            ColliderDistance2D d = col.Distance(other);
+            if (d.isOverlapped)
+            {
+                Vector2 pull = d.normal * d.distance; // vektor minimum untuk pisah
+                pullX += pull.x;                      // fokus di sumbu X
+            }
+        }
+
+        if (Mathf.Abs(pullX) > 1e-6f)
+        {
+            rb.MovePosition(new Vector2(rb.position.x + pullX, rb.position.y));
+            rb.linearVelocity = Vector2.zero;
+            Log($"Depenetrate X by {pullX:0.###}");
+        }
+    }
+
+    // Batasi langkah return agar berhenti tepat sebelum tabrakan
+    private float ComputeSafeStep(float rawStep)
+    {
+        if (!stopReturnOnCollision || col == null || Mathf.Approximately(rawStep, 0f))
+            return rawStep;
+
+        float sign = Mathf.Sign(rawStep);
+        float stepAbs = Mathf.Abs(rawStep);
+
+        var filter = MakeReturnFilter();
+        int hits = col.Cast(sign > 0 ? Vector2.right : Vector2.left, filter, castHits, stepAbs + returnCastSkin);
+        if (hits <= 0) return rawStep;
+
+        float minDist = float.PositiveInfinity;
+        for (int i = 0; i < hits; i++)
+        {
+            var h = castHits[i];
+            if (h.collider == null) continue;
+            if (h.collider.GetComponent<PushPullObject>() == null) continue;
+
+            if (h.distance < minDist) minDist = h.distance;
+        }
+
+        if (float.IsPositiveInfinity(minDist))
+            return rawStep;
+
+        float safe = Mathf.Max(0f, minDist - returnCastSkin);
+        float allowed = Mathf.Min(stepAbs, safe);
+        return sign * allowed;
     }
 
     // logging
