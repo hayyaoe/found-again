@@ -249,11 +249,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822b5e2b008524b61890411debe11d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPushPull
-  interactRange: 2
+  interactRange: 0.1
   pushableLayer:
     serializedVersion: 2
     m_Bits: 8
   pushSpeed: 3
+  spriteRenderer: {fileID: 0}
+  frontBoxHeightFactor: 0.8
+  frontBoxExtraWidth: 0.6
+  frontProbeYOffset: 0.15
+  downProbeAngleDeg: 15
+  probeRayDistance: 1.2
+  attachVerticalSlack: 0.25
+  leashMaxDistanceX: 1.6
+  leashGraceSeconds: 0.25
+  xSmoothTime: 0.06
   isPushing: 0
 --- !u!114 &4630648880170436102
 MonoBehaviour:
