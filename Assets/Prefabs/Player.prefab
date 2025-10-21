@@ -208,6 +208,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  deathZone:
+    serializedVersion: 2
+    m_Bits: 512
   steppableObjectLayer:
     serializedVersion: 2
     m_Bits: 8
