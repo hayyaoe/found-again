@@ -54,6 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342c64ad038d94aeb9a7abe9868518d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraZoneTrigger
+  debugLog: 0
 --- !u!212 &3670382486621152465
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -203,14 +204,10 @@ MonoBehaviour:
   shortJumpMultiplier: 1
   shortHopCut: 0
   fallMultiplier: 3
-  fallThreshold: 35
   fatalFallSpeed: 25
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  deathZone:
-    serializedVersion: 2
-    m_Bits: 512
   steppableObjectLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -408,7 +405,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4911369873958072336}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
   m_Name: 
@@ -420,7 +417,7 @@ MonoBehaviour:
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 0
-  m_AlphaCutoff: 0.1
+  m_AlphaCutoff: 0.5
   m_ApplyToSortingLayers: 00000000
   m_ShapePath:
   - {x: -1.0090904, y: -0.570909, z: 0}
@@ -431,7 +428,7 @@ MonoBehaviour:
   m_InstanceId: 0
   m_ShadowShape2DComponent: {fileID: 3670382486621152465}
   m_ShadowShape2DProvider:
-    rid: 2785154689164116065
+    rid: 2785154689164116066
   m_ShadowCastingSource: 2
   m_ShadowMesh:
     m_Mesh: {fileID: 0}
@@ -439,7 +436,7 @@ MonoBehaviour:
       m_Center: {x: -0.003944397, y: -0.0023269653, z: 0}
       m_Extent: {x: 0.96300507, y: 0.53632355, z: 0}
     m_EdgeProcessing: 1
-    m_TrimEdge: 0.05
+    m_TrimEdge: 0.15
     m_FlipX: 0
     m_FlipY: 0
     m_InitialTrim: 0.05
@@ -451,6 +448,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 2785154689164116065
+    - rid: 2785154689164116066
       type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data: 
