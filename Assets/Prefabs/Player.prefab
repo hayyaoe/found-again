@@ -34,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 4911369873958072336}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 35.44, y: -2.1299243, z: 0}
+  m_LocalPosition: {x: -31.88, y: -2.1299243, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -197,6 +197,24 @@ MonoBehaviour:
   steppableObjectLayer:
     serializedVersion: 2
     m_Bits: 8
+  slopeGroundLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  slopeProbeDistance: 0.25
+  slopeFootRadius: 0.16
+  alwaysSlippery: 1
+  minSlideAccel: 14
+  slideAccelBoost: 1.6
+  maxSlideSpeed: 24
+  groundStickForce: 35
+  jumpIgnoreSlopeTime: 0.12
+  wallStartAngle: 72
+  wallProbeDistance: 0.25
+  wallSlideAccel: 22
+  wallSlideBoost: 2
+  wallMaxSlideSpeed: 32
+  minWallSpeed: 8
+  wallStartImpulse: 3.5
 --- !u!95 &4587821935056208640
 Animator:
   serializedVersion: 7
@@ -256,7 +274,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4911369873958072336}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77691ff2c6f194aacb73123e7816d1cd, type: 3}
   m_Name: 
@@ -264,8 +282,17 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 1088
+  groundCheckDistance: 0.25
+  footOffset: {x: 0, y: 0.02}
+  footRadius: 0.16
+  alwaysSlippery: 1
+  minSlideAccel: 12
+  slideAccelBoost: 1.25
+  maxSlideSpeed: 22
+  groundStickForce: 35
+  jumpIgnoreSlopeTime: 0.1
   maxSlopeAngle: 45
-  slideSpeed: 5
+  drawGizmos: 0
 --- !u!114 &6870637021373921649
 MonoBehaviour:
   m_ObjectHideFlags: 0
