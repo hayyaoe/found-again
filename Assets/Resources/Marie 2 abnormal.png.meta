@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: faff62ab82176461e98e729d39e32b13
+guid: 22ce7c4edc5374dd19f041c83a2d6d49
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8861422023292433917
-    second: Marie 2_0
-  - first:
-      213: 3059721917897242009
-    second: Marie 2_1
+      213: -8688966414669710488
+    second: Marie 2 abnormal_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -49,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
-  spriteExtrude: 0
+  spriteMode: 2
+  spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1000
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -116,45 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Marie 2_0
+      name: Marie 2 abnormal_0
       rect:
         serializedVersion: 2
-        x: 113
-        y: 21
-        width: 1347
-        height: 2979
+        x: 0
+        y: 0
+        width: 1460
+        height: 3000
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 30ac4d0ae97e50580800000000000000
-      internalID: -8861422023292433917
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Marie 2_1
-      rect:
-        serializedVersion: 2
-        x: 114
-        y: 1677
-        width: 16
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 995fdbb8fd0567a20800000000000000
-      internalID: 3059721917897242009
+      spriteID: 86bff4cf4179a6780800000000000000
+      internalID: -8688966414669710488
       vertices: []
       indices: 
       edges: []
@@ -163,20 +138,17 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
-    secondaryTextures:
-    - texture: {fileID: 2800000, guid: 22ce7c4edc5374dd19f041c83a2d6d49, type: 3}
-      name: _NormalMap
+    secondaryTextures: []
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Marie 2_0: -8861422023292433917
-      Marie 2_1: 3059721917897242009
+      Marie 2 abnormal_0: -8688966414669710488
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
