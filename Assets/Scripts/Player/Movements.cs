@@ -81,12 +81,14 @@ public class Movement : MonoBehaviour
   private float footstepTimer = 0f;
   private bool isWalking => Mathf.Abs(horizontalInput) > 0.01f && isGrounded();
 
+  private PlayerPushPull pushPull;
   private void Awake()
   {
     body = GetComponent<Rigidbody2D>();
     animator = GetComponent<Animator>();
     boxCollider2D = GetComponent<BoxCollider2D>();
     respawnHandler = GetComponent<PlayerRespawn>();
+    pushPull = GetComponent<PlayerPushPull>();
 
     body.freezeRotation = true;
     body.interpolation = RigidbodyInterpolation2D.Interpolate;
@@ -146,11 +148,14 @@ public class Movement : MonoBehaviour
     // --- Input Reading ---
     horizontalInput = moveAction != null ? moveAction.ReadValue<Vector2>().x : Input.GetAxisRaw("Horizontal");
 
-    // Flip sprite
-    if (horizontalInput > 0.01f)
-      transform.localScale = new Vector3(1, 1, 1);
-    else if (horizontalInput < -0.01f)
-      transform.localScale = new Vector3(-1, 1, 1);
+    bool pushingNow = pushPull != null && pushPull.isPushing;
+    if (!pushingNow)
+    {
+      if (horizontalInput > 0.01f)
+        transform.localScale = new Vector3(1, 1, 1);
+      else if (horizontalInput < -0.01f)
+        transform.localScale = new Vector3(-1, 1, 1);
+    }
 
     // Jump
     if (wallJumpCooldown > 0.2f && jumpAction != null && jumpAction.WasPressedThisFrame())
@@ -178,12 +183,14 @@ public class Movement : MonoBehaviour
 
     ProbeSlope();
 
-    if (!canMove || isDead) return; // Don't move if dead
+    if (!canMove || isDead) return;
 
-    // Saat sliding, jangan timpa velocity.x
     bool didSlide = HandleSlopeSliding();
-    if (!didSlide)
-      body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+
+    bool pushingNow = pushPull != null && pushPull.isPushing;
+
+    if (!didSlide && !pushingNow)
+        body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
   }
 
   private void Jump()
