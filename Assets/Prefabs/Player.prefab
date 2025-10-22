@@ -203,8 +203,8 @@ MonoBehaviour:
   jumpPower: 12
   shortJumpMultiplier: 1
   shortHopCut: 0
-  fallMultiplier: 3
-  fatalFallSpeed: 25
+  fallMultiplier: 4.5
+  fatalFallSpeed: 20
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -277,7 +277,15 @@ MonoBehaviour:
   attachVerticalSlack: 0.25
   leashMaxDistanceX: 1.6
   leashGraceSeconds: 0.25
-  xSmoothTime: 0.06
+  contactSkin: 0.01
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  slopeAssistForce: 35
+  slopeAssistMaxAngleDeg: 45
+  assistOnlyWhenUphill: 1
+  reduceFrictionWhileAttached: 1
+  attachedFriction: 0.08
   isPushing: 0
 --- !u!114 &4630648880170436102
 MonoBehaviour:
