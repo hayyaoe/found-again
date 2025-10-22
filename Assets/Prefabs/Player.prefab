@@ -229,6 +229,12 @@ MonoBehaviour:
   wallMaxSlideSpeed: 32
   minWallSpeed: 8
   wallStartImpulse: 3.5
+  jumpSFX: {fileID: 8300000, guid: e940c5ddb8238402499b2d74c4970897, type: 3}
+  jumpVolume: 1
+  footstepSFX:
+  - {fileID: 8300000, guid: e940c5ddb8238402499b2d74c4970897, type: 3}
+  footstepVolume: 0.8
+  footstepInterval: 0.35
 --- !u!95 &4587821935056208640
 Animator:
   serializedVersion: 7
