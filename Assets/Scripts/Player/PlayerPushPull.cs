@@ -51,33 +51,22 @@ public class PlayerPushPull : MonoBehaviour
     [SerializeField] private float noContactGraceSeconds = 0.12f; // buffer anti-jitter
 
     private float noContactTimer = 0f;
-
     private PushPullObject currentObject;
     private Rigidbody2D rb;
     private Rigidbody2D objectRb;
     private Collider2D selfCol;
     private Collider2D objectCol;
-
     private PlayerInput playerInput;
     private InputAction interactAction;
-
-    // Slider dipasang di PLAYER
     private SliderJoint2D slider;
-
     private float leashTimer = 0f;
-
     public bool isPushing = false;
     private bool isPulling = false;
     private float horizontalInput;
     private bool facingRight = true;
-
-    // sisi saat attach: +1 kalau objek di kanan player, -1 kalau di kiri (tetap sampai detach)
     private int sideSign = 1;
-
-    // Friction swapping (safe, runtime clone)
     private PhysicsMaterial2D originalMat;
     private PhysicsMaterial2D runtimeMatClone;
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -194,6 +183,24 @@ public class PlayerPushPull : MonoBehaviour
                     }
                 }
             }
+            
+            Bounds b = selfCol.bounds;
+
+            Vector2 origin = new Vector2(b.center.x, b.min.y + 0.05f);
+            var hit = Physics2D.Raycast(origin, Vector2.down, 0.5f, groundMask);
+
+            float targetZ = 0f;
+            if (hit)
+            {
+                Vector2 n = hit.normal.normalized;
+                Vector2 tangent = new Vector2(n.y, -n.x);
+                targetZ = Mathf.Atan2(tangent.y, tangent.x) * Mathf.Rad2Deg;
+                targetZ = Mathf.Clamp(targetZ, -50f, 50f); // batasin biar nggak ekstrem
+            }
+
+            float next = Mathf.MoveTowardsAngle(rb.rotation, targetZ, 360f * Time.fixedDeltaTime);
+            rb.MoveRotation(next);
+
         }
     }
 
