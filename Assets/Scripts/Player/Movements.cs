@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-  // <<<<<<< feature/fixed-pulley-system
   private Rigidbody2D body;
   private Animator animator;
   private BoxCollider2D boxCollider2D;
@@ -52,6 +51,13 @@ public class Movement : MonoBehaviour
   [SerializeField] private float minWallSpeed = 8f;            // kick kecepatan minimum
   [SerializeField] private float wallStartImpulse = 3.5f;      // kick awal bila hampir diam
 
+  [Header("Sound Effects")]
+  [SerializeField] private AudioClip jumpSFX;
+  [SerializeField] private float jumpVolume = 1f;
+  [SerializeField] private AudioClip[] footstepSFX; // ✅ multiple footstep clips
+  [SerializeField] private float footstepVolume = 0.8f;
+  [SerializeField] private float footstepInterval = 0.35f;
+
   // runtime slope state
   private bool slopeGrounded, onSlope, sliding;
   private float slopeAngle;
@@ -71,6 +77,10 @@ public class Movement : MonoBehaviour
   private bool canMove = true;
   private float wallJumpCooldown;
   private bool isDead = false;
+
+  private float footstepTimer = 0f;
+  private bool isWalking => Mathf.Abs(horizontalInput) > 0.01f && isGrounded();
+
   private PlayerPushPull pushPull;
   private void Awake()
   {
@@ -163,6 +173,7 @@ public class Movement : MonoBehaviour
 
     HandleAirbornePhysics();
     HandleAnimations();
+    HandleFootstepSounds();
   }
 
   private void FixedUpdate()
@@ -188,6 +199,12 @@ public class Movement : MonoBehaviour
     {
       jumpIgnoreTimer = jumpIgnoreSlopeTime;
       body.linearVelocity = new Vector2(body.linearVelocity.x, jumpPower);
+
+      // ✅ Play jump sound
+      if (SoundFXManager.instance != null && jumpSFX != null)
+      {
+        SoundFXManager.instance.PlaySoundFXClip(jumpSFX, transform, jumpVolume);
+      }
     }
   }
 
@@ -438,5 +455,26 @@ public class Movement : MonoBehaviour
       Debug.LogWarning("⚠️ PlayerRespawn component missing on player!");
 
     isDead = false;
+  }
+
+  private void HandleFootstepSounds()
+  {
+    // Don't play footsteps if dead or not grounded
+    if (!isWalking || isDead) return;
+
+    // Countdown timer
+    footstepTimer -= Time.deltaTime;
+
+    if (footstepTimer <= 0f)
+    {
+      footstepTimer = footstepInterval;
+
+      // Pick a random footstep sound
+      if (footstepSFX != null && footstepSFX.Length > 0 && SoundFXManager.instance != null)
+      {
+        AudioClip randomStep = footstepSFX[Random.Range(0, footstepSFX.Length)];
+        SoundFXManager.instance.PlaySoundFXClip(randomStep, transform, footstepVolume);
+      }
+    }
   }
 }
