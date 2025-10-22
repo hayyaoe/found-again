@@ -81,21 +81,24 @@ public class PlayerPushPull : MonoBehaviour
         facingRight = transform.localScale.x >= 0f;
     }
 
+    // --- MODIFIED ---
+    // We only listen for the 'performed' event now.
     private void OnEnable()
     {
         interactAction = playerInput.actions["Interact"];
-        interactAction.performed += OnInteractPerformed;
-        interactAction.canceled += OnInteractCanceled;
+        interactAction.performed += OnInteractToggled; // Renamed for clarity
     }
 
+    // --- MODIFIED ---
+    // We only remove the 'performed' listener.
     private void OnDisable()
     {
         if (interactAction != null)
         {
-            interactAction.performed -= OnInteractPerformed;
-            interactAction.canceled  -= OnInteractCanceled;
+            interactAction.performed -= OnInteractToggled;
         }
     }
+    // --- END OF MODIFICATIONS ---
 
     private void Update()
     {
@@ -162,15 +165,31 @@ public class PlayerPushPull : MonoBehaviour
         }
     }
 
-    private void OnInteractPerformed(InputAction.CallbackContext ctx)
+    // --- MODIFIED ---
+    // This one function now handles both attaching and detaching.
+    private void OnInteractToggled(InputAction.CallbackContext ctx)
     {
-        TryAttachToFrontObject();
+        // Check if we are currently attached to an object
+        if (currentObject != null)
+        {
+            // If we are, detach.
+            DetachObject();
+        }
+        else
+        {
+            // If we are not, try to attach.
+            TryAttachToFrontObject();
+        }
     }
+    // --- END OF MODIFICATION ---
 
-    private void OnInteractCanceled(InputAction.CallbackContext ctx)
-    {
-        DetachObject();
-    }
+    // --- REMOVED ---
+    // We don't need OnInteractCanceled anymore.
+    // private void OnInteractCanceled(InputAction.CallbackContext ctx)
+    // {
+    //     DetachObject();
+    // }
+    // --- END OF REMOVAL ---
 
     private void TryAttachToFrontObject()
     {
