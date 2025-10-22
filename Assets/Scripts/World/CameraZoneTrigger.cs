@@ -55,7 +55,7 @@ public class CameraZoneTrigger : MonoBehaviour
         if (zone == null) return;
 
         // --- If any player leaves, unlock camera ---
-        if (playersInZone.Count < 2 && zone.lockCamera)
+        if (playersInZone.Count < 1 && zone.lockCamera)
         {
             cameraMovement.UnlockCamera();
             if (debugLog) Debug.Log("📸 Camera unlocked (a player left)");
