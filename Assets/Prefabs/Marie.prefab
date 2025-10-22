@@ -226,11 +226,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822b5e2b008524b61890411debe11d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPushPull
-  interactRange: 1.5
+  interactRange: 0.1
   pushableLayer:
     serializedVersion: 2
     m_Bits: 8
-  pushSpeed: 3
+  pushSpeed: 4
+  spriteRenderer: {fileID: 0}
+  frontBoxHeightFactor: 1
+  frontBoxExtraWidth: 0.6
+  frontProbeYOffset: 0.4
+  downProbeAngleDeg: 20
+  probeRayDistance: 1.2
+  attachVerticalSlack: 0.25
+  leashMaxDistanceX: 2
+  leashGraceSeconds: 0.35
+  contactSkin: 0.01
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  slopeAssistForce: 50
+  slopeAssistMaxAngleDeg: 60
+  assistOnlyWhenUphill: 1
+  downhillAssistRatio: 0.35
+  reduceFrictionWhileAttached: 1
+  attachedFriction: 0.08
+  fallCheckRay: 0.6
+  minDownVelY: 0.2
+  fallAwayDetachY: 0.6
+  fallAirGrace: 0.12
+  reanchorContinuously: 1
+  reanchorMaxDistance: 0.8
+  normalK: 280
+  normalC: 24
+  maxNormalForce: 1600
+  tangentAccel: 280
+  tangentMaxBonus: 6
+  followObject: 0.45
+  pushShareToBox: 0.25
+  gravityBiasDown: 0
+  stickDesiredGap: 0.01
+  stickSnapSpeed: 12
+  stickMaxAllowGap: 0.18
+  downhillCoyoteTime: 0.25
   isPushing: 0
 --- !u!114 &447920590094036645
 MonoBehaviour:
