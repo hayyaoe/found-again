@@ -14,11 +14,11 @@ public class PlayerPushPull : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     [Header("Front Probe (ramah slope)")]
-    [Range(0.2f, 1f)] [SerializeField] private float frontBoxHeightFactor = 0.8f;
+    [Range(0.2f, 1f)][SerializeField] private float frontBoxHeightFactor = 0.8f;
     [SerializeField] private float frontBoxExtraWidth = 0.6f;
     [Tooltip("Turunin center box biar nyapu objek sedikit lebih rendah (slope).")]
     [SerializeField] private float frontProbeYOffset = 0.15f;
-    [Range(0f, 45f)] [SerializeField] private float downProbeAngleDeg = 15f;
+    [Range(0f, 45f)][SerializeField] private float downProbeAngleDeg = 15f;
     [SerializeField] private float probeRayDistance = 1.2f;
 
     [Header("Attach / Detach Logic")]
@@ -38,13 +38,19 @@ public class PlayerPushPull : MonoBehaviour
     [Tooltip("Dorongan bantu sepanjang slope (N).")]
     [SerializeField] private float slopeAssistForce = 35f;
     [Tooltip("Maks sudut slope yang masih dibantu (deg).")]
-    [Range(0f, 60f)] [SerializeField] private float slopeAssistMaxAngleDeg = 45f;
+    [Range(0f, 60f)][SerializeField] private float slopeAssistMaxAngleDeg = 45f;
     [Tooltip("Hanya bantu saat benar2 menanjak relatif gravitasi.")]
     [SerializeField] private bool assistOnlyWhenUphill = true;
     [Tooltip("Kurangi friction objek sementara ketika attach.")]
     [SerializeField] private bool reduceFrictionWhileAttached = true;
     [Tooltip("Friction sementara objek saat attach (0 = licin).")]
-    [Range(0f, 1f)] [SerializeField] private float attachedFriction = 0.08f;
+    [Range(0f, 1f)][SerializeField] private float attachedFriction = 0.08f;
+
+    [Header("Auto Detach (No Contact)")]
+    [SerializeField] private bool autoDetachWhenNoContact = true;
+    [SerializeField] private float noContactGraceSeconds = 0.12f; // buffer anti-jitter
+
+    private float noContactTimer = 0f;
 
     private PushPullObject currentObject;
     private Rigidbody2D rb;
@@ -110,8 +116,8 @@ public class PlayerPushPull : MonoBehaviour
             Vector2 o = objectRb.worldCenterOfMass;
 
             // <0 = pull (menjauh), >0 = push (mendekat)
-            float signedRelation = (o.x - p.x) * horizontalInput;
-            isPulling = signedRelation < 0f && Mathf.Abs(horizontalInput) > 0.01f;
+            bool hasInput = Mathf.Abs(horizontalInput) > 0.01f;
+            isPulling = hasInput && Mathf.Sign(horizontalInput) == -sideSign;
 
             if (isPulling) FaceTowards(Mathf.Sign(o.x - p.x));
             else if (Mathf.Abs(horizontalInput) > 0.01f) FaceTowards(Mathf.Sign(horizontalInput));
@@ -127,6 +133,32 @@ public class PlayerPushPull : MonoBehaviour
         {
             if (Mathf.Abs(horizontalInput) > 0.01f)
                 FaceTowards(Mathf.Sign(horizontalInput));
+        }
+
+        if (autoDetachWhenNoContact && currentObject != null && objectCol != null && selfCol != null)
+        {
+
+            bool touching = selfCol.IsTouching(objectCol);
+            if (!touching)
+            {
+
+                var dist = selfCol.Distance(objectCol);
+                if (dist.isOverlapped) touching = true;
+            }
+
+            if (!touching)
+            {
+                noContactTimer += Time.deltaTime;
+                if (noContactTimer >= noContactGraceSeconds)
+                {
+                    DetachObject();
+                    return;
+                }
+            }
+            else
+            {
+                noContactTimer = 0f;
+            }
         }
     }
 
@@ -244,7 +276,7 @@ public class PlayerPushPull : MonoBehaviour
         slider.anchor = transform.InverseTransformPoint(playerSurfaceWorld);
         slider.connectedAnchor = objectRb.transform.InverseTransformPoint(objectSurfaceWorld);
         slider.useLimits = false;
-        slider.useMotor  = false;
+        slider.useMotor = false;
 
         // Turunin friction objek (runtime clone) supaya start-move di slope nggak butuh ancang2
         if (reduceFrictionWhileAttached && objectCol != null)

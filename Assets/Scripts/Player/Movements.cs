@@ -172,12 +172,14 @@ public class Movement : MonoBehaviour
 
     ProbeSlope();
 
-    if (!canMove || isDead) return; // Don't move if dead
+    if (!canMove || isDead) return;
 
-    // Saat sliding, jangan timpa velocity.x
     bool didSlide = HandleSlopeSliding();
-    if (!didSlide)
-      body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+
+    bool pushingNow = pushPull != null && pushPull.isPushing;
+
+    if (!didSlide && !pushingNow)
+        body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
   }
 
   private void Jump()
