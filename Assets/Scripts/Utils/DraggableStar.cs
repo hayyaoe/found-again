@@ -1,136 +1,89 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class DraggableStar : MonoBehaviour
 {
-    private Camera cam;
-    private bool isDragging;
-    private Vector3 originalPosition;
-
-    [Header("Movement Limit")]
+    [Header("Bounds (Optional Visual Aid)")]
+    [Tooltip("If true, minX/maxX are absolute world X. If false, they’re offsets from start X.")]
+    public bool useAbsoluteBounds = true;
     public float minX = -3f;
     public float maxX = 3f;
 
     [Header("Return Settings")]
+    [Tooltip("Units/second for returning to start. <=0 means instant snap.")]
     public float returnSpeed = 3f;
-    private bool isReturning = false;
 
-    [Header("Pulley Link")]
+    [Header("Pulley (optional)")]
     public PulleySystem pulley;
-    private float baseLeftDistance;
-    private float baseLiftY;
+
+    private Rigidbody2D rb;
+    private PushPullObject pushPull;
+
+    private Vector2 startPos;
+    private bool isReturning;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        pushPull = GetComponent<PushPullObject>();
+    }
 
     void Start()
     {
-        cam = Camera.main;
-        originalPosition = transform.position;
+        startPos = rb.position;
+    }
 
-        // cache baseline once
-        if (pulley != null)
+    void FixedUpdate()
+    {
+        if (!isReturning)
+            return;
+
+        Vector2 target = new Vector2(startPos.x, rb.position.y);
+
+        if (returnSpeed <= 0f)
         {
-            baseLeftDistance = Vector2.Distance(transform.position, pulley.pulleyPivot.position);
-            baseLiftY = pulley.lift.position.y;
+            rb.MovePosition(target);
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            isReturning = false;
+            return;
         }
-    }
 
-    void OnMouseDown()
-    {
-        isDragging = true;
-        isReturning = false;
-    }
+        Vector2 next = Vector2.MoveTowards(rb.position, target, returnSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(next);
 
-    void OnMouseUp()
-    {
-        isDragging = false;
-        ReturnToStart();
-    }
-
-    void Update()
-    {
-        if (isDragging)
+        if (Mathf.Abs(next.x - target.x) < 0.005f)
         {
-            // 🔒 HARD FREEZE when pulley is at either limit
-            if (pulley != null && (pulley.isAtMaxHeight || pulley.isAtMinHeight))
-            {
-                return;
-            }
-
-            Vector3 mousePos = Input.mousePosition;
-            mousePos.z = -cam.transform.position.z;
-            Vector3 world = cam.ScreenToWorldPoint(mousePos);
-
-            /// 1) your designer clamp
-            float desiredX = Mathf.Clamp(world.x, minX, maxX);
-
-            // 2) Pulley hard clamp (kept as-is from your version)
-            if (pulley != null && !Mathf.Approximately(pulley.ropeRatio, 0f))
-            {
-                Vector2 pivot = pulley.pulleyPivot.position;
-                float xp = pivot.x;
-                float yp = pivot.y;
-
-                float starY = transform.position.y;
-                float h = Mathf.Abs(starY - yp);
-
-                float DistanceForLiftY(float liftY) =>
-                    baseLeftDistance + (liftY - baseLiftY) / pulley.ropeRatio;
-
-                float ProposedDistanceForX(float x)
-                {
-                    float dx = Mathf.Abs(x - xp);
-                    return Mathf.Sqrt(dx * dx + h * h);
-                }
-
-                float proposedDist = ProposedDistanceForX(desiredX);
-                float impliedLiftY = baseLiftY + (proposedDist - baseLeftDistance) * pulley.ropeRatio;
-
-                if (impliedLiftY > pulley.maxLiftY || impliedLiftY < pulley.minLiftY)
-                {
-                    float targetLift = Mathf.Clamp(impliedLiftY, pulley.minLiftY, pulley.maxLiftY);
-                    float targetDist = DistanceForLiftY(targetLift);
-
-                    if (targetDist <= h + 1e-6f)
-                    {
-                        desiredX = xp;
-                    }
-                    else
-                    {
-                        float targetRadius = Mathf.Sqrt(targetDist * targetDist - h * h);
-                        float side = Mathf.Sign(
-                            Mathf.Abs(desiredX - xp) > 1e-4f ? (desiredX - xp) :
-                            (Mathf.Abs(transform.position.x - xp) > 1e-4f ? (transform.position.x - xp) : 1f)
-                        );
-
-                        desiredX = xp + side * targetRadius;
-                        desiredX = Mathf.Clamp(desiredX, minX, maxX);
-                    }
-                }
-            }
-
-            transform.position = new Vector3(desiredX, transform.position.y, transform.position.z);
-        }
-        else if (isReturning)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, originalPosition, returnSpeed * Time.deltaTime);
-            if (Vector3.Distance(transform.position, originalPosition) < 0.01f)
-            {
-                transform.position = originalPosition;
-                isReturning = false;
-            }
+            rb.MovePosition(target);
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            isReturning = false;
         }
     }
 
     public void ReturnToStart()
     {
-        if (returnSpeed <= 0)
-            transform.position = originalPosition;
-        else
-            isReturning = true;
+        isReturning = true;
     }
+
+    public void CancelReturn()
+    {
+        isReturning = false;
+    }
+
 
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(new Vector3(minX, transform.position.y, 0),
-                        new Vector3(maxX, transform.position.y, 0));
+
+        float min = useAbsoluteBounds
+            ? Mathf.Min(minX, maxX)
+            : transform.position.x + Mathf.Min(minX, maxX);
+
+        float max = useAbsoluteBounds
+            ? Mathf.Max(minX, maxX)
+            : transform.position.x + Mathf.Max(minX, maxX);
+
+        Vector3 a = new Vector3(min, transform.position.y, 0f);
+        Vector3 b = new Vector3(max, transform.position.y, 0f);
+        Gizmos.DrawLine(a, b);
     }
 }

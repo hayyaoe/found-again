@@ -6512,6 +6512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d487e8d954c456c8c1e17744e88b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DraggableStar
+  useAbsoluteBounds: 1
   minX: -1
   maxX: 1
   returnSpeed: 3
@@ -6530,6 +6531,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PushPullObject
   isBeingPushed: 0
   requiresTwoPlayers: 0
+  lockWhileAtLimit: 1
+  pulley: {fileID: 1830231555}
+  autoFindPulleyInParent: 1
+  autoFindPulleyInChildren: 0
+  autoFindPulleyInScene: 0
+  returnSpeed: 3
+  returnSnapEpsilon: 0.01
+  returnTimeout: 4
+  debugLogging: 0
+  logEveryFixed: 0
+  stopReturnOnCollision: 1
+  returnBlockerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  returnCastSkin: 0.02
 --- !u!50 &659179845
 Rigidbody2D:
   serializedVersion: 5

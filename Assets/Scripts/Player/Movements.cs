@@ -4,43 +4,127 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-    private Rigidbody2D body;
-    private Animator animator;
-    private BoxCollider2D boxCollider2D;
-    private PlayerRespawn respawnHandler;
+// <<<<<<< feature/fixed-pulley-system
+  private Rigidbody2D body;
+  private Animator animator;
+  private BoxCollider2D boxCollider2D;
+  private PlayerRespawn respawnHandler;
 
-    [Header("Input System")]
-    [SerializeField] private PlayerInput playerInput;
-    private InputAction moveAction;
-    private InputAction jumpAction;
+  [Header("Input System")]
+  [SerializeField] private PlayerInput playerInput; // Each player prefab should have its own PlayerInput
+  private InputAction moveAction;
+  private InputAction jumpAction;
 
-    [Header("Movement")]
-    [SerializeField] private float speed = 5f;
-    [SerializeField] private float jumpPower = 10f;
+  [Header("Movement")]
+  [SerializeField] private float speed = 5f;
+  [SerializeField] private float jumpPower = 10f;
 
-    [Header("Jump Adjustment")]
-    [SerializeField] private float shortJumpMultiplier = 1.5f;
-    [SerializeField] private float shortHopCut = 0.5f;
-    [SerializeField] private float fallMultiplier = 2f;
+  [Header("Jump Adjustment")]
+  [SerializeField] private float shortJumpMultiplier = 1.5f;
+  [SerializeField] private float shortHopCut = 0.5f;
+  [SerializeField] private float fallMultiplier = 2f;
+  [SerializeField] private float fallThreshold = 7f; // Die if fall > threshold units
+  [SerializeField] private float fatalFallSpeed = 15f;
+
+  [Header("Layers")]
+  [SerializeField] private LayerMask groundLayer;
+  [SerializeField] private LayerMask steppableObjectLayer;
+
+  [Header("Slope Slide (no material)")]
+  [SerializeField] private LayerMask slopeGroundLayer;     // biasanya sama dgn groundLayer
+  [SerializeField] private float slopeProbeDistance = 0.25f;
+  [SerializeField] private float slopeFootRadius = 0.16f;
+  [SerializeField] private bool alwaysSlippery = true;     // true = semua slope licin
+  [SerializeField] private float minSlideAccel = 14f;      // dorongan minimum biar ga mandek
+  [SerializeField] private float slideAccelBoost = 1.6f;   // boost g*sin(theta)
+  [SerializeField] private float maxSlideSpeed = 24f;      // batas kecepatan meluncur
+  [SerializeField] private float groundStickForce = 35f;   // tekan ke permukaan (kecil saja)
+  [SerializeField] private float jumpIgnoreSlopeTime = 0.12f; // buffer setelah lompat
+
+  [Header("Wall-slide (hampir vertikal)")]
+  [SerializeField] private float wallStartAngle = 72f;         // >= ini dianggap wallish
+  [SerializeField] private float wallProbeDistance = 0.25f;
+  [SerializeField] private float wallSlideAccel = 22f;         // akselerasi dasar saat wall-slide
+  [SerializeField] private float wallSlideBoost = 2.0f;        // pengali gravitasi (full, bukan sin)
+  [SerializeField] private float wallMaxSlideSpeed = 32f;      // top speed saat wall-slide
+  [SerializeField] private float minWallSpeed = 8f;            // kick kecepatan minimum
+  [SerializeField] private float wallStartImpulse = 3.5f;      // kick awal bila hampir diam
+
+  // runtime slope state
+  private bool slopeGrounded, onSlope, sliding;
+  private float slopeAngle;
+  private Vector2 slopeNormal = Vector2.up;
+  private Vector2 slopeTangent = Vector2.right;
+  private float jumpIgnoreTimer;
+
+  // contact-based normal (lebih akurat di hampir vertikal)
+  private bool contactHasSlope;
+  private Vector2 contactNormal;
+  private float contactAngle;
+
+  // --- Fall detection ---
+  private float lastGroundY;
+  private float fallDistance;
+  private bool wasGroundedLastFrame;
+  private bool pendingFallDeath;
+
+  private float horizontalInput;
+  private bool canMove = true;
+  private float wallJumpCooldown;
+
+  private void Awake()
+  {
+    body = GetComponent<Rigidbody2D>();
+    animator = GetComponent<Animator>();
+    boxCollider2D = GetComponent<BoxCollider2D>();
+    respawnHandler = GetComponent<PlayerRespawn>();
+
+    body.freezeRotation = true;
+    body.interpolation = RigidbodyInterpolation2D.Interpolate;
+
+    if (playerInput == null)
+      playerInput = GetComponent<PlayerInput>();
+
+    if (playerInput != null)
+// =======
+//     private Rigidbody2D body;
+//     private Animator animator;
+//     private BoxCollider2D boxCollider2D;
+//     private PlayerRespawn respawnHandler;
+
+//     [Header("Input System")]
+//     [SerializeField] private PlayerInput playerInput;
+//     private InputAction moveAction;
+//     private InputAction jumpAction;
+
+//     [Header("Movement")]
+//     [SerializeField] private float speed = 5f;
+//     [SerializeField] private float jumpPower = 10f;
+
+//     [Header("Jump Adjustment")]
+//     [SerializeField] private float shortJumpMultiplier = 1.5f;
+//     [SerializeField] private float shortHopCut = 0.5f;
+//     [SerializeField] private float fallMultiplier = 2f;
     
-    // --- MODIFIED ---
-    // We only need the 'fatalFallSpeed' now
-    [Header("Fall Damage")]
-    [SerializeField] private float fatalFallSpeed = 25f; // Die if landing speed is greater than this
+//     // --- MODIFIED ---
+//     // We only need the 'fatalFallSpeed' now
+//     [Header("Fall Damage")]
+//     [SerializeField] private float fatalFallSpeed = 25f; // Die if landing speed is greater than this
 
-    [Header("Layers")]
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private LayerMask steppableObjectLayer;
+//     [Header("Layers")]
+//     [SerializeField] private LayerMask groundLayer;
+//     [SerializeField] private LayerMask steppableObjectLayer;
 
-    // --- We only need 'wasGroundedLastFrame' for fall detection ---
-    private bool wasGroundedLastFrame;
+//     // --- We only need 'wasGroundedLastFrame' for fall detection ---
+//     private bool wasGroundedLastFrame;
 
-    private float horizontalInput;
-    private bool canMove = true;
-    private float wallJumpCooldown;
-    private bool isDead = false;
+//     private float horizontalInput;
+//     private bool canMove = true;
+//     private float wallJumpCooldown;
+//     private bool isDead = false;
 
-    private void Awake()
+//     private void Awake()
+// >>>>>>> main
     {
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -66,16 +150,40 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
-        CameraMovement cameraMovement = FindObjectOfType<CameraMovement>();
-        if (cameraMovement != null)
-        {
-            cameraMovement.setTarget(transform);
-        }
+// <<<<<<< feature/fixed-pulley-system
+      cameraMovement.setTarget(transform);
+    }
+
+    if (isGrounded())
+      lastGroundY = transform.position.y;
+
+    ApplyPlayerAppearance();
+  }
+// =======
+//         CameraMovement cameraMovement = FindObjectOfType<CameraMovement>();
+//         if (cameraMovement != null)
+//         {
+//             cameraMovement.setTarget(transform);
+//         }
+// >>>>>>> main
 
         if (isGrounded())
             wasGroundedLastFrame = true; // Set true on start if grounded
 
-        ApplyPlayerAppearance();
+// <<<<<<< feature/fixed-pulley-system
+    // --- Fall Detection ---
+    if (groundedNow && !wasGroundedLastFrame)
+    {
+      if (pendingFallDeath || Mathf.Abs(body.linearVelocityY) > fatalFallSpeed)
+      {
+        Die();
+        pendingFallDeath = false;
+        return;
+      }
+      lastGroundY = transform.position.y;
+// =======
+//         ApplyPlayerAppearance();
+// >>>>>>> main
     }
 
     private void Update()
@@ -130,11 +238,29 @@ public class Movement : MonoBehaviour
         HandleAnimations();
     }
 
-    private void FixedUpdate()
-    {
-        if (!canMove || isDead) return; // Don't move if dead
+// <<<<<<< feature/fixed-pulley-system
+    wasGroundedLastFrame = groundedNow;
 
-        body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+    // --- Input Reading ---
+    horizontalInput = moveAction != null ? moveAction.ReadValue<Vector2>().x : Input.GetAxisRaw("Horizontal");
+
+    // Flip sprite
+    if (horizontalInput > 0.01f)       transform.localScale = new Vector3(1, 1, 1);
+    else if (horizontalInput < -0.01f) transform.localScale = new Vector3(-1, 1, 1);
+
+    // Jump
+    if (wallJumpCooldown > 0.2f && jumpAction != null && jumpAction.WasPressedThisFrame())
+    {
+      var pushPull = GetComponent<PlayerPushPull>();
+      if (pushPull != null && pushPull.isPushing) return;
+      Jump();
+// =======
+//     private void FixedUpdate()
+//     {
+//         if (!canMove || isDead) return; // Don't move if dead
+
+//         body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+// >>>>>>> main
     }
 
     private void Jump()
@@ -145,54 +271,78 @@ public class Movement : MonoBehaviour
         }
     }
 
-    private void ApplyPlayerAppearance()
-    {
-        if (playerInput == null) return;
+// <<<<<<< feature/fixed-pulley-system
+    HandleAirbornePhysics();
+    HandleAnimations();
+  }
 
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        BoxCollider2D col = GetComponent<BoxCollider2D>();
+  private void FixedUpdate()
+  {
+    if (jumpIgnoreTimer > 0f)
+      jumpIgnoreTimer -= Time.deltaTime;
 
-        switch (playerInput.playerIndex)
-        {
-            case 0: // Player 1
-                sr.sprite = Resources.Load<Sprite>("Marie 1");
-                gameObject.layer = LayerMask.NameToLayer("Player1");
+    ProbeSlope();
 
-                transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                col.size = new Vector2(1f, 2.8f);
-                col.offset = new Vector2(0f, -0.1f);
-                break;
+    // Saat sliding, jangan timpa velocity.x
+    bool didSlide = HandleSlopeSliding();
+    if (!didSlide)
+      body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+  }
+// =======
+//     private void ApplyPlayerAppearance()
+//     {
+//         if (playerInput == null) return;
 
-            case 1: // Player 2
-                sr.sprite = Resources.Load<Sprite>("Mimi 2");
-                gameObject.layer = LayerMask.NameToLayer("Player2");
+//         SpriteRenderer sr = GetComponent<SpriteRenderer>();
+//         BoxCollider2D col = GetComponent<BoxCollider2D>();
 
-                transform.localScale = new Vector3(1f, 1f, 1f);
-                col.size = new Vector2(1f, 1.55f);
-                col.offset = new Vector2(0f, -0.1f);
-                break;
-        }
-    }
+//         switch (playerInput.playerIndex)
+//         {
+//             case 0: // Player 1
+//                 sr.sprite = Resources.Load<Sprite>("Marie 1");
+//                 gameObject.layer = LayerMask.NameToLayer("Player1");
 
+//                 transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+//                 col.size = new Vector2(1f, 2.8f);
+//                 col.offset = new Vector2(0f, -0.1f);
+//                 break;
+
+//             case 1: // Player 2
+//                 sr.sprite = Resources.Load<Sprite>("Mimi 2");
+//                 gameObject.layer = LayerMask.NameToLayer("Player2");
+
+//                 transform.localScale = new Vector3(1f, 1f, 1f);
+//                 col.size = new Vector2(1f, 1.55f);
+//                 col.offset = new Vector2(0f, -0.1f);
+//                 break;
+//         }
+//     }
+
+// >>>>>>> main
 
     private void HandleAirbornePhysics()
     {
-        if (jumpAction != null && jumpAction.WasReleasedThisFrame() && body.linearVelocity.y > 0f)
-        {
-            body.linearVelocity = new Vector2(body.linearVelocity.x, body.linearVelocity.y * shortHopCut);
-        }
+// <<<<<<< feature/fixed-pulley-system
+      jumpIgnoreTimer = jumpIgnoreSlopeTime;
+      body.linearVelocity = new Vector2(body.linearVelocity.x, jumpPower);
+// =======
+//         if (jumpAction != null && jumpAction.WasReleasedThisFrame() && body.linearVelocity.y > 0f)
+//         {
+//             body.linearVelocity = new Vector2(body.linearVelocity.x, body.linearVelocity.y * shortHopCut);
+//         }
 
-        if (!isGrounded())
-        {
-            if (body.linearVelocity.y < 0f)
-            {
-                body.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1f) * Time.deltaTime;
-            }
-            else if (body.linearVelocity.y > 0f && (jumpAction == null || !jumpAction.IsPressed()))
-            {
-                body.linearVelocity += Vector2.up * Physics2D.gravity.y * (shortJumpMultiplier - 1f) * Time.deltaTime;
-            }
-        }
+//         if (!isGrounded())
+//         {
+//             if (body.linearVelocity.y < 0f)
+//             {
+//                 body.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1f) * Time.deltaTime;
+//             }
+//             else if (body.linearVelocity.y > 0f && (jumpAction == null || !jumpAction.IsPressed()))
+//             {
+//                 body.linearVelocity += Vector2.up * Physics2D.gravity.y * (shortJumpMultiplier - 1f) * Time.deltaTime;
+//             }
+//         }
+// >>>>>>> main
     }
 
     private void HandleAnimations()
@@ -208,56 +358,278 @@ public class Movement : MonoBehaviour
 
     private bool isGrounded()
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(
-            boxCollider2D.bounds.center,
-            boxCollider2D.bounds.size,
-            0,
-            Vector2.down,
-            0.1f,
-            groundLayer
-        );
-        return raycastHit.collider != null;
+// <<<<<<< feature/fixed-pulley-system
+      case 0:
+        sr.sprite = Resources.Load<Sprite>("Marie 1");
+        gameObject.layer = LayerMask.NameToLayer("Player1");
+        transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        col.size = new Vector2(1f, 2.8f);
+        col.offset = new Vector2(0f, -0.1f);
+        break;
+
+      case 1:
+        sr.sprite = Resources.Load<Sprite>("Mimi 2");
+        gameObject.layer = LayerMask.NameToLayer("Player2");
+        transform.localScale = new Vector3(1f, 1f, 1f);
+        col.size = new Vector2(1f, 1.55f);
+        col.offset = new Vector2(0f, -0.1f);
+        break;
+// =======
+//         RaycastHit2D raycastHit = Physics2D.BoxCast(
+//             boxCollider2D.bounds.center,
+//             boxCollider2D.bounds.size,
+//             0,
+//             Vector2.down,
+//             0.1f,
+//             groundLayer
+//         );
+//         return raycastHit.collider != null;
+// >>>>>>> main
     }
 
-    private bool isOnSteppableObject()
-    {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(
-            boxCollider2D.bounds.center,
-            boxCollider2D.bounds.size,
-            0,
-            Vector2.down,
-            0.1f,
-            steppableObjectLayer
-        );
-        return raycastHit.collider != null;
-    }
+// <<<<<<< feature/fixed-pulley-system
+  private void HandleAirbornePhysics()
+  {
+    if (jumpAction != null && jumpAction.WasReleasedThisFrame() && body.linearVelocity.y > 0f)
+      body.linearVelocity = new Vector2(body.linearVelocity.x, body.linearVelocity.y * shortHopCut);
+// =======
+//     private bool isOnSteppableObject()
+//     {
+//         RaycastHit2D raycastHit = Physics2D.BoxCast(
+//             boxCollider2D.bounds.center,
+//             boxCollider2D.bounds.size,
+//             0,
+//             Vector2.down,
+//             0.1f,
+//             steppableObjectLayer
+//         );
+//         return raycastHit.collider != null;
+//     }
+// >>>>>>> main
 
     public void Die()
     {
-        if (isDead) return; 
+// <<<<<<< feature/fixed-pulley-system
+      if (body.linearVelocity.y < 0f)
+        body.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1f) * Time.deltaTime;
+      else if (body.linearVelocity.y > 0f && (jumpAction == null || !jumpAction.IsPressed()))
+        body.linearVelocity += Vector2.up * Physics2D.gravity.y * (shortJumpMultiplier - 1f) * Time.deltaTime;
+// =======
+//         if (isDead) return; 
         
-        isDead = true;
-        Debug.Log($"{gameObject.name} died (local)");
+//         isDead = true;
+//         Debug.Log($"{gameObject.name} died (local)");
 
-        animator.SetTrigger("die");
-        body.linearVelocity = Vector2.zero;
-        body.simulated = false;
+//         animator.SetTrigger("die");
+//         body.linearVelocity = Vector2.zero;
+//         body.simulated = false;
 
-        this.enabled = false;
-        Invoke(nameof(HandleRespawn), 0.1f);
+//         this.enabled = false;
+//         Invoke(nameof(HandleRespawn), 0.1f);
+// >>>>>>> main
     }
 
-    private void HandleRespawn()
+// <<<<<<< feature/fixed-pulley-system
+  private void HandleAnimations()
+  {
+    if (!isGrounded()) animator.SetTrigger("jump");
+    animator.SetBool("run", Mathf.Abs(horizontalInput) > 0.01f);
+    animator.SetBool("grounded", isGrounded());
+  }
+
+  // ====== SLOPE PROBING ======
+  private void ProbeSlope()
+  {
+    Bounds b = boxCollider2D.bounds;
+    Vector2 foot = new Vector2(b.center.x, b.min.y);
+
+    // 1) bawah
+    RaycastHit2D hit = Physics2D.CircleCast(foot, slopeFootRadius, Vector2.down, slopeProbeDistance, slopeGroundLayer);
+
+    // 2) kiri/kanan (untuk dinding / hampir vertikal)
+    if (!hit.collider)
     {
-        body.simulated = true;
-        this.enabled = true;
-        animator.ResetTrigger("die");
-
-        if (respawnHandler != null)
-            respawnHandler.Respawn();
-        else
-            Debug.LogWarning("⚠️ PlayerRespawn component missing on player!");
-      
-        isDead = false; 
+      var leftHit  = Physics2D.CircleCast(foot, slopeFootRadius, Vector2.left,  wallProbeDistance, slopeGroundLayer);
+      var rightHit = Physics2D.CircleCast(foot, slopeFootRadius, Vector2.right, wallProbeDistance, slopeGroundLayer);
+      if (leftHit.collider && rightHit.collider) hit = leftHit.distance <= rightHit.distance ? leftHit : rightHit;
+      else if (leftHit.collider) hit = leftHit;
+      else if (rightHit.collider) hit = rightHit;
     }
+
+    if (hit.collider != null)
+    {
+      slopeGrounded = true;
+      slopeNormal   = hit.normal;
+      slopeAngle    = Vector2.Angle(slopeNormal, Vector2.up);
+      onSlope       = slopeAngle > 0.01f;
+    }
+    else
+    {
+      slopeGrounded = false;
+      onSlope = false;
+      slopeAngle = 0f;
+      slopeNormal = Vector2.up;
+    }
+
+    // Override dengan data kontak fisik bila ada — lebih akurat di hampir vertikal
+    if (contactHasSlope)
+    {
+      slopeGrounded = true;
+      slopeNormal   = contactNormal;
+      slopeAngle    = contactAngle;
+      onSlope       = slopeAngle > 0.01f;
+    }
+
+    // Hitung tangent menurun
+    Vector2 t = new Vector2(slopeNormal.y, -slopeNormal.x);
+    Vector2 g = Physics2D.gravity * body.gravityScale;
+    if (Vector2.Dot(t, g) < 0f) t = -t;
+    slopeTangent = t.normalized;
+
+    sliding = slopeGrounded && (alwaysSlippery ? onSlope : (onSlope && slopeAngle > 45f));
+  }
+
+  // ====== SLIDE PHYSICS ======
+  private bool HandleSlopeSliding()
+  {
+    bool rising = body.linearVelocity.y > 0.05f;
+    if (!slopeGrounded || !onSlope || rising || jumpIgnoreTimer > 0f)
+      return false;
+
+    // Hilangkan komponen normal → anti-friction
+    Vector2 v = body.linearVelocity;
+    float vN  = Vector2.Dot(v, slopeNormal);
+    v        -= vN * slopeNormal;
+
+    float gmag = Physics2D.gravity.magnitude * body.gravityScale;
+    float theta = slopeAngle * Mathf.Deg2Rad;
+    float gAlong = gmag * Mathf.Sin(theta);
+
+    bool wallish = slopeAngle >= wallStartAngle;
+
+    float accel, vmax, vTan;
+    if (wallish)
+    {
+      // WALL-SLIDE: pakai full gravity (atau lebih), + kick awal bila hampir diam
+      accel = Mathf.Max(wallSlideAccel, gmag * wallSlideBoost);
+      vmax  = wallMaxSlideSpeed;
+
+      vTan = Vector2.Dot(v, slopeTangent);
+      if (Mathf.Abs(vTan) < minWallSpeed)
+      {
+        float signDown = Mathf.Sign(Vector2.Dot(slopeTangent, Physics2D.gravity));
+        vTan = signDown * Mathf.Max(minWallSpeed, wallStartImpulse);
+      }
+      vTan += accel * Time.fixedDeltaTime;
+      vTan  = Mathf.Clamp(vTan, -vmax, vmax);
+      v     = slopeTangent * vTan;
+
+      // penting: tidak memodif posisi maupun memberi gaya ke normal
+    }
+    else
+    {
+      // FLOOR-SLIDE: masih gunakan sin(theta) tapi diboost
+      accel = Mathf.Max(minSlideAccel, gAlong * slideAccelBoost);
+      vmax  = maxSlideSpeed;
+
+      vTan  = Vector2.Dot(v, slopeTangent);
+      vTan += accel * Time.fixedDeltaTime;
+      vTan  = Mathf.Clamp(vTan, -vmax, vmax);
+      v     = slopeTangent * vTan;
+
+      if (groundStickForce > 0f)
+        body.AddForce(-slopeNormal * groundStickForce, ForceMode2D.Force);
+    }
+
+    body.linearVelocity = v;
+    return true;
+  }
+
+  // ====== Collision normals (prioritas tinggi di hampir vertikal) ======
+  private void OnCollisionStay2D(Collision2D c)
+  {
+    if (((1 << c.collider.gameObject.layer) & slopeGroundLayer) == 0) return;
+
+    float bestAngle = -1f;
+    Vector2 bestNormal = Vector2.up;
+
+    for (int i = 0; i < c.contactCount; i++)
+    {
+      var n = c.GetContact(i).normal;
+      float ang = Vector2.Angle(n, Vector2.up);
+      if (ang > bestAngle) { bestAngle = ang; bestNormal = n; }
+    }
+
+    contactHasSlope = true;
+    contactNormal   = bestNormal;
+    contactAngle    = bestAngle;
+  }
+
+  private void OnCollisionExit2D(Collision2D c)
+  {
+    if (((1 << c.collider.gameObject.layer) & slopeGroundLayer) == 0) return;
+    contactHasSlope = false;
+  }
+
+  // ====== Grounding helpers ======
+  private bool isGrounded()
+  {
+    RaycastHit2D raycastHit = Physics2D.BoxCast(
+        boxCollider2D.bounds.center,
+        boxCollider2D.bounds.size,
+        0,
+        Vector2.down,
+        0.1f,
+        groundLayer
+    );
+    return raycastHit.collider != null;
+  }
+
+  private bool isOnSteppableObject()
+  {
+    RaycastHit2D raycastHit = Physics2D.BoxCast(
+        boxCollider2D.bounds.center,
+        boxCollider2D.bounds.size,
+        0,
+        Vector2.down,
+        0.1f,
+        steppableObjectLayer
+    );
+    return raycastHit.collider != null;
+  }
+
+  private void Die()
+  {
+    Debug.Log($"{gameObject.name} died (local)");
+    animator.SetTrigger("die");
+    body.linearVelocity = Vector2.zero;
+    body.simulated = false;
+    this.enabled = false;
+    Invoke(nameof(HandleRespawn), 0.1f);
+  }
+
+  private void HandleRespawn()
+  {
+    body.simulated = true;
+    this.enabled = true;
+    animator.ResetTrigger("die");
+
+    if (respawnHandler != null) respawnHandler.Respawn();
+    else Debug.LogWarning("⚠️ PlayerRespawn component missing on player!");
+  }
+// =======
+//     private void HandleRespawn()
+//     {
+//         body.simulated = true;
+//         this.enabled = true;
+//         animator.ResetTrigger("die");
+
+//         if (respawnHandler != null)
+//             respawnHandler.Respawn();
+//         else
+//             Debug.LogWarning("⚠️ PlayerRespawn component missing on player!");
+      
+//         isDead = false; 
+//     }
+// >>>>>>> main
 }

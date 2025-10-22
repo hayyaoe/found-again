@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 4441310245275456898}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -33.805088, y: -1.3842926, z: 0}
+  m_LocalPosition: {x: -34.97, y: -1.3842926, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -199,6 +199,24 @@ MonoBehaviour:
   steppableObjectLayer:
     serializedVersion: 2
     m_Bits: 8
+  slopeGroundLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  slopeProbeDistance: 0.25
+  slopeFootRadius: 0.16
+  alwaysSlippery: 1
+  minSlideAccel: 14
+  slideAccelBoost: 1.2
+  maxSlideSpeed: 24
+  groundStickForce: 35
+  jumpIgnoreSlopeTime: 0.12
+  wallStartAngle: 88
+  wallProbeDistance: 0.25
+  wallSlideAccel: 22
+  wallSlideBoost: 2
+  wallMaxSlideSpeed: 32
+  minWallSpeed: 8
+  wallStartImpulse: 3.5
 --- !u!114 &7652417905296700519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,11 +229,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822b5e2b008524b61890411debe11d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPushPull
-  interactRange: 1.5
+  interactRange: 0.1
   pushableLayer:
     serializedVersion: 2
     m_Bits: 8
-  pushSpeed: 3
+  pushSpeed: 4
+  spriteRenderer: {fileID: 0}
+  frontBoxHeightFactor: 1
+  frontBoxExtraWidth: 0.6
+  frontProbeYOffset: 0.4
+  downProbeAngleDeg: 20
+  probeRayDistance: 1.2
+  attachVerticalSlack: 0.25
+  leashMaxDistanceX: 2
+  leashGraceSeconds: 0.35
+  contactSkin: 0.01
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  slopeAssistForce: 50
+  slopeAssistMaxAngleDeg: 60
+  assistOnlyWhenUphill: 1
+  downhillAssistRatio: 0.35
+  reduceFrictionWhileAttached: 1
+  attachedFriction: 0.08
+  fallCheckRay: 0.6
+  minDownVelY: 0.2
+  fallAwayDetachY: 0.6
+  fallAirGrace: 0.12
+  reanchorContinuously: 1
+  reanchorMaxDistance: 0.8
+  normalK: 280
+  normalC: 24
+  maxNormalForce: 1600
+  tangentAccel: 280
+  tangentMaxBonus: 6
+  followObject: 0.45
+  pushShareToBox: 0.25
+  gravityBiasDown: 0
+  stickDesiredGap: 0.01
+  stickSnapSpeed: 12
+  stickMaxAllowGap: 0.18
+  downhillCoyoteTime: 0.25
   isPushing: 0
 --- !u!114 &447920590094036645
 MonoBehaviour:
@@ -236,16 +291,25 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4441310245275456898}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77691ff2c6f194aacb73123e7816d1cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Slope
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1088
+    m_Bits: 1024
+  groundCheckDistance: 0.25
+  footOffset: {x: 0, y: 0.02}
+  footRadius: 0.16
+  alwaysSlippery: 1
+  minSlideAccel: 12
+  slideAccelBoost: 1.25
+  maxSlideSpeed: 12
+  groundStickForce: 50
+  jumpIgnoreSlopeTime: 0.1
   maxSlopeAngle: 45
-  slideSpeed: 5
+  drawGizmos: 1
 --- !u!114 &696653549654381408
 MonoBehaviour:
   m_ObjectHideFlags: 0
