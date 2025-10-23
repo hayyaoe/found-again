@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class Movement : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class Movement : MonoBehaviour
   private Animator animator;
   private BoxCollider2D boxCollider2D;
   private PlayerRespawn respawnHandler;
+  private PlayerPushPull pushPull;
 
   [Header("Input System")]
   [SerializeField] private PlayerInput playerInput; // Each player prefab should have its own PlayerInput
@@ -81,7 +83,7 @@ public class Movement : MonoBehaviour
   private float footstepTimer = 0f;
   private bool isWalking => Mathf.Abs(horizontalInput) > 0.01f && isGrounded();
 
-  private PlayerPushPull pushPull;
+  // private PlayerPushPull pushPull;
   private void Awake()
   {
     body = GetComponent<Rigidbody2D>();
@@ -109,6 +111,7 @@ public class Movement : MonoBehaviour
 
   private void Start()
   {
+    CheckpointManager.RegisterPlayer(this);
     CameraMovement cameraMovement = FindObjectOfType<CameraMovement>();
     if (cameraMovement != null)
       cameraMovement.setTarget(transform);
@@ -430,12 +433,20 @@ public class Movement : MonoBehaviour
     return raycastHit.collider != null;
   }
 
-  public void Die()
+  public void DieAndRespawn()
   {
+    // Ensure this logic only runs once
     if (isDead) return;
 
     isDead = true;
     Debug.Log($"{gameObject.name} died (local)");
+
+    // --- NEW ---
+    // Force detach from any object before dying
+    if (pushPull != null)
+    {
+      pushPull.ForceDetach();
+    }
 
     animator.SetTrigger("die");
     body.linearVelocity = Vector2.zero;
@@ -443,6 +454,15 @@ public class Movement : MonoBehaviour
 
     this.enabled = false;
     Invoke(nameof(HandleRespawn), 0.1f);
+  }
+
+  public void Die()
+  {
+    // Instead of dying locally, tell the manager to reset everything
+    if (!isDead) // Prevent this from being called 100 times
+    {
+      CheckpointManager.instance.TriggerFullRespawn();
+    }
   }
 
   private void HandleRespawn()
@@ -479,4 +499,10 @@ public class Movement : MonoBehaviour
       }
     }
   }
+
+  private void OnDestroy()
+  {
+    CheckpointManager.UnregisterPlayer(this);
+  }
+
 }

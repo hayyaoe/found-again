@@ -188,7 +188,7 @@ public class PlayerPushPull : MonoBehaviour
                     }
                 }
             }
-            
+
             Bounds b = selfCol.bounds;
 
             Vector2 origin = new Vector2(b.center.x, b.min.y + 0.05f);
@@ -469,6 +469,14 @@ public class PlayerPushPull : MonoBehaviour
                 Gizmos.color = Color.magenta;
                 Gizmos.DrawLine(b.center, b.center + (Vector3)(downDir * probeRayDistance));
             }
+        }
+    }
+    
+    public void ForceDetach()
+    {
+        if (currentObject != null)
+        {
+            DetachObject();
         }
     }
 }

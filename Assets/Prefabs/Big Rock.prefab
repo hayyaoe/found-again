@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5045367883331890125}
   - component: {fileID: 3861660168726255796}
   - component: {fileID: 5452052162574743861}
+  - component: {fileID: -1777486948420344605}
   m_Layer: 3
   m_Name: Big Rock
   m_TagString: Untagged
@@ -158,7 +159,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.6533333, y: 0.8466667}
+    oldSize: {x: 3.3066666, y: 1.6933334}
     newSize: {x: 3.97, y: 2.08}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -179,3 +180,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushPullObject
   isBeingPushed: 0
+  requiresTwoPlayers: 0
+  lockWhileAtLimit: 1
+  pulley: {fileID: 0}
+  autoFindPulleyInParent: 1
+  autoFindPulleyInChildren: 0
+  autoFindPulleyInScene: 0
+  returnSpeed: 3
+  returnSnapEpsilon: 0.01
+  returnTimeout: 4
+  debugLogging: 1
+  logEveryFixed: 0
+  stopReturnOnCollision: 1
+  returnBlockerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  returnCastSkin: 0.02
+--- !u!114 &-1777486948420344605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7786662411218055685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa236a7ce6f643d1b51d290f6c9a13f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableObject
