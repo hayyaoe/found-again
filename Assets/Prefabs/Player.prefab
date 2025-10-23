@@ -270,13 +270,13 @@ MonoBehaviour:
   pushSpeed: 3
   spriteRenderer: {fileID: 0}
   frontBoxHeightFactor: 0.8
-  frontBoxExtraWidth: 0.6
+  frontBoxExtraWidth: 0.8
   frontProbeYOffset: 0.15
   downProbeAngleDeg: 15
   probeRayDistance: 1.2
   attachVerticalSlack: 0.25
   leashMaxDistanceX: 1.6
-  leashGraceSeconds: 0.25
+  leashGraceSeconds: 0.4
   contactSkin: 0.01
   groundMask:
     serializedVersion: 2
@@ -286,6 +286,8 @@ MonoBehaviour:
   assistOnlyWhenUphill: 1
   reduceFrictionWhileAttached: 1
   attachedFriction: 0.08
+  autoDetachWhenNoContact: 1
+  noContactGraceSeconds: 0.3
   isPushing: 0
 --- !u!114 &4630648880170436102
 MonoBehaviour:

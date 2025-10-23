@@ -188,14 +188,10 @@ MonoBehaviour:
   shortJumpMultiplier: 1
   shortHopCut: 0
   fallMultiplier: 3
-  fallThreshold: 25
   fatalFallSpeed: 35
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  deathZone:
-    serializedVersion: 2
-    m_Bits: 512
   steppableObjectLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -242,7 +238,7 @@ MonoBehaviour:
   probeRayDistance: 1.2
   attachVerticalSlack: 0.25
   leashMaxDistanceX: 2
-  leashGraceSeconds: 0.35
+  leashGraceSeconds: 0.4
   contactSkin: 0.01
   groundMask:
     serializedVersion: 2
@@ -250,27 +246,10 @@ MonoBehaviour:
   slopeAssistForce: 50
   slopeAssistMaxAngleDeg: 60
   assistOnlyWhenUphill: 1
-  downhillAssistRatio: 0.35
   reduceFrictionWhileAttached: 1
   attachedFriction: 0.08
-  fallCheckRay: 0.6
-  minDownVelY: 0.2
-  fallAwayDetachY: 0.6
-  fallAirGrace: 0.12
-  reanchorContinuously: 1
-  reanchorMaxDistance: 0.8
-  normalK: 280
-  normalC: 24
-  maxNormalForce: 1600
-  tangentAccel: 280
-  tangentMaxBonus: 6
-  followObject: 0.45
-  pushShareToBox: 0.25
-  gravityBiasDown: 0
-  stickDesiredGap: 0.01
-  stickSnapSpeed: 12
-  stickMaxAllowGap: 0.18
-  downhillCoyoteTime: 0.25
+  autoDetachWhenNoContact: 1
+  noContactGraceSeconds: 0.3
   isPushing: 0
 --- !u!114 &447920590094036645
 MonoBehaviour:
