@@ -97,6 +97,11 @@ public class PlayerPushPull : MonoBehaviour
 
     private void Update()
     {
+        // Stop all logic if the game is paused.
+        if (PauseMenu.GameIsPaused)
+        {
+            return;
+        }
         horizontalInput = playerInput.actions["Move"].ReadValue<Vector2>().x;
 
         if (currentObject != null && objectRb != null)

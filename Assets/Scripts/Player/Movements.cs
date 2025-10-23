@@ -125,8 +125,10 @@ public class Movement : MonoBehaviour
     // --- REMOVED ---
     // The Y-level death check is gone.
 
-    if (isDead) return; // Don't do anything else if dead
-
+    if (isDead || PauseMenu.GameIsPaused)
+    {
+      return; // Do nothing
+    }
     bool groundedNow = isGrounded();
 
     // --- THIS IS THE NEW FALL DAMAGE LOGIC ---
@@ -190,7 +192,7 @@ public class Movement : MonoBehaviour
     bool pushingNow = pushPull != null && pushPull.isPushing;
 
     if (!didSlide && !pushingNow)
-        body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+      body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
   }
 
   private void Jump()
