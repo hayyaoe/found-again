@@ -97,6 +97,11 @@ public class PlayerPushPull : MonoBehaviour
 
     private void Update()
     {
+        // Stop all logic if the game is paused.
+        if (PauseMenu.GameIsPaused)
+        {
+            return;
+        }
         horizontalInput = playerInput.actions["Move"].ReadValue<Vector2>().x;
 
         if (currentObject != null && objectRb != null)
@@ -183,7 +188,7 @@ public class PlayerPushPull : MonoBehaviour
                     }
                 }
             }
-            
+
             Bounds b = selfCol.bounds;
 
             Vector2 origin = new Vector2(b.center.x, b.min.y + 0.05f);
@@ -464,6 +469,14 @@ public class PlayerPushPull : MonoBehaviour
                 Gizmos.color = Color.magenta;
                 Gizmos.DrawLine(b.center, b.center + (Vector3)(downDir * probeRayDistance));
             }
+        }
+    }
+    
+    public void ForceDetach()
+    {
+        if (currentObject != null)
+        {
+            DetachObject();
         }
     }
 }

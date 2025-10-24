@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5429902545403208802}
   - component: {fileID: 7824924045399249778}
   - component: {fileID: 7225674071244428873}
+  - component: {fileID: -2311901906433058686}
+  - component: {fileID: 7245578114042598893}
   m_Layer: 3
   m_Name: Rock
   m_TagString: Untagged
@@ -195,3 +197,37 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.79375, y: 0.7875}
   m_EdgeRadius: 0
+--- !u!114 &-2311901906433058686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118607558319655718}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7921f0183dcce425a98dadff31055b09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlopeAlignVisual
+  graphics: {fileID: 9162282335751163694}
+  col: {fileID: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 1217
+  rayDown: 0.6
+  insetX: 0.05
+  alignSpeedDeg: 540
+  maxTilt: 50
+  visualYOffset: 0
+--- !u!114 &7245578114042598893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118607558319655718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa236a7ce6f643d1b51d290f6c9a13f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableObject
