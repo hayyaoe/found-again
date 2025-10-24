@@ -450,6 +450,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: c2ad9080-4db5-4770-85da-d9c3e301e114
+    m_ActionName: 'Player/Pause[/DualShock4GamepadHID/start]'
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
