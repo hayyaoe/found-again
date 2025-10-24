@@ -232,7 +232,7 @@ MonoBehaviour:
   jumpSFX: {fileID: 8300000, guid: e940c5ddb8238402499b2d74c4970897, type: 3}
   jumpVolume: 1
   footstepSFX:
-  - {fileID: 8300000, guid: e940c5ddb8238402499b2d74c4970897, type: 3}
+  - {fileID: 8300000, guid: 720c95640cafb406888052dd5a15ce01, type: 3}
   footstepVolume: 0.8
   footstepInterval: 0.35
 --- !u!95 &4587821935056208640
@@ -292,6 +292,8 @@ MonoBehaviour:
   assistOnlyWhenUphill: 1
   reduceFrictionWhileAttached: 1
   attachedFriction: 0.08
+  autoDetachWhenNoContact: 1
+  noContactGraceSeconds: 0.12
   isPushing: 0
 --- !u!114 &4630648880170436102
 MonoBehaviour:
@@ -444,6 +446,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c2ad9080-4db5-4770-85da-d9c3e301e114
+    m_ActionName: 'Player/Pause[/DualShock4GamepadHID/start]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
