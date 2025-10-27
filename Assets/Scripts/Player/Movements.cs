@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class Movement : MonoBehaviour
 {
-  // <<<<<<< feature/fixed-pulley-system
   private Rigidbody2D body;
   private Animator animator;
   private BoxCollider2D boxCollider2D;
   private PlayerRespawn respawnHandler;
+  private PlayerPushPull pushPull;
 
   [Header("Input System")]
   [SerializeField] private PlayerInput playerInput; // Each player prefab should have its own PlayerInput
@@ -52,6 +53,13 @@ public class Movement : MonoBehaviour
   [SerializeField] private float minWallSpeed = 8f;            // kick kecepatan minimum
   [SerializeField] private float wallStartImpulse = 3.5f;      // kick awal bila hampir diam
 
+  [Header("Sound Effects")]
+  [SerializeField] private AudioClip jumpSFX;
+  [SerializeField] private float jumpVolume = 1f;
+  [SerializeField] private AudioClip[] footstepSFX; // ✅ multiple footstep clips
+  [SerializeField] private float footstepVolume = 0.8f;
+  [SerializeField] private float footstepInterval = 0.35f;
+
   // runtime slope state
   private bool slopeGrounded, onSlope, sliding;
   private float slopeAngle;
@@ -71,7 +79,11 @@ public class Movement : MonoBehaviour
   private bool canMove = true;
   private float wallJumpCooldown;
   private bool isDead = false;
-  private PlayerPushPull pushPull;
+
+  private float footstepTimer = 0f;
+  private bool isWalking => Mathf.Abs(horizontalInput) > 0.01f && isGrounded();
+
+  // private PlayerPushPull pushPull;
   private void Awake()
   {
     body = GetComponent<Rigidbody2D>();
@@ -99,6 +111,7 @@ public class Movement : MonoBehaviour
 
   private void Start()
   {
+    CheckpointManager.RegisterPlayer(this);
     CameraMovement cameraMovement = FindObjectOfType<CameraMovement>();
     if (cameraMovement != null)
       cameraMovement.setTarget(transform);
@@ -115,8 +128,10 @@ public class Movement : MonoBehaviour
     // --- REMOVED ---
     // The Y-level death check is gone.
 
-    if (isDead) return; // Don't do anything else if dead
-
+    if (isDead || PauseMenu.GameIsPaused)
+    {
+      return; // Do nothing
+    }
     bool groundedNow = isGrounded();
 
     // --- THIS IS THE NEW FALL DAMAGE LOGIC ---
@@ -163,6 +178,7 @@ public class Movement : MonoBehaviour
 
     HandleAirbornePhysics();
     HandleAnimations();
+    HandleFootstepSounds();
   }
 
   private void FixedUpdate()
@@ -179,7 +195,7 @@ public class Movement : MonoBehaviour
     bool pushingNow = pushPull != null && pushPull.isPushing;
 
     if (!didSlide && !pushingNow)
-        body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+      body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
   }
 
   private void Jump()
@@ -188,6 +204,12 @@ public class Movement : MonoBehaviour
     {
       jumpIgnoreTimer = jumpIgnoreSlopeTime;
       body.linearVelocity = new Vector2(body.linearVelocity.x, jumpPower);
+
+      // ✅ Play jump sound
+      if (SoundFXManager.instance != null && jumpSFX != null)
+      {
+        SoundFXManager.instance.PlaySoundFXClip(jumpSFX, transform, jumpVolume);
+      }
     }
   }
 
@@ -411,12 +433,20 @@ public class Movement : MonoBehaviour
     return raycastHit.collider != null;
   }
 
-  public void Die()
+  public void DieAndRespawn()
   {
+    // Ensure this logic only runs once
     if (isDead) return;
 
     isDead = true;
     Debug.Log($"{gameObject.name} died (local)");
+
+    // --- NEW ---
+    // Force detach from any object before dying
+    if (pushPull != null)
+    {
+      pushPull.ForceDetach();
+    }
 
     animator.SetTrigger("die");
     body.linearVelocity = Vector2.zero;
@@ -424,6 +454,15 @@ public class Movement : MonoBehaviour
 
     this.enabled = false;
     Invoke(nameof(HandleRespawn), 0.1f);
+  }
+
+  public void Die()
+  {
+    // Instead of dying locally, tell the manager to reset everything
+    if (!isDead) // Prevent this from being called 100 times
+    {
+      CheckpointManager.instance.TriggerFullRespawn();
+    }
   }
 
   private void HandleRespawn()
@@ -439,4 +478,31 @@ public class Movement : MonoBehaviour
 
     isDead = false;
   }
+
+  private void HandleFootstepSounds()
+  {
+    // Don't play footsteps if dead or not grounded
+    if (!isWalking || isDead) return;
+
+    // Countdown timer
+    footstepTimer -= Time.deltaTime;
+
+    if (footstepTimer <= 0f)
+    {
+      footstepTimer = footstepInterval;
+
+      // Pick a random footstep sound
+      if (footstepSFX != null && footstepSFX.Length > 0 && SoundFXManager.instance != null)
+      {
+        AudioClip randomStep = footstepSFX[Random.Range(0, footstepSFX.Length)];
+        SoundFXManager.instance.PlaySoundFXClip(randomStep, transform, footstepVolume);
+      }
+    }
+  }
+
+  private void OnDestroy()
+  {
+    CheckpointManager.UnregisterPlayer(this);
+  }
+
 }
