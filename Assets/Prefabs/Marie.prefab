@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7313728770847735547}
   - component: {fileID: 1280524543023861686}
+  - component: {fileID: 5433923750984152170}
   - component: {fileID: 635450761350135262}
   - component: {fileID: 9064281885729311401}
   - component: {fileID: 3650816447161138673}
@@ -86,7 +87,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: 21300000, guid: 25ea5ef3b156041e688c7df591468000, type: 3}
+  m_Sprite: {fileID: -1886850989825926547, guid: c6207d902043e4abb8343973139ff1bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,6 +98,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &5433923750984152170
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4441310245275456898}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 10caea0b5746544ab88bf3db049c2b23, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &635450761350135262
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -135,7 +158,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.2166667, y: 2.5}
+    oldSize: {x: 5.12, y: 5.12}
     newSize: {x: 1.2166667, y: 2.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -213,6 +236,11 @@ MonoBehaviour:
   wallMaxSlideSpeed: 32
   minWallSpeed: 8
   wallStartImpulse: 3.5
+  jumpSFX: {fileID: 0}
+  jumpVolume: 1
+  footstepSFX: []
+  footstepVolume: 0.8
+  footstepInterval: 0.35
 --- !u!114 &7652417905296700519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,6 +418,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c2ad9080-4db5-4770-85da-d9c3e301e114
+    m_ActionName: 'Player/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 16e1793e-d43c-4303-a1f7-f8da265f9c35
+    m_ActionName: 'Cursor/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 84a6cefb-2bff-4772-a437-17f352c87cce
+    m_ActionName: 'Cursor/Click[/Mouse/leftButton,/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5746e6dd-e11a-4812-a716-32977d04d7d3
+    m_ActionName: 'Cursor/Cancel[/Keyboard/escape,/Mouse/rightButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

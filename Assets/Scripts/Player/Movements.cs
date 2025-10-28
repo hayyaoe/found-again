@@ -112,14 +112,12 @@ public class Movement : MonoBehaviour
   private void Start()
   {
     CheckpointManager.RegisterPlayer(this);
-    CameraMovement cameraMovement = FindObjectOfType<CameraMovement>();
+    CameraMovement cameraMovement = FindFirstObjectByType<CameraMovement>();
     if (cameraMovement != null)
       cameraMovement.setTarget(transform);
 
     if (isGrounded())
       wasGroundedLastFrame = true;
-
-    ApplyPlayerAppearance();
   }
 
 
@@ -210,35 +208,6 @@ public class Movement : MonoBehaviour
       {
         SoundFXManager.instance.PlaySoundFXClip(jumpSFX, transform, jumpVolume);
       }
-    }
-  }
-
-  private void ApplyPlayerAppearance()
-  {
-    if (playerInput == null) return;
-
-    SpriteRenderer sr = GetComponent<SpriteRenderer>();
-    BoxCollider2D col = GetComponent<BoxCollider2D>();
-
-    switch (playerInput.playerIndex)
-    {
-      case 0: // Player 1
-        sr.sprite = Resources.Load<Sprite>("Marie 1");
-        gameObject.layer = LayerMask.NameToLayer("Player1");
-
-        transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        col.size = new Vector2(1f, 2.8f);
-        col.offset = new Vector2(0f, -0.1f);
-        break;
-
-      case 1: // Player 2
-        sr.sprite = Resources.Load<Sprite>("Mimi 2");
-        gameObject.layer = LayerMask.NameToLayer("Player2");
-
-        transform.localScale = new Vector3(1f, 1f, 1f);
-        col.size = new Vector2(1f, 1.55f);
-        col.offset = new Vector2(0f, -0.1f);
-        break;
     }
   }
 

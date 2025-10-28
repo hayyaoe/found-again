@@ -244,9 +244,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4911369873958072336}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 792523c429a8d4b2fbf63a7e53400e4c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -451,7 +451,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c2ad9080-4db5-4770-85da-d9c3e301e114
     m_ActionName: 'Player/Pause[/DualShock4GamepadHID/start]'
-    m_ActionName: 'Player/Pause[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -492,18 +491,18 @@ MonoBehaviour:
   m_ShadowMesh:
     m_Mesh: {fileID: 0}
     m_LocalBounds:
-      m_Center: {x: -0.003944397, y: -0.0023269653, z: 0}
-      m_Extent: {x: 0.96300507, y: 0.53632355, z: 0}
+      m_Center: {x: 0.2353363, y: 0.014930725, z: 0}
+      m_Extent: {x: 0.6237488, y: 0.40598297, z: 0}
     m_EdgeProcessing: 1
     m_TrimEdge: 0.15
     m_FlipX: 0
     m_FlipY: 0
     m_InitialTrim: 0.05
   m_CastingOption: 1
-  m_PreviousTrimEdge: 0.05
+  m_PreviousTrimEdge: 0.15
   m_PreviousEdgeProcessing: 1
   m_PreviousShadowCastingSource: 2
-  m_PreviousShadowShape2DSource: {fileID: 3878731187873278049}
+  m_PreviousShadowShape2DSource: {fileID: 3670382486621152465}
   references:
     version: 2
     RefIds:
