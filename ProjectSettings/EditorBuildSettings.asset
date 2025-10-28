@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: a4af5c89777914927819ba8cef1e5f3a
   - enabled: 1
+    path: Assets/Scenes/PlayerSelectMenu.unity
+    guid: f12bcac620b85405d96d744b61da39c2
+  - enabled: 1
+    path: Assets/Scenes/DialogueCutscene.unity
+    guid: 99c336165907b476b80c0fc2a52e288a
+  - enabled: 1
     path: Assets/Scenes/Prologue.unity
     guid: 153513212876f481dbed318620fac168
   - enabled: 0
