@@ -80,6 +80,28 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f; // Important to unfreeze time before leaving the scene
         // SceneManager.LoadScene("MainMenu"); // Replace "MainMenu" with your menu scene's name
         Debug.Log("Loading Main Menu...");
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void RestartLevel()
+    {
+        Time.timeScale = 1f; // Unpause before restarting
+
+        if (CheckpointManager.instance != null)
+        {
+            CheckpointManager.instance.TriggerFullRespawn();
+            Debug.Log("Respawning all players and resetting objects...");
+        }
+        else
+        {
+            Debug.LogWarning("CheckpointManager instance not found! Reloading scene instead.");
+            // Fallback: reload scene if manager not found
+            Scene currentScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(currentScene.name);
+        }
+
+        GameIsPaused = false;
+        pauseMenuUI.SetActive(false);
     }
 
     // This function can be called by a "Quit" button
