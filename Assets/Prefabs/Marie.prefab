@@ -18,13 +18,13 @@ GameObject:
   - component: {fileID: 447920590094036645}
   - component: {fileID: 3504099724175865117}
   - component: {fileID: 696653549654381408}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Marie
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7313728770847735547
 Transform:
   m_ObjectHideFlags: 0
@@ -158,7 +158,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.12, y: 5.12}
+    oldSize: {x: 2.56, y: 2.56}
     newSize: {x: 1.2166667, y: 2.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -182,7 +182,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 4
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: cee62ccb67dd74493b6fe08465aedb0e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -241,6 +241,8 @@ MonoBehaviour:
   footstepSFX: []
   footstepVolume: 0.8
   footstepInterval: 0.35
+  mimiAnimator: {fileID: 0}
+  marieAnimator: {fileID: 0}
 --- !u!114 &7652417905296700519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,7 +272,7 @@ MonoBehaviour:
   contactSkin: 0.01
   groundMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   slopeAssistForce: 50
   slopeAssistMaxAngleDeg: 60
   assistOnlyWhenUphill: 1

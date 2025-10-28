@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEditor.Animations;
 
 public class Movement : MonoBehaviour
 {
@@ -59,6 +60,9 @@ public class Movement : MonoBehaviour
   [SerializeField] private AudioClip[] footstepSFX; // ✅ multiple footstep clips
   [SerializeField] private float footstepVolume = 0.8f;
   [SerializeField] private float footstepInterval = 0.35f;
+
+  [SerializeField] private AnimatorController mimiAnimator;
+  [SerializeField] private AnimatorController marieAnimator;
 
   // runtime slope state
   private bool slopeGrounded, onSlope, sliding;
@@ -209,6 +213,52 @@ public class Movement : MonoBehaviour
         SoundFXManager.instance.PlaySoundFXClip(jumpSFX, transform, jumpVolume);
       }
     }
+  }
+
+  private void ApplyPlayerAppearance()
+  {
+      if (playerInput == null) return;
+
+      SpriteRenderer sr = GetComponent<SpriteRenderer>();
+      BoxCollider2D col = GetComponent<BoxCollider2D>();
+      animator = GetComponent<Animator>();
+
+      // Detect based on prefab tag or name (case-insensitive)
+      string prefabTag = gameObject.tag.ToLower();
+
+      // Assign layers based on player index
+      gameObject.layer = LayerMask.NameToLayer(
+          playerInput.playerIndex == 0 ? "Player1" : "Player2"
+      );
+
+      if (prefabTag.Contains("Marie"))
+      {
+          // ✅ Apply Marie-specific appearance
+          if (animator != null && marieAnimator != null)
+              animator.runtimeAnimatorController = marieAnimator;
+
+          col.size = new Vector2(1f, 2.8f);
+          col.offset = new Vector2(0f, -0.1f);
+          transform.localScale = Vector3.one;
+
+          Debug.Log($"🎀 Applied Marie appearance for Player {playerInput.playerIndex}");
+      }
+      else if (prefabTag.Contains("Mimi"))
+      {
+          // ✅ Apply Mimi-specific appearance
+          if (animator != null && mimiAnimator != null)
+              animator.runtimeAnimatorController = mimiAnimator;
+
+          col.size = new Vector2(1f, 1.55f);
+          col.offset = new Vector2(0f, -0.1f);
+          transform.localScale = Vector3.one;
+
+          Debug.Log($"🐾 Applied Mimi appearance for Player {playerInput.playerIndex}");
+      }
+      else
+      {
+          Debug.LogWarning($"⚠️ Unknown prefab type for {gameObject.name}");
+      }
   }
 
   private void HandleAirbornePhysics()

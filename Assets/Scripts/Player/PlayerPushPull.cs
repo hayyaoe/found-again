@@ -194,17 +194,17 @@ public class PlayerPushPull : MonoBehaviour
             Vector2 origin = new Vector2(b.center.x, b.min.y + 0.05f);
             var hit = Physics2D.Raycast(origin, Vector2.down, 0.5f, groundMask);
 
-            float targetZ = 0f;
-            if (hit)
-            {
-                Vector2 n = hit.normal.normalized;
-                Vector2 tangent = new Vector2(n.y, -n.x);
-                targetZ = Mathf.Atan2(tangent.y, tangent.x) * Mathf.Rad2Deg;
-                targetZ = Mathf.Clamp(targetZ, -50f, 50f); // batasin biar nggak ekstrem
-            }
+            // float targetZ = 0f;
+            // if (hit)
+            // {
+            //     Vector2 n = hit.normal.normalized;
+            //     Vector2 tangent = new Vector2(n.y, -n.x);
+            //     targetZ = Mathf.Atan2(tangent.y, tangent.x) * Mathf.Rad2Deg;
+            //     targetZ = Mathf.Clamp(targetZ, -50f, 50f); // batasin biar nggak ekstrem
+            // }
 
-            float next = Mathf.MoveTowardsAngle(rb.rotation, targetZ, 360f * Time.fixedDeltaTime);
-            rb.MoveRotation(next);
+            // float next = Mathf.MoveTowardsAngle(rb.rotation, targetZ, 360f * Time.fixedDeltaTime);
+            // rb.MoveRotation(next);
 
         }
     }
