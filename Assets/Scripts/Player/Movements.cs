@@ -87,6 +87,9 @@ public class Movement : MonoBehaviour
   private float footstepTimer = 0f;
   private bool isWalking => Mathf.Abs(horizontalInput) > 0.01f && isGrounded();
 
+  [SerializeField] private float groundedLatchSeconds = 0.08f;
+  private float groundedLatchTimer = 0f;
+
   // private PlayerPushPull pushPull;
   private void Awake()
   {
@@ -206,6 +209,7 @@ public class Movement : MonoBehaviour
     {
       jumpIgnoreTimer = jumpIgnoreSlopeTime;
       body.linearVelocity = new Vector2(body.linearVelocity.x, jumpPower);
+      if (animator) animator.SetTrigger("jump");
 
       // ✅ Play jump sound
       if (SoundFXManager.instance != null && jumpSFX != null)
@@ -283,13 +287,15 @@ public class Movement : MonoBehaviour
 
   private void HandleAnimations()
   {
-    if (!isGrounded())
-    {
-      animator.SetTrigger("jump");
-    }
+    if (!animator) return;
+
+    bool groundedNow = isGrounded();
+    float vy = body.linearVelocity.y;
 
     animator.SetBool("run", Mathf.Abs(horizontalInput) > 0.01f);
     animator.SetBool("grounded", isGrounded());
+    animator.SetFloat("yVelocity", vy);
+    animator.SetBool("sliding", sliding);
   }
 
   // ====== SLOPE PROBING ======
@@ -426,18 +432,30 @@ public class Movement : MonoBehaviour
     contactHasSlope = false;
   }
 
-  private bool isGrounded()
-  {
-    RaycastHit2D raycastHit = Physics2D.BoxCast(
-                  boxCollider2D.bounds.center,
-                  boxCollider2D.bounds.size,
-                  0,
-                  Vector2.down,
-                  0.1f,
-                  groundLayer
-              );
-    return raycastHit.collider != null;
-  }
+private bool isGrounded()
+{
+    bool hitGround = Physics2D.BoxCast(
+        boxCollider2D.bounds.center,
+        boxCollider2D.bounds.size,
+        0f, Vector2.down, 0.1f, groundLayer
+    ).collider != null;
+
+    bool onSteppable = Physics2D.BoxCast(
+        boxCollider2D.bounds.center,
+        boxCollider2D.bounds.size,
+        0f, Vector2.down, 0.1f, steppableObjectLayer
+    ).collider != null;
+
+    bool slopeAsGround = slopeGrounded && !sliding;
+
+    bool rawGrounded = hitGround || onSteppable || slopeAsGround;
+
+    if (rawGrounded) groundedLatchTimer = groundedLatchSeconds;
+    else groundedLatchTimer = Mathf.Max(0f, groundedLatchTimer - Time.deltaTime);
+
+    return rawGrounded || groundedLatchTimer > 0f;
+}
+
 
   private bool isOnSteppableObject()
   {

@@ -243,6 +243,7 @@ MonoBehaviour:
   footstepInterval: 0.35
   mimiAnimator: {fileID: 0}
   marieAnimator: {fileID: 0}
+  groundedLatchSeconds: 0.5
 --- !u!114 &7652417905296700519
 MonoBehaviour:
   m_ObjectHideFlags: 0

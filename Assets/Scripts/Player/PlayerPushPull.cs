@@ -1,3 +1,4 @@
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -50,6 +51,8 @@ public class PlayerPushPull : MonoBehaviour
     [SerializeField] private bool autoDetachWhenNoContact = true;
     [SerializeField] private float noContactGraceSeconds = 0.12f; // buffer anti-jitter
 
+    private Animator animator;
+
     private float noContactTimer = 0f;
     private PushPullObject currentObject;
     private Rigidbody2D rb;
@@ -74,6 +77,7 @@ public class PlayerPushPull : MonoBehaviour
         selfCol = GetComponent<Collider2D>();
         if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         facingRight = transform.localScale.x >= 0f;
+        animator = GetComponentInChildren<Animator>();
     }
 
     // --- MODIFIED ---
@@ -109,24 +113,42 @@ public class PlayerPushPull : MonoBehaviour
             Vector2 p = rb.worldCenterOfMass;
             Vector2 o = objectRb.worldCenterOfMass;
 
-            // <0 = pull (menjauh), >0 = push (mendekat)
-            bool hasInput = Mathf.Abs(horizontalInput) > 0.01f;
+            bool hasInput = Mathf.Abs(horizontalInput) > 0.1f;
             isPulling = hasInput && Mathf.Sign(horizontalInput) == -sideSign;
 
             if (isPulling) FaceTowards(Mathf.Sign(o.x - p.x));
             else if (Mathf.Abs(horizontalInput) > 0.01f) FaceTowards(Mathf.Sign(horizontalInput));
 
-            // Leash berdasarkan error X dari posisi samping ideal (pakai sideSign yang dikunci)
             float desiredX = p.x + sideSign * (selfCol.bounds.extents.x + objectCol.bounds.extents.x + contactSkin);
             float errX = Mathf.Abs(o.x - desiredX);
 
             leashTimer = (errX > leashMaxDistanceX) ? leashTimer + Time.deltaTime : 0f;
             if (leashTimer >= leashGraceSeconds) DetachObject();
+
+            if (animator)
+            {
+                animator.SetBool("isInteracting", true);
+                animator.SetBool("pushing", false);
+                animator.SetBool("pulling", false);
+
+                if (hasInput)
+                {
+                    if (isPulling) animator.SetBool("pulling", true);
+                    else animator.SetBool("pushing", true);
+                }
+            }
         }
         else
         {
             if (Mathf.Abs(horizontalInput) > 0.01f)
                 FaceTowards(Mathf.Sign(horizontalInput));
+
+            if (animator)
+            {
+                animator.SetBool("isInteracting", false);
+                animator.SetBool("pushing", false);
+                animator.SetBool("pulling", false);
+            }
         }
 
         if (autoDetachWhenNoContact && currentObject != null && objectCol != null && selfCol != null)
@@ -310,6 +332,13 @@ public class PlayerPushPull : MonoBehaviour
 
         currentObject.AddPushingPlayer(gameObject);
         FaceTowards(Mathf.Sign(o.x - p.x));
+
+        if (animator)
+        {
+            animator.SetBool("isInteracting", true);
+            animator.SetBool("pushing", false);
+            animator.SetBool("pulling", false);
+        }
     }
 
     private void DetachObject()
@@ -343,6 +372,13 @@ public class PlayerPushPull : MonoBehaviour
         isPushing = false;
         isPulling = false;
         leashTimer = 0f;
+
+        if (animator)
+        {
+            animator.SetBool("isInteracting", false);
+            animator.SetBool("pushing", false);
+            animator.SetBool("pulling", false);
+        }
     }
 
     // ==== PROBE DEPAN (ramah slope) ====
@@ -471,7 +507,7 @@ public class PlayerPushPull : MonoBehaviour
             }
         }
     }
-    
+
     public void ForceDetach()
     {
         if (currentObject != null)

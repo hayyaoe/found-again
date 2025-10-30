@@ -1,0 +1,1129 @@
+fileFormatVersion: 2
+guid: 7bf2651578c8643b38620e6769b65073
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4882348422516117835
+    second: Mimi Spritesheet_0
+  - first:
+      213: 6632508499380862559
+    second: Mimi Spritesheet_1
+  - first:
+      213: 4309215097083169874
+    second: Mimi Spritesheet_2
+  - first:
+      213: 8606361429611071876
+    second: Mimi Spritesheet_3
+  - first:
+      213: -493781098554905781
+    second: Mimi Spritesheet_4
+  - first:
+      213: 4175744855731069523
+    second: Mimi Spritesheet_5
+  - first:
+      213: -4509471567220945273
+    second: Mimi Spritesheet_6
+  - first:
+      213: -3652938032758052788
+    second: Mimi Spritesheet_7
+  - first:
+      213: -7713785434170750382
+    second: Mimi Spritesheet_8
+  - first:
+      213: 479590053055859494
+    second: Mimi Spritesheet_9
+  - first:
+      213: -173779208175406895
+    second: Mimi Spritesheet_10
+  - first:
+      213: -2523468673285711333
+    second: Mimi Spritesheet_11
+  - first:
+      213: 8717656859584917986
+    second: Mimi Spritesheet_12
+  - first:
+      213: -6775647380503905024
+    second: Mimi Spritesheet_13
+  - first:
+      213: 8860292841326397807
+    second: Mimi Spritesheet_14
+  - first:
+      213: -8491998570298848251
+    second: Mimi Spritesheet_15
+  - first:
+      213: -3879580979354652351
+    second: Mimi Spritesheet_16
+  - first:
+      213: -4896813772349779335
+    second: Mimi Spritesheet_17
+  - first:
+      213: 2651335891135303147
+    second: Mimi Spritesheet_18
+  - first:
+      213: -8801499276928181636
+    second: Mimi Spritesheet_19
+  - first:
+      213: -6209026094445019532
+    second: Mimi Spritesheet_20
+  - first:
+      213: -8258614672478699837
+    second: Mimi Spritesheet_21
+  - first:
+      213: -2682413306798297018
+    second: Mimi Spritesheet_22
+  - first:
+      213: 3897713926078429534
+    second: Mimi Spritesheet_23
+  - first:
+      213: 4581266576731559860
+    second: Mimi Spritesheet_24
+  - first:
+      213: 3140736212940824923
+    second: Mimi Spritesheet_25
+  - first:
+      213: -4236817598527004011
+    second: Mimi Spritesheet_26
+  - first:
+      213: 4203395701086981501
+    second: Mimi Spritesheet_27
+  - first:
+      213: 6603048441509978665
+    second: Mimi Spritesheet_28
+  - first:
+      213: 8826054431727550281
+    second: Mimi Spritesheet_29
+  - first:
+      213: -6348291452730751228
+    second: Mimi Spritesheet_30
+  - first:
+      213: -5334145959367812020
+    second: Mimi Spritesheet_31
+  - first:
+      213: -7936709420143806432
+    second: Mimi Spritesheet_32
+  - first:
+      213: -5350245601707469299
+    second: Mimi Spritesheet_33
+  - first:
+      213: -8252246027188734685
+    second: Mimi Spritesheet_34
+  - first:
+      213: 1562811694322586756
+    second: Mimi Spritesheet_35
+  - first:
+      213: 6336590919262996435
+    second: Mimi Spritesheet_36
+  - first:
+      213: -2556220350628418362
+    second: Mimi Spritesheet_37
+  - first:
+      213: 2631374710304099300
+    second: Mimi Spritesheet_38
+  - first:
+      213: -2189027735655662936
+    second: Mimi Spritesheet_39
+  - first:
+      213: -3552953168622727448
+    second: Mimi Spritesheet_40
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 300
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Mimi Spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3078
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4113c1c50691c340800000000000000
+      internalID: 4882348422516117835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 3078
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5efa53f6576b0c50800000000000000
+      internalID: 6632508499380862559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 3078
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25c8462bc486dcb30800000000000000
+      internalID: 4309215097083169874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 3078
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 489479c2f10ff6770800000000000000
+      internalID: 8606361429611071876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2566
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4b25dff4bcb529f0800000000000000
+      internalID: -493781098554905781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2566
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 352e38e72d933f930800000000000000
+      internalID: 4175744855731069523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2566
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78e421770832b61c0800000000000000
+      internalID: -4509471567220945273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2566
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4821fa96382e4dc0800000000000000
+      internalID: -3652938032758052788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2566
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25a8baa540123f490800000000000000
+      internalID: -7713785434170750382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2566
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62b843ebc98d7a600800000000000000
+      internalID: 479590053055859494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2054
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d03b5b1bbc969df0800000000000000
+      internalID: -173779208175406895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2054
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1a9afe8c96dafcd0800000000000000
+      internalID: -2523468673285711333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2054
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e17e45c9b65bf870800000000000000
+      internalID: 8717656859584917986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2054
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00d32c93b9018f1a0800000000000000
+      internalID: -6775647380503905024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2054
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f694235356516fa70800000000000000
+      internalID: 8860292841326397807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2054
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50c4638fa4c562a80800000000000000
+      internalID: -8491998570298848251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 2054
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 141343877a5f82ac0800000000000000
+      internalID: -3879580979354652351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 3584
+        y: 2054
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 972d9d781d50b0cb0800000000000000
+      internalID: -4896813772349779335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1542
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bed0d5312ff6bc420800000000000000
+      internalID: 2651335891135303147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1542
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7a96db3a0bcad580800000000000000
+      internalID: -8801499276928181636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1542
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47e3977f9ab15d9a0800000000000000
+      internalID: -6209026094445019532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1542
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cef31e16b1836d80800000000000000
+      internalID: -8258614672478699837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_22
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1030
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 640b18b3f4726cad0800000000000000
+      internalID: -2682413306798297018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1030
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e597fff2a26771630800000000000000
+      internalID: 3897713926078429534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_24
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1030
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b7547fcdade39f30800000000000000
+      internalID: 4581266576731559860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_25
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1030
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b512b8102f2269b20800000000000000
+      internalID: 3140736212940824923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_26
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 518
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 592acad77dcc335c0800000000000000
+      internalID: -4236817598527004011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_27
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 518
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7d81bd9e16755a30800000000000000
+      internalID: 4203395701086981501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_28
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 518
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92226e6b29db2ab50800000000000000
+      internalID: 6603048441509978665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_29
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 518
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94ff1634eb17c7a70800000000000000
+      internalID: 8826054431727550281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_30
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 518
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 407c555fe8656e7a0800000000000000
+      internalID: -6348291452730751228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_31
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 518
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4cdbcfe28e49f5b0800000000000000
+      internalID: -5334145959367812020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 028f4d635d42bd190800000000000000
+      internalID: -7936709420143806432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_33
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 6
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d065129d8fb10c5b0800000000000000
+      internalID: -5350245601707469299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_34
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 6
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3257946e5f12a7d80800000000000000
+      internalID: -8252246027188734685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_35
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 6
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4849ce2b4f830b510800000000000000
+      internalID: 1562811694322586756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_36
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 6
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d703ad4ed710f750800000000000000
+      internalID: 6336590919262996435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mimi Spritesheet_37
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 6
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cc2b21722b768cd0800000000000000
+      internalID: -2556220350628418362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 09bdd5308486242bbba84b40988c55d1
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":7.0},"gridSpriteSize":{"x":512.0,"y":512.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Mimi Spritesheet_0: 4882348422516117835
+      Mimi Spritesheet_1: 6632508499380862559
+      Mimi Spritesheet_10: -173779208175406895
+      Mimi Spritesheet_11: -2523468673285711333
+      Mimi Spritesheet_12: 8717656859584917986
+      Mimi Spritesheet_13: -6775647380503905024
+      Mimi Spritesheet_14: 8860292841326397807
+      Mimi Spritesheet_15: -8491998570298848251
+      Mimi Spritesheet_16: -3879580979354652351
+      Mimi Spritesheet_17: -4896813772349779335
+      Mimi Spritesheet_18: 2651335891135303147
+      Mimi Spritesheet_19: -8801499276928181636
+      Mimi Spritesheet_2: 4309215097083169874
+      Mimi Spritesheet_20: -6209026094445019532
+      Mimi Spritesheet_21: -8258614672478699837
+      Mimi Spritesheet_22: -2682413306798297018
+      Mimi Spritesheet_23: 3897713926078429534
+      Mimi Spritesheet_24: 4581266576731559860
+      Mimi Spritesheet_25: 3140736212940824923
+      Mimi Spritesheet_26: -4236817598527004011
+      Mimi Spritesheet_27: 4203395701086981501
+      Mimi Spritesheet_28: 6603048441509978665
+      Mimi Spritesheet_29: 8826054431727550281
+      Mimi Spritesheet_3: 8606361429611071876
+      Mimi Spritesheet_30: -6348291452730751228
+      Mimi Spritesheet_31: -5334145959367812020
+      Mimi Spritesheet_32: -7936709420143806432
+      Mimi Spritesheet_33: -5350245601707469299
+      Mimi Spritesheet_34: -8252246027188734685
+      Mimi Spritesheet_35: 1562811694322586756
+      Mimi Spritesheet_36: 6336590919262996435
+      Mimi Spritesheet_37: -2556220350628418362
+      Mimi Spritesheet_4: -493781098554905781
+      Mimi Spritesheet_5: 4175744855731069523
+      Mimi Spritesheet_6: -4509471567220945273
+      Mimi Spritesheet_7: -3652938032758052788
+      Mimi Spritesheet_8: -7713785434170750382
+      Mimi Spritesheet_9: 479590053055859494
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
