@@ -5,7 +5,7 @@ public class MainMenuLogic : MonoBehaviour
 {
     public void PlayGame()
     {
-        FadeManager.instance.FadeToScene("Prologue");
+        SceneManager.LoadScene("PlayerSelectMenu");
     }
 
     public void QuitGame()

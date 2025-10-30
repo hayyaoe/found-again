@@ -66,7 +66,7 @@ public class PlayerCursorController : MonoBehaviour
     void Update()
     {
         // Always allow movement
-        cursorTransform.anchoredPosition += moveInput * 400 * Time.deltaTime;
+        cursorTransform.anchoredPosition += moveInput * 800 * Time.deltaTime;
     }
 
     public void OnClick(InputAction.CallbackContext context)
