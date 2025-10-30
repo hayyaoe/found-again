@@ -30,7 +30,19 @@ public class LobbyManager : MonoBehaviour
     {
         if (confirmedPlayers >= 2)
         {
-            SceneManager.LoadScene("Prologue"); // your next scene
+            // --- THIS IS THE CHANGE ---
+            // Use the FadeManager to load the cutscene,
+            // which will then load the "Prologue"
+            if (FadeManager.instance != null)
+            {
+                FadeManager.instance.FadeToScene("DialogueCutscene");
+            }
+            else
+            {
+                // Fallback in case the FadeManager is missing
+                SceneManager.LoadScene("DialogueCutscene");
+            }
+            // --- END OF CHANGE ---
         }
     }
 }
