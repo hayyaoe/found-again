@@ -424,19 +424,27 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: c2ad9080-4db5-4770-85da-d9c3e301e114
-    m_ActionName: 'Player/Pause[/Keyboard/escape]'
+    m_ActionName: 'Player/Pause[/Keyboard/escape,/DualShock4GamepadHID1/start]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 16e1793e-d43c-4303-a1f7-f8da265f9c35
-    m_ActionName: 'Cursor/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+    m_ActionName: 'Cursor/Move[/DualShock4GamepadHID1/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 84a6cefb-2bff-4772-a437-17f352c87cce
-    m_ActionName: 'Cursor/Click[/Mouse/leftButton,/Keyboard/enter]'
+    m_ActionName: 'Cursor/Click[/DualShock4GamepadHID1/buttonSouth,/Mouse/leftButton,/Keyboard/enter]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 5746e6dd-e11a-4812-a716-32977d04d7d3
-    m_ActionName: 'Cursor/Cancel[/Keyboard/escape,/Mouse/rightButton]'
+    m_ActionName: 'Cursor/Cancel[/DualShock4GamepadHID1/buttonWest,/Keyboard/escape,/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 429ded28-e19f-4980-b1ff-30650716a3cb
+    m_ActionName: 'Cutscene/Next[/Keyboard/space,/DualShock4GamepadHID1/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 71bd0a9a-aa52-4134-bcd2-b48db6659338
+    m_ActionName: 'Cutscene/Skip[/Keyboard/escape,/DualShock4GamepadHID1/start]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
