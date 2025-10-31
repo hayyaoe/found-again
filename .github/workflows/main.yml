@@ -6,6 +6,11 @@ jobs:
   build:
     name: Build my project ✨
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: write
+      packages: write
+      pull-requests: write
     steps:
       # Checkout
       - name: Checkout repository
