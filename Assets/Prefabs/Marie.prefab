@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7313728770847735547}
   - component: {fileID: 1280524543023861686}
+  - component: {fileID: 5433923750984152170}
   - component: {fileID: 635450761350135262}
   - component: {fileID: 9064281885729311401}
   - component: {fileID: 3650816447161138673}
@@ -19,7 +20,7 @@ GameObject:
   - component: {fileID: 696653549654381408}
   m_Layer: 12
   m_Name: Marie
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,7 +87,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: 21300000, guid: 25ea5ef3b156041e688c7df591468000, type: 3}
+  m_Sprite: {fileID: -1886850989825926547, guid: c6207d902043e4abb8343973139ff1bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,6 +98,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &5433923750984152170
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4441310245275456898}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 10caea0b5746544ab88bf3db049c2b23, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &635450761350135262
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -135,7 +158,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.2166667, y: 2.5}
+    oldSize: {x: 2.56, y: 2.56}
     newSize: {x: 1.2166667, y: 2.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -159,7 +182,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 4
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: cee62ccb67dd74493b6fe08465aedb0e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -218,6 +241,9 @@ MonoBehaviour:
   footstepSFX: []
   footstepVolume: 0.8
   footstepInterval: 0.35
+  mimiAnimator: {fileID: 0}
+  marieAnimator: {fileID: 0}
+  groundedLatchSeconds: 0.5
 --- !u!114 &7652417905296700519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,7 +273,7 @@ MonoBehaviour:
   contactSkin: 0.01
   groundMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   slopeAssistForce: 50
   slopeAssistMaxAngleDeg: 60
   assistOnlyWhenUphill: 1
