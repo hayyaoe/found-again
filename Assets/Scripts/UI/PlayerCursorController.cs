@@ -123,25 +123,19 @@ public class PlayerCursorController : MonoBehaviour
 
     private void MoveDown()
     {
-        // only allow moving down if the play button is active/interactable
         if (lobbyManager != null && lobbyManager.playButton != null)
         {
             if (!lobbyManager.playButton.interactable)
             {
                 Debug.Log($"⚠️ {playerName} tried to move down, but Play button not available yet!");
-                return; // do nothing if play button is disabled
+                return;
             }
         }
 
         if (currentPosition != CursorPosition.Play)
         {
             currentPosition = CursorPosition.Play;
-
-            // highlight play button for feedback
-            if (lobbyManager != null && lobbyManager.playButton != null)
-            {
-                lobbyManager.HighlightPlayButton(playerName);
-            }
+            lobbyManager?.HighlightPlayButton(playerName);
         }
     }
 
@@ -149,6 +143,8 @@ public class PlayerCursorController : MonoBehaviour
     {
         if (currentPosition == CursorPosition.Play)
         {
+            lobbyManager?.UnhighlightPlayButton(playerName);
+
             currentPosition = CursorPosition.Center;
             SnapTo(centerSpot);
             UpdateSelection();
@@ -212,4 +208,15 @@ public class PlayerCursorController : MonoBehaviour
         else if (currentPosition == CursorPosition.Mimi)
             lobbyManager.UpdatePlayerSelection(playerName, "Mimi");
     }
+
+    public void OnSubmit(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        if (currentPosition == CursorPosition.Play && lobbyManager != null)
+        {
+            lobbyManager.OnPlayerConfirm(playerName);
+        }
+    }
+
 }

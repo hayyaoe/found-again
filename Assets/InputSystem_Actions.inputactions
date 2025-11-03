@@ -1048,7 +1048,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Confirm",
+                    "name": "Submit",
                     "type": "Button",
                     "id": "84a6cefb-2bff-4772-a437-17f352c87cce",
                     "expectedControlType": "",
@@ -1195,7 +1195,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Confirm",
+                    "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1206,7 +1206,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Confirm",
+                    "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1217,7 +1217,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Confirm",
+                    "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

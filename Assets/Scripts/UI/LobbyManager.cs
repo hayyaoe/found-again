@@ -1,23 +1,31 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using System.Linq;
 
 public class LobbyManager : MonoBehaviour
 {
     public Button playButton;
+    public TMPro.TMP_Text playButtonText; // Assign in Inspector (child TMP_Text of play button)
 
     // Store each player's current position state
     private Dictionary<string, string> playerPositions = new Dictionary<string, string>();
 
+    // Track which player is currently hovering
+    private string currentHoveringPlayer = null;
+
     void Start()
     {
         playButton.interactable = false;
+
+        if (playButtonText == null)
+            playButtonText = playButton.GetComponentInChildren<TMPro.TMP_Text>();
     }
 
     public void UpdatePlayerPosition(string playerName, string position)
     {
-        // position can be "Marie", "Mimi", "Center", or "Play"
         playerPositions[playerName] = position;
         CheckPlayButton();
     }
@@ -53,22 +61,77 @@ public class LobbyManager : MonoBehaviour
         playButton.interactable = bothOnCharacter;
     }
 
-    public void OnPlayPressed()
+    // called when a player moves down to Play
+    public void HighlightPlayButton(string playerName)
     {
-        if (playButton.interactable)
+        if (!playButton.interactable) return;
+
+        currentHoveringPlayer = playerName;
+        playButton.Select();
+
+        // determine input device type
+        var cursor = FindObjectsOfType<PlayerInput>()
+            .FirstOrDefault(p => p.gameObject.name.Contains(playerName));
+
+        string text = "Press Enter to Start"; // default
+
+        if (cursor != null)
         {
-            SceneManager.LoadScene("Prologue");
+            bool usesGamepad = cursor.devices.Any(d => d is Gamepad);
+            if (usesGamepad)
+                text = "Press X to Start";
+        }
+
+        playButtonText.text = text;
+
+        Debug.Log($"{playerName} hovering over Play ({text})");
+    }
+
+    // called when player moves away from Play
+    public void UnhighlightPlayButton(string playerName)
+    {
+        if (currentHoveringPlayer == playerName)
+        {
+            currentHoveringPlayer = null;
+            playButtonText.text = "Play";
         }
     }
 
-    public void HighlightPlayButton(string playerName)
+    // called when actual confirm/submit button pressed (not hover)
+    public void OnPlayPressed()
     {
-        Debug.Log($"{playerName} moved down to Play Button");
-        playButton.Select();
+        if (!playButton.interactable) return;
 
-        if (playButton.interactable)
+        Debug.Log("✅ Play button pressed. Loading Prologue...");
+        SceneManager.LoadScene("Prologue");
+    }
+
+    // external call by PlayerCursorController when confirm input pressed
+    public void OnPlayerConfirm(string playerName)
+    {
+        if (currentHoveringPlayer == playerName && playButton.interactable)
         {
             OnPlayPressed();
+        }
+    }
+
+    public void OnSubmit(InputAction.CallbackContext context)
+    {
+        if (!context.performed || !playButton.interactable)
+            return;
+
+        // Check if Enter key pressed
+        if (Keyboard.current != null && Keyboard.current.enterKey.wasPressedThisFrame)
+        {
+            OnPlayPressed();
+            return;
+        }
+
+        // Check if gamepad "South" button (X / A) pressed
+        if (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame)
+        {
+            OnPlayPressed();
+            return;
         }
     }
 }
