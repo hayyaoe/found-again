@@ -50,6 +50,7 @@ public class PlayerPushPull : MonoBehaviour
     [Header("Auto Detach (No Contact)")]
     [SerializeField] private bool autoDetachWhenNoContact = true;
     [SerializeField] private float noContactGraceSeconds = 0.12f; // buffer anti-jitter
+    [SerializeField] private float nearContactEpsilon = 0.03f;
 
     private Animator animator;
 
@@ -160,13 +161,22 @@ public class PlayerPushPull : MonoBehaviour
 
         if (autoDetachWhenNoContact && currentObject != null && objectCol != null && selfCol != null)
         {
-
             bool touching = selfCol.IsTouching(objectCol);
+
             if (!touching)
             {
-
                 var dist = selfCol.Distance(objectCol);
-                if (dist.isOverlapped) touching = true;
+
+                // 1) If overlapping, it's touching.
+                if (dist.isOverlapped)
+                    touching = true;
+                else
+                {
+                    // 2) Treat "almost touching" as touching to absorb seams/jitter.
+                    //    Using dist.distance is simpler and robust across collider types.
+                    if (dist.distance <= nearContactEpsilon)
+                        touching = true;
+                }
             }
 
             if (!touching)
@@ -532,18 +542,18 @@ public class PlayerPushPull : MonoBehaviour
     }
 
     private void EnsureInited()
-{
-    if (_bootstrapped) return;
+    {
+        if (_bootstrapped) return;
 
-    if (!rb)          rb = GetComponent<Rigidbody2D>();
-    if (!selfCol)     selfCol = GetComponent<Collider2D>();
-    if (!playerInput) playerInput = GetComponent<PlayerInput>();
-    if (!spriteRenderer) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-    if (!animator)      animator = GetComponent<Animator>();
+        if (!rb) rb = GetComponent<Rigidbody2D>();
+        if (!selfCol) selfCol = GetComponent<Collider2D>();
+        if (!playerInput) playerInput = GetComponent<PlayerInput>();
+        if (!spriteRenderer) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        if (!animator) animator = GetComponent<Animator>();
 
-    // establish facing if not set yet (important in tests)
-    facingRight = transform.localScale.x >= 0f;
+        // establish facing if not set yet (important in tests)
+        facingRight = transform.localScale.x >= 0f;
 
-    _bootstrapped = true;
-}
+        _bootstrapped = true;
+    }
 }
