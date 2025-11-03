@@ -13,9 +13,9 @@ public class MainMenuLogic : MonoBehaviour
         Application.Quit();
     }
 
-    public void GoToSettingsMenu()
+    public void GoToOptionsMenu()
     {
-        SceneManager.LoadScene("SettingsMenu");
+        SceneManager.LoadScene("OptionsMenu");
     }
 
     public void GoToMainMenu()
