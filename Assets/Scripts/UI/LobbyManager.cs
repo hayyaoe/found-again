@@ -53,12 +53,20 @@ public class LobbyManager : MonoBehaviour
         string p1 = playerPositions["P1"];
         string p2 = playerPositions["P2"];
 
-        // ✅ Enable play button if both are on character spots (Marie/Mimi)
-        bool bothOnCharacter =
-            (p1 == "Marie" || p1 == "Mimi") &&
-            (p2 == "Marie" || p2 == "Mimi");
+        // ✅ Both must be on valid character spots
+        bool p1Valid = (p1 == "Marie" || p1 == "Mimi");
+        bool p2Valid = (p2 == "Marie" || p2 == "Mimi");
 
-        playButton.interactable = bothOnCharacter;
+        // ❌ Disable if both are on the same character
+        bool sameCharacter = (p1 == p2 && p1Valid && p2Valid);
+
+        // ✅ Enable only if both on valid characters AND not on the same one
+        playButton.interactable = p1Valid && p2Valid && !sameCharacter;
+
+        // Optional: Debug info
+        Debug.Log($"CheckPlayButton → P1: {p1}, P2: {p2}, " +
+                $"BothValid: {p1Valid && p2Valid}, SameChar: {sameCharacter}, " +
+                $"Interactable: {playButton.interactable}");
     }
 
     // called when a player moves down to Play
