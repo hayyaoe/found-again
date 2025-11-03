@@ -236,7 +236,7 @@ MonoBehaviour:
   wallMaxSlideSpeed: 32
   minWallSpeed: 8
   wallStartImpulse: 3.5
-  jumpSFX: {fileID: 0}
+  jumpSFX: {fileID: 8300000, guid: e940c5ddb8238402499b2d74c4970897, type: 3}
   jumpVolume: 1
   footstepSFX: []
   footstepVolume: 0.8
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822b5e2b008524b61890411debe11d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPushPull
-  interactRange: 0.1
+  interactRange: 0.5
   pushableLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -267,9 +267,9 @@ MonoBehaviour:
   frontProbeYOffset: 0.4
   downProbeAngleDeg: 20
   probeRayDistance: 1.2
-  attachVerticalSlack: 0.25
-  leashMaxDistanceX: 2
-  leashGraceSeconds: 0.4
+  attachVerticalSlack: 0.5
+  leashMaxDistanceX: 1
+  leashGraceSeconds: 0.1
   contactSkin: 0.01
   groundMask:
     serializedVersion: 2
@@ -282,6 +282,7 @@ MonoBehaviour:
   autoDetachWhenNoContact: 1
   noContactGraceSeconds: 0.3
   isPushing: 0
+  isPulling: 0
 --- !u!114 &447920590094036645
 MonoBehaviour:
   m_ObjectHideFlags: 0
