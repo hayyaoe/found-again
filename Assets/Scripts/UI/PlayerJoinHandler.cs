@@ -22,7 +22,7 @@ public class PlayerJoinHandler : MonoBehaviour
         var cursor = playerInput.GetComponent<PlayerCursorController>();
         if (cursor != null)
         {
-            cursor.playerName = "P" + playerInput.playerIndex;
+            cursor.playerName = "P" + (playerInput.playerIndex + 1);
         }
 
         Debug.Log($"Player joined: index {playerInput.playerIndex} parented to Canvas");

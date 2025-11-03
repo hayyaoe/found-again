@@ -1,50 +1,74 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class LobbyManager : MonoBehaviour
 {
-    public Button startButton;
-    private int confirmedPlayers = 0;
+    public Button playButton;
+
+    // Store each player's current position state
+    private Dictionary<string, string> playerPositions = new Dictionary<string, string>();
 
     void Start()
     {
-        startButton.interactable = false;
+        playButton.interactable = false;
     }
 
-    public void PlayerConfirmed()
+    public void UpdatePlayerPosition(string playerName, string position)
     {
-        confirmedPlayers++;
-        if (confirmedPlayers >= 2)
+        // position can be "Marie", "Mimi", "Center", or "Play"
+        playerPositions[playerName] = position;
+        CheckPlayButton();
+    }
+
+    public void UpdatePlayerSelection(string playerName, string character)
+    {
+        Debug.Log($"{playerName} selected {character}");
+
+        if (PlayerSelectionManager.Instance != null)
         {
-            startButton.interactable = true;
+            PlayerSelectionManager.Instance.RegisterSelection(playerName, character);
         }
     }
 
-    public void PlayerCancelled()
+    private void CheckPlayButton()
     {
-        confirmedPlayers--;
+        // Need both players registered
+        if (!playerPositions.ContainsKey("P1") || !playerPositions.ContainsKey("P2"))
+        {
+            playButton.interactable = false;
+            return;
+        }
+
+        // Get current positions
+        string p1 = playerPositions["P1"];
+        string p2 = playerPositions["P2"];
+
+        // ✅ Enable play button if both are on character spots (Marie/Mimi)
+        bool bothOnCharacter =
+            (p1 == "Marie" || p1 == "Mimi") &&
+            (p2 == "Marie" || p2 == "Mimi");
+
+        playButton.interactable = bothOnCharacter;
     }
 
-    public void OnStartPressed()
+    public void OnPlayPressed()
     {
-        if (confirmedPlayers >= 2)
+        if (playButton.interactable)
         {
-            // --- THIS IS THE CHANGE ---
-            // Use the FadeManager to load the cutscene,
-            // which will then load the "Prologue"
-            // if (FadeManager.instance != null)
-            // {
-                
-            //     FadeManager.instance.FadeToScene("DialogueCutscene");
-            // }
-            // else
-            // {
-                // Fallback in case the FadeManager is missing
-                // SceneManager.LoadScene("DialogueCutscene");
-                SceneManager.LoadScene("Prologue");
-            // }
-            // --- END OF CHANGE ---
+            SceneManager.LoadScene("Prologue");
+        }
+    }
+
+    public void HighlightPlayButton(string playerName)
+    {
+        Debug.Log($"{playerName} moved down to Play Button");
+        playButton.Select();
+
+        if (playButton.interactable)
+        {
+            OnPlayPressed();
         }
     }
 }

@@ -57,6 +57,22 @@ public class PlayerSelectionManager : MonoBehaviour
             selectedPlayers.Add(data);
     }
 
+    public void RegisterSelection(string playerName, string characterName)
+    {
+        // Find the PlayerCursorController that matches the player name
+        var cursor = FindObjectsOfType<PlayerCursorController>()
+            .FirstOrDefault(c => c.playerName == playerName);
+
+        if (cursor == null)
+        {
+            Debug.LogWarning($"RegisterSelection: Could not find cursor for {playerName}");
+            return;
+        }
+
+        RegisterPlayer(cursor, characterName);
+    }
+
+
     public void ClearSelections()
     {
         selectedPlayers.Clear();
