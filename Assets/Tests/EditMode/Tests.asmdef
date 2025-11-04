@@ -1,0 +1,9 @@
+{
+  "name": "PlayerPushPull.EditModeTests",
+  "references": [
+    "FoundAgain.Runtime"
+  ],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "includePlatforms": ["Editor"],
+  "noEngineReferences": false
+}

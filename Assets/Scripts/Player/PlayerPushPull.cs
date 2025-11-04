@@ -1,3 +1,4 @@
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -49,6 +50,9 @@ public class PlayerPushPull : MonoBehaviour
     [Header("Auto Detach (No Contact)")]
     [SerializeField] private bool autoDetachWhenNoContact = true;
     [SerializeField] private float noContactGraceSeconds = 0.12f; // buffer anti-jitter
+    [SerializeField] private float nearContactEpsilon = 0.03f;
+
+    private Animator animator;
 
     private float noContactTimer = 0f;
     private PushPullObject currentObject;
@@ -61,12 +65,13 @@ public class PlayerPushPull : MonoBehaviour
     private SliderJoint2D slider;
     private float leashTimer = 0f;
     public bool isPushing = false;
-    private bool isPulling = false;
+    public bool isPulling = false;
     private float horizontalInput;
     private bool facingRight = true;
     private int sideSign = 1;
     private PhysicsMaterial2D originalMat;
     private PhysicsMaterial2D runtimeMatClone;
+    private bool _bootstrapped = false;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -74,70 +79,104 @@ public class PlayerPushPull : MonoBehaviour
         selfCol = GetComponent<Collider2D>();
         if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         facingRight = transform.localScale.x >= 0f;
+        animator = GetComponentInChildren<Animator>();
     }
 
-    // --- MODIFIED ---
-    // We only listen for the 'performed' event now.
     private void OnEnable()
     {
-        interactAction = playerInput.actions["Interact"];
-        interactAction.performed += OnInteractToggled; // Renamed for clarity
+        // Be defensive: in tests there may be no InputActionAsset at all.
+        if (!playerInput) playerInput = GetComponent<PlayerInput>();
+        if (playerInput != null && playerInput.actions != null)
+        {
+            interactAction = playerInput.actions.FindAction("Interact", throwIfNotFound: false);
+            if (interactAction != null)
+                interactAction.performed += OnInteractToggled;
+        }
     }
 
-    // --- MODIFIED ---
-    // We only remove the 'performed' listener.
     private void OnDisable()
     {
         if (interactAction != null)
-        {
             interactAction.performed -= OnInteractToggled;
-        }
     }
-    // --- END OF MODIFICATIONS ---
+
 
     private void Update()
     {
         // Stop all logic if the game is paused.
-        if (PauseMenu.GameIsPaused)
-        {
+        if (typeof(PauseMenu).GetField("GameIsPaused") != null && PauseMenu.GameIsPaused)
             return;
+
+        // Read horizontal input only if an actions map exists (tests may not have one)
+        horizontalInput = 0f;
+        if (playerInput != null && playerInput.actions != null)
+        {
+            var move = playerInput.actions.FindAction("Move", throwIfNotFound: false);
+            if (move != null) horizontalInput = move.ReadValue<Vector2>().x;
         }
-        horizontalInput = playerInput.actions["Move"].ReadValue<Vector2>().x;
+
 
         if (currentObject != null && objectRb != null)
         {
             Vector2 p = rb.worldCenterOfMass;
             Vector2 o = objectRb.worldCenterOfMass;
 
-            // <0 = pull (menjauh), >0 = push (mendekat)
-            bool hasInput = Mathf.Abs(horizontalInput) > 0.01f;
+            bool hasInput = Mathf.Abs(horizontalInput) > 0.1f;
             isPulling = hasInput && Mathf.Sign(horizontalInput) == -sideSign;
 
             if (isPulling) FaceTowards(Mathf.Sign(o.x - p.x));
             else if (Mathf.Abs(horizontalInput) > 0.01f) FaceTowards(Mathf.Sign(horizontalInput));
 
-            // Leash berdasarkan error X dari posisi samping ideal (pakai sideSign yang dikunci)
             float desiredX = p.x + sideSign * (selfCol.bounds.extents.x + objectCol.bounds.extents.x + contactSkin);
             float errX = Mathf.Abs(o.x - desiredX);
 
             leashTimer = (errX > leashMaxDistanceX) ? leashTimer + Time.deltaTime : 0f;
             if (leashTimer >= leashGraceSeconds) DetachObject();
+
+            if (animator)
+            {
+                animator.SetBool("isInteracting", true);
+                animator.SetBool("pushing", false);
+                animator.SetBool("pulling", false);
+
+                if (hasInput)
+                {
+                    if (isPulling) animator.SetBool("pulling", true);
+                    else animator.SetBool("pushing", true);
+                }
+            }
         }
         else
         {
             if (Mathf.Abs(horizontalInput) > 0.01f)
                 FaceTowards(Mathf.Sign(horizontalInput));
+
+            if (animator)
+            {
+                animator.SetBool("isInteracting", false);
+                animator.SetBool("pushing", false);
+                animator.SetBool("pulling", false);
+            }
         }
 
         if (autoDetachWhenNoContact && currentObject != null && objectCol != null && selfCol != null)
         {
-
             bool touching = selfCol.IsTouching(objectCol);
+
             if (!touching)
             {
-
                 var dist = selfCol.Distance(objectCol);
-                if (dist.isOverlapped) touching = true;
+
+                // 1) If overlapping, it's touching.
+                if (dist.isOverlapped)
+                    touching = true;
+                else
+                {
+                    // 2) Treat "almost touching" as touching to absorb seams/jitter.
+                    //    Using dist.distance is simpler and robust across collider types.
+                    if (dist.distance <= nearContactEpsilon)
+                        touching = true;
+                }
             }
 
             if (!touching)
@@ -194,17 +233,17 @@ public class PlayerPushPull : MonoBehaviour
             Vector2 origin = new Vector2(b.center.x, b.min.y + 0.05f);
             var hit = Physics2D.Raycast(origin, Vector2.down, 0.5f, groundMask);
 
-            float targetZ = 0f;
-            if (hit)
-            {
-                Vector2 n = hit.normal.normalized;
-                Vector2 tangent = new Vector2(n.y, -n.x);
-                targetZ = Mathf.Atan2(tangent.y, tangent.x) * Mathf.Rad2Deg;
-                targetZ = Mathf.Clamp(targetZ, -50f, 50f); // batasin biar nggak ekstrem
-            }
+            // float targetZ = 0f;
+            // if (hit)
+            // {
+            //     Vector2 n = hit.normal.normalized;
+            //     Vector2 tangent = new Vector2(n.y, -n.x);
+            //     targetZ = Mathf.Atan2(tangent.y, tangent.x) * Mathf.Rad2Deg;
+            //     targetZ = Mathf.Clamp(targetZ, -50f, 50f); // batasin biar nggak ekstrem
+            // }
 
-            float next = Mathf.MoveTowardsAngle(rb.rotation, targetZ, 360f * Time.fixedDeltaTime);
-            rb.MoveRotation(next);
+            // float next = Mathf.MoveTowardsAngle(rb.rotation, targetZ, 360f * Time.fixedDeltaTime);
+            // rb.MoveRotation(next);
 
         }
     }
@@ -237,37 +276,30 @@ public class PlayerPushPull : MonoBehaviour
 
     private void TryAttachToFrontObject()
     {
+        EnsureInited();
+        if (!selfCol) selfCol = GetComponent<Collider2D>();
+
         if (!FindFrontObjectSlopeFriendly(out PushPullObject target, out Collider2D targetCol))
             return;
 
         var targetRb = target.GetComponent<Rigidbody2D>();
-        if (targetRb == null)
-        {
-            Debug.LogWarning("Pushable object needs a Rigidbody2D.");
-            return;
-        }
+        if (!targetRb || !selfCol || !targetCol) return;
 
         Vector2 p = rb.worldCenterOfMass;
         Vector2 o = targetRb.worldCenterOfMass;
 
-        // Toleransi slope
+        // Vertical slack check (friendlier a bit)
         float verticalDifference = Mathf.Abs(p.y - o.y);
         float objectHeight = targetCol.bounds.size.y;
-        bool besideObject = verticalDifference < (objectHeight * 0.7f + attachVerticalSlack);
-        if (!besideObject)
-        {
-            Debug.Log("Can't push from above (even with slack).");
+        if (verticalDifference > (objectHeight * 0.75f + attachVerticalSlack))
             return;
-        }
 
         currentObject = target;
         objectRb = targetRb;
         objectCol = targetCol;
 
-        // LOCK sisi
         sideSign = (o.x >= p.x) ? +1 : -1;
 
-        // Titik permukaan world di sisi player & objek
         Vector2 playerSurfaceWorld = new Vector2(
             selfCol.bounds.center.x + sideSign * (selfCol.bounds.extents.x + contactSkin),
             selfCol.bounds.center.y
@@ -277,30 +309,26 @@ public class PlayerPushPull : MonoBehaviour
             objectCol.bounds.center.y
         );
 
-        // Buat SLIDER JOINT di PLAYER
+        // Create/assign the slider
         slider = gameObject.AddComponent<SliderJoint2D>();
         slider.connectedBody = objectRb;
         slider.autoConfigureAngle = false;
-        slider.angle = 90f; // sumbu gerak vertikal => X relatif terkunci
+        slider.angle = 90f;
         slider.enableCollision = true;
         slider.autoConfigureConnectedAnchor = false;
-
         slider.anchor = transform.InverseTransformPoint(playerSurfaceWorld);
         slider.connectedAnchor = objectRb.transform.InverseTransformPoint(objectSurfaceWorld);
         slider.useLimits = false;
         slider.useMotor = false;
 
-        // Turunin friction objek (runtime clone) supaya start-move di slope nggak butuh ancang2
-        if (reduceFrictionWhileAttached && objectCol != null)
+        if (reduceFrictionWhileAttached && objectCol)
         {
             originalMat = objectCol.sharedMaterial;
-            runtimeMatClone = new PhysicsMaterial2D(originalMat ? originalMat.name + " (RuntimeClone)" : "PushPullRuntime");
-            if (originalMat != null)
+            runtimeMatClone = new PhysicsMaterial2D(originalMat ? originalMat.name + " (RuntimeClone)" : "PushPullRuntime")
             {
-                runtimeMatClone.bounciness = originalMat.bounciness;
-                // friction diambil dari slider; tapi kita overwrite ke nilai rendah
-            }
-            runtimeMatClone.friction = attachedFriction;
+                bounciness = originalMat ? originalMat.bounciness : 0f,
+                friction = attachedFriction
+            };
             objectCol.sharedMaterial = runtimeMatClone;
         }
 
@@ -310,10 +338,18 @@ public class PlayerPushPull : MonoBehaviour
 
         currentObject.AddPushingPlayer(gameObject);
         FaceTowards(Mathf.Sign(o.x - p.x));
+
+        if (animator)
+        {
+            animator.SetBool("isInteracting", true);
+            animator.SetBool("pushing", false);
+            animator.SetBool("pulling", false);
+        }
     }
 
     private void DetachObject()
     {
+        EnsureInited();
         if (currentObject != null)
         {
             currentObject.RemovePushingPlayer(gameObject);
@@ -343,69 +379,94 @@ public class PlayerPushPull : MonoBehaviour
         isPushing = false;
         isPulling = false;
         leashTimer = 0f;
+
+        if (animator)
+        {
+            animator.SetBool("isInteracting", false);
+            animator.SetBool("pushing", false);
+            animator.SetBool("pulling", false);
+        }
     }
 
     // ==== PROBE DEPAN (ramah slope) ====
     private bool FindFrontObjectSlopeFriendly(out PushPullObject target, out Collider2D targetCol)
     {
+        EnsureInited();
+
         target = null;
         targetCol = null;
-        if (selfCol == null) return false;
+
+        if (!selfCol) selfCol = GetComponent<Collider2D>();
+        if (!selfCol) return false;
+
+        // If the mask isn't set in inspector/tests, search all layers.
+        int mask = pushableLayer.value == 0 ? ~0 : pushableLayer.value;
 
         Bounds b = selfCol.bounds;
-        float boxH = b.size.y * Mathf.Clamp01(frontBoxHeightFactor);
-        float boxW = b.size.x + frontBoxExtraWidth + interactRange;
-
         float dir = facingRight ? 1f : -1f;
-        Vector2 center = new Vector2(
+        Vector2 forward = Vector2.right * dir;
+
+        // Probe box in front (slightly lowered for slopes).
+        float boxH = b.size.y * Mathf.Clamp01(frontBoxHeightFactor);
+        float boxW = b.size.x + frontBoxExtraWidth + Mathf.Max(0.25f, interactRange);
+
+        Vector2 boxCenter = new Vector2(
             b.center.x + dir * (b.size.x * 0.5f + (boxW - b.size.x) * 0.5f),
             b.center.y - frontProbeYOffset
         );
-
-        Vector2 size = new Vector2(boxW, boxH);
-        var hits = Physics2D.OverlapBoxAll(center, size, 0f, pushableLayer);
+        Vector2 boxSize = new Vector2(boxW, boxH);
 
         Collider2D best = null;
-        float bestScore = 0.3f;
+        float bestProj = float.PositiveInfinity; // smallest projected distance along forward
 
-        Vector2 forward = Vector2.right * dir;
-        Vector2 start = b.center;
-
+        // 1) Overlap box
+        var hits = Physics2D.OverlapBoxAll(boxCenter, boxSize, 0f, mask);
         foreach (var h in hits)
         {
-            if (h == null || h.attachedRigidbody == rb) continue;
-            Vector2 toObj = (Vector2)h.bounds.center - (Vector2)transform.position;
-            float d = toObj.magnitude; if (d <= 0.001f) continue;
-            float dot = Vector2.Dot(toObj.normalized, forward);
-            float score = dot;
-            if (score > bestScore) { bestScore = score; best = h; }
+            if (!h || h.attachedRigidbody == rb) continue;
+            Vector2 delta = (Vector2)h.bounds.center - (Vector2)b.center;
+            float proj = Vector2.Dot(delta, forward);       // in front = positive
+            if (proj <= 0f) continue;                       // behind us
+            if (proj < bestProj) { bestProj = proj; best = h; }
         }
 
-        var hitFwd = Physics2D.Raycast(start, forward, probeRayDistance, pushableLayer);
-        if (hitFwd.collider != null && hitFwd.rigidbody != rb)
+        // 2) BoxCast as a fallback (helps when the overlap box barely misses)
+        if (!best)
         {
-            if (0.95f > bestScore) { bestScore = 0.95f; best = hitFwd.collider; }
+            float castDist = Mathf.Max(0.3f, interactRange + frontBoxExtraWidth);
+            var cast = Physics2D.BoxCast(b.center, new Vector2(b.size.x, b.size.y * 0.9f), 0f, forward, castDist, mask);
+            if (cast.collider && cast.rigidbody != rb)
+                best = cast.collider;
         }
 
-        if (downProbeAngleDeg > 0f)
+        // 3) Straight forward ray (short)
+        if (!best)
+        {
+            var ray = Physics2D.Raycast(b.center, forward, probeRayDistance, mask);
+            if (ray.collider && ray.rigidbody != rb)
+                best = ray.collider;
+        }
+
+        // 4) Down-angled ray (to catch a slightly lower block on a slope)
+        if (!best && downProbeAngleDeg > 0f)
         {
             float rad = downProbeAngleDeg * Mathf.Deg2Rad;
             Vector2 downDir = new Vector2(forward.x, -Mathf.Tan(rad)).normalized;
-            var hitDown = Physics2D.Raycast(start, downDir, probeRayDistance, pushableLayer);
-            if (hitDown.collider != null && hitDown.rigidbody != rb)
-            {
-                if (0.85f > bestScore) { bestScore = 0.85f; best = hitDown.collider; }
-            }
+            var ray = Physics2D.Raycast(b.center, downDir, probeRayDistance, mask);
+            if (ray.collider && ray.rigidbody != rb)
+                best = ray.collider;
         }
 
-        if (best == null) return false;
+        if (!best) return false;
 
-        target = best.GetComponent<PushPullObject>();
-        if (target == null) return false;
+        var pp = best.GetComponent<PushPullObject>();
+        if (!pp) return false;
 
+        target = pp;
         targetCol = best;
         return true;
     }
+
 
     // ==== Raycast normal tanah di bawah objek ====
     private bool TryGetGroundNormal(Collider2D col, out Vector2 normal, out float slopeAngleDeg)
@@ -471,12 +532,28 @@ public class PlayerPushPull : MonoBehaviour
             }
         }
     }
-    
+
     public void ForceDetach()
     {
         if (currentObject != null)
         {
             DetachObject();
         }
+    }
+
+    private void EnsureInited()
+    {
+        if (_bootstrapped) return;
+
+        if (!rb) rb = GetComponent<Rigidbody2D>();
+        if (!selfCol) selfCol = GetComponent<Collider2D>();
+        if (!playerInput) playerInput = GetComponent<PlayerInput>();
+        if (!spriteRenderer) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        if (!animator) animator = GetComponent<Animator>();
+
+        // establish facing if not set yet (important in tests)
+        facingRight = transform.localScale.x >= 0f;
+
+        _bootstrapped = true;
     }
 }
