@@ -109,8 +109,6 @@ public class LobbyManager : MonoBehaviour
     public void OnPlayPressed()
     {
         if (!playButton.interactable) return;
-
-        Debug.Log("✅ Play button pressed. Loading Prologue...");
         // SceneManager.LoadScene("Prologue");
         // --- THIS IS THE CHANGE ---
         // Use the FadeManager to load the cutscene,
