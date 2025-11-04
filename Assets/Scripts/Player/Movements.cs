@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEditor.Animations;
 
 public class Movement : MonoBehaviour
 {
@@ -60,6 +61,9 @@ public class Movement : MonoBehaviour
   [SerializeField] private float footstepVolume = 0.8f;
   [SerializeField] private float footstepInterval = 0.35f;
 
+  [SerializeField] private AnimatorController mimiAnimator;
+  [SerializeField] private AnimatorController marieAnimator;
+
   // runtime slope state
   private bool slopeGrounded, onSlope, sliding;
   private float slopeAngle;
@@ -82,6 +86,9 @@ public class Movement : MonoBehaviour
 
   private float footstepTimer = 0f;
   private bool isWalking => Mathf.Abs(horizontalInput) > 0.01f && isGrounded();
+
+  [SerializeField] private float groundedLatchSeconds = 0.08f;
+  private float groundedLatchTimer = 0f;
 
   // private PlayerPushPull pushPull;
   private void Awake()
@@ -112,14 +119,12 @@ public class Movement : MonoBehaviour
   private void Start()
   {
     CheckpointManager.RegisterPlayer(this);
-    CameraMovement cameraMovement = FindObjectOfType<CameraMovement>();
+    CameraMovement cameraMovement = FindFirstObjectByType<CameraMovement>();
     if (cameraMovement != null)
       cameraMovement.setTarget(transform);
 
     if (isGrounded())
       wasGroundedLastFrame = true;
-
-    ApplyPlayerAppearance();
   }
 
 
@@ -133,6 +138,8 @@ public class Movement : MonoBehaviour
       return; // Do nothing
     }
     bool groundedNow = isGrounded();
+
+    Debug.Log("Grounded:" + groundedNow);
 
     // --- THIS IS THE NEW FALL DAMAGE LOGIC ---
     if (groundedNow && !wasGroundedLastFrame)
@@ -150,7 +157,6 @@ public class Movement : MonoBehaviour
     wasGroundedLastFrame = groundedNow;
     // --- END OF NEW LOGIC ---
 
-    // --- Input Reading ---
     horizontalInput = moveAction != null ? moveAction.ReadValue<Vector2>().x : Input.GetAxisRaw("Horizontal");
 
     bool pushingNow = pushPull != null && pushPull.isPushing;
@@ -162,7 +168,6 @@ public class Movement : MonoBehaviour
         transform.localScale = new Vector3(-1, 1, 1);
     }
 
-    // Jump
     if (wallJumpCooldown > 0.2f && jumpAction != null && jumpAction.WasPressedThisFrame())
     {
       var pushPull = GetComponent<PlayerPushPull>();
@@ -204,6 +209,7 @@ public class Movement : MonoBehaviour
     {
       jumpIgnoreTimer = jumpIgnoreSlopeTime;
       body.linearVelocity = new Vector2(body.linearVelocity.x, jumpPower);
+      if (animator) animator.SetTrigger("jump");
 
       // ✅ Play jump sound
       if (SoundFXManager.instance != null && jumpSFX != null)
@@ -215,31 +221,48 @@ public class Movement : MonoBehaviour
 
   private void ApplyPlayerAppearance()
   {
-    if (playerInput == null) return;
+      if (playerInput == null) return;
 
-    SpriteRenderer sr = GetComponent<SpriteRenderer>();
-    BoxCollider2D col = GetComponent<BoxCollider2D>();
+      SpriteRenderer sr = GetComponent<SpriteRenderer>();
+      BoxCollider2D col = GetComponent<BoxCollider2D>();
+      animator = GetComponent<Animator>();
 
-    switch (playerInput.playerIndex)
-    {
-      case 0: // Player 1
-        sr.sprite = Resources.Load<Sprite>("Marie 1");
-        gameObject.layer = LayerMask.NameToLayer("Player1");
+      // Detect based on prefab tag or name (case-insensitive)
+      string prefabTag = gameObject.tag.ToLower();
 
-        transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        col.size = new Vector2(1f, 2.8f);
-        col.offset = new Vector2(0f, -0.1f);
-        break;
+      // Assign layers based on player index
+      gameObject.layer = LayerMask.NameToLayer(
+          playerInput.playerIndex == 0 ? "Player1" : "Player2"
+      );
 
-      case 1: // Player 2
-        sr.sprite = Resources.Load<Sprite>("Mimi 2");
-        gameObject.layer = LayerMask.NameToLayer("Player2");
+      if (prefabTag.Contains("Marie"))
+      {
+          // ✅ Apply Marie-specific appearance
+          if (animator != null && marieAnimator != null)
+              animator.runtimeAnimatorController = marieAnimator;
 
-        transform.localScale = new Vector3(1f, 1f, 1f);
-        col.size = new Vector2(1f, 1.55f);
-        col.offset = new Vector2(0f, -0.1f);
-        break;
-    }
+          col.size = new Vector2(1f, 2.8f);
+          col.offset = new Vector2(0f, -0.1f);
+          transform.localScale = Vector3.one;
+
+          Debug.Log($"🎀 Applied Marie appearance for Player {playerInput.playerIndex}");
+      }
+      else if (prefabTag.Contains("Mimi"))
+      {
+          // ✅ Apply Mimi-specific appearance
+          if (animator != null && mimiAnimator != null)
+              animator.runtimeAnimatorController = mimiAnimator;
+
+          col.size = new Vector2(1f, 1.55f);
+          col.offset = new Vector2(0f, -0.1f);
+          transform.localScale = Vector3.one;
+
+          Debug.Log($"🐾 Applied Mimi appearance for Player {playerInput.playerIndex}");
+      }
+      else
+      {
+          Debug.LogWarning($"⚠️ Unknown prefab type for {gameObject.name}");
+      }
   }
 
   private void HandleAirbornePhysics()
@@ -264,13 +287,20 @@ public class Movement : MonoBehaviour
 
   private void HandleAnimations()
   {
-    if (!isGrounded())
-    {
-      animator.SetTrigger("jump");
-    }
+    if (!animator) return;
 
-    animator.SetBool("run", Mathf.Abs(horizontalInput) > 0.01f);
-    animator.SetBool("grounded", isGrounded());
+    bool groundedNow = isGrounded();
+    float vy = body.linearVelocity.y;
+
+    bool interactingNow = pushPull != null && (pushPull.isPushing || pushPull.isPulling);
+
+    bool shouldRun = !interactingNow && Mathf.Abs(horizontalInput) > 0.01f;
+
+    animator.SetBool("run", shouldRun);
+    animator.SetBool("grounded", groundedNow);
+    animator.SetFloat("yVelocity", vy);
+    animator.SetBool("sliding", sliding);
+    animator.SetBool("isInteracting", interactingNow);
   }
 
   // ====== SLOPE PROBING ======
@@ -407,18 +437,30 @@ public class Movement : MonoBehaviour
     contactHasSlope = false;
   }
 
-  private bool isGrounded()
-  {
-    RaycastHit2D raycastHit = Physics2D.BoxCast(
-                  boxCollider2D.bounds.center,
-                  boxCollider2D.bounds.size,
-                  0,
-                  Vector2.down,
-                  0.1f,
-                  groundLayer
-              );
-    return raycastHit.collider != null;
-  }
+private bool isGrounded()
+{
+    bool hitGround = Physics2D.BoxCast(
+        boxCollider2D.bounds.center,
+        boxCollider2D.bounds.size,
+        0f, Vector2.down, 0.1f, groundLayer
+    ).collider != null;
+
+    bool onSteppable = Physics2D.BoxCast(
+        boxCollider2D.bounds.center,
+        boxCollider2D.bounds.size,
+        0f, Vector2.down, 0.1f, steppableObjectLayer
+    ).collider != null;
+
+    bool slopeAsGround = slopeGrounded && !sliding;
+
+    bool rawGrounded = hitGround || onSteppable || slopeAsGround;
+
+    if (rawGrounded) groundedLatchTimer = groundedLatchSeconds;
+    else groundedLatchTimer = Mathf.Max(0f, groundedLatchTimer - Time.deltaTime);
+
+    return rawGrounded || groundedLatchTimer > 0f;
+}
+
 
   private bool isOnSteppableObject()
   {
