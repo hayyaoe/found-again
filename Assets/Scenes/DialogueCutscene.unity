@@ -193,8 +193,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -302,8 +302,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -893,6 +893,107 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &1090499366
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1411876148433959995, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_Name
+      value: FadeCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1411876148433959995, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
 --- !u!1 &1168018725
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,21 +1031,12 @@ MonoBehaviour:
   characterNameText: {fileID: 1009489374}
   characterLeftSprite: {fileID: 1027663302}
   characterRightSprite: {fileID: 959425940}
-  dialogueLines:
-  - speakerName: Mimi
-    line: Dame un Purr
-    characterSide: 2
-  - speakerName: Marie
-    line: Rawrr
-    characterSide: 1
-  - speakerName: Mimi
-    line: On Rawrrr
-    characterSide: 2
+  cutsceneName: cutscene_1
   nextSceneName: Prologue
   mimiSprite: {fileID: 5211962307158698251, guid: f47f528b5dead4696b69f150502566eb, type: 3}
   mimiNameBoxSprite: {fileID: -2864314929142205475, guid: e7f6e50b196444ec89da738eae8e7c2f, type: 3}
-  marieSprite: {fileID: 5288990901110000207, guid: 644552d49f23347c390f7428e6ba319c, type: 3}
-  marieNameBoxSprite: {fileID: -7541455136272556401, guid: a434e042582f74d3ebf3d82f32dd17c9, type: 3}
+  wandererSprite: {fileID: 5288990901110000207, guid: 644552d49f23347c390f7428e6ba319c, type: 3}
+  wandererNameBoxSprite: {fileID: -7541455136272556401, guid: a434e042582f74d3ebf3d82f32dd17c9, type: 3}
   defaultNameBoxSprite: {fileID: 0}
   defaultNameBoxColor: {r: 0.2, g: 0.2, b: 0.2, a: 0.8}
   speakingColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1360,3 +1452,4 @@ SceneRoots:
   - {fileID: 1852014417}
   - {fileID: 708513024}
   - {fileID: 1168018727}
+  - {fileID: 1090499366}

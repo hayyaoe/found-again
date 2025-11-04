@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System.Collections.Generic; // <-- We need this for Lists
 using TMPro;
 
 [RequireComponent(typeof(PlayerInput))]
@@ -12,26 +13,28 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private GameObject continuePrompt;
     [SerializeField] private GameObject nameBoxPanel;
-    [SerializeField] private TextMeshProUGUI characterNameText; // Make sure this is a child of NameBoxPanel
+    [SerializeField] private TextMeshProUGUI characterNameText; 
     [SerializeField] private Image characterLeftSprite; 
     [SerializeField] private Image characterRightSprite;
 
-    [Header("Dialogue Content")]
-    [SerializeField] private DialogueLine[] dialogueLines;
+    // --- REMOVED DIALOGUE CONTENT ---
+    // [SerializeField] private DialogueLine[] dialogueLines; // <-- REMOVED THIS
 
+    [Header("Dialogue Content")]
+    [SerializeField] private string cutsceneName = "cutscene_1"; // <-- ADD THIS
+    
     [Header("Next Scene")]
     [SerializeField] private string nextSceneName = "Prologue";
 
     [Header("Character Settings")]
     [SerializeField] private Sprite mimiSprite; 
     [SerializeField] private Sprite mimiNameBoxSprite; 
-    [SerializeField] private Sprite marieSprite; 
-    [SerializeField] private Sprite marieNameBoxSprite; 
+    [SerializeField] private Sprite wandererSprite; 
+    [SerializeField] private Sprite wandererNameBoxSprite; 
     
     [SerializeField] private Sprite defaultNameBoxSprite; 
     [SerializeField] private Color defaultNameBoxColor = new Color(0.2f, 0.2f, 0.2f, 0.8f);
     
-    // --- NEW OPACITY SETTINGS ---
     [SerializeField] private Color speakingColor = Color.white;
     [SerializeField] private Color silentColor = new Color(0.5f, 0.5f, 0.5f, 1f);
 
@@ -45,14 +48,14 @@ public class DialogueManager : MonoBehaviour
     private int currentConversationIndex = 0;
     private bool isWaitingForInput = false;
 
-    [System.Serializable]
-    public struct DialogueLine
+    // --- MODIFIED: This is no longer a [SerializeField] struct ---
+    private struct DialogueLine
     {
         public string speakerName;
-        [TextArea(3, 10)]
         public string line;
         public CharacterSide characterSide;
     }
+    private List<DialogueLine> currentLines = new List<DialogueLine>(); // <-- NEW LIST
 
     public enum CharacterSide
     {
@@ -76,10 +79,8 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
-        // --- MODIFIED START ---
-        // We now check for characterNameText again
         if (dialogueBoxPanel == null || dialogueText == null || continuePrompt == null ||
-            nameBoxPanel == null || characterNameText == null || // Re-added check
+            nameBoxPanel == null || characterNameText == null ||
             characterLeftSprite == null || characterRightSprite == null)
         {
             Debug.LogError("DIALOGUE MANAGER ERROR: Not all UI elements are assigned in the Inspector!");
@@ -87,28 +88,74 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        if (dialogueLines.Length == 0)
-        {
-             Debug.LogWarning("DIALOGUE MANAGER: No dialogue lines have been added.");
-        }
+        // --- NEW: Load dialogue from the database ---
+        LoadDialogueFromDatabase();
+        // --- END NEW ---
 
         dialogueBoxPanel.SetActive(false);
         nameBoxPanel.SetActive(false); 
         continuePrompt.SetActive(false);
         
-        // --- NEW CHARACTER SETUP ---
-        // Set up characters from the start, but make them silent
-        characterLeftSprite.sprite = marieSprite; // Marie is on the left
+        characterLeftSprite.sprite = wandererSprite;
         characterLeftSprite.color = silentColor;
         characterLeftSprite.gameObject.SetActive(true);
 
-        characterRightSprite.sprite = mimiSprite; // Mimi is on the right
+        characterRightSprite.sprite = mimiSprite;
         characterRightSprite.color = silentColor;
         characterRightSprite.gameObject.SetActive(true);
-        // --- END NEW CHARACTER SETUP ---
 
         StartCoroutine(RunDialogue());
     }
+
+    // --- NEW FUNCTION ---
+    private void LoadDialogueFromDatabase()
+    {
+        if (DialogueDatabase.instance == null)
+        {
+            Debug.LogError("DIALOGUE MANAGER: DialogueDatabase instance is missing! Make sure it's on a persistent object from the MainMenu scene.");
+            return;
+        }
+        
+        // Ask the database for all lines matching our cutsceneName
+        List<DialogueDataEntry> data = DialogueDatabase.instance.GetDialogueFor(cutsceneName);
+
+        if (data.Count == 0)
+        {
+            Debug.LogError($"DIALOGUE MANAGER: No dialogue found for cutscene '{cutsceneName}'. Check your CSV and spelling.");
+            return;
+        }
+
+        // Convert the database entries into the format this script understands
+        currentLines.Clear();
+        foreach (var entry in data)
+        {
+            DialogueLine newLine = new DialogueLine
+            {
+                speakerName = entry.speakerName,
+                line = entry.dialogueLine,
+                // Infer the character side from the name
+                characterSide = GetSideFromName(entry.speakerName) 
+            };
+            currentLines.Add(newLine);
+        }
+    }
+    
+    // --- NEW FUNCTION ---
+    private CharacterSide GetSideFromName(string speakerName)
+    {
+        if (speakerName == "Wanderer")
+        {
+            return CharacterSide.Left;
+        }
+        else if (speakerName == "Mimi")
+        {
+            return CharacterSide.Right;
+        }
+        
+        return CharacterSide.None; // For "Narrator" or other speakers
+    }
+    // --- END NEW FUNCTIONS ---
+
 
     private void OnEnable()
     {
@@ -122,16 +169,17 @@ public class DialogueManager : MonoBehaviour
         skipAction.performed -= OnSkipPressed;
     }
 
+    // --- MODIFIED: Check the new list 'currentLines' ---
     private IEnumerator RunDialogue()
     {
-        if (dialogueLines.Length == 0)
+        if (currentLines.Count == 0)
         {
             StartGame();
             yield break;
         }
 
         dialogueBoxPanel.SetActive(true);
-        StartCoroutine(ShowConversation(dialogueLines[currentConversationIndex]));
+        StartCoroutine(ShowConversation(currentLines[currentConversationIndex]));
     }
 
     private void OnContinuePressed(InputAction.CallbackContext context)
@@ -147,6 +195,7 @@ public class DialogueManager : MonoBehaviour
         StartGame();
     }
 
+    // --- MODIFIED: Check the new list 'currentLines' ---
     private void NextConversation()
     {
         isWaitingForInput = false;
@@ -154,9 +203,9 @@ public class DialogueManager : MonoBehaviour
 
         currentConversationIndex++;
 
-        if (currentConversationIndex < dialogueLines.Length)
+        if (currentConversationIndex < currentLines.Count)
         {
-            StartCoroutine(ShowConversation(dialogueLines[currentConversationIndex]));
+            StartCoroutine(ShowConversation(currentLines[currentConversationIndex]));
         }
         else
         {
@@ -168,8 +217,6 @@ public class DialogueManager : MonoBehaviour
     {
         nameBoxPanel.SetActive(false); 
         
-        // --- THIS IS THE NEW LOGIC ---
-        // Set opacity based on who is talking
         switch (currentLine.characterSide)
         {
             case CharacterSide.Left:
@@ -186,15 +233,11 @@ public class DialogueManager : MonoBehaviour
                 break;
         }
 
-        // Set name box and text
         if (!string.IsNullOrEmpty(currentLine.speakerName) && currentLine.speakerName != "Narrator")
         {
             nameBoxPanel.SetActive(true);
-            
-            // --- FIX: ALWAYS SET THE TEXT ---
             characterNameText.text = currentLine.speakerName;
             characterNameText.gameObject.SetActive(true);
-            // --- END OF FIX ---
             
             SetAnchor(currentLine.characterSide);
 
@@ -203,31 +246,29 @@ public class DialogueManager : MonoBehaviour
                 nameBoxImage.sprite = mimiNameBoxSprite; 
                 nameBoxImage.color = Color.white; 
             }
-            else if (currentLine.speakerName == "Marie")
+            else if (currentLine.speakerName == "Wanderer")
             {
-                nameBoxImage.sprite = marieNameBoxSprite; 
+                nameBoxImage.sprite = wandererNameBoxSprite; 
                 nameBoxImage.color = Color.white; 
             }
-            else // For any other speaker (e.g., "Grana")
+            else
             {
                 nameBoxImage.sprite = defaultNameBoxSprite; 
                 nameBoxImage.color = defaultNameBoxColor; 
             }
         }
         
-        // --- END OF NEW LOGIC ---
-
         dialogueText.text = currentLine.line;
         yield return null;
         continuePrompt.SetActive(true);
         isWaitingForInput = true;
     }
 
+    // ... (Your SetAnchor and StartGame methods are perfect and don't need changes) ...
     private void SetAnchor(CharacterSide side)
     {
-        // Adjust these pixel values to get your perfect padding
-        Vector2 leftPos = new Vector2(50, 20);  // 50px from left, 20px down from top
-        Vector2 rightPos = new Vector2(-50, 20); // 50px from right, 20px down from top
+        Vector2 leftPos = new Vector2(50, 20);
+        Vector2 rightPos = new Vector2(-50, 20);
         
         if (side == CharacterSide.Left)
         {
@@ -245,7 +286,6 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            // Default (same as left)
             nameBoxRect.anchorMin = new Vector2(0, 1);
             nameBoxRect.anchorMax = new Vector2(0, 1);
             nameBoxRect.pivot = new Vector2(0, 1);
@@ -267,7 +307,8 @@ public class DialogueManager : MonoBehaviour
 
         if (FadeManager.instance != null)
         {
-            FadeManager.instance.FadeToScene(nextSceneName);
+            // FadeManager.instance.FadeToScene(nextSceneName);
+            SceneFader.instance.FadeToScene(nextSceneName);
         }
         else
         {

@@ -35,7 +35,8 @@ public class LobbyManager : MonoBehaviour
             // which will then load the "Prologue"
             if (FadeManager.instance != null)
             {
-                FadeManager.instance.FadeToScene("DialogueCutscene");
+                // FadeManager.instance.FadeToScene("DialogueCutscene");
+                SceneFader.instance.FadeToScene("DialogueCutscene");
             }
             else
             {
