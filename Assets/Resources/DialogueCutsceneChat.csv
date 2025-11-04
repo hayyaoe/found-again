@@ -1,0 +1,34 @@
+Table 1
+Chat;Name;Scene;Cutscene
+A cat? Hey, wake up. Can you hear me? You seem young… for a soul who's been through 9 lives.;Wanderer;scene_1;cutscene_1
+The realm of the dead is lonely. Won’t you walk with me to the station? ;Wanderer;scene_1;cutscene_1
+Dead?;Mimi;scene_1;cutscene_1
+That’s right! The train will soon come to pick us up, we should get going!;Wanderer;scene_1;cutscene_1
+But… Marie… She’s still waiting for me. I need to go back.;Mimi;scene_1;cutscene_1
+Marie? Is she your human?;Wanderer;scene_1;cutscene_1
+*nods* She needs me. She’ll be so sad if she finds out I left her.;Mimi;scene_1;cutscene_1
+Is she the old lady who talks in circles?;Wanderer;scene_1;cutscene_1
+You know her?;Mimi;scene_1;cutscene_1
+Come, this way!;Wanderer;scene_1;cutscene_1
+What time is it now?;Marie;scene_1;cutscene_2
+It’s... 16.58;Calli;scene_1;cutscene_2
+Oh! I need to go home right away. Papa might be back this time.;Marie;scene_1;cutscene_2
+...is that so? What kind of person is your papa?;Calli;scene_1;cutscene_2
+Marie? You’re here too?;Mimi;scene_1;cutscene_2
+She can’t hear you. Come, follow me!;Wanderer;scene_1;cutscene_2
+What time is it now?;Marie;scene_1;cutscene_3
+It’s 17.07;Calli;scene_1;cutscene_3
+Oh! I need to go home right away. Papa might be back this time.;Marie;scene_1;cutscene_3
+Sure. Your home is the one west of Heatherwoods, right?;Calli;scene_1;cutscene_3
+This is… her memories?;Mimi;scene_1;cutscene_3
+You’re catching on. Come, look here!;Wanderer;scene_1;cutscene_3
+What time is it now?;Marie;scene_1;cutscene_4
+It’s 17.21;Calli;scene_1;cutscene_4
+Oh! I need to go home right away. Papa might be back this time.;Marie;scene_1;cutscene_4
+Two more spoons and I’ll take you there, okay?;Calli;scene_1;cutscene_4
+What happened to her? Why is she like this?;Mimi;scene_1;cutscene_4
+Your poor lady has her soul in fragments, scattered all over this place. It will be hard for her to find the station;Wanderer;scene_1;cutscene_4
+Can you help me find her?;Mimi;scene_1;cutscene_4
+Only if you agree to walk with me to the station. It’s rare to meet a friend here and I’ll be sad if you leave…;Wanderer;scene_1;cutscene_4
+That’s not a problem. You help me find Marie, and then we’ll walk together to the station.;Mimi;scene_1;cutscene_4
+Let’s go then!;Wanderer;scene_1;cutscene_4

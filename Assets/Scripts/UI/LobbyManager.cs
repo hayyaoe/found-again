@@ -138,6 +138,20 @@ public class LobbyManager : MonoBehaviour
         // Check if gamepad "South" button (X / A) pressed
         if (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame)
         {
+            // --- THIS IS THE CHANGE ---
+            // Use the FadeManager to load the cutscene,
+            // which will then load the "Prologue"
+            if (FadeManager.instance != null)
+            {
+                // FadeManager.instance.FadeToScene("DialogueCutscene");
+                SceneFader.instance.FadeToScene("DialogueCutscene");
+            }
+            else
+            {
+                // Fallback in case the FadeManager is missing
+                SceneManager.LoadScene("DialogueCutscene");
+            }
+            // --- END OF CHANGE ---
             OnPlayPressed();
             return;
         }
