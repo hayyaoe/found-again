@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="4" result="Failed(Child)" total="4" passed="1" failed="3" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2025-10-31 02:47:49Z" end-time="2025-10-31 02:47:49Z" duration="0.0529585">
+  <test-suite type="TestSuite" id="1011" name="found-again" fullname="found-again" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2025-10-31 02:47:49Z" end-time="2025-10-31 02:47:49Z" duration="0.052959" total="4" passed="1" failed="3" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1006" name="PlayerPushPull.EditModeTests.dll" fullname="/Users/hayyau/Documents/epel/found-again/Library/ScriptAssemblies/PlayerPushPull.EditModeTests.dll" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2025-10-31 02:47:49Z" end-time="2025-10-31 02:47:49Z" duration="0.047392" total="4" passed="1" failed="3" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="34344" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestFixture" id="1001" name="PlayerPushPull_EditModeTests" fullname="PlayerPushPull_EditModeTests" classname="PlayerPushPull_EditModeTests" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2025-10-31 02:47:49Z" end-time="2025-10-31 02:47:49Z" duration="0.046385" total="4" passed="1" failed="3" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-case id="1005" name="Attach_Fails_WhenObjectTooHighAbove" fullname="PlayerPushPull_EditModeTests.Attach_Fails_WhenObjectTooHighAbove" methodname="Attach_Fails_WhenObjectTooHighAbove" classname="PlayerPushPull_EditModeTests" runstate="Runnable" seed="922189624" result="Passed" start-time="2025-10-31 02:47:49Z" end-time="2025-10-31 02:47:49Z" duration="0.019109" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1002" name="AttachAndDetach_TogglesSliderAndFriction" fullname="PlayerPushPull_EditModeTests.AttachAndDetach_TogglesSliderAndFriction" methodname="AttachAndDetach_TogglesSliderAndFriction" classname="PlayerPushPull_EditModeTests" runstate="Runnable" seed="137710278" result="Failed" label="Error" start-time="2025-10-31 02:47:49Z" end-time="2025-10-31 02:47:49Z" duration="0.008982" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[System.Reflection.TargetInvocationException : Exception has been thrown by the target of an invocation.
+  ----> System.NullReferenceException : Object reference not set to an instance of an object]]></message>
+            <stack-trace><![CDATA[  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <fd98429b8c6c4f82ba907b21c76e6375>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <fd98429b8c6c4f82ba907b21c76e6375>:0 
+  at PlayerPushPull_EditModeTests.ToggleInteractViaReflection (PlayerPushPull ppp) [0x00043] in /Users/hayyau/Documents/epel/found-again/Assets/Tests/EditMode/PlayerPushPull_EditModeTest.cs:99 
+  at PlayerPushPull_EditModeTests+<AttachAndDetach_TogglesSliderAndFriction>d__12.MoveNext () [0x000a8] in /Users/hayyau/Documents/epel/found-again/Assets/Tests/EditMode/PlayerPushPull_EditModeTest.cs:149 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in ./Library/PackageCache/com.unity.test-framework@40b8da2bd3e9/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:44 
+--NullReferenceException
+  at PlayerPushPull.TryAttachToFrontObject () [0x0004b] in /Users/hayyau/Documents/epel/found-again/Assets/Scripts/Player/PlayerPushPull.cs:276 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <fd98429b8c6c4f82ba907b21c76e6375>:0 ]]></stack-trace>
+          </failure>
+        </test-case>
+        <test-case id="1003" name="Leash_TooFarX_AutoDetachAfterGrace" fullname="PlayerPushPull_EditModeTests.Leash_TooFarX_AutoDetachAfterGrace" methodname="Leash_TooFarX_AutoDetachAfterGrace" classname="PlayerPushPull_EditModeTests" runstate="Runnable" seed="2018971988" result="Failed" label="Error" start-time="2025-10-31 02:47:49Z" end-time="2025-10-31 02:47:49Z" duration="0.006457" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[System.Reflection.TargetInvocationException : Exception has been thrown by the target of an invocation.
+  ----> System.NullReferenceException : Object reference not set to an instance of an object]]></message>
+            <stack-trace><![CDATA[  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <fd98429b8c6c4f82ba907b21c76e6375>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <fd98429b8c6c4f82ba907b21c76e6375>:0 
+  at PlayerPushPull_EditModeTests.ToggleInteractViaReflection (PlayerPushPull ppp) [0x00043] in /Users/hayyau/Documents/epel/found-again/Assets/Tests/EditMode/PlayerPushPull_EditModeTest.cs:99 
+  at PlayerPushPull_EditModeTests+<Leash_TooFarX_AutoDetachAfterGrace>d__13.MoveNext () [0x000a0] in /Users/hayyau/Documents/epel/found-again/Assets/Tests/EditMode/PlayerPushPull_EditModeTest.cs:181 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in ./Library/PackageCache/com.unity.test-framework@40b8da2bd3e9/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:44 
+--NullReferenceException
+  at PlayerPushPull.TryAttachToFrontObject () [0x0004b] in /Users/hayyau/Documents/epel/found-again/Assets/Scripts/Player/PlayerPushPull.cs:276 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <fd98429b8c6c4f82ba907b21c76e6375>:0 ]]></stack-trace>
+          </failure>
+        </test-case>
+        <test-case id="1004" name="NoContact_AutoDetachAfterGrace" fullname="PlayerPushPull_EditModeTests.NoContact_AutoDetachAfterGrace" methodname="NoContact_AutoDetachAfterGrace" classname="PlayerPushPull_EditModeTests" runstate="Runnable" seed="816382547" result="Failed" label="Error" start-time="2025-10-31 02:47:49Z" end-time="2025-10-31 02:47:49Z" duration="0.005412" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[System.Reflection.TargetInvocationException : Exception has been thrown by the target of an invocation.
+  ----> System.NullReferenceException : Object reference not set to an instance of an object]]></message>
+            <stack-trace><![CDATA[  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <fd98429b8c6c4f82ba907b21c76e6375>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <fd98429b8c6c4f82ba907b21c76e6375>:0 
+  at PlayerPushPull_EditModeTests.ToggleInteractViaReflection (PlayerPushPull ppp) [0x00043] in /Users/hayyau/Documents/epel/found-again/Assets/Tests/EditMode/PlayerPushPull_EditModeTest.cs:99 
+  at PlayerPushPull_EditModeTests+<NoContact_AutoDetachAfterGrace>d__14.MoveNext () [0x000a0] in /Users/hayyau/Documents/epel/found-again/Assets/Tests/EditMode/PlayerPushPull_EditModeTest.cs:208 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in ./Library/PackageCache/com.unity.test-framework@40b8da2bd3e9/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:44 
+--NullReferenceException
+  at PlayerPushPull.TryAttachToFrontObject () [0x0004b] in /Users/hayyau/Documents/epel/found-again/Assets/Scripts/Player/PlayerPushPull.cs:276 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <fd98429b8c6c4f82ba907b21c76e6375>:0 ]]></stack-trace>
+          </failure>
+          <output><![CDATA[Saving results to: /Users/hayyau/Library/Application Support/DefaultCompany/found-again/TestResults.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -139,6 +139,8 @@ public class Movement : MonoBehaviour
     }
     bool groundedNow = isGrounded();
 
+    Debug.Log("Grounded:" + groundedNow);
+
     // --- THIS IS THE NEW FALL DAMAGE LOGIC ---
     if (groundedNow && !wasGroundedLastFrame)
     {
@@ -155,7 +157,6 @@ public class Movement : MonoBehaviour
     wasGroundedLastFrame = groundedNow;
     // --- END OF NEW LOGIC ---
 
-    // --- Input Reading ---
     horizontalInput = moveAction != null ? moveAction.ReadValue<Vector2>().x : Input.GetAxisRaw("Horizontal");
 
     bool pushingNow = pushPull != null && pushPull.isPushing;
@@ -167,7 +168,6 @@ public class Movement : MonoBehaviour
         transform.localScale = new Vector3(-1, 1, 1);
     }
 
-    // Jump
     if (wallJumpCooldown > 0.2f && jumpAction != null && jumpAction.WasPressedThisFrame())
     {
       var pushPull = GetComponent<PlayerPushPull>();
@@ -292,10 +292,15 @@ public class Movement : MonoBehaviour
     bool groundedNow = isGrounded();
     float vy = body.linearVelocity.y;
 
-    animator.SetBool("run", Mathf.Abs(horizontalInput) > 0.01f);
-    animator.SetBool("grounded", isGrounded());
+    bool interactingNow = pushPull != null && (pushPull.isPushing || pushPull.isPulling);
+
+    bool shouldRun = !interactingNow && Mathf.Abs(horizontalInput) > 0.01f;
+
+    animator.SetBool("run", shouldRun);
+    animator.SetBool("grounded", groundedNow);
     animator.SetFloat("yVelocity", vy);
     animator.SetBool("sliding", sliding);
+    animator.SetBool("isInteracting", interactingNow);
   }
 
   // ====== SLOPE PROBING ======
