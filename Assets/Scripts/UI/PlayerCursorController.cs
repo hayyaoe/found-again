@@ -29,8 +29,7 @@ public class PlayerCursorController : MonoBehaviour
     {
         lobbyManager = FindFirstObjectByType<LobbyManager>();
 
-        // 🔍 Automatically find the Canvas in the scene
-        var canvas = FindFirstObjectByType<Canvas>();
+        var canvas = GameObject.FindGameObjectWithTag("MainUICanvas");
         if (canvas == null)
         {
             Debug.LogError("❌ No Canvas found in scene!");
