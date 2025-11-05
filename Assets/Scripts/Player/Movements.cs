@@ -90,6 +90,11 @@ public class Movement : MonoBehaviour
   [SerializeField] private float groundedLatchSeconds = 0.08f;
   private float groundedLatchTimer = 0f;
 
+  [SerializeField] private float acceleration = 12f;
+  [SerializeField] private float deceleration = 16f;
+  [SerializeField] private float velocityPower = 0.9f;
+
+
   // private PlayerPushPull pushPull;
   private void Awake()
   {
@@ -200,7 +205,26 @@ public class Movement : MonoBehaviour
     bool pushingNow = pushPull != null && pushPull.isPushing;
 
     if (!didSlide && !pushingNow)
-      body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+    {
+        float targetSpeed = horizontalInput * speed;
+        float speedDiff = targetSpeed - body.linearVelocity.x;
+
+        // Choose accel rate depending on whether we're accelerating or decelerating
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f)
+            ? acceleration
+            : deceleration;
+
+        // Apply acceleration curve (power < 1 makes it snappier, > 1 makes it smoother)
+        float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, velocityPower) * Mathf.Sign(speedDiff);
+
+        body.AddForce(movement * Vector2.right);
+
+        // Optional clamp: limit X speed so you don’t overshoot
+        if (Mathf.Abs(body.linearVelocity.x) > speed)
+        {
+            body.linearVelocity = new Vector2(Mathf.Sign(body.linearVelocity.x) * speed, body.linearVelocity.y);
+        }
+    }
   }
 
   private void Jump()
