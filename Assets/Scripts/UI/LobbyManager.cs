@@ -116,12 +116,12 @@ public class LobbyManager : MonoBehaviour
         if (FadeManager.instance != null)
         {
             // FadeManager.instance.FadeToScene("DialogueCutscene");
-            SceneFader.instance.FadeToScene("DialogueCutscene");
+            SceneFader.instance.FadeToScene("Prologue");
         }
         else
         {
             // Fallback in case the FadeManager is missing
-            SceneManager.LoadScene("DialogueCutscene");
+            SceneManager.LoadScene("Prologue");
         }
     }
 
