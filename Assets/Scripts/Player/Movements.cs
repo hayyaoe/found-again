@@ -124,9 +124,6 @@ public class Movement : MonoBehaviour
   private void Start()
   {
     CheckpointManager.RegisterPlayer(this);
-    CameraMovement cameraMovement = FindFirstObjectByType<CameraMovement>();
-    if (cameraMovement != null)
-      cameraMovement.setTarget(transform);
 
     if (isGrounded())
       wasGroundedLastFrame = true;

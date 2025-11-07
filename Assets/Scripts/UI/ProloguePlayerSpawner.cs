@@ -4,48 +4,50 @@ using UnityEngine.InputSystem;
 
 public class ProloguePlayerSpawner : MonoBehaviour
 {
-    public GameObject mimiPrefab;  // assign in inspector
-    public GameObject mariePrefab; // assign in inspector
-
-    // optional spawn positions per playerIndex, fallback to origin
+    public GameObject mimiPrefab;
+    public GameObject mariePrefab;
     public Transform[] spawnPoints;
-    
-    // --- REMOVED THE HUD CANVAS ---
-    // The DialogueManager will handle enabling this now.
 
-    // --- Start() has been REPLACED ---
-    // This function will now be called by DialogueManager when the cutscene ends.
+    private CameraMovement cameraMovement;
+
+    private void Awake()
+    {
+        // Find the camera movement script in the scene
+        cameraMovement = FindObjectOfType<CameraMovement>();
+    }
+
     public void StartSpawning()
     {
         Debug.Log("Dialogue finished, spawning players...");
-        
+
         var sm = PlayerSelectionManager.Instance;
         if (sm == null)
         {
-            Debug.LogError("PlayerSelectionManager not found. Make sure it exists in the Lobby and uses DontDestroyOnLoad.");
+            Debug.LogError("PlayerSelectionManager not found.");
             return;
         }
 
+        var spawnedPlayers = new System.Collections.Generic.List<Transform>();
+
         foreach (var selection in sm.selectedPlayers)
         {
-            GameObject prefabToSpawn = null;
-            switch (selection.characterName)
+            GameObject prefabToSpawn = selection.characterName switch
             {
-                case "Mimi": prefabToSpawn = mimiPrefab; break;
-                case "Marie": prefabToSpawn = mariePrefab; break;
-                default:
-                    Debug.LogWarning($"Unknown character: {selection.characterName}. Skipping spawn.");
-                    continue;
+                "Mimi" => mimiPrefab,
+                "Marie" => mariePrefab,
+                _ => null
+            };
+
+            if (prefabToSpawn == null)
+            {
+                Debug.LogWarning($"Unknown character: {selection.characterName}. Skipping spawn.");
+                continue;
             }
 
-            InputDevice[] devices = new InputDevice[0];
-            if (selection.deviceIds != null && selection.deviceIds.Length > 0)
-            {
-                devices = selection.deviceIds
-                    .Select(id => InputSystem.devices.FirstOrDefault(d => d.deviceId == id))
-                    .Where(d => d != null)
-                    .ToArray();
-            }
+            InputDevice[] devices = selection.deviceIds?
+                .Select(id => InputSystem.devices.FirstOrDefault(d => d.deviceId == id))
+                .Where(d => d != null)
+                .ToArray() ?? new InputDevice[0];
 
             PlayerInput newPlayerInput = PlayerInput.Instantiate(prefabToSpawn, selection.playerIndex, null, -1, devices);
 
@@ -56,14 +58,21 @@ public class ProloguePlayerSpawner : MonoBehaviour
             }
 
             int spawnIdx = selection.playerIndex;
-            if (spawnPoints != null && spawnIdx >= 0 && spawnIdx < spawnPoints.Length && spawnPoints[spawnIdx] != null)
+            if (spawnPoints != null && spawnIdx < spawnPoints.Length && spawnPoints[spawnIdx] != null)
             {
                 newPlayerInput.transform.position = spawnPoints[spawnIdx].position;
                 newPlayerInput.transform.rotation = spawnPoints[spawnIdx].rotation;
             }
 
-            Debug.Log($"Spawned {selection.characterName} for {selection.playerName} with {devices.Length} device(s).");
+            spawnedPlayers.Add(newPlayerInput.transform);
+            Debug.Log($"Spawned {selection.characterName} for {selection.playerName}.");
+        }
+
+        // ✅ Send both player transforms to the camera
+        if (cameraMovement != null && spawnedPlayers.Count > 0)
+        {
+            cameraMovement.SetTargets(spawnedPlayers.ToArray());
+            Debug.Log("Camera now following both players.");
         }
     }
-    
 }
