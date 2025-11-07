@@ -42,9 +42,9 @@ public class PlayerCursorController : MonoBehaviour
 
         // 🧩 Determine initial Y offset dynamically
         if (playerName == "P1")
-            selectorBox.anchoredPosition = new Vector2(0, 170f);
+            selectorBox.anchoredPosition = new Vector2(0, 100f);
         else if (playerName == "P2")
-            selectorBox.anchoredPosition = new Vector2(0, -60f);
+            selectorBox.anchoredPosition = new Vector2(0, -20f);
         else
             selectorBox.anchoredPosition = Vector2.zero;
 
