@@ -12,7 +12,7 @@ public class PauseMenu : MonoBehaviour
     private InputAction pauseAction;
 
     // A static variable can be checked from any other script (e.g., to stop player movement)
-    public static bool GameIsPaused { get; private set; }
+    public static bool GameIsPaused { get; set; }
 
     private void Awake()
     {

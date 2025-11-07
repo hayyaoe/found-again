@@ -29,8 +29,7 @@ public class PlayerCursorController : MonoBehaviour
     {
         lobbyManager = FindFirstObjectByType<LobbyManager>();
 
-        // 🔍 Automatically find the Canvas in the scene
-        var canvas = FindFirstObjectByType<Canvas>();
+        var canvas = GameObject.FindGameObjectWithTag("MainUICanvas");
         if (canvas == null)
         {
             Debug.LogError("❌ No Canvas found in scene!");
@@ -43,9 +42,9 @@ public class PlayerCursorController : MonoBehaviour
 
         // 🧩 Determine initial Y offset dynamically
         if (playerName == "P1")
-            selectorBox.anchoredPosition = new Vector2(0, 200f);
+            selectorBox.anchoredPosition = new Vector2(0, 100f);
         else if (playerName == "P2")
-            selectorBox.anchoredPosition = new Vector2(0, -60f);
+            selectorBox.anchoredPosition = new Vector2(0, -20f);
         else
             selectorBox.anchoredPosition = Vector2.zero;
 
