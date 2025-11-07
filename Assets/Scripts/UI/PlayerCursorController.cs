@@ -212,10 +212,29 @@ public class PlayerCursorController : MonoBehaviour
     {
         if (!context.performed) return;
 
+        // 🟢 Force re-sync selection immediately before confirm
+        if (currentPosition == CursorPosition.Marie)
+            lobbyManager.UpdatePlayerSelection(playerName, "Marie");
+        else if (currentPosition == CursorPosition.Mimi)
+            lobbyManager.UpdatePlayerSelection(playerName, "Mimi");
+
         if (currentPosition == CursorPosition.Play && lobbyManager != null)
         {
             lobbyManager.OnPlayerConfirm(playerName);
         }
     }
 
+    // << Add this method here >>
+    public string GetCurrentCharacter()
+    {
+        switch (currentPosition)
+        {
+            case CursorPosition.Marie:
+                return "Marie";
+            case CursorPosition.Mimi:
+                return "Mimi";
+            default:
+                return null;
+        }
+    }
 }

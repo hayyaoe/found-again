@@ -41,7 +41,6 @@ public class PlayerSelectionManager : MonoBehaviour
             return;
         }
 
-        // collect device ids that are currently paired to that PlayerInput
         var deviceIds = playerInput.devices.Select(d => d.deviceId).ToArray();
 
         var data = new PlayerSelectionData
@@ -52,9 +51,20 @@ public class PlayerSelectionManager : MonoBehaviour
             deviceIds = deviceIds
         };
 
-        // avoid duplicates (based on playerIndex or playerName)
-        if (!selectedPlayers.Exists(p => p.playerIndex == data.playerIndex))
+        // ✅ If player already exists, update their selection instead of skipping
+        var existing = selectedPlayers.FirstOrDefault(p => p.playerIndex == data.playerIndex);
+        if (existing != null)
+        {
+            existing.characterName = data.characterName;
+            existing.deviceIds = data.deviceIds;
+            existing.playerName = data.playerName;
+        }
+        else
+        {
             selectedPlayers.Add(data);
+        }
+
+        Debug.Log($"✅ Registered/Updated {data.playerName} → {data.characterName}");
     }
 
     public void RegisterSelection(string playerName, string characterName)
