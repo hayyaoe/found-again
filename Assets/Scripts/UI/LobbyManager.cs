@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
+
 
 public class LobbyManager : MonoBehaviour
 {
@@ -105,13 +107,25 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
-    // called when actual confirm/submit button pressed (not hover)
     public void OnPlayPressed()
     {
         if (!playButton.interactable) return;
+<<<<<<< Updated upstream
 
         Debug.Log("✅ Play button pressed. Loading Prologue...");
         SceneManager.LoadScene("Prologue");
+=======
+        StartCoroutine(DelayedLoad());
+    }
+
+    private IEnumerator DelayedLoad()
+    {
+        yield return null; // wait one frame for selections to finalize
+        if (FadeManager.instance != null)
+            SceneFader.instance.FadeToScene("Prologue");
+        else
+            SceneManager.LoadScene("Prologue");
+>>>>>>> Stashed changes
     }
 
     // external call by PlayerCursorController when confirm input pressed
@@ -119,9 +133,20 @@ public class LobbyManager : MonoBehaviour
     {
         if (currentHoveringPlayer == playerName && playButton.interactable)
         {
+            // 🔄 Force re-register latest selection before loading
+            var cursor = FindObjectsOfType<PlayerCursorController>()
+                .FirstOrDefault(c => c.playerName == playerName);
+            if (cursor != null)
+            {
+                string selectedCharacter = cursor.GetCurrentCharacter(); // ✅ get directly from PlayerCursorController
+                if (!string.IsNullOrEmpty(selectedCharacter))
+                    UpdatePlayerSelection(playerName, selectedCharacter);
+            }
+
             OnPlayPressed();
         }
     }
+
 
     public void OnSubmit(InputAction.CallbackContext context)
     {
