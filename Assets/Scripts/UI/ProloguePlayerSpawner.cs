@@ -1,4 +1,3 @@
-// ProloguePlayerSpawner.cs
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,9 +9,16 @@ public class ProloguePlayerSpawner : MonoBehaviour
 
     // optional spawn positions per playerIndex, fallback to origin
     public Transform[] spawnPoints;
+    
+    // --- REMOVED THE HUD CANVAS ---
+    // The DialogueManager will handle enabling this now.
 
-    void Start()
+    // --- Start() has been REPLACED ---
+    // This function will now be called by DialogueManager when the cutscene ends.
+    public void StartSpawning()
     {
+        Debug.Log("Dialogue finished, spawning players...");
+        
         var sm = PlayerSelectionManager.Instance;
         if (sm == null)
         {
@@ -32,7 +38,6 @@ public class ProloguePlayerSpawner : MonoBehaviour
                     continue;
             }
 
-            // Resolve InputDevice[] from stored device ids
             InputDevice[] devices = new InputDevice[0];
             if (selection.deviceIds != null && selection.deviceIds.Length > 0)
             {
@@ -42,8 +47,6 @@ public class ProloguePlayerSpawner : MonoBehaviour
                     .ToArray();
             }
 
-            // Instantiate PlayerInput with the prefab and pair the devices.
-            // Parameters: prefab, playerIndex, controlScheme (null = auto), splitScreenIndex (-1 = none), pairWithDevices...
             PlayerInput newPlayerInput = PlayerInput.Instantiate(prefabToSpawn, selection.playerIndex, null, -1, devices);
 
             if (newPlayerInput == null)
@@ -52,7 +55,6 @@ public class ProloguePlayerSpawner : MonoBehaviour
                 continue;
             }
 
-            // Move to spawn position if available
             int spawnIdx = selection.playerIndex;
             if (spawnPoints != null && spawnIdx >= 0 && spawnIdx < spawnPoints.Length && spawnPoints[spawnIdx] != null)
             {
@@ -62,8 +64,6 @@ public class ProloguePlayerSpawner : MonoBehaviour
 
             Debug.Log($"Spawned {selection.characterName} for {selection.playerName} with {devices.Length} device(s).");
         }
-
-        // optional cleanup
-        // sm.ClearSelections();
     }
+    
 }

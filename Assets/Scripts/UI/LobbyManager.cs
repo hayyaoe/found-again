@@ -109,9 +109,20 @@ public class LobbyManager : MonoBehaviour
     public void OnPlayPressed()
     {
         if (!playButton.interactable) return;
-
-        Debug.Log("✅ Play button pressed. Loading Prologue...");
-        SceneManager.LoadScene("Prologue");
+        // SceneManager.LoadScene("Prologue");
+        // --- THIS IS THE CHANGE ---
+        // Use the FadeManager to load the cutscene,
+        // which will then load the "Prologue"
+        if (FadeManager.instance != null)
+        {
+            // FadeManager.instance.FadeToScene("DialogueCutscene");
+            SceneFader.instance.FadeToScene("Prologue");
+        }
+        else
+        {
+            // Fallback in case the FadeManager is missing
+            SceneManager.LoadScene("Prologue");
+        }
     }
 
     // external call by PlayerCursorController when confirm input pressed
@@ -138,6 +149,7 @@ public class LobbyManager : MonoBehaviour
         // Check if gamepad "South" button (X / A) pressed
         if (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame)
         {
+            // --- END OF CHANGE ---
             OnPlayPressed();
             return;
         }

@@ -90,6 +90,11 @@ public class Movement : MonoBehaviour
   [SerializeField] private float groundedLatchSeconds = 0.08f;
   private float groundedLatchTimer = 0f;
 
+  [SerializeField] private float acceleration = 12f;
+  [SerializeField] private float deceleration = 16f;
+  [SerializeField] private float velocityPower = 0.9f;
+
+
   // private PlayerPushPull pushPull;
   private void Awake()
   {
@@ -139,6 +144,8 @@ public class Movement : MonoBehaviour
     }
     bool groundedNow = isGrounded();
 
+    Debug.Log("Grounded:" + groundedNow);
+
     // --- THIS IS THE NEW FALL DAMAGE LOGIC ---
     if (groundedNow && !wasGroundedLastFrame)
     {
@@ -155,7 +162,6 @@ public class Movement : MonoBehaviour
     wasGroundedLastFrame = groundedNow;
     // --- END OF NEW LOGIC ---
 
-    // --- Input Reading ---
     horizontalInput = moveAction != null ? moveAction.ReadValue<Vector2>().x : Input.GetAxisRaw("Horizontal");
 
     bool pushingNow = pushPull != null && pushPull.isPushing;
@@ -167,7 +173,6 @@ public class Movement : MonoBehaviour
         transform.localScale = new Vector3(-1, 1, 1);
     }
 
-    // Jump
     if (wallJumpCooldown > 0.2f && jumpAction != null && jumpAction.WasPressedThisFrame())
     {
       var pushPull = GetComponent<PlayerPushPull>();
@@ -200,7 +205,26 @@ public class Movement : MonoBehaviour
     bool pushingNow = pushPull != null && pushPull.isPushing;
 
     if (!didSlide && !pushingNow)
-      body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+    {
+        float targetSpeed = horizontalInput * speed;
+        float speedDiff = targetSpeed - body.linearVelocity.x;
+
+        // Choose accel rate depending on whether we're accelerating or decelerating
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f)
+            ? acceleration
+            : deceleration;
+
+        // Apply acceleration curve (power < 1 makes it snappier, > 1 makes it smoother)
+        float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, velocityPower) * Mathf.Sign(speedDiff);
+
+        body.AddForce(movement * Vector2.right);
+
+        // Optional clamp: limit X speed so you don’t overshoot
+        if (Mathf.Abs(body.linearVelocity.x) > speed)
+        {
+            body.linearVelocity = new Vector2(Mathf.Sign(body.linearVelocity.x) * speed, body.linearVelocity.y);
+        }
+    }
   }
 
   private void Jump()
@@ -292,10 +316,15 @@ public class Movement : MonoBehaviour
     bool groundedNow = isGrounded();
     float vy = body.linearVelocity.y;
 
-    animator.SetBool("run", Mathf.Abs(horizontalInput) > 0.01f);
-    animator.SetBool("grounded", isGrounded());
+    bool interactingNow = pushPull != null && (pushPull.isPushing || pushPull.isPulling);
+
+    bool shouldRun = !interactingNow && Mathf.Abs(horizontalInput) > 0.01f;
+
+    animator.SetBool("run", shouldRun);
+    animator.SetBool("grounded", groundedNow);
     animator.SetFloat("yVelocity", vy);
     animator.SetBool("sliding", sliding);
+    animator.SetBool("isInteracting", interactingNow);
   }
 
   // ====== SLOPE PROBING ======

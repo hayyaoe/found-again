@@ -5,7 +5,8 @@ public class MainMenuLogic : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene("PlayerSelectMenu");
+        // SceneManager.LoadScene("PlayerSelectMenu");
+        SceneFader.instance.FadeToScene("PlayerSelectMenu");
     }
 
     public void QuitGame()
@@ -13,9 +14,9 @@ public class MainMenuLogic : MonoBehaviour
         Application.Quit();
     }
 
-    public void GoToSettingsMenu()
+    public void GoToOptionsMenu()
     {
-        SceneManager.LoadScene("SettingsMenu");
+        SceneManager.LoadScene("OptionsMenu");
     }
 
     public void GoToMainMenu()
