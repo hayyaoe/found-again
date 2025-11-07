@@ -3,8 +3,8 @@ guid: 97f802074c733463280975956d55c344
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3440964323520084243
-    second: A4frontBackground_0
+      213: 8145238336714993932
+    second: A4frontbackground_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: A4frontBackground_0
+      name: A4frontbackground_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 2953
-        height: 1866
+        width: 3100
+        height: 2000
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 319f43c32d2c0cf20800000000000000
-      internalID: 3440964323520084243
+      spriteID: c017ac6ac13b90170800000000000000
+      internalID: 8145238336714993932
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      A4frontBackground_0: 3440964323520084243
+      A4frontbackground_0: 8145238336714993932
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

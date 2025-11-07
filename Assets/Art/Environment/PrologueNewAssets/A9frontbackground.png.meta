@@ -1,0 +1,1664 @@
+fileFormatVersion: 2
+guid: 8c30f0c5b466c42c7950ab22da4ff5e7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8679849611956768594
+    second: A9frontbackground_0
+  - first:
+      213: -8926611098917256228
+    second: A9frontbackground_1
+  - first:
+      213: 4634295119557481763
+    second: A9frontbackground_2
+  - first:
+      213: -4707558972283754344
+    second: A9frontbackground_3
+  - first:
+      213: -9143767709193472260
+    second: A9frontbackground_4
+  - first:
+      213: -3833238713221282497
+    second: A9frontbackground_5
+  - first:
+      213: -4897053561641235347
+    second: A9frontbackground_6
+  - first:
+      213: 488449820683733033
+    second: A9frontbackground_7
+  - first:
+      213: -3886168228642419794
+    second: A9frontbackground_8
+  - first:
+      213: -195867459176507322
+    second: A9frontbackground_9
+  - first:
+      213: -2571010329080011541
+    second: A9frontbackground_10
+  - first:
+      213: -7873190768641298691
+    second: A9frontbackground_11
+  - first:
+      213: -2080187255455895938
+    second: A9frontbackground_12
+  - first:
+      213: 8481771856586927849
+    second: A9frontbackground_13
+  - first:
+      213: 2341839249189856257
+    second: A9frontbackground_14
+  - first:
+      213: -1656615355322370603
+    second: A9frontbackground_15
+  - first:
+      213: 4214212046301035376
+    second: A9frontbackground_16
+  - first:
+      213: 2674361932610520521
+    second: A9frontbackground_17
+  - first:
+      213: 563973198036330221
+    second: A9frontbackground_18
+  - first:
+      213: -1411743594592870506
+    second: A9frontbackground_19
+  - first:
+      213: 2854270745184013334
+    second: A9frontbackground_20
+  - first:
+      213: -4149810792095950216
+    second: A9frontbackground_21
+  - first:
+      213: 7397185220987116946
+    second: A9frontbackground_22
+  - first:
+      213: 4084003712363726400
+    second: A9frontbackground_23
+  - first:
+      213: 245686404119538463
+    second: A9frontbackground_24
+  - first:
+      213: -5311120543163366586
+    second: A9frontbackground_25
+  - first:
+      213: -6171329549647747973
+    second: A9frontbackground_26
+  - first:
+      213: -7602630482174553051
+    second: A9frontbackground_27
+  - first:
+      213: -4935591153432112179
+    second: A9frontbackground_28
+  - first:
+      213: -2556961537698428071
+    second: A9frontbackground_29
+  - first:
+      213: 4344483253408815480
+    second: A9frontbackground_30
+  - first:
+      213: 1824886832029532549
+    second: A9frontbackground_31
+  - first:
+      213: -680264745228268721
+    second: A9frontbackground_32
+  - first:
+      213: -3756486632739996520
+    second: A9frontbackground_33
+  - first:
+      213: 8358562472855768296
+    second: A9frontbackground_34
+  - first:
+      213: 2677901329409350193
+    second: A9frontbackground_35
+  - first:
+      213: -2244601871417580193
+    second: A9frontbackground_36
+  - first:
+      213: 3367114035871127330
+    second: A9frontbackground_37
+  - first:
+      213: 2759531302619919935
+    second: A9frontbackground_38
+  - first:
+      213: 8928245839968991546
+    second: A9frontbackground_39
+  - first:
+      213: 4949135019801061563
+    second: A9frontbackground_40
+  - first:
+      213: 5280025035693631462
+    second: A9frontbackground_41
+  - first:
+      213: 3228169903662933747
+    second: A9frontbackground_42
+  - first:
+      213: -7043126684574127575
+    second: A9frontbackground_43
+  - first:
+      213: -2933534643019182240
+    second: A9frontbackground_44
+  - first:
+      213: 3181302794122078440
+    second: A9frontbackground_45
+  - first:
+      213: 1093125680980335371
+    second: A9frontbackground_46
+  - first:
+      213: -277075410564124356
+    second: A9frontbackground_47
+  - first:
+      213: -8716432124956721147
+    second: A9frontbackground_48
+  - first:
+      213: 5049274465577241405
+    second: A9frontbackground_49
+  - first:
+      213: -4804815598357625773
+    second: A9frontbackground_50
+  - first:
+      213: 3790255289657923340
+    second: A9frontbackground_51
+  - first:
+      213: -4214004773481395357
+    second: A9frontbackground_52
+  - first:
+      213: 8608999650155958681
+    second: A9frontbackground_53
+  - first:
+      213: -2537764436736507303
+    second: A9frontbackground_54
+  - first:
+      213: 4420204527052338362
+    second: A9frontbackground_55
+  - first:
+      213: 5123343215000046364
+    second: A9frontbackground_56
+  - first:
+      213: 4123865420579339758
+    second: A9frontbackground_57
+  - first:
+      213: -4858829851716624286
+    second: A9frontbackground_58
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: A9frontbackground_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1656
+        width: 43
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25fce78fb35057870800000000000000
+      internalID: 8679849611956768594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_1
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 1428
+        width: 186
+        height: 376
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd34af0308e4e1480800000000000000
+      internalID: -8926611098917256228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_2
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 1779
+        width: 30
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 325dc819bd2505040800000000000000
+      internalID: 4634295119557481763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_3
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 1457
+        width: 173
+        height: 347
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 898e2d17e046baeb0800000000000000
+      internalID: -4707558972283754344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_4
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 1787
+        width: 22
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf6f5d8d6bfca1180800000000000000
+      internalID: -9143767709193472260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_5
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 1794
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f358b2f13b99dcac0800000000000000
+      internalID: -3833238713221282497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_6
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 1772
+        width: 14
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6c005c3bbb2a0cb0800000000000000
+      internalID: -4897053561641235347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_7
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1571
+        width: 118
+        height: 221
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9280574268257c600800000000000000
+      internalID: 488449820683733033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_8
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 1786
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eab0c5af59e811ac0800000000000000
+      internalID: -3886168228642419794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_9
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 1780
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 648d9b86593284df0800000000000000
+      internalID: -195867459176507322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_10
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 1782
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be4635d3abfe15cd0800000000000000
+      internalID: -2571010329080011541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_11
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1770
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfe204ab5beccb290800000000000000
+      internalID: -7873190768641298691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_12
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 1779
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7ea14466b0b123e0800000000000000
+      internalID: -2080187255455895938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_13
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 1772
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9eee4c1b09e45b570800000000000000
+      internalID: 8481771856586927849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_14
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 1771
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1046709b362ef7020800000000000000
+      internalID: 2341839249189856257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_15
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 1773
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d57d888c158209e0800000000000000
+      internalID: -1656615355322370603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_16
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 1747
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07bf1fb3783eb7a30800000000000000
+      internalID: 4214212046301035376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_17
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 1762
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c5c312220e3d1520800000000000000
+      internalID: 2674361932610520521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_18
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 1760
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de6ebc3b2a2a3d700800000000000000
+      internalID: 563973198036330221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_19
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 1755
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69fdb523eaa786ce0800000000000000
+      internalID: -1411743594592870506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_20
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 1748
+        width: 24
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61c8b73ce186c9720800000000000000
+      internalID: 2854270745184013334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_21
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 1760
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87ad90c3219e866c0800000000000000
+      internalID: -4149810792095950216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_22
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 1731
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29dd4ba34c418a660800000000000000
+      internalID: 7397185220987116946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_23
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 1737
+        width: 17
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04601d80dbb4da830800000000000000
+      internalID: 4084003712363726400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_24
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 1650
+        width: 23
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1b20bb9b7ad86300800000000000000
+      internalID: 245686404119538463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_25
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1730
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 643c779610c1b46b0800000000000000
+      internalID: -5311120543163366586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_26
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 1707
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b74ef51c8780b5aa0800000000000000
+      internalID: -6171329549647747973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_27
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 1697
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 524dd6f5bd70e7690800000000000000
+      internalID: -7602630482174553051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_28
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 1698
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc35e1feef1418bb0800000000000000
+      internalID: -4935591153432112179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_29
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 1680
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95b06216709d38cd0800000000000000
+      internalID: -2556961537698428071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_30
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 1683
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 879d01c3084ba4c30800000000000000
+      internalID: 4344483253408815480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_31
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 1659
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5818862b7ec435910800000000000000
+      internalID: 1824886832029532549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_32
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 1660
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4b827381d63f86f0800000000000000
+      internalID: -680264745228268721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_33
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 1663
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89c770c6f474edbc0800000000000000
+      internalID: -3756486632739996520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_34
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 1657
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ec8a7398449ff370800000000000000
+      internalID: 8358562472855768296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_35
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 1646
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13a9dfa2211d92520800000000000000
+      internalID: 2677901329409350193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_36
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 1637
+        width: 15
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f556af78d7299d0e0800000000000000
+      internalID: -2244601871417580193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_37
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 1615
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 227945a30646abe20800000000000000
+      internalID: 3367114035871127330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_38
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 1613
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f363b3f5913db4620800000000000000
+      internalID: 2759531302619919935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_39
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 1608
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a39f5be994087eb70800000000000000
+      internalID: 8928245839968991546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_40
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 1591
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb820b0341cdea440800000000000000
+      internalID: 4949135019801061563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_41
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 1587
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e720b19bca664940800000000000000
+      internalID: 5280025035693631462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_42
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 1568
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f6af6e7c63cccc20800000000000000
+      internalID: 3228169903662933747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_43
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 1561
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92a62e1b899c14e90800000000000000
+      internalID: -7043126684574127575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_44
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 1553
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06f0a82e8cdf947d0800000000000000
+      internalID: -2933534643019182240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_45
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 1556
+        width: 14
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e8aa963902462c20800000000000000
+      internalID: 3181302794122078440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_46
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 1543
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0b90b5e3009b2f00800000000000000
+      internalID: 1093125680980335371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_47
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 1533
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c317451d161a72cf0800000000000000
+      internalID: -277075410564124356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_48
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 1527
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 500c62bf923090780800000000000000
+      internalID: -8716432124956721147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_49
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 1503
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3b8e2ecf50a21640800000000000000
+      internalID: 5049274465577241405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_50
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 1511
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35443a89badd15db0800000000000000
+      internalID: -4804815598357625773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_51
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 1476
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c071b14ba11b99430800000000000000
+      internalID: 3790255289657923340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_52
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 1437
+        width: 28
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36b47da3cf8d485c0800000000000000
+      internalID: -4214004773481395357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_53
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 1392
+        width: 19
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9911203c19f497770800000000000000
+      internalID: 8608999650155958681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_54
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 1154
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95283b0c0bc08ccd0800000000000000
+      internalID: -2537764436736507303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_55
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1071
+        width: 34
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab4378d1998b75d30800000000000000
+      internalID: 4420204527052338362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_56
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 858
+        width: 135
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1b4c786285c91740800000000000000
+      internalID: 5123343215000046364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_57
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 466
+        width: 27
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eedf52730c9ea3930800000000000000
+      internalID: 4123865420579339758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9frontbackground_58
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 434
+        height: 439
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 260ed583ef7f19cb0800000000000000
+      internalID: -4858829851716624286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      A9frontbackground_0: 8679849611956768594
+      A9frontbackground_1: -8926611098917256228
+      A9frontbackground_10: -2571010329080011541
+      A9frontbackground_11: -7873190768641298691
+      A9frontbackground_12: -2080187255455895938
+      A9frontbackground_13: 8481771856586927849
+      A9frontbackground_14: 2341839249189856257
+      A9frontbackground_15: -1656615355322370603
+      A9frontbackground_16: 4214212046301035376
+      A9frontbackground_17: 2674361932610520521
+      A9frontbackground_18: 563973198036330221
+      A9frontbackground_19: -1411743594592870506
+      A9frontbackground_2: 4634295119557481763
+      A9frontbackground_20: 2854270745184013334
+      A9frontbackground_21: -4149810792095950216
+      A9frontbackground_22: 7397185220987116946
+      A9frontbackground_23: 4084003712363726400
+      A9frontbackground_24: 245686404119538463
+      A9frontbackground_25: -5311120543163366586
+      A9frontbackground_26: -6171329549647747973
+      A9frontbackground_27: -7602630482174553051
+      A9frontbackground_28: -4935591153432112179
+      A9frontbackground_29: -2556961537698428071
+      A9frontbackground_3: -4707558972283754344
+      A9frontbackground_30: 4344483253408815480
+      A9frontbackground_31: 1824886832029532549
+      A9frontbackground_32: -680264745228268721
+      A9frontbackground_33: -3756486632739996520
+      A9frontbackground_34: 8358562472855768296
+      A9frontbackground_35: 2677901329409350193
+      A9frontbackground_36: -2244601871417580193
+      A9frontbackground_37: 3367114035871127330
+      A9frontbackground_38: 2759531302619919935
+      A9frontbackground_39: 8928245839968991546
+      A9frontbackground_4: -9143767709193472260
+      A9frontbackground_40: 4949135019801061563
+      A9frontbackground_41: 5280025035693631462
+      A9frontbackground_42: 3228169903662933747
+      A9frontbackground_43: -7043126684574127575
+      A9frontbackground_44: -2933534643019182240
+      A9frontbackground_45: 3181302794122078440
+      A9frontbackground_46: 1093125680980335371
+      A9frontbackground_47: -277075410564124356
+      A9frontbackground_48: -8716432124956721147
+      A9frontbackground_49: 5049274465577241405
+      A9frontbackground_5: -3833238713221282497
+      A9frontbackground_50: -4804815598357625773
+      A9frontbackground_51: 3790255289657923340
+      A9frontbackground_52: -4214004773481395357
+      A9frontbackground_53: 8608999650155958681
+      A9frontbackground_54: -2537764436736507303
+      A9frontbackground_55: 4420204527052338362
+      A9frontbackground_56: 5123343215000046364
+      A9frontbackground_57: 4123865420579339758
+      A9frontbackground_58: -4858829851716624286
+      A9frontbackground_6: -4897053561641235347
+      A9frontbackground_7: 488449820683733033
+      A9frontbackground_8: -3886168228642419794
+      A9frontbackground_9: -195867459176507322
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

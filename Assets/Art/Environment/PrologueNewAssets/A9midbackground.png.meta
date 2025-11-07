@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a8c8be62cde7c4665badda13b4181bc6
+guid: aa072b26bc4ba44868066fa737e493da
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7577763205537598910
-    second: A3background_0
+      213: -1206785277256233976
+    second: A9midbackground_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: A3background_0
+      name: A9midbackground_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 2776
-        height: 1866
+        width: 3000
+        height: 820
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 242f7e5638066d690800000000000000
-      internalID: -7577763205537598910
+      spriteID: 80c88f42f23a04fe0800000000000000
+      internalID: -1206785277256233976
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      A3background_0: -7577763205537598910
+      A9midbackground_0: -1206785277256233976
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
