@@ -3,8 +3,17 @@ guid: ac4f57955f1ef4163bdbc238720ac563
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8131280258321869134
-    second: A3midBackground_0
+      213: -7904568479335063387
+    second: A3midbackground_0
+  - first:
+      213: 6538155020828884074
+    second: A3midbackground_1
+  - first:
+      213: 3894161979412586853
+    second: A3midbackground_2
+  - first:
+      213: 7905653740344160118
+    second: A3midbackground_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +122,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: A3midBackground_0
+      name: A3midbackground_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 2776
-        height: 1866
+        y: 504
+        width: 64
+        height: 166
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +137,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e49eb66405c18d070800000000000000
-      internalID: 8131280258321869134
+      spriteID: 5a0eb7629d45d4290800000000000000
+      internalID: -7904568479335063387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A3midbackground_1
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 0
+        width: 1971
+        height: 2000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6c31fec9513cba50800000000000000
+      internalID: 6538155020828884074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A3midbackground_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 351
+        width: 36
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56128b820b7da0630800000000000000
+      internalID: 3894161979412586853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A3midbackground_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 316
+        width: 7
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67fa37ed03686bd60800000000000000
+      internalID: 7905653740344160118
       vertices: []
       indices: 
       edges: []
@@ -148,7 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      A3midBackground_0: 8131280258321869134
+      A3midbackground_0: -7904568479335063387
+      A3midbackground_1: 6538155020828884074
+      A3midbackground_2: 3894161979412586853
+      A3midbackground_3: 7905653740344160118
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

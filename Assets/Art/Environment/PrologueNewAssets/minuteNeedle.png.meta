@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7a33e83c24dff4e529100b1de2daba50
+guid: 8ecdc03094c074b8287880b3ecf471c1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6716875271116090086
-    second: A2background_0
+      213: -4890372129217070521
+    second: minuteNeedle_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: A2background_0
+      name: minuteNeedle_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 8
         y: 0
-        width: 2827
-        height: 1866
+        width: 67
+        height: 619
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a151588478dd8c2a0800000000000000
-      internalID: -6716875271116090086
+      spriteID: 74abb827578e12cb0800000000000000
+      internalID: -4890372129217070521
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      A2background_0: -6716875271116090086
+      minuteNeedle_0: -4890372129217070521
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

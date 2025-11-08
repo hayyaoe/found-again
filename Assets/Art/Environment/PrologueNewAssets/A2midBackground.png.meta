@@ -3,14 +3,8 @@ guid: 40a3b32a0a51649369f4c740ca68a58a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1721928087534958555
-    second: A2midBackground_0
-  - first:
-      213: -1440850734342765569
-    second: A2midBackground_1
-  - first:
-      213: -8091871539590410964
-    second: A2midBackground_2
+      213: -3051698681599265792
+    second: A2midbackground_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -119,57 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: A2midBackground_0
-      rect:
-        serializedVersion: 2
-        x: 1099
-        y: 1043
-        width: 9
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bd7f942f87485e710800000000000000
-      internalID: 1721928087534958555
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: A2midBackground_1
-      rect:
-        serializedVersion: 2
-        x: 2637
-        y: 92
-        width: 190
-        height: 963
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ff3832d14e1110ce0800000000000000
-      internalID: -1440850734342765569
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: A2midBackground_2
+      name: A2midbackground_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 30
-        width: 2148
-        height: 1002
+        y: 28
+        width: 2800
+        height: 1603
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c2dce9215b5e3bf80800000000000000
-      internalID: -8091871539590410964
+      spriteID: 0047fb9b73036a5d0800000000000000
+      internalID: -3051698681599265792
       vertices: []
       indices: 
       edges: []
@@ -198,9 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      A2midBackground_0: 1721928087534958555
-      A2midBackground_1: -1440850734342765569
-      A2midBackground_2: -8091871539590410964
+      A2midbackground_0: -3051698681599265792
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
