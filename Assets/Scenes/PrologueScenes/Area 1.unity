@@ -624,7 +624,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &363760343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1858,7 +1858,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -8640672878792858558, guid: 48d1ace0fb3aa4c76940017bf3b80eda, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -9545,7 +9545,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 25, y: 0.8}
+  m_AnchoredPosition: {x: 3.54, y: 0.8}
   m_SizeDelta: {x: 889.00006, y: 463.50003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1848037536
@@ -10686,7 +10686,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6535044096665173767, guid: 2db3a712037de48498ca2cce135af501, type: 3}
       propertyPath: m_LocalScale.x
-      value: 89
+      value: 86.87
       objectReference: {fileID: 0}
     - target: {fileID: 6535044096665173767, guid: 2db3a712037de48498ca2cce135af501, type: 3}
       propertyPath: m_LocalScale.y
@@ -10718,7 +10718,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8103046003253500752, guid: 2db3a712037de48498ca2cce135af501, type: 3}
       propertyPath: m_SortingLayer
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8103046003253500752, guid: 2db3a712037de48498ca2cce135af501, type: 3}
       propertyPath: m_SortingOrder
@@ -10726,7 +10726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8103046003253500752, guid: 2db3a712037de48498ca2cce135af501, type: 3}
       propertyPath: m_SortingLayerID
-      value: 2037291645
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8103046003253500752, guid: 2db3a712037de48498ca2cce135af501, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
