@@ -258,7 +258,7 @@ public class Movement : MonoBehaviour
 
   private void Jump()
   {
-    if (isGrounded() || isOnSteppableObject())
+    if (isPhysicallyGrounded || isOnSteppableObject())
     {
       jumpIgnoreTimer = jumpIgnoreSlopeTime;
       body.linearVelocity = new Vector2(body.linearVelocity.x, jumpPower);
