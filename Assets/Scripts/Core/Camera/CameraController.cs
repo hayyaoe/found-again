@@ -113,7 +113,9 @@ public class CameraMovement : MonoBehaviour
     public void UnlockCamera()
     {
         cameraLocked = false;
+        velocity = Vector3.zero; // reset smooth damp velocity to prevent snapping
     }
+
 
     public void UpdateBounds(Vector2 newMin, Vector2 newMax)
     {

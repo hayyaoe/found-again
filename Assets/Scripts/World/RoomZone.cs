@@ -14,7 +14,7 @@ public class RoomZone : MonoBehaviour
     [Header("Exit Blocker")]
     public GameObject blocker;
 
-    private void OnDrawGismos()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube((minBounds + maxBounds) / 2f, maxBounds - minBounds);
