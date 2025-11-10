@@ -163,6 +163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 306637656}
   - component: {fileID: 306637657}
+  - component: {fileID: 306637658}
   m_Layer: 0
   m_Name: A5-FrontBackground-1
   m_TagString: Untagged
@@ -243,6 +244,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &306637658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306637655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
+  parallaxFactor: -0.1
 --- !u!1 &363760342
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,6 +605,7 @@ GameObject:
   - component: {fileID: 1203521430}
   - component: {fileID: 1203521432}
   - component: {fileID: 1203521431}
+  - component: {fileID: 1203521433}
   m_Layer: 6
   m_Name: A5-Platform
   m_TagString: Untagged
@@ -772,6 +787,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1203521433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203521429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
+  parallaxFactor: 0.1
 --- !u!1 &1204508966
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,6 +810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1204508967}
   - component: {fileID: 1204508968}
+  - component: {fileID: 1204508969}
   m_Layer: 0
   m_Name: A5-MidBackground-1
   m_TagString: Untagged
@@ -862,6 +891,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1204508969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204508966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
+  parallaxFactor: -0.3
 --- !u!1 &1241594936
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,6 +914,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1241594937}
   - component: {fileID: 1241594938}
+  - component: {fileID: 1241594939}
   m_Layer: 0
   m_Name: A5-MidBackground-2
   m_TagString: Untagged
@@ -952,6 +995,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1241594939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241594936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
+  parallaxFactor: -0.3
 --- !u!1 &1326084492
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,6 +1064,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1644499047}
   - component: {fileID: 1644499048}
+  - component: {fileID: 1644499049}
   m_Layer: 0
   m_Name: A5-Background
   m_TagString: Untagged
@@ -1088,6 +1145,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1644499049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644499046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
+  parallaxFactor: -0.5
 --- !u!1 &1843159607
 GameObject:
   m_ObjectHideFlags: 0

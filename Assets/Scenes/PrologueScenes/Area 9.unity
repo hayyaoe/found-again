@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 206760821}
   - component: {fileID: 206760823}
   - component: {fileID: 206760822}
+  - component: {fileID: 206760824}
   m_Layer: 6
   m_Name: A9-Platform
   m_TagString: Untagged
@@ -393,6 +394,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &206760824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206760820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
+  parallaxFactor: 0.1
 --- !u!1 &363760342
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,6 +718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 562525856}
   - component: {fileID: 562525857}
+  - component: {fileID: 562525858}
   m_Layer: 0
   m_Name: A9-Foreground
   m_TagString: Untagged
@@ -784,6 +799,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &562525858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562525855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
+  parallaxFactor: 0.3
 --- !u!1 &722869698
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,6 +822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 722869699}
   - component: {fileID: 722869700}
+  - component: {fileID: 722869701}
   m_Layer: 0
   m_Name: A9-MidBackground
   m_TagString: Untagged
@@ -874,6 +903,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &722869701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722869698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
+  parallaxFactor: -0.3
 --- !u!1 &1326084492
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,6 +972,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1662241380}
   - component: {fileID: 1662241381}
+  - component: {fileID: 1662241382}
   m_Layer: 0
   m_Name: A9-Foreground
   m_TagString: Untagged
@@ -1010,6 +1053,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1662241382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662241379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
+  parallaxFactor: 0.3
 --- !u!1 &1799805795
 GameObject:
   m_ObjectHideFlags: 0
@@ -5892,6 +5948,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1911519312}
   - component: {fileID: 1911519313}
+  - component: {fileID: 1911519314}
   m_Layer: 0
   m_Name: A9-Background
   m_TagString: Untagged
@@ -5972,6 +6029,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1911519314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911519311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
+  parallaxFactor: -0.5
 --- !u!1 &1958739786
 GameObject:
   m_ObjectHideFlags: 0

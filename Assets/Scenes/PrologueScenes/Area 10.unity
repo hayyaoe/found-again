@@ -499,6 +499,7 @@ GameObject:
   m_Component:
   - component: {fileID: 838540432}
   - component: {fileID: 838540433}
+  - component: {fileID: 838540434}
   m_Layer: 0
   m_Name: A10-Foreground-1
   m_TagString: Untagged
@@ -579,6 +580,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &838540434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838540431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
+  parallaxFactor: 0.3
 --- !u!1 &856280535
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,6 +603,7 @@ GameObject:
   m_Component:
   - component: {fileID: 856280536}
   - component: {fileID: 856280537}
+  - component: {fileID: 856280538}
   m_Layer: 0
   m_Name: A10-Foreground-2
   m_TagString: Untagged
@@ -669,6 +684,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &856280538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856280535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
+  parallaxFactor: 0.3
 --- !u!1 &1326084492
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,6 +753,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1801791097}
   - component: {fileID: 1801791098}
+  - component: {fileID: 1801791099}
   m_Layer: 0
   m_Name: A10-MidBackground
   m_TagString: Untagged
@@ -805,6 +834,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1801791099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801791096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
+  parallaxFactor: -0.3
 --- !u!1 &1843159607
 GameObject:
   m_ObjectHideFlags: 0
@@ -5683,6 +5725,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2013244554}
   - component: {fileID: 2013244555}
+  - component: {fileID: 2013244556}
   m_Layer: 0
   m_Name: A10-Background
   m_TagString: Untagged
@@ -5763,6 +5806,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2013244556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013244553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
+  parallaxFactor: -0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
