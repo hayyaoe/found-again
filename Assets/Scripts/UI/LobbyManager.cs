@@ -12,6 +12,9 @@ public class LobbyManager : MonoBehaviour
     public Button playButton;
     public TMPro.TMP_Text playButtonText; // Assign in Inspector (child TMP_Text of play button)
 
+    [Header("Scene Loading")]
+    [SerializeField] private string nextSceneName = "Prologue"; // <- set this in the Inspector
+
     // Store each player's current position state
     private Dictionary<string, string> playerPositions = new Dictionary<string, string>();
 
@@ -117,10 +120,20 @@ public class LobbyManager : MonoBehaviour
     private IEnumerator DelayedLoad()
     {
         yield return null; // wait one frame for selections to finalize
-        if (FadeManager.instance != null)
-            SceneFader.instance.FadeToScene("Prologue");
+
+        // NOTE: make sure the scene name exists in Build Settings (File → Build Settings → Scenes In Build)
+        if (!string.IsNullOrEmpty(nextSceneName))
+        {
+            // If you use a fader singleton, call it; else fall back to direct load.
+            if (SceneFader.instance != null)
+                SceneFader.instance.FadeToScene(nextSceneName);
+            else
+                SceneManager.LoadScene(nextSceneName);
+        }
         else
-            SceneManager.LoadScene("Prologue");
+        {
+            Debug.LogError("nextSceneName is empty. Please set it in the Inspector.");
+        }
     }
 
 
