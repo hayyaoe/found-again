@@ -205,6 +205,7 @@ MonoBehaviour:
   shortHopCut: 0
   fallMultiplier: 3
   fatalFallSpeed: 35
+  deathYLevel: -30
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -239,6 +240,10 @@ MonoBehaviour:
   mimiAnimator: {fileID: 0}
   marieAnimator: {fileID: 0}
   groundedLatchSeconds: 0.5
+  groundCheckWidthReduction: 0.1
+  acceleration: 12
+  deceleration: 16
+  velocityPower: 0.9
 --- !u!95 &4587821935056208640
 Animator:
   serializedVersion: 7

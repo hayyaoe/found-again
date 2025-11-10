@@ -42,9 +42,9 @@ public class PlayerCursorController : MonoBehaviour
 
         // 🧩 Determine initial Y offset dynamically
         if (playerName == "P1")
-            selectorBox.anchoredPosition = new Vector2(0, 200f);
+            selectorBox.anchoredPosition = new Vector2(0, 100f);
         else if (playerName == "P2")
-            selectorBox.anchoredPosition = new Vector2(0, -60f);
+            selectorBox.anchoredPosition = new Vector2(0, -20f);
         else
             selectorBox.anchoredPosition = Vector2.zero;
 
@@ -212,10 +212,29 @@ public class PlayerCursorController : MonoBehaviour
     {
         if (!context.performed) return;
 
+        // 🟢 Force re-sync selection immediately before confirm
+        if (currentPosition == CursorPosition.Marie)
+            lobbyManager.UpdatePlayerSelection(playerName, "Marie");
+        else if (currentPosition == CursorPosition.Mimi)
+            lobbyManager.UpdatePlayerSelection(playerName, "Mimi");
+
         if (currentPosition == CursorPosition.Play && lobbyManager != null)
         {
             lobbyManager.OnPlayerConfirm(playerName);
         }
     }
 
+    // << Add this method here >>
+    public string GetCurrentCharacter()
+    {
+        switch (currentPosition)
+        {
+            case CursorPosition.Marie:
+                return "Marie";
+            case CursorPosition.Mimi:
+                return "Mimi";
+            default:
+                return null;
+        }
+    }
 }

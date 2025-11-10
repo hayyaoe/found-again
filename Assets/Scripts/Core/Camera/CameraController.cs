@@ -1,90 +1,109 @@
 using UnityEngine;
+using System.Linq;
 
+[RequireComponent(typeof(Camera))]
 public class CameraMovement : MonoBehaviour
 {
-    [Header("Target")]
-    [SerializeField] private Transform player;
-    [SerializeField] private Rigidbody2D playerRigidbody;
+    [Header("Targets")]
+    [SerializeField] private Transform[] players; // Assigned dynamically
+    [SerializeField] private float followSmoothTime = 0.15f;
 
-    [Header("Follow Settings")]
-    [Tooltip("Smaller values = slower smoothing, typical range: 0.05–0.15")]
-    [SerializeField] private float followSmoothTime = 0.1f;
-    [SerializeField] private Vector2 followOffset = new Vector2(0f, 5f);
-    [SerializeField] private Vector2 deadZone = new Vector2(1f, 1f);
+    [Header("Zoom Settings")]
+    [SerializeField] private float minZoom = 5f;
+    [SerializeField] private float maxZoom = 10f;
+    [SerializeField] private float zoomLimiter = 10f;
+    [SerializeField] private float zoomSmoothTime = 0.2f;
 
     [Header("Room Boundaries")]
     [SerializeField] private Vector2 minBounds;
     [SerializeField] private Vector2 maxBounds;
 
-    [Header("Look Ahead Settings")]
-    [SerializeField] private float lookAheadDistance = 2f;
-    [SerializeField] private float lookAheadLerpSpeed = 5f;
-    [SerializeField] private float lookAheadReturnSpeed = 3f;
-    [SerializeField] private float lookAheadThreshold = 0.1f;
-    
     [Header("Lock Settings")]
-    [SerializeField] private float lockSmoothTime = 0.3f; // Smaller = faster lock
+    [SerializeField] private float lockSmoothTime = 0.3f;
 
-
-    private float currentLookAheadX;
-    private Vector3 targetPosition;
-    private Vector3 cameraVelocity = Vector3.zero;
-
-    // --- New ---
+    private Vector3 velocity;
+    private Camera cam;
     private bool cameraLocked = false;
     private Vector3 lockedPosition;
+    private float targetZoom;
+
+    private void Awake()
+    {
+        cam = GetComponent<Camera>();
+    }
 
     private void LateUpdate()
     {
-        // If locked, hold position and skip all follow logic
         if (cameraLocked)
         {
-            transform.position = Vector3.SmoothDamp(transform.position, lockedPosition, ref cameraVelocity, lockSmoothTime);
+            transform.position = Vector3.SmoothDamp(transform.position, lockedPosition, ref velocity, lockSmoothTime);
             return;
         }
 
-        if (player == null)
+        // --- Ensure players list is valid ---
+        if (players == null || players.Length == 0)
             return;
 
-        float playerVelocityX = playerRigidbody != null ? playerRigidbody.linearVelocity.x : 0f;
-        float targetLookAheadX = 0f;
+        players = players.Where(p => p != null).ToArray(); // remove destroyed ones
+        if (players.Length == 0)
+            return;
 
-        // Apply look-ahead only if player is moving fast enough
-        if (Mathf.Abs(playerVelocityX) > lookAheadThreshold)
-        {
-            targetLookAheadX = Mathf.Sign(playerVelocityX) * lookAheadDistance;
-        }
-
-        currentLookAheadX = Mathf.MoveTowards(
-            currentLookAheadX,
-            targetLookAheadX,
-            (targetLookAheadX == 0 ? lookAheadReturnSpeed : lookAheadLerpSpeed) * Time.deltaTime
-        );
-
-        Vector3 playerTargetPosition = player.position + new Vector3(currentLookAheadX + followOffset.x, followOffset.y, 0f);
-        Vector3 currentCameraPosition = transform.position;
-
-        // Dead Zone logic
-        if (Mathf.Abs(playerTargetPosition.x - currentCameraPosition.x) > deadZone.x)
-            currentCameraPosition.x = Mathf.Lerp(currentCameraPosition.x, playerTargetPosition.x, 1f);
-
-        if (Mathf.Abs(playerTargetPosition.y - currentCameraPosition.y) > deadZone.y)
-            currentCameraPosition.y = Mathf.Lerp(currentCameraPosition.y, playerTargetPosition.y, 1f);
-
-        // Clamp inside room boundaries
-        currentCameraPosition.x = Mathf.Clamp(currentCameraPosition.x, minBounds.x, maxBounds.x);
-        currentCameraPosition.y = Mathf.Clamp(currentCameraPosition.y, minBounds.y, maxBounds.y);
-
-        targetPosition = new Vector3(currentCameraPosition.x, currentCameraPosition.y, transform.position.z);
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref cameraVelocity, followSmoothTime);
+        Move();
+        Zoom();
     }
 
-    public void setTarget(Transform target)
+    private void Move()
     {
-        player = target;
+        Vector3 centerPoint = GetCenterPoint();
+        Vector3 newPosition = new Vector3(centerPoint.x, centerPoint.y, transform.position.z);
+
+        // Clamp camera inside bounds
+        newPosition.x = Mathf.Clamp(newPosition.x, minBounds.x, maxBounds.x);
+        newPosition.y = Mathf.Clamp(newPosition.y, minBounds.y, maxBounds.y);
+
+        transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, followSmoothTime);
     }
 
-    // --- New Methods ---
+    private void Zoom()
+    {
+        float greatestDistance = GetGreatestDistance();
+        targetZoom = Mathf.Lerp(maxZoom, minZoom, greatestDistance / zoomLimiter);
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime / zoomSmoothTime);
+    }
+
+    private float GetGreatestDistance()
+    {
+        if (players.Length == 1)
+            return 0f;
+
+        var bounds = new Bounds(players[0].position, Vector3.zero);
+        foreach (var player in players)
+        {
+            bounds.Encapsulate(player.position);
+        }
+        return Mathf.Max(bounds.size.x, bounds.size.y);
+    }
+
+    private Vector3 GetCenterPoint()
+    {
+        if (players.Length == 1)
+            return players[0].position;
+
+        var bounds = new Bounds(players[0].position, Vector3.zero);
+        foreach (var player in players)
+        {
+            bounds.Encapsulate(player.position);
+        }
+        return bounds.center;
+    }
+
+    // ---------------- Public Methods ----------------
+
+    public void SetTargets(Transform[] newPlayers)
+    {
+        players = newPlayers;
+    }
+
     public void LockToPosition(Vector3 position)
     {
         cameraLocked = true;

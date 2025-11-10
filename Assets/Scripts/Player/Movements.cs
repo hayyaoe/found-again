@@ -29,6 +29,7 @@ public class Movement : MonoBehaviour
   // We only need the 'fatalFallSpeed' now
   [Header("Fall Damage")]
   [SerializeField] private float fatalFallSpeed = 25f; // Die if landing speed is greater than
+  [SerializeField] private float deathYLevel = -30f; // Die if player falls below this Y-level
 
   [Header("Layers")]
   [SerializeField] private LayerMask groundLayer;
@@ -76,8 +77,10 @@ public class Movement : MonoBehaviour
   private Vector2 contactNormal;
   private float contactAngle;
 
-  // --- We only need 'wasGroundedLastFrame' for fall detection ---
-  private bool wasGroundedLastFrame;
+  private bool isPhysicallyGrounded;    // Is the player *actually* touching ground?
+  private bool isGroundedWithLatch;     // Is the player on ground OR in coyote time?
+  private bool wasPhysicallyGroundedLastFrame; // Was the player touching ground last frame?
+  private float lastAirborneYVelocity; // Stores our speed just before landing
 
   private float horizontalInput;
   private bool canMove = true;
@@ -88,7 +91,14 @@ public class Movement : MonoBehaviour
   private bool isWalking => Mathf.Abs(horizontalInput) > 0.01f && isGrounded();
 
   [SerializeField] private float groundedLatchSeconds = 0.08f;
+  [Tooltip("How much to shrink the ground-check boxcast, to avoid hitting side walls.")]
+  [SerializeField] private float groundCheckWidthReduction = 0.1f;
   private float groundedLatchTimer = 0f;
+
+  [SerializeField] private float acceleration = 12f;
+  [SerializeField] private float deceleration = 16f;
+  [SerializeField] private float velocityPower = 0.9f;
+
 
   // private PlayerPushPull pushPull;
   private void Awake()
@@ -119,44 +129,59 @@ public class Movement : MonoBehaviour
   private void Start()
   {
     CheckpointManager.RegisterPlayer(this);
-    CameraMovement cameraMovement = FindFirstObjectByType<CameraMovement>();
-    if (cameraMovement != null)
-      cameraMovement.setTarget(transform);
 
-    if (isGrounded())
-      wasGroundedLastFrame = true;
+    // Initialize all our NEW ground-state variables
+    // to reflect that the player is starting on the ground.
+    // This now matches the logic in HandleRespawn().
+    isPhysicallyGrounded = true;
+    isGroundedWithLatch = true;
+    wasPhysicallyGroundedLastFrame = true;
+    groundedLatchTimer = 0f;
+    lastAirborneYVelocity = 0f;
   }
 
 
   private void Update()
   {
-    // --- REMOVED ---
-    // The Y-level death check is gone.
-
     if (isDead || PauseMenu.GameIsPaused)
     {
       return; // Do nothing
     }
-    bool groundedNow = isGrounded();
-
-    Debug.Log("Grounded:" + groundedNow);
-
-    // --- THIS IS THE NEW FALL DAMAGE LOGIC ---
-    if (groundedNow && !wasGroundedLastFrame)
+    
+    // Check if the player has fallen below the world
+    if (transform.position.y < deathYLevel)
     {
-      // We just landed. Check our vertical speed.
-      // body.linearVelocity.y will be a large negative number.
-      // We use Mathf.Abs() to make it positive for the check.
-      if (Mathf.Abs(body.linearVelocity.y) > fatalFallSpeed)
-      {
-        Debug.Log(Mathf.Abs(body.linearVelocity.y));
-        Die();
-        return; // Stop processing this frame
-      }
+        Debug.Log("Player fell below death Y-level.");
+        Die(); 
+        return; 
     }
-    wasGroundedLastFrame = groundedNow;
-    // --- END OF NEW LOGIC ---
 
+    // --- THIS IS THE NEW CORE LOGIC ---
+    // Run all ground checks ONCE at the start of the frame.
+    // This updates both 'isPhysicallyGrounded' and 'isGroundedWithLatch'.
+    CheckGroundedState();
+
+    // --- Fall Damage Check (Uses the PHYSICAL state, ignores latch) ---
+    if (isPhysicallyGrounded && !wasPhysicallyGroundedLastFrame)
+    {
+        // We just physically landed. Check our stored speed.
+        if (Mathf.Abs(lastAirborneYVelocity) > fatalFallSpeed)
+        {
+            Debug.Log($"Landed with speed {lastAirborneYVelocity}. Dying.");
+            Die();
+            return; // Stop processing this frame
+        }
+    }
+    
+    // --- Record Fall Speed (Uses the PHYSICAL state) ---
+    if (!isPhysicallyGrounded)
+    {
+        // We are physically in the air, so record our speed.
+        lastAirborneYVelocity = body.linearVelocity.y;
+    }
+    // --- END OF NEW CORE LOGIC ---
+
+    // --- Input Reading ---
     horizontalInput = moveAction != null ? moveAction.ReadValue<Vector2>().x : Input.GetAxisRaw("Horizontal");
 
     bool pushingNow = pushPull != null && pushPull.isPushing;
@@ -168,22 +193,27 @@ public class Movement : MonoBehaviour
         transform.localScale = new Vector3(-1, 1, 1);
     }
 
+    // --- Jump (Uses the LATCHED state) ---
     if (wallJumpCooldown > 0.2f && jumpAction != null && jumpAction.WasPressedThisFrame())
     {
       var pushPull = GetComponent<PlayerPushPull>();
       if (pushPull != null && pushPull.isPushing)
         return;
 
-      Jump();
+      Jump(); // Jump() calls isGrounded(), which correctly uses the latch
     }
     else
     {
       wallJumpCooldown += Time.deltaTime;
     }
 
+    // --- These functions all use the LATCHED state from isGrounded() ---
     HandleAirbornePhysics();
     HandleAnimations();
     HandleFootstepSounds();
+
+    // --- Update the 'last frame' state (uses the PHYSICAL state) ---
+    wasPhysicallyGroundedLastFrame = isPhysicallyGrounded;
   }
 
   private void FixedUpdate()
@@ -200,7 +230,26 @@ public class Movement : MonoBehaviour
     bool pushingNow = pushPull != null && pushPull.isPushing;
 
     if (!didSlide && !pushingNow)
-      body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+    {
+      float targetSpeed = horizontalInput * speed;
+      float speedDiff = targetSpeed - body.linearVelocity.x;
+
+      // Choose accel rate depending on whether we're accelerating or decelerating
+      float accelRate = (Mathf.Abs(targetSpeed) > 0.01f)
+          ? acceleration
+          : deceleration;
+
+      // Apply acceleration curve (power < 1 makes it snappier, > 1 makes it smoother)
+      float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, velocityPower) * Mathf.Sign(speedDiff);
+
+      body.AddForce(movement * Vector2.right);
+
+      // Optional clamp: limit X speed so you don’t overshoot
+      if (Mathf.Abs(body.linearVelocity.x) > speed)
+      {
+        body.linearVelocity = new Vector2(Mathf.Sign(body.linearVelocity.x) * speed, body.linearVelocity.y);
+      }
+    }
   }
 
   private void Jump()
@@ -221,48 +270,48 @@ public class Movement : MonoBehaviour
 
   private void ApplyPlayerAppearance()
   {
-      if (playerInput == null) return;
+    if (playerInput == null) return;
 
-      SpriteRenderer sr = GetComponent<SpriteRenderer>();
-      BoxCollider2D col = GetComponent<BoxCollider2D>();
-      animator = GetComponent<Animator>();
+    SpriteRenderer sr = GetComponent<SpriteRenderer>();
+    BoxCollider2D col = GetComponent<BoxCollider2D>();
+    animator = GetComponent<Animator>();
 
-      // Detect based on prefab tag or name (case-insensitive)
-      string prefabTag = gameObject.tag.ToLower();
+    // Detect based on prefab tag or name (case-insensitive)
+    string prefabTag = gameObject.tag.ToLower();
 
-      // Assign layers based on player index
-      gameObject.layer = LayerMask.NameToLayer(
-          playerInput.playerIndex == 0 ? "Player1" : "Player2"
-      );
+    // Assign layers based on player index
+    gameObject.layer = LayerMask.NameToLayer(
+        playerInput.playerIndex == 0 ? "Player1" : "Player2"
+    );
 
-      if (prefabTag.Contains("Marie"))
-      {
-          // ✅ Apply Marie-specific appearance
-          if (animator != null && marieAnimator != null)
-              animator.runtimeAnimatorController = marieAnimator;
+    if (prefabTag.Contains("Marie"))
+    {
+      // ✅ Apply Marie-specific appearance
+      if (animator != null && marieAnimator != null)
+        animator.runtimeAnimatorController = marieAnimator;
 
-          col.size = new Vector2(1f, 2.8f);
-          col.offset = new Vector2(0f, -0.1f);
-          transform.localScale = Vector3.one;
+      col.size = new Vector2(1f, 2.8f);
+      col.offset = new Vector2(0f, -0.1f);
+      transform.localScale = Vector3.one;
 
-          Debug.Log($"🎀 Applied Marie appearance for Player {playerInput.playerIndex}");
-      }
-      else if (prefabTag.Contains("Mimi"))
-      {
-          // ✅ Apply Mimi-specific appearance
-          if (animator != null && mimiAnimator != null)
-              animator.runtimeAnimatorController = mimiAnimator;
+      Debug.Log($"🎀 Applied Marie appearance for Player {playerInput.playerIndex}");
+    }
+    else if (prefabTag.Contains("Mimi"))
+    {
+      // ✅ Apply Mimi-specific appearance
+      if (animator != null && mimiAnimator != null)
+        animator.runtimeAnimatorController = mimiAnimator;
 
-          col.size = new Vector2(1f, 1.55f);
-          col.offset = new Vector2(0f, -0.1f);
-          transform.localScale = Vector3.one;
+      col.size = new Vector2(1f, 1.55f);
+      col.offset = new Vector2(0f, -0.1f);
+      transform.localScale = Vector3.one;
 
-          Debug.Log($"🐾 Applied Mimi appearance for Player {playerInput.playerIndex}");
-      }
-      else
-      {
-          Debug.LogWarning($"⚠️ Unknown prefab type for {gameObject.name}");
-      }
+      Debug.Log($"🐾 Applied Mimi appearance for Player {playerInput.playerIndex}");
+    }
+    else
+    {
+      Debug.LogWarning($"⚠️ Unknown prefab type for {gameObject.name}");
+    }
   }
 
   private void HandleAirbornePhysics()
@@ -309,21 +358,13 @@ public class Movement : MonoBehaviour
     Bounds b = boxCollider2D.bounds;
     Vector2 foot = new Vector2(b.center.x, b.min.y);
 
-    // 1) bawah
+    // 1) Check DOWN for slopes/ground
     RaycastHit2D hit = Physics2D.CircleCast(foot, slopeFootRadius, Vector2.down, slopeProbeDistance, slopeGroundLayer);
-
-    // 2) kiri/kanan (untuk dinding / hampir vertikal)
-    if (!hit.collider)
-    {
-      var leftHit = Physics2D.CircleCast(foot, slopeFootRadius, Vector2.left, wallProbeDistance, slopeGroundLayer);
-      var rightHit = Physics2D.CircleCast(foot, slopeFootRadius, Vector2.right, wallProbeDistance, slopeGroundLayer);
-      if (leftHit.collider && rightHit.collider) hit = leftHit.distance <= rightHit.distance ? leftHit : rightHit;
-      else if (leftHit.collider) hit = leftHit;
-      else if (rightHit.collider) hit = rightHit;
-    }
 
     if (hit.collider != null)
     {
+      // --- GROUNDED PATH ---
+      // We are on the ground or a slope.
       slopeGrounded = true;
       slopeNormal = hit.normal;
       slopeAngle = Vector2.Angle(slopeNormal, Vector2.up);
@@ -331,13 +372,36 @@ public class Movement : MonoBehaviour
     }
     else
     {
-      slopeGrounded = false;
-      onSlope = false;
-      slopeAngle = 0f;
-      slopeNormal = Vector2.up;
+      // --- AIRBORNE PATH ---
+      // We are in the air. Check for walls for wall-sliding.
+      var leftHit = Physics2D.CircleCast(foot, slopeFootRadius, Vector2.left, wallProbeDistance, slopeGroundLayer);
+      var rightHit = Physics2D.CircleCast(foot, slopeFootRadius, Vector2.right, wallProbeDistance, slopeGroundLayer);
+
+      RaycastHit2D wallHit = default;
+      if (leftHit.collider && rightHit.collider) wallHit = leftHit.distance <= rightHit.distance ? leftHit : rightHit;
+      else if (leftHit.collider) wallHit = leftHit;
+      else if (rightHit.collider) wallHit = rightHit;
+
+      if (wallHit.collider != null)
+      {
+        // We are touching a wall, BUT WE ARE NOT GROUNDED.
+        slopeGrounded = false; // <-- This is the critical fix
+        slopeNormal = wallHit.normal;
+        slopeAngle = Vector2.Angle(slopeNormal, Vector2.up);
+        onSlope = slopeAngle > 0.01f;
+      }
+      else
+      {
+        // We are in the air, not touching anything
+        slopeGrounded = false;
+        onSlope = false;
+        slopeAngle = 0f;
+        slopeNormal = Vector2.up;
+      }
     }
 
-    // Override dengan data kontak fisik bila ada — lebih akurat di hampir vertikal
+    // 3) Override with physical contact (for sharp corners)
+    // This is stronger than the raycasts.
     if (contactHasSlope)
     {
       slopeGrounded = true;
@@ -346,13 +410,17 @@ public class Movement : MonoBehaviour
       onSlope = slopeAngle > 0.01f;
     }
 
-    // Hitung tangent menurun
+    // Calculate tangent for sliding
     Vector2 t = new Vector2(slopeNormal.y, -slopeNormal.x);
     Vector2 g = Physics2D.gravity * body.gravityScale;
     if (Vector2.Dot(t, g) < 0f) t = -t;
     slopeTangent = t.normalized;
 
-    sliding = slopeGrounded && (alwaysSlippery ? onSlope : (onSlope && slopeAngle > 45f));
+    // Check for sliding conditions
+    // We are sliding if we are physically on a slope OR if we are on a steep wall
+    bool slidingOnGround = slopeGrounded && (alwaysSlippery ? onSlope : (onSlope && slopeAngle > 45f));
+    bool slidingOnWall = !slopeGrounded && onSlope && slopeAngle >= wallStartAngle;
+    sliding = slidingOnGround || slidingOnWall;
   }
 
   // ====== SLIDE PHYSICS ======
@@ -414,21 +482,54 @@ public class Movement : MonoBehaviour
   // ====== Collision normals (prioritas tinggi di hampir vertikal) ======
   private void OnCollisionStay2D(Collision2D c)
   {
-    if (((1 << c.collider.gameObject.layer) & slopeGroundLayer) == 0) return;
-
-    float bestAngle = -1f;
-    Vector2 bestNormal = Vector2.up;
-
-    for (int i = 0; i < c.contactCount; i++)
+    // Check if we even collided with the ground layer
+    if (((1 << c.collider.gameObject.layer) & slopeGroundLayer) == 0)
     {
-      var n = c.GetContact(i).normal;
-      float ang = Vector2.Angle(n, Vector2.up);
-      if (ang > bestAngle) { bestAngle = ang; bestNormal = n; }
+        // We didn't hit the ground, so we are definitely not on a contact slope.
+        // This is important to reset the flag if we *only* touch a wall.
+        contactHasSlope = false;
+        return;
     }
 
-    contactHasSlope = true;
-    contactNormal = bestNormal;
-    contactAngle = bestAngle;
+    float bestAngle = 91f; // Start with an invalid angle (steeper than any wall)
+    Vector2 bestNormal = Vector2.up;
+    bool foundValidContact = false;
+
+    // Loop through all points of contact
+    for (int i = 0; i < c.contactCount; i++)
+    {
+      var contact = c.GetContact(i);
+      
+      // --- THIS IS THE NEW CHECK ---
+      // Only consider contacts that are on the BOTTOM HALF of our collider
+      if (contact.point.y < boxCollider2D.bounds.center.y)
+      {
+          float ang = Vector2.Angle(contact.normal, Vector2.up);
+          
+          // Find the "flattest" surface we are touching
+          if (ang < bestAngle) 
+          { 
+              bestAngle = ang; 
+              bestNormal = contact.normal;
+              foundValidContact = true;
+          }
+      }
+    }
+
+    // --- UPDATED FIX ---
+    // Now, check if the "flattest" surface we found is actually a floor
+    if (foundValidContact && bestAngle < wallStartAngle)
+    {
+        // Yes, this is a valid floor or walkable slope
+        contactHasSlope = true;
+        contactNormal = bestNormal;
+        contactAngle = bestAngle;
+    }
+    else
+    {
+        // No, this is a wall brush or a side-only collision. Ignore it.
+        contactHasSlope = false; 
+    }
   }
 
   private void OnCollisionExit2D(Collision2D c)
@@ -437,36 +538,58 @@ public class Movement : MonoBehaviour
     contactHasSlope = false;
   }
 
-private bool isGrounded()
-{
+  private bool isGrounded()
+  {
+      // This function now just returns the result from CheckGroundedState()
+      return isGroundedWithLatch;
+  }
+
+  private void CheckGroundedState()
+  {
+    // 1. Perform all physical checks
+    Vector2 groundCheckSize = boxCollider2D.bounds.size;
+    groundCheckSize.x -= groundCheckWidthReduction;
+
     bool hitGround = Physics2D.BoxCast(
         boxCollider2D.bounds.center,
-        boxCollider2D.bounds.size,
+        groundCheckSize,
         0f, Vector2.down, 0.1f, groundLayer
     ).collider != null;
 
     bool onSteppable = Physics2D.BoxCast(
         boxCollider2D.bounds.center,
-        boxCollider2D.bounds.size,
+        groundCheckSize,
         0f, Vector2.down, 0.1f, steppableObjectLayer
     ).collider != null;
 
-    bool slopeAsGround = slopeGrounded && !sliding;
+    bool slopeAsGround = slopeGrounded; // From ProbeSlope()
 
-    bool rawGrounded = hitGround || onSteppable || slopeAsGround;
+    // 2. Update our "physical" state
+    isPhysicallyGrounded = hitGround || onSteppable || slopeAsGround;
 
-    if (rawGrounded) groundedLatchTimer = groundedLatchSeconds;
-    else groundedLatchTimer = Mathf.Max(0f, groundedLatchTimer - Time.deltaTime);
+    // 3. Apply the "coyote time" latch
+    if (isPhysicallyGrounded)
+    {
+      groundedLatchTimer = groundedLatchSeconds;
+    }
+    else
+    {
+      groundedLatchTimer = Mathf.Max(0f, groundedLatchTimer - Time.deltaTime);
+    }
 
-    return rawGrounded || groundedLatchTimer > 0f;
-}
-
+    // 4. Update our "gameplay feel" state
+    isGroundedWithLatch = isPhysicallyGrounded || groundedLatchTimer > 0f;
+  }
+  
 
   private bool isOnSteppableObject()
   {
+    Vector2 groundCheckSize = boxCollider2D.bounds.size;
+    groundCheckSize.x -= groundCheckWidthReduction;
+
     RaycastHit2D raycastHit = Physics2D.BoxCast(
         boxCollider2D.bounds.center,
-        boxCollider2D.bounds.size,
+        groundCheckSize,
         0,
         Vector2.down,
         0.1f,
@@ -519,6 +642,14 @@ private bool isGrounded()
       Debug.LogWarning("⚠️ PlayerRespawn component missing on player!");
 
     isDead = false;
+    
+    // --- UPDATED RESET LOGIC ---
+    // Force-reset all landing state variables
+    wasPhysicallyGroundedLastFrame = true;
+    isPhysicallyGrounded = true;
+    isGroundedWithLatch = true;
+    groundedLatchTimer = 0f;
+    lastAirborneYVelocity = 0f;
   }
 
   private void HandleFootstepSounds()
