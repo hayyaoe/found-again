@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 48d1ace0fb3aa4c76940017bf3b80eda
+guid: 35d89fbab19c24e95ac5ba821ecfd247
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8640672878792858558
-    second: A1platform_0
+      213: 4899016091552797155
+    second: WhiteOverlay 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,35 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: A1platform_0
+      name: WhiteOverlay 1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 3000
-        height: 940
+        width: 2241
+        height: 2160
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape:
-      - - {x: -1500, y: 297}
-        - {x: 1500, y: 298}
-        - {x: 1500, y: 462}
-        - {x: 1421, y: 462}
-        - {x: 1421, y: 376}
-        - {x: 1360, y: 376}
-        - {x: 1359, y: 425}
-        - {x: 1298, y: 425}
-        - {x: 1298, y: 339}
-        - {x: 1236, y: 339}
-        - {x: 1236, y: 389}
-        - {x: -1498, y: 388}
-      tessellationDetail: 0
+      physicsShape: []
+      tessellationDetail: -1
       bones: []
-      spriteID: 24423370cc9261880800000000000000
-      internalID: -8640672878792858558
+      spriteID: 3e15deddd2dccf340800000000000000
+      internalID: 4899016091552797155
       vertices: []
       indices: 
       edges: []
@@ -163,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 6e56771509af14d588459ccc866ecac7
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -173,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      A1platform_0: -8640672878792858558
+      WhiteOverlay 1_0: 4899016091552797155
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -147,13 +147,13 @@ public class Movement : MonoBehaviour
     {
       return; // Do nothing
     }
-    
+
     // Check if the player has fallen below the world
     if (transform.position.y < deathYLevel)
     {
-        Debug.Log("Player fell below death Y-level.");
-        Die(); 
-        return; 
+      Debug.Log("Player fell below death Y-level.");
+      Die();
+      return;
     }
 
     // --- THIS IS THE NEW CORE LOGIC ---
@@ -164,20 +164,24 @@ public class Movement : MonoBehaviour
     // --- Fall Damage Check (Uses the PHYSICAL state, ignores latch) ---
     if (isPhysicallyGrounded && !wasPhysicallyGroundedLastFrame)
     {
-        // We just physically landed. Check our stored speed.
-        if (Mathf.Abs(lastAirborneYVelocity) > fatalFallSpeed)
-        {
-            Debug.Log($"Landed with speed {lastAirborneYVelocity}. Dying.");
-            Die();
-            return; // Stop processing this frame
-        }
+      // We just physically landed. Check our stored speed.
+      if (Mathf.Abs(lastAirborneYVelocity) > fatalFallSpeed)
+      {
+        Debug.Log($"Landed with speed {lastAirborneYVelocity}. Dying.");
+        Die();
+        return; // Stop processing this frame
+      }
+
+      // ✅ Add this:
+      animator.ResetTrigger("jump");
+      animator.SetTrigger("land");
     }
-    
+
     // --- Record Fall Speed (Uses the PHYSICAL state) ---
     if (!isPhysicallyGrounded)
     {
-        // We are physically in the air, so record our speed.
-        lastAirborneYVelocity = body.linearVelocity.y;
+      // We are physically in the air, so record our speed.
+      lastAirborneYVelocity = body.linearVelocity.y;
     }
     // --- END OF NEW CORE LOGIC ---
 
@@ -258,6 +262,12 @@ public class Movement : MonoBehaviour
     {
       jumpIgnoreTimer = jumpIgnoreSlopeTime;
       body.linearVelocity = new Vector2(body.linearVelocity.x, jumpPower);
+
+      // Immediately clear latch so you can't jump again until re-grounded
+      groundedLatchTimer = 0f;
+      isGroundedWithLatch = false;
+      isPhysicallyGrounded = false;
+
       if (animator) animator.SetTrigger("jump");
 
       // ✅ Play jump sound
@@ -267,6 +277,7 @@ public class Movement : MonoBehaviour
       }
     }
   }
+
 
   private void ApplyPlayerAppearance()
   {
@@ -350,6 +361,9 @@ public class Movement : MonoBehaviour
     animator.SetFloat("yVelocity", vy);
     animator.SetBool("sliding", sliding);
     animator.SetBool("isInteracting", interactingNow);
+
+    Debug.Log($"Grounded: {groundedNow}, vy: {vy}");
+
   }
 
   // ====== SLOPE PROBING ======
@@ -485,10 +499,10 @@ public class Movement : MonoBehaviour
     // Check if we even collided with the ground layer
     if (((1 << c.collider.gameObject.layer) & slopeGroundLayer) == 0)
     {
-        // We didn't hit the ground, so we are definitely not on a contact slope.
-        // This is important to reset the flag if we *only* touch a wall.
-        contactHasSlope = false;
-        return;
+      // We didn't hit the ground, so we are definitely not on a contact slope.
+      // This is important to reset the flag if we *only* touch a wall.
+      contactHasSlope = false;
+      return;
     }
 
     float bestAngle = 91f; // Start with an invalid angle (steeper than any wall)
@@ -499,20 +513,20 @@ public class Movement : MonoBehaviour
     for (int i = 0; i < c.contactCount; i++)
     {
       var contact = c.GetContact(i);
-      
+
       // --- THIS IS THE NEW CHECK ---
       // Only consider contacts that are on the BOTTOM HALF of our collider
       if (contact.point.y < boxCollider2D.bounds.center.y)
       {
-          float ang = Vector2.Angle(contact.normal, Vector2.up);
-          
-          // Find the "flattest" surface we are touching
-          if (ang < bestAngle) 
-          { 
-              bestAngle = ang; 
-              bestNormal = contact.normal;
-              foundValidContact = true;
-          }
+        float ang = Vector2.Angle(contact.normal, Vector2.up);
+
+        // Find the "flattest" surface we are touching
+        if (ang < bestAngle)
+        {
+          bestAngle = ang;
+          bestNormal = contact.normal;
+          foundValidContact = true;
+        }
       }
     }
 
@@ -520,15 +534,15 @@ public class Movement : MonoBehaviour
     // Now, check if the "flattest" surface we found is actually a floor
     if (foundValidContact && bestAngle < wallStartAngle)
     {
-        // Yes, this is a valid floor or walkable slope
-        contactHasSlope = true;
-        contactNormal = bestNormal;
-        contactAngle = bestAngle;
+      // Yes, this is a valid floor or walkable slope
+      contactHasSlope = true;
+      contactNormal = bestNormal;
+      contactAngle = bestAngle;
     }
     else
     {
-        // No, this is a wall brush or a side-only collision. Ignore it.
-        contactHasSlope = false; 
+      // No, this is a wall brush or a side-only collision. Ignore it.
+      contactHasSlope = false;
     }
   }
 
@@ -540,8 +554,8 @@ public class Movement : MonoBehaviour
 
   private bool isGrounded()
   {
-      // This function now just returns the result from CheckGroundedState()
-      return isGroundedWithLatch;
+    // This function now just returns the result from CheckGroundedState()
+    return isGroundedWithLatch;
   }
 
   private void CheckGroundedState()
@@ -580,7 +594,7 @@ public class Movement : MonoBehaviour
     // 4. Update our "gameplay feel" state
     isGroundedWithLatch = isPhysicallyGrounded || groundedLatchTimer > 0f;
   }
-  
+
 
   private bool isOnSteppableObject()
   {
@@ -642,7 +656,7 @@ public class Movement : MonoBehaviour
       Debug.LogWarning("⚠️ PlayerRespawn component missing on player!");
 
     isDead = false;
-    
+
     // --- UPDATED RESET LOGIC ---
     // Force-reset all landing state variables
     wasPhysicallyGroundedLastFrame = true;

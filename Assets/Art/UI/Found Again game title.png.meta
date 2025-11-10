@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 48d1ace0fb3aa4c76940017bf3b80eda
+guid: fe6ad0d701c234306b18e23b35fbce83
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8640672878792858558
-    second: A1platform_0
+      213: -4629999772043891664
+    second: Found Again game title_0
+  - first:
+      213: -2115541797334271000
+    second: Found Again game title_1
+  - first:
+      213: -4479832792025770946
+    second: Found Again game title_2
+  - first:
+      213: -2855285687993668727
+    second: Found Again game title_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +55,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -72,7 +81,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -126,35 +135,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: A1platform_0
+      name: Found Again game title_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 3000
-        height: 940
+        y: 69
+        width: 240
+        height: 414
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape:
-      - - {x: -1500, y: 297}
-        - {x: 1500, y: 298}
-        - {x: 1500, y: 462}
-        - {x: 1421, y: 462}
-        - {x: 1421, y: 376}
-        - {x: 1360, y: 376}
-        - {x: 1359, y: 425}
-        - {x: 1298, y: 425}
-        - {x: 1298, y: 339}
-        - {x: 1236, y: 339}
-        - {x: 1236, y: 389}
-        - {x: -1498, y: 388}
-      tessellationDetail: 0
+      physicsShape: []
+      tessellationDetail: -1
       bones: []
-      spriteID: 24423370cc9261880800000000000000
-      internalID: -8640672878792858558
+      spriteID: 03c2f25fcbfeebfb0800000000000000
+      internalID: -4629999772043891664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Found Again game title_1
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 260
+        width: 162
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8eb3666a1f514a2e0800000000000000
+      internalID: -2115541797334271000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Found Again game title_2
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 5
+        width: 600
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3458229fcf64d1c0800000000000000
+      internalID: -4479832792025770946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Found Again game title_3
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 261
+        width: 184
+        height: 222
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98b61e27bccff58d0800000000000000
+      internalID: -2855285687993668727
       vertices: []
       indices: 
       edges: []
@@ -163,7 +226,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 6e56771509af14d588459ccc866ecac7
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -173,7 +236,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      A1platform_0: -8640672878792858558
+      Found Again game title_0: -4629999772043891664
+      Found Again game title_1: -2115541797334271000
+      Found Again game title_2: -4479832792025770946
+      Found Again game title_3: -2855285687993668727
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

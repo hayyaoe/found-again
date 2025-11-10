@@ -239,7 +239,9 @@ MonoBehaviour:
   wallStartImpulse: 3.5
   jumpSFX: {fileID: 8300000, guid: e940c5ddb8238402499b2d74c4970897, type: 3}
   jumpVolume: 1
-  footstepSFX: []
+  footstepSFX:
+  - {fileID: 8300000, guid: 61b66e297db814462ac2db5c92aaf2b7, type: 3}
+  - {fileID: 8300000, guid: 61ea5189f7b9f479d88b76cc78d79a64, type: 3}
   footstepVolume: 0.8
   footstepInterval: 0.35
   mimiAnimator: {fileID: 0}
