@@ -1,31 +1,31 @@
 fileFormatVersion: 2
-guid: 16609450718894a669927b92879f1598
+guid: 6b37e50e8280045debf72fa1d29b90e3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6562188412983982432
-    second: A1frontMovingObjects_0
+      213: -6189411208472601097
+    second: A1frontMovingObjects 1_0
   - first:
-      213: 6662436853244083530
-    second: A1frontMovingObjects_1
+      213: -7945353656188389164
+    second: A1frontMovingObjects 1_1
   - first:
-      213: -922473228748502841
-    second: A1frontMovingObjects_2
+      213: 7768719723327879996
+    second: A1frontMovingObjects 1_2
   - first:
-      213: 429910491771376463
-    second: A1frontMovingObjects_3
+      213: 6543660566861148446
+    second: A1frontMovingObjects 1_3
   - first:
-      213: 601175572870823807
-    second: A1frontMovingObjects_4
+      213: 8035909098222729166
+    second: A1frontMovingObjects 1_4
   - first:
-      213: 7939971211424511421
-    second: A1frontMovingObjects_5
+      213: 64307997751825380
+    second: A1frontMovingObjects 1_5
   - first:
-      213: 3845066286123366702
-    second: A1frontMovingObjects_6
+      213: -6094245526766321802
+    second: A1frontMovingObjects 1_6
   - first:
-      213: -3094469673706578607
-    second: A1frontMovingObjects_7
+      213: -2074885135639669443
+    second: A1frontMovingObjects 1_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -134,13 +134,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: A1frontMovingObjects_0
+      name: A1frontMovingObjects 1_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 55
-        width: 554
-        height: 619
+        x: 2
+        y: 64
+        width: 551
+        height: 617
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -149,20 +149,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0693819f793911b50800000000000000
-      internalID: 6562188412983982432
+      spriteID: 7fd5b2e7c4bca1aa0800000000000000
+      internalID: -6189411208472601097
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: A1frontMovingObjects_1
+      name: A1frontMovingObjects 1_1
       rect:
         serializedVersion: 2
-        x: 588
-        y: 253
-        width: 35
-        height: 288
+        x: 583
+        y: 260
+        width: 34
+        height: 286
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,20 +171,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a4db518d40bb57c50800000000000000
-      internalID: 6662436853244083530
+      spriteID: 4d83a0c22fe6cb190800000000000000
+      internalID: -7945353656188389164
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: A1frontMovingObjects_2
+      name: A1frontMovingObjects 1_2
       rect:
         serializedVersion: 2
-        x: 629
-        y: 197
-        width: 106
-        height: 153
+        x: 625
+        y: 206
+        width: 104
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,107 +193,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7c843a56c77b233f0800000000000000
-      internalID: -922473228748502841
+      spriteID: c3b778c8d6900db60800000000000000
+      internalID: 7768719723327879996
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: A1frontMovingObjects_3
+      name: A1frontMovingObjects 1_3
       rect:
         serializedVersion: 2
-        x: 720
-        y: 0
-        width: 265
-        height: 255
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f431f33805957f500800000000000000
-      internalID: 429910491771376463
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: A1frontMovingObjects_4
-      rect:
-        serializedVersion: 2
-        x: 1174
-        y: 147
-        width: 85
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f7f7b949ffdc75800800000000000000
-      internalID: 601175572870823807
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: A1frontMovingObjects_5
-      rect:
-        serializedVersion: 2
-        x: 1256
-        y: 164
-        width: 9
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: db539cfbfb1703e60800000000000000
-      internalID: 7939971211424511421
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: A1frontMovingObjects_6
-      rect:
-        serializedVersion: 2
-        x: 1283
-        y: 149
-        width: 35
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e29b63a4a6b6c5530800000000000000
-      internalID: 3845066286123366702
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: A1frontMovingObjects_7
-      rect:
-        serializedVersion: 2
-        x: 1345
-        y: 17
-        width: 14
+        x: 718
+        y: 104
+        width: 251
         height: 159
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -303,8 +215,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 15d108a1a3c3e05d0800000000000000
-      internalID: -3094469673706578607
+      spriteID: e117d72ad90cfca50800000000000000
+      internalID: 6543660566861148446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A1frontMovingObjects 1_4
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 8
+        width: 23
+        height: 203
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec735eeafb8458f60800000000000000
+      internalID: 8035909098222729166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A1frontMovingObjects 1_5
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 155
+        width: 88
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e3d63288c774e000800000000000000
+      internalID: 64307997751825380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A1frontMovingObjects 1_6
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 159
+        width: 31
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67f741b6bf3ec6ba0800000000000000
+      internalID: -6094245526766321802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A1frontMovingObjects 1_7
+      rect:
+        serializedVersion: 2
+        x: 1339
+        y: 28
+        width: 14
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d35957c56f68433e0800000000000000
+      internalID: -2074885135639669443
       vertices: []
       indices: 
       edges: []
@@ -323,14 +323,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      A1frontMovingObjects_0: 6562188412983982432
-      A1frontMovingObjects_1: 6662436853244083530
-      A1frontMovingObjects_2: -922473228748502841
-      A1frontMovingObjects_3: 429910491771376463
-      A1frontMovingObjects_4: 601175572870823807
-      A1frontMovingObjects_5: 7939971211424511421
-      A1frontMovingObjects_6: 3845066286123366702
-      A1frontMovingObjects_7: -3094469673706578607
+      A1frontMovingObjects 1_0: -6189411208472601097
+      A1frontMovingObjects 1_1: -7945353656188389164
+      A1frontMovingObjects 1_2: 7768719723327879996
+      A1frontMovingObjects 1_3: 6543660566861148446
+      A1frontMovingObjects 1_4: 8035909098222729166
+      A1frontMovingObjects 1_5: 64307997751825380
+      A1frontMovingObjects 1_6: -6094245526766321802
+      A1frontMovingObjects 1_7: -2074885135639669443
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
+
 
 public class LobbyManager : MonoBehaviour
 {
@@ -109,30 +111,37 @@ public class LobbyManager : MonoBehaviour
     public void OnPlayPressed()
     {
         if (!playButton.interactable) return;
-        // SceneManager.LoadScene("Prologue");
-        // --- THIS IS THE CHANGE ---
-        // Use the FadeManager to load the cutscene,
-        // which will then load the "Prologue"
-        if (FadeManager.instance != null)
-        {
-            // FadeManager.instance.FadeToScene("DialogueCutscene");
-            SceneFader.instance.FadeToScene("Prologue");
-        }
-        else
-        {
-            // Fallback in case the FadeManager is missing
-            SceneManager.LoadScene("Prologue");
-        }
+        StartCoroutine(DelayedLoad());
     }
+
+    private IEnumerator DelayedLoad()
+    {
+        yield return null; // wait one frame for selections to finalize
+        if (FadeManager.instance != null)
+            SceneFader.instance.FadeToScene("Prologue");
+        else
+            SceneManager.LoadScene("Prologue");
+    }
+
 
     // external call by PlayerCursorController when confirm input pressed
     public void OnPlayerConfirm(string playerName)
     {
         if (currentHoveringPlayer == playerName && playButton.interactable)
         {
+            // 🔄 Force re-register latest selection before loading
+            var cursor = FindObjectsOfType<PlayerCursorController>()
+                .FirstOrDefault(c => c.playerName == playerName);
+            if (cursor != null)
+            {
+                string selectedCharacter = cursor.GetCurrentCharacter(); // ✅ get directly from PlayerCursorController
+                if (!string.IsNullOrEmpty(selectedCharacter))
+                    UpdatePlayerSelection(playerName, selectedCharacter);
+            }
             OnPlayPressed();
         }
     }
+
 
     public void OnSubmit(InputAction.CallbackContext context)
     {

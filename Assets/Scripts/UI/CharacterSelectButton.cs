@@ -8,7 +8,7 @@ public class CharacterSelectButton : MonoBehaviour
 
     void Start()
     {
-        if (labelText != null)
-            labelText.text = characterName;
+        // if (labelText != null)
+        //     labelText.text = characterName;
     }
 }

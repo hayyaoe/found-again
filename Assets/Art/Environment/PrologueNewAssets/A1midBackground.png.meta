@@ -3,8 +3,8 @@ guid: 19358f4e834e749c29ca4e86f7b73ad1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -772532230084940443
-    second: A1midBackground_0
+      213: -6451348378800868611
+    second: A1midbackground_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: A1midBackground_0
+      name: A1midbackground_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 13
-        width: 2982
-        height: 1125
+        y: 0
+        width: 3000
+        height: 1702
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 56d2f30a70a6745f0800000000000000
-      internalID: -772532230084940443
+      spriteID: df2384784d43876a0800000000000000
+      internalID: -6451348378800868611
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      A1midBackground_0: -772532230084940443
+      A1midbackground_0: -6451348378800868611
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
