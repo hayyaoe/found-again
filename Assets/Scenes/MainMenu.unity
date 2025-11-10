@@ -16420,7 +16420,7 @@ MonoBehaviour:
   m_ApplyToSortingLayers: 8d138f3d7d9a6e79bdcd0c3171d3cc3300000000
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
-  m_LightOrder: 0
+  m_LightOrder: 1
   m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
@@ -16620,13 +16620,17 @@ PrefabInstance:
       propertyPath: m_RenderMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1183218077004293568, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 869061489
+      objectReference: {fileID: 0}
     - target: {fileID: 1411876148433959995, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
       propertyPath: m_Name
       value: FadeCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 1411876148433959995, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
       propertyPath: m_Pivot.x
