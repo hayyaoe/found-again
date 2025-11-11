@@ -1,0 +1,429 @@
+fileFormatVersion: 2
+guid: 33e407433e2a7427d9199f6b967b00f1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1835959466475849462
+    second: Found Again Logo_Artboard 1 copy 4_0
+  - first:
+      213: -8694824891431145565
+    second: Found Again Logo_Artboard 1 copy 4_1
+  - first:
+      213: 3702292323676343609
+    second: Found Again Logo_Artboard 1 copy 4_2
+  - first:
+      213: -5878833045277941929
+    second: Found Again Logo_Artboard 1 copy 4_3
+  - first:
+      213: 7371312536578586284
+    second: Found Again Logo_Artboard 1 copy 4_4
+  - first:
+      213: 8385613938835982462
+    second: Found Again Logo_Artboard 1 copy 4_5
+  - first:
+      213: -7377234280370871168
+    second: Found Again Logo_Artboard 1 copy 4_6
+  - first:
+      213: -5198995929822329284
+    second: Found Again Logo_Artboard 1 copy 4_7
+  - first:
+      213: 5095681850288217617
+    second: Found Again Logo_Artboard 1 copy 4_8
+  - first:
+      213: 493892711614478704
+    second: Found Again Logo_Artboard 1 copy 4_9
+  - first:
+      213: -1861504208875703514
+    second: Found Again Logo_Artboard 1 copy 4_10
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Found Again Logo_Artboard 1 copy 4_0
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 419
+        width: 222
+        height: 495
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f60f4d4863aa7910800000000000000
+      internalID: 1835959466475849462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Found Again Logo_Artboard 1 copy 4_1
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 544
+        width: 256
+        height: 261
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3afa50214d6c55780800000000000000
+      internalID: -8694824891431145565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Found Again Logo_Artboard 1 copy 4_2
+      rect:
+        serializedVersion: 2
+        x: 697
+        y: 545
+        width: 312
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93d4267b04f216330800000000000000
+      internalID: 3702292323676343609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Found Again Logo_Artboard 1 copy 4_3
+      rect:
+        serializedVersion: 2
+        x: 1003
+        y: 550
+        width: 274
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75f51622e703a6ea0800000000000000
+      internalID: -5878833045277941929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Found Again Logo_Artboard 1 copy 4_4
+      rect:
+        serializedVersion: 2
+        x: 1176
+        y: 431
+        width: 116
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca6762772b92c4660800000000000000
+      internalID: 7371312536578586284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Found Again Logo_Artboard 1 copy 4_5
+      rect:
+        serializedVersion: 2
+        x: 1318
+        y: 545
+        width: 291
+        height: 370
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7802efc27faf5470800000000000000
+      internalID: 8385613938835982462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Found Again Logo_Artboard 1 copy 4_6
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 232
+        width: 261
+        height: 259
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 084e8ad128cce9990800000000000000
+      internalID: -7377234280370871168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Found Again Logo_Artboard 1 copy 4_7
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 122
+        width: 294
+        height: 399
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c360d3e4fb479d7b0800000000000000
+      internalID: -5198995929822329284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Found Again Logo_Artboard 1 copy 4_8
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 232
+        width: 261
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11e95de05af77b640800000000000000
+      internalID: 5095681850288217617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Found Again Logo_Artboard 1 copy 4_9
+      rect:
+        serializedVersion: 2
+        x: 1162
+        y: 237
+        width: 149
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0797fe0fdc8aad600800000000000000
+      internalID: 493892711614478704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Found Again Logo_Artboard 1 copy 4_10
+      rect:
+        serializedVersion: 2
+        x: 1312
+        y: 237
+        width: 308
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 623b112e8cb9a26e0800000000000000
+      internalID: -1861504208875703514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Found Again Logo_Artboard 1 copy 4_0: 1835959466475849462
+      Found Again Logo_Artboard 1 copy 4_1: -8694824891431145565
+      Found Again Logo_Artboard 1 copy 4_10: -1861504208875703514
+      Found Again Logo_Artboard 1 copy 4_2: 3702292323676343609
+      Found Again Logo_Artboard 1 copy 4_3: -5878833045277941929
+      Found Again Logo_Artboard 1 copy 4_4: 7371312536578586284
+      Found Again Logo_Artboard 1 copy 4_5: 8385613938835982462
+      Found Again Logo_Artboard 1 copy 4_6: -7377234280370871168
+      Found Again Logo_Artboard 1 copy 4_7: -5198995929822329284
+      Found Again Logo_Artboard 1 copy 4_8: 5095681850288217617
+      Found Again Logo_Artboard 1 copy 4_9: 493892711614478704
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

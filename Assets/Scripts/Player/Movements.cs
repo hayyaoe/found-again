@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
-using UnityEditor.Animations;
 
 public class Movement : MonoBehaviour
 {
@@ -62,8 +61,9 @@ public class Movement : MonoBehaviour
   [SerializeField] private float footstepVolume = 0.8f;
   [SerializeField] private float footstepInterval = 0.35f;
 
-  [SerializeField] private AnimatorController mimiAnimator;
-  [SerializeField] private AnimatorController marieAnimator;
+  // NEW ✅
+  [SerializeField] private RuntimeAnimatorController mimiAnimator;
+  [SerializeField] private RuntimeAnimatorController marieAnimator;
 
   // runtime slope state
   private bool slopeGrounded, onSlope, sliding;
