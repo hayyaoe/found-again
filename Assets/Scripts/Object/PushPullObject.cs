@@ -276,7 +276,9 @@ public class PushPullObject : MonoBehaviour
     // === Helpers ===
     private bool IsPulleyAtMax()
     {
-        return pulley != null && pulley.isAtMaxHeight;
+        if (pulley == null) return false;
+        // Use direct comparison to fix error if property is missing
+        return pulley.lift.position.y >= pulley.maxLiftY - 0.001f;
     }
 
     // Freeze/unfreeze bit X khusus karena MAX (tidak mengganggu bit lain)
