@@ -28,18 +28,28 @@ public class PasscodeManager : MonoBehaviour
             return;
         }
 
+        bool allCorrect = true;
+
         for (int i = 0; i < passcodeBoxes.Length; i++)
         {
-            if (passcodeBoxes[i].GetValue() != correctCode[i])
-            {
-                Debug.Log("❌ Incorrect passcode.");
-                return;
-            }
+            bool isCorrect = passcodeBoxes[i].GetValue() == correctCode[i];
+            passcodeBoxes[i].SetLightState(isCorrect);
+
+            if (!isCorrect)
+                allCorrect = false;
         }
 
-        Debug.Log("✅ Correct passcode! Puzzle solved!");
-        OnPasscodeSolved();
+        if (allCorrect)
+        {
+            Debug.Log("✅ Correct passcode! Puzzle solved!");
+            OnPasscodeSolved();
+        }
+        else
+        {
+            Debug.Log("❌ Incorrect passcode.");
+        }
     }
+
 
     private void OnPasscodeSolved()
     {

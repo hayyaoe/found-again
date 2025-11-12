@@ -14,6 +14,12 @@ public class PasscodeBox : MonoBehaviour
     [SerializeField] private GameObject leftArrow;
     [SerializeField] private GameObject rightArrow;
 
+    [Header("Correct State")]
+    [SerializeField] private SpriteRenderer bottomSpriteRenderer;
+    [SerializeField] private Sprite defaultSprite;
+    [SerializeField] private Sprite lightSprite;
+
+
     private bool isActive = false;
     private PlayerInput currentPlayerInput;
     private InputAction changeNumberAction;
@@ -99,4 +105,11 @@ public class PasscodeBox : MonoBehaviour
     }
 
     public int GetValue() => passcodeValue;
+
+    public void SetLightState(bool isCorrect)
+    {
+        if (bottomSpriteRenderer != null)
+            bottomSpriteRenderer.sprite = isCorrect ? lightSprite : defaultSprite;
+    }
+
 }
