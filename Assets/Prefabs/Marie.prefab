@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 447920590094036645}
   - component: {fileID: 3504099724175865117}
   - component: {fileID: 696653549654381408}
+  - component: {fileID: -2395816109337047475}
   m_Layer: 12
   m_Name: Marie
   m_TagString: Player
@@ -454,8 +455,24 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 71bd0a9a-aa52-4134-bcd2-b48db6659338
     m_ActionName: 'Cutscene/Skip[/Keyboard/escape,/DualShock4GamepadHID1/start]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b79e03e3-e65c-4abc-bc25-a656b70a0916
+    m_ActionName: 'Passcode/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-2395816109337047475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4441310245275456898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c660e1cdfd3304dc7b05060d4edcbec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::PlayerInteraction
