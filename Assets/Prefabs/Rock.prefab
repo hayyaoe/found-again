@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5429902545403208802}
   - component: {fileID: 7824924045399249778}
   - component: {fileID: 7225674071244428873}
+  - component: {fileID: 7245578114042598893}
+  - component: {fileID: 696832564280834569}
   m_Layer: 3
   m_Name: Rock
   m_TagString: Untagged
@@ -30,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -15.481, y: -1.6298, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
+  m_LocalScale: {x: 1.75, y: 1.75, z: 1.75}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: -7184138408967707247, guid: 67b82dccdd8e543f594ff294b1b91ead, type: 3}
-  m_Color: {r: 0.7122642, g: 0.9945875, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -134,6 +136,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PushPullObject
   isBeingPushed: 0
   requiresTwoPlayers: 0
+  lockWhileAtLimit: 1
+  pulley: {fileID: 0}
+  autoFindPulleyInParent: 1
+  autoFindPulleyInChildren: 0
+  autoFindPulleyInScene: 0
+  returnSpeed: 3
+  returnSnapEpsilon: 0.01
+  returnTimeout: 4
+  debugLogging: 1
+  logEveryFixed: 0
+  stopReturnOnCollision: 1
+  returnBlockerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  returnCastSkin: 0.02
 --- !u!61 &7225674071244428873
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -180,3 +197,37 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.79375, y: 0.7875}
   m_EdgeRadius: 0
+--- !u!114 &7245578114042598893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118607558319655718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa236a7ce6f643d1b51d290f6c9a13f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableObject
+--- !u!114 &696832564280834569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118607558319655718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7921f0183dcce425a98dadff31055b09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlopeAlignVisual
+  graphics: {fileID: 9162282335751163694}
+  col: {fileID: 7225674071244428873}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  rayDown: 0.6
+  insetX: 0.05
+  alignSpeedDeg: 540
+  maxTilt: 50
+  visualYOffset: 0

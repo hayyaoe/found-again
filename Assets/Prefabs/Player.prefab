@@ -19,6 +19,8 @@ GameObject:
   - component: {fileID: 4630648880170436102}
   - component: {fileID: -1146337498437135947}
   - component: {fileID: 6870637021373921649}
+  - component: {fileID: -8726400398835154012}
+  - component: {fileID: 3189311462096466501}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -35,7 +37,7 @@ Transform:
   m_GameObject: {fileID: 4911369873958072336}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -36, y: -2.1299243, z: 0}
+  m_LocalPosition: {x: -31.88, y: -2.1299243, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -53,6 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342c64ad038d94aeb9a7abe9868518d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraZoneTrigger
+  debugLog: 0
 --- !u!212 &3670382486621152465
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -99,8 +102,8 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 0689589d66d174f8fb6180c7e3b01ca6, type: 3}
+  m_SortingOrder: 6
+  m_Sprite: {fileID: 4882348422516117835, guid: 7bf2651578c8643b38620e6769b65073, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -145,17 +148,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0039482117, y: -0.002319932}
+  m_Offset: {x: 0.18624496, y: -0.26227713}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.0181818, y: 1.1418182}
+    oldSize: {x: 1.7066667, y: 1.7066667}
     newSize: {x: 1.459, y: 0.836}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.0260353, y: 1.1726692}
+  m_Size: {x: 1.0286293, y: 1.1851034}
   m_EdgeRadius: 0
 --- !u!50 &4954730012333420564
 Rigidbody2D:
@@ -198,18 +201,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Movement
   playerInput: {fileID: 6870637021373921649}
   speed: 5
-  jumpPower: 12
+  jumpPower: 14
   shortJumpMultiplier: 1
   shortHopCut: 0
   fallMultiplier: 3
-  fallThreshold: 35
-  fatalFallSpeed: 25
+  fatalFallSpeed: 35
+  deathYLevel: -30
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   steppableObjectLayer:
     serializedVersion: 2
     m_Bits: 8
+  slopeGroundLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  slopeProbeDistance: 0.25
+  slopeFootRadius: 0.16
+  alwaysSlippery: 1
+  minSlideAccel: 14
+  slideAccelBoost: 1.2
+  maxSlideSpeed: 24
+  groundStickForce: 35
+  jumpIgnoreSlopeTime: 0.12
+  wallStartAngle: 88
+  wallProbeDistance: 0.25
+  wallSlideAccel: 22
+  wallSlideBoost: 2
+  wallMaxSlideSpeed: 32
+  minWallSpeed: 8
+  wallStartImpulse: 3.5
+  jumpSFX: {fileID: 0}
+  jumpVolume: 1
+  footstepSFX:
+  - {fileID: 8300000, guid: 61b66e297db814462ac2db5c92aaf2b7, type: 3}
+  - {fileID: 8300000, guid: 61ea5189f7b9f479d88b76cc78d79a64, type: 3}
+  footstepVolume: 0.8
+  footstepInterval: 0.35
+  mimiAnimator: {fileID: 0}
+  marieAnimator: {fileID: 0}
+  groundedLatchSeconds: 0.5
+  groundCheckWidthReduction: 0.1
+  acceleration: 12
+  deceleration: 16
+  velocityPower: 0.9
 --- !u!95 &4587821935056208640
 Animator:
   serializedVersion: 7
@@ -218,9 +253,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4911369873958072336}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 792523c429a8d4b2fbf63a7e53400e4c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -244,12 +279,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822b5e2b008524b61890411debe11d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPushPull
-  interactRange: 2
+  interactRange: 0.1
   pushableLayer:
     serializedVersion: 2
     m_Bits: 8
   pushSpeed: 3
+  spriteRenderer: {fileID: 0}
+  frontBoxHeightFactor: 0.8
+  frontBoxExtraWidth: 0.8
+  frontProbeYOffset: 0.15
+  downProbeAngleDeg: 15
+  probeRayDistance: 1.2
+  attachVerticalSlack: 0.25
+  leashMaxDistanceX: 1.6
+  leashGraceSeconds: 0.4
+  contactSkin: 0.01
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  slopeAssistForce: 35
+  slopeAssistMaxAngleDeg: 45
+  assistOnlyWhenUphill: 1
+  reduceFrictionWhileAttached: 1
+  attachedFriction: 0.08
+  autoDetachWhenNoContact: 1
+  noContactGraceSeconds: 0.3
+  nearContactEpsilon: 0.03
   isPushing: 0
+  isPulling: 0
 --- !u!114 &4630648880170436102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,7 +326,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4911369873958072336}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77691ff2c6f194aacb73123e7816d1cd, type: 3}
   m_Name: 
@@ -277,8 +334,17 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 1088
+  groundCheckDistance: 0.25
+  footOffset: {x: 0, y: 0.02}
+  footRadius: 0.16
+  alwaysSlippery: 1
+  minSlideAccel: 12
+  slideAccelBoost: 1.25
+  maxSlideSpeed: 22
+  groundStickForce: 35
+  jumpIgnoreSlopeTime: 0.1
   maxSlopeAngle: 45
-  slideSpeed: 5
+  drawGizmos: 0
 --- !u!114 &6870637021373921649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: c68604c71beef44a1b107ae7dd4bf257, type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -392,8 +458,101 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c2ad9080-4db5-4770-85da-d9c3e301e114
+    m_ActionName: 'Player/Pause[/DualShock4GamepadHID/start]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 16e1793e-d43c-4303-a1f7-f8da265f9c35
+    m_ActionName: 'Cursor/Move[/DualShock4GamepadHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow,/DualShock4GamepadHID/dpad]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 84a6cefb-2bff-4772-a437-17f352c87cce
+    m_ActionName: 'Cursor/Submit[/DualShock4GamepadHID/buttonSouth,/Mouse/leftButton,/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5746e6dd-e11a-4812-a716-32977d04d7d3
+    m_ActionName: 'Cursor/Cancel[/DualShock4GamepadHID/buttonWest,/Keyboard/escape,/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 429ded28-e19f-4980-b1ff-30650716a3cb
+    m_ActionName: 'Cutscene/Next[/Keyboard/space,/DualShock4GamepadHID/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 71bd0a9a-aa52-4134-bcd2-b48db6659338
+    m_ActionName: 'Cutscene/Skip[/Keyboard/escape,/DualShock4GamepadHID/start]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b79e03e3-e65c-4abc-bc25-a656b70a0916
+    m_ActionName: 'Passcode/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-8726400398835154012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4911369873958072336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.ShadowCaster2D
+  m_ShadowGroup: 0
+  m_Priority: 5
+  m_ComponentVersion: 5
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_AlphaCutoff: 0.5
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -1.0090904, y: -0.570909, z: 0}
+  - {x: -1.0090904, y: 0.570909, z: 0}
+  - {x: 1.0090904, y: 0.570909, z: 0}
+  - {x: 1.0090904, y: -0.570909, z: 0}
+  m_ShapePathHash: 0
+  m_InstanceId: 0
+  m_ShadowShape2DComponent: {fileID: 3670382486621152465}
+  m_ShadowShape2DProvider:
+    rid: 2785154689164116066
+  m_ShadowCastingSource: 2
+  m_ShadowMesh:
+    m_Mesh: {fileID: 0}
+    m_LocalBounds:
+      m_Center: {x: 0.3600006, y: -0.5699997, z: 0}
+      m_Extent: {x: 1.7700043, y: 1.8199997, z: 0}
+    m_EdgeProcessing: 1
+    m_TrimEdge: 0.15
+    m_FlipX: 0
+    m_FlipY: 0
+    m_InitialTrim: 0
+  m_CastingOption: 1
+  m_PreviousTrimEdge: 0.15
+  m_PreviousEdgeProcessing: 1
+  m_PreviousShadowCastingSource: 2
+  m_PreviousShadowShape2DSource: {fileID: 3670382486621152465}
+  references:
+    version: 2
+    RefIds:
+    - rid: 2785154689164116066
+      type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data: 
+--- !u!114 &3189311462096466501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4911369873958072336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c660e1cdfd3304dc7b05060d4edcbec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::PlayerInteraction

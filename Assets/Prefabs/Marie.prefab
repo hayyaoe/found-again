@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7313728770847735547}
   - component: {fileID: 1280524543023861686}
+  - component: {fileID: 5433923750984152170}
   - component: {fileID: 635450761350135262}
   - component: {fileID: 9064281885729311401}
   - component: {fileID: 3650816447161138673}
@@ -17,13 +18,14 @@ GameObject:
   - component: {fileID: 447920590094036645}
   - component: {fileID: 3504099724175865117}
   - component: {fileID: 696653549654381408}
-  m_Layer: 0
+  - component: {fileID: -2395816109337047475}
+  m_Layer: 12
   m_Name: Marie
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7313728770847735547
 Transform:
   m_ObjectHideFlags: 0
@@ -33,7 +35,7 @@ Transform:
   m_GameObject: {fileID: 4441310245275456898}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -33.805088, y: -1.3842926, z: 0}
+  m_LocalPosition: {x: -34.97, y: -1.3842926, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -85,8 +87,8 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
-  m_Sprite: {fileID: 21300000, guid: 25ea5ef3b156041e688c7df591468000, type: 3}
+  m_SortingOrder: 5
+  m_Sprite: {fileID: -1886850989825926547, guid: c6207d902043e4abb8343973139ff1bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,6 +99,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &5433923750984152170
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4441310245275456898}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 10caea0b5746544ab88bf3db049c2b23, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &635450761350135262
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -135,7 +159,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.2166667, y: 2.5}
+    oldSize: {x: 2.56, y: 2.56}
     newSize: {x: 1.2166667, y: 2.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -159,7 +183,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 4
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: cee62ccb67dd74493b6fe08465aedb0e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -188,14 +212,46 @@ MonoBehaviour:
   shortJumpMultiplier: 1
   shortHopCut: 0
   fallMultiplier: 3
-  fallThreshold: 25
   fatalFallSpeed: 35
+  deathYLevel: -30
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   steppableObjectLayer:
     serializedVersion: 2
     m_Bits: 8
+  slopeGroundLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  slopeProbeDistance: 0.25
+  slopeFootRadius: 0.16
+  alwaysSlippery: 1
+  minSlideAccel: 14
+  slideAccelBoost: 1.2
+  maxSlideSpeed: 24
+  groundStickForce: 35
+  jumpIgnoreSlopeTime: 0.12
+  wallStartAngle: 88
+  wallProbeDistance: 0.25
+  wallSlideAccel: 22
+  wallSlideBoost: 2
+  wallMaxSlideSpeed: 32
+  minWallSpeed: 8
+  wallStartImpulse: 3.5
+  jumpSFX: {fileID: 0}
+  jumpVolume: 0.4
+  footstepSFX:
+  - {fileID: 8300000, guid: c3a4b11fe3ca54177b72daa6f0bd21d1, type: 3}
+  - {fileID: 8300000, guid: c3a4b11fe3ca54177b72daa6f0bd21d1, type: 3}
+  footstepVolume: 0.2
+  footstepInterval: 0.35
+  mimiAnimator: {fileID: 0}
+  marieAnimator: {fileID: 0}
+  groundedLatchSeconds: 0.5
+  groundCheckWidthReduction: 0.1
+  acceleration: 12
+  deceleration: 16
+  velocityPower: 0.9
 --- !u!114 &7652417905296700519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,12 +264,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822b5e2b008524b61890411debe11d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPushPull
-  interactRange: 1.5
+  interactRange: 0.5
   pushableLayer:
     serializedVersion: 2
     m_Bits: 8
-  pushSpeed: 3
+  pushSpeed: 4
+  spriteRenderer: {fileID: 0}
+  frontBoxHeightFactor: 1
+  frontBoxExtraWidth: 0.6
+  frontProbeYOffset: 0.4
+  downProbeAngleDeg: 20
+  probeRayDistance: 1.2
+  attachVerticalSlack: 0.5
+  leashMaxDistanceX: 1
+  leashGraceSeconds: 0.1
+  contactSkin: 0.01
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  slopeAssistForce: 50
+  slopeAssistMaxAngleDeg: 60
+  assistOnlyWhenUphill: 1
+  reduceFrictionWhileAttached: 1
+  attachedFriction: 0.08
+  autoDetachWhenNoContact: 1
+  noContactGraceSeconds: 0.3
+  nearContactEpsilon: 0.03
   isPushing: 0
+  isPulling: 0
 --- !u!114 &447920590094036645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,16 +311,25 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4441310245275456898}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77691ff2c6f194aacb73123e7816d1cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Slope
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1088
+    m_Bits: 1024
+  groundCheckDistance: 0.25
+  footOffset: {x: 0, y: 0.02}
+  footRadius: 0.16
+  alwaysSlippery: 1
+  minSlideAccel: 12
+  slideAccelBoost: 1.25
+  maxSlideSpeed: 12
+  groundStickForce: 50
+  jumpIgnoreSlopeTime: 0.1
   maxSlopeAngle: 45
-  slideSpeed: 5
+  drawGizmos: 1
 --- !u!114 &696653549654381408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: c68604c71beef44a1b107ae7dd4bf257, type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -344,8 +431,48 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c2ad9080-4db5-4770-85da-d9c3e301e114
+    m_ActionName: 'Player/Pause[/Keyboard/escape,/DualShock4GamepadHID1/start]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 16e1793e-d43c-4303-a1f7-f8da265f9c35
+    m_ActionName: 'Cursor/Move[/DualShock4GamepadHID1/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 84a6cefb-2bff-4772-a437-17f352c87cce
+    m_ActionName: 'Cursor/Click[/DualShock4GamepadHID1/buttonSouth,/Mouse/leftButton,/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5746e6dd-e11a-4812-a716-32977d04d7d3
+    m_ActionName: 'Cursor/Cancel[/DualShock4GamepadHID1/buttonWest,/Keyboard/escape,/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 429ded28-e19f-4980-b1ff-30650716a3cb
+    m_ActionName: 'Cutscene/Next[/Keyboard/space,/DualShock4GamepadHID1/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 71bd0a9a-aa52-4134-bcd2-b48db6659338
+    m_ActionName: 'Cutscene/Skip[/Keyboard/escape,/DualShock4GamepadHID1/start]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b79e03e3-e65c-4abc-bc25-a656b70a0916
+    m_ActionName: 'Passcode/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-2395816109337047475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4441310245275456898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c660e1cdfd3304dc7b05060d4edcbec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::PlayerInteraction

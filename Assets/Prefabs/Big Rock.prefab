@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5045367883331890125}
   - component: {fileID: 3861660168726255796}
   - component: {fileID: 5452052162574743861}
+  - component: {fileID: -1777486948420344605}
+  - component: {fileID: -6132180807624749369}
   m_Layer: 3
   m_Name: Big Rock
   m_TagString: Untagged
@@ -83,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 7566240491765188415, guid: 558e278725d0f43a783249f873636084, type: 3}
-  m_Color: {r: 0.7019608, g: 0.9882353, b: 0.99215686, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -127,7 +129,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7786662411218055685}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -158,7 +160,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.6533333, y: 0.8466667}
+    oldSize: {x: 3.3066666, y: 1.6933334}
     newSize: {x: 3.97, y: 2.08}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -179,3 +181,111 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushPullObject
   isBeingPushed: 0
+  requiresTwoPlayers: 0
+  lockWhileAtLimit: 1
+  pulley: {fileID: 0}
+  autoFindPulleyInParent: 1
+  autoFindPulleyInChildren: 0
+  autoFindPulleyInScene: 0
+  returnSpeed: 3
+  returnSnapEpsilon: 0.01
+  returnTimeout: 4
+  debugLogging: 1
+  logEveryFixed: 0
+  stopReturnOnCollision: 1
+  returnBlockerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  returnCastSkin: 0.02
+--- !u!114 &-1777486948420344605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7786662411218055685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa236a7ce6f643d1b51d290f6c9a13f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResettableObject
+--- !u!60 &-6132180807624749369
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7786662411218055685}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.3066666, y: 1.6933334}
+    newSize: {x: 3.97, y: 2.08}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -1.4133334, y: 0.47333336}
+      - {x: -1.3866667, y: 0.36666667}
+      - {x: -1.6533334, y: 0.060000002}
+      - {x: -1.5466667, y: -0.1}
+      - {x: -1.6133333, y: -0.20666668}
+      - {x: -1.5733334, y: -0.27333334}
+      - {x: -1.5866667, y: -0.54}
+      - {x: -1.4533334, y: -0.75333333}
+      - {x: -1.1866667, y: -0.8466667}
+      - {x: 1.32, y: -0.8466667}
+      - {x: 1.5733334, y: -0.67333335}
+      - {x: 1.64, y: -0.40666667}
+      - {x: 1.5733334, y: -0.23333333}
+      - {x: 1.6533334, y: -0.046666667}
+      - {x: 1.52, y: 0.14}
+      - {x: 1.6133333, y: 0.34}
+      - {x: 1.3066667, y: 0.48666668}
+      - {x: 1.3333334, y: 0.55333334}
+      - {x: 1.3066667, y: 0.6466667}
+      - {x: 1.0666667, y: 0.66}
+      - {x: 0.7733334, y: 0.75333333}
+      - {x: 0.56, y: 0.74}
+      - {x: 0.25333333, y: 0.6066667}
+      - {x: 0.4, y: 0.78000003}
+      - {x: 0.36, y: 0.8466667}
+      - {x: 0.14666668, y: 0.79333335}
+      - {x: -0.14666668, y: 0.62}
+      - {x: -0.33333334, y: 0.78000003}
+      - {x: -0.50666666, y: 0.78000003}
+      - {x: -0.5733333, y: 0.7}
+      - {x: -0.9066667, y: 0.7266667}
+      - {x: -0.97333336, y: 0.66}
+      - {x: -1.3066667, y: 0.59333336}
+  m_UseDelaunayMesh: 0
