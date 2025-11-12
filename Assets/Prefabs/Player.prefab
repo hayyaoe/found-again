@@ -486,6 +486,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: b79e03e3-e65c-4abc-bc25-a656b70a0916
     m_ActionName: 'Passcode/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7ffa1926-9a38-46da-a487-391931ac22c7
+    m_ActionName: 'Player/Change[/DualShock4GamepadHID/buttonEast,/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 096e9722-e5d5-4ade-80c6-653c17e07cf7
+    m_ActionName: 'Passcode/Exit[/DualShock4GamepadHID/buttonEast,/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -510,8 +518,8 @@ MonoBehaviour:
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 0
-  m_AlphaCutoff: 0.5
-  m_ApplyToSortingLayers: 00000000
+  m_AlphaCutoff: 1
+  m_ApplyToSortingLayers: 8d138f3d7d9a6e79bdcd0c3171d3cc33
   m_ShapePath:
   - {x: -1.0090904, y: -0.570909, z: 0}
   - {x: -1.0090904, y: 0.570909, z: 0}
@@ -521,7 +529,7 @@ MonoBehaviour:
   m_InstanceId: 0
   m_ShadowShape2DComponent: {fileID: 3670382486621152465}
   m_ShadowShape2DProvider:
-    rid: 2785154689164116066
+    rid: 1812787089648124099
   m_ShadowCastingSource: 2
   m_ShadowMesh:
     m_Mesh: {fileID: 0}
@@ -541,7 +549,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 2785154689164116066
+    - rid: 1812787089648124099
       type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data: 
 --- !u!114 &3189311462096466501
