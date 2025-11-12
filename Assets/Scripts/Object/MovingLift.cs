@@ -22,25 +22,28 @@ public class AutoElevator2D : MonoBehaviour
     public bool lockZ = true;
     public float fixedZ = 0f;
 
-    [Header("Passenger Carry (Optional)")]
-    public bool parentOnContact = false;
+    [Header("Passenger (No Parenting)")]
+    [Tooltip("Tag pemain/penumpang (digunakan untuk pause-if-blocked-by-passenger).")]
     public string passengerTag = "Player";
 
-    [Header("Anti-Crush (Reverse When Blocked)")]
-    [Tooltip("Layer yang dianggap menghalangi lift saat TURUN (bisa pilih banyak).")]
+    [Header("Anti-Crush")]
+    [Tooltip("Layer penghalang (boleh banyak).")]
     public LayerMask obstacleMask;
-    [Tooltip("Aktifkan jika ingin filter tambahan berdasarkan Tag.")]
+    [Tooltip("Filter tambahan berdasarkan Tag (optional).")]
     public bool useTagFilter = false;
-    [Tooltip("Daftar tag yang dianggap penghalang (hanya dipakai jika useTagFilter = true).")]
+    [Tooltip("Tag yang dianggap penghalang bila useTagFilter = true.")]
     public string[] obstacleTags = new string[] { "Player", "Object" };
-    [Tooltip("Jarak buffer agar tidak menempel persis.")]
     [Min(0f)] public float skin = 0.02f;
+    [Tooltip("Jika true: reverse saat tertahan (kecuali oleh passenger).")]
+    public bool reverseWhenBlocked = true;
+    [Tooltip("Jika true: bila yang nahan adalah passengerTag, lift PAUSE (tidak reverse) sampai clear.")]
+    public bool pauseWhenBlockedByPassenger = true;
 
     [Header("Runtime (Read-only)")]
     [SerializeField] private bool isMoving = false;
     public State CurrentState { get; private set; } = State.Idle;
-
     public Vector2 PlatformVelocity { get; private set; }
+    public bool IsBlockedByPassenger { get; private set; } // <- expose ke luar
 
     private Rigidbody2D rb2d;
     private Collider2D col2d;
@@ -55,13 +58,16 @@ public class AutoElevator2D : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         col2d = GetComponent<Collider2D>();
-
         if (rb2d != null)
         {
             rb2d.bodyType = RigidbodyType2D.Kinematic;
             rb2d.interpolation = RigidbodyInterpolation2D.Interpolate;
             rb2d.gravityScale = 0f;
             rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            // ✅ kontak & deteksi benturan lebih stabil untuk platform kinematic
+            rb2d.useFullKinematicContacts = true;
+            rb2d.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         }
     }
 
@@ -106,7 +112,7 @@ public class AutoElevator2D : MonoBehaviour
     // ======== Core Movement ========
     private IEnumerator MoveRoutine()
     {
-        bool forward = (t01 <= 0.5f);
+        bool forward = (t01 <= 0.5f); // true: origin->target
 
         while (isMoving)
         {
@@ -116,7 +122,6 @@ public class AutoElevator2D : MonoBehaviour
 
             float dist = Vector2.Distance(originXY, targetXY);
             float duration = Mathf.Max(0.0001f, dist / Mathf.Max(0.0001f, speed));
-
             float elapsed = 0f;
 
             while (elapsed < duration && isMoving)
@@ -125,15 +130,21 @@ public class AutoElevator2D : MonoBehaviour
                 float raw = Mathf.Clamp01(elapsed / duration);
                 t01 = Mathf.Lerp(start, end, ease.Evaluate(raw));
 
-                // Apply, detect blockedDown
                 ApplyPosition(t01);
 
-                // Reverse instantly kalau ketahan saat TURUN
-                if (blockedDown && !forward)
+                // CASE 1: tertahan oleh passenger -> PAUSE di tempat (jangan reverse / jangan tambah elapsed)
+                if (blockedDown && IsBlockedByPassenger && pauseWhenBlockedByPassenger)
                 {
-                    forward = true; // balik arah (naik)
+                    if (rb2d) yield return new WaitForFixedUpdate(); else yield return null;
+                    continue; // ulangi frame ini sampai clear
+                }
+
+                // CASE 2: tertahan oleh obstacle lain -> REVERSE (tanpa teleport)
+                if (blockedDown && !IsBlockedByPassenger && !forward && reverseWhenBlocked)
+                {
+                    forward = true;
                     if (waitAtEnds > 0f) yield return new WaitForSeconds(waitAtEnds);
-                    break;
+                    goto ContinueOuter;
                 }
 
                 elapsed += dt;
@@ -154,6 +165,9 @@ public class AutoElevator2D : MonoBehaviour
             { isMoving = false; CurrentState = State.Idle; mover = null; yield break; }
 
             forward = !forward;
+
+        ContinueOuter:
+            continue;
         }
 
         CurrentState = State.Paused;
@@ -163,16 +177,19 @@ public class AutoElevator2D : MonoBehaviour
     private void ApplyPosition(float t, bool forceSnap = false)
     {
         blockedDown = false;
+        IsBlockedByPassenger = false;
 
         Vector2 currentPos2 = rb2d ? rb2d.position : (Vector2)transform.position;
         Vector2 desiredPos2 = Vector2.Lerp(originXY, targetXY, t);
         Vector2 nextPos2 = desiredPos2;
 
-        // ===== Anti-crush saat turun =====
-        if (col2d && desiredPos2.y < currentPos2.y)
+        float deltaY = desiredPos2.y - currentPos2.y;
+
+        // Cek & batasi hanya kalau bergerak TURUN
+        if (col2d && deltaY < -Mathf.Epsilon)
         {
             Vector2 dir = Vector2.down;
-            float wantDist = currentPos2.y - desiredPos2.y;
+            float wantDist = -deltaY;
 
             ContactFilter2D filter = new ContactFilter2D();
             filter.SetLayerMask(obstacleMask);
@@ -181,41 +198,42 @@ public class AutoElevator2D : MonoBehaviour
             RaycastHit2D[] hits = new RaycastHit2D[8];
             int hitCount = col2d.Cast(dir, filter, hits, wantDist + skin);
 
-            if (hitCount > 0)
+            float minDist = float.MaxValue;
+            Collider2D closest = null;
+
+            for (int i = 0; i < hitCount; i++)
             {
-                float minDist = float.MaxValue;
-                for (int i = 0; i < hitCount; i++)
+                var h = hits[i];
+                if (h.collider == null) continue;
+                if (useTagFilter && !TagInList(h.collider.tag, obstacleTags)) continue;
+                if (!IsBelow(h.collider)) continue;
+
+                if (h.distance < minDist)
                 {
-                    var h = hits[i];
-                    if (h.collider == null) continue;
-
-                    // Jika pakai filter tag, hanya terima collider dengan tag yang cocok
-                    if (useTagFilter && !TagInList(h.collider.tag, obstacleTags))
-                        continue;
-
-                    if (h.distance < minDist) minDist = h.distance;
+                    minDist = h.distance;
+                    closest = h.collider;
                 }
+            }
 
-                if (minDist < float.MaxValue)
+            if (closest != null)
+            {
+                float allowed = Mathf.Max(0f, minDist - skin);
+                if (allowed < wantDist - 1e-4f)
                 {
-                    float allowed = Mathf.Max(0f, minDist - skin);
-                    float want = wantDist;
-                    if (allowed < want - 1e-4f)
-                    {
-                        nextPos2 = currentPos2 + dir * allowed;
-                        blockedDown = true;
-                    }
+                    nextPos2 = currentPos2; // diam di frame ini
+                    blockedDown = true;
+                    if (closest.CompareTag(passengerTag)) IsBlockedByPassenger = true;
                 }
             }
         }
 
-        // === Hitung velocity ===
+        // Hitung velocity
         float dt = (rb2d ? Time.fixedDeltaTime : Time.deltaTime);
         if (dt <= 0f) dt = Time.deltaTime;
         if (!hasLast || forceSnap) PlatformVelocity = Vector2.zero;
         else PlatformVelocity = (nextPos2 - lastPos2) / dt;
 
-        // === Apply ===
+        // Apply
         if (rb2d) rb2d.MovePosition(nextPos2);
         else transform.position = new Vector3(nextPos2.x, nextPos2.y, lockZ ? fixedZ : transform.position.z);
 
@@ -225,35 +243,29 @@ public class AutoElevator2D : MonoBehaviour
 
     private bool TagInList(string tag, string[] list)
     {
+        if (!useTagFilter) return true;
         if (list == null || list.Length == 0) return false;
         for (int i = 0; i < list.Length; i++)
             if (!string.IsNullOrEmpty(list[i]) && tag == list[i]) return true;
         return false;
     }
 
+    // Relatif posisi
+    private bool IsBelow(Collider2D other)
+    {
+        if (col2d == null || other == null) return false;
+        float myBottom = col2d.bounds.min.y;
+        float otherTop = other.bounds.max.y;
+        return otherTop <= myBottom + 0.02f; // toleransi kecil
+    }
+
     private void SnapToOrigin() { t01 = 0f; ApplyPosition(0f,true); }
 
-    // ===== Parenting opsional =====
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (!parentOnContact) return;
-        if (col.collider.CompareTag(passengerTag))
-            col.collider.transform.SetParent(transform, true);
-    }
-
-    void OnCollisionExit2D(Collision2D col)
-    {
-        if (!parentOnContact) return;
-        if (col.collider.CompareTag(passengerTag) && col.collider.transform.parent == transform)
-            col.collider.transform.SetParent(null, true);
-    }
-
-    // ===== Gizmos =====
+    // === Gizmos ===
     void OnDrawGizmos()
     {
         Vector3 o = new Vector3(originXY.x, originXY.y, lockZ ? fixedZ : transform.position.z);
         Vector3 t = new Vector3(targetXY.x, targetXY.y, lockZ ? fixedZ : transform.position.z);
-
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(o, t);
         Gizmos.DrawWireCube(o, Vector3.one * 0.3f);

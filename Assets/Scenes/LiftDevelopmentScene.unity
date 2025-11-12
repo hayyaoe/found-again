@@ -119,63 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &192023895
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4441310245275456898, guid: e5ceff893254e4222bcf861bda81d082, type: 3}
-      propertyPath: m_Name
-      value: Marie
-      objectReference: {fileID: 0}
-    - target: {fileID: 7313728770847735547, guid: e5ceff893254e4222bcf861bda81d082, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.44
-      objectReference: {fileID: 0}
-    - target: {fileID: 7313728770847735547, guid: e5ceff893254e4222bcf861bda81d082, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.63
-      objectReference: {fileID: 0}
-    - target: {fileID: 7313728770847735547, guid: e5ceff893254e4222bcf861bda81d082, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7313728770847735547, guid: e5ceff893254e4222bcf861bda81d082, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7313728770847735547, guid: e5ceff893254e4222bcf861bda81d082, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7313728770847735547, guid: e5ceff893254e4222bcf861bda81d082, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7313728770847735547, guid: e5ceff893254e4222bcf861bda81d082, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7313728770847735547, guid: e5ceff893254e4222bcf861bda81d082, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7313728770847735547, guid: e5ceff893254e4222bcf861bda81d082, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7313728770847735547, guid: e5ceff893254e4222bcf861bda81d082, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e5ceff893254e4222bcf861bda81d082, type: 3}
 --- !u!1 &1275475335
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +132,7 @@ GameObject:
   - component: {fileID: 1275475339}
   m_Layer: 6
   m_Name: Square
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -342,7 +285,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: cee62ccb67dd74493b6fe08465aedb0e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -495,8 +438,17 @@ MonoBehaviour:
   autoStart: 1
   lockZ: 1
   fixedZ: 0
-  parentOnContact: 1
   passengerTag: Player
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  useTagFilter: 1
+  obstacleTags:
+  - Player
+  - Pushable
+  skin: 0.02
+  reverseWhenBlocked: 1
+  pauseWhenBlockedByPassenger: 1
   isMoving: 0
 --- !u!1 &2081565649
 GameObject:
@@ -642,4 +594,3 @@ SceneRoots:
   - {fileID: 2081565652}
   - {fileID: 1275475338}
   - {fileID: 1868935472}
-  - {fileID: 192023895}

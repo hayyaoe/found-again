@@ -171,10 +171,6 @@ public class Movement : MonoBehaviour
         Die();
         return; // Stop processing this frame
       }
-
-      // ✅ Add this:
-      animator.ResetTrigger("jump");
-      animator.SetTrigger("land");
     }
 
     // --- Record Fall Speed (Uses the PHYSICAL state) ---
@@ -258,7 +254,7 @@ public class Movement : MonoBehaviour
 
   private void Jump()
   {
-    if (isPhysicallyGrounded || isOnSteppableObject())
+    if ((isGroundedWithLatch && isPhysicallyGrounded) || isOnSteppableObject())
     {
       jumpIgnoreTimer = jumpIgnoreSlopeTime;
       body.linearVelocity = new Vector2(body.linearVelocity.x, jumpPower);
@@ -268,7 +264,7 @@ public class Movement : MonoBehaviour
       isGroundedWithLatch = false;
       isPhysicallyGrounded = false;
 
-      if (animator) animator.SetTrigger("jump");
+      animator.SetTrigger("jump");
 
       // ✅ Play jump sound
       if (SoundFXManager.instance != null && jumpSFX != null)
@@ -349,8 +345,11 @@ public class Movement : MonoBehaviour
   {
     if (!animator) return;
 
-    bool groundedNow = isGrounded();
+    bool groundedNow = isPhysicallyGrounded;
     float vy = body.linearVelocity.y;
+
+    // bool landedThisFrame = isPhysicallyGrounded && !wasPhysicallyGroundedLastFrame;
+    // if (landedThisFrame) animator.ResetTrigger("jump");
 
     bool interactingNow = pushPull != null && (pushPull.isPushing || pushPull.isPulling);
 
