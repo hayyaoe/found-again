@@ -17,24 +17,24 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private GameObject continuePrompt;
     [SerializeField] private GameObject nameBoxPanel;
-    [SerializeField] private TextMeshProUGUI characterNameText;
-    [SerializeField] private Image characterLeftSprite;
+    [SerializeField] private TextMeshProUGUI characterNameText; 
+    [SerializeField] private Image characterLeftSprite; 
     [SerializeField] private Image characterRightSprite;
 
     [Header("Dialogue Content")]
     [SerializeField] private string cutsceneName = "Intro";
-
+    
     [Header("Game Start Dependencies")]
     [SerializeField] private ProloguePlayerSpawner playerSpawner;
     [SerializeField] private GameObject gameHUDCanvas;
 
     // ... (All your other Character Settings, colors, etc. are unchanged) ...
     [Header("Character Settings")]
-    [SerializeField] private Sprite mimiSprite;
-    [SerializeField] private Sprite mimiNameBoxSprite;
-    [SerializeField] private Sprite wandererSprite;
-    [SerializeField] private Sprite wandererNameBoxSprite;
-    [SerializeField] private Sprite defaultNameBoxSprite;
+    [SerializeField] private Sprite mimiSprite; 
+    [SerializeField] private Sprite mimiNameBoxSprite; 
+    [SerializeField] private Sprite wandererSprite; 
+    [SerializeField] private Sprite wandererNameBoxSprite; 
+    [SerializeField] private Sprite defaultNameBoxSprite; 
     [SerializeField] private Color defaultNameBoxColor = new Color(0.2f, 0.2f, 0.2f, 0.8f);
     [SerializeField] private Color speakingColor = Color.white;
     [SerializeField] private Color silentColor = new Color(0.5f, 0.5f, 0.5f, 1f);
@@ -52,7 +52,7 @@ public class DialogueManager : MonoBehaviour
 
     // ... (Your internal structs 'DialogueLine' and 'CharacterSide' are unchanged) ...
     [System.Serializable]
-    private struct DialogueLine
+    private struct DialogueLine 
     {
         public string speakerName;
         public string line;
@@ -74,13 +74,13 @@ public class DialogueManager : MonoBehaviour
         // Find the actions in the "Cutscene" map
         continueAction = inputActionAsset.FindActionMap("Cutscene").FindAction("Next");
         skipAction = inputActionAsset.FindActionMap("Cutscene").FindAction("Skip");
-    
-        // if (continueAction == null || skipAction == null)
-        // {
-        //     Debug.LogError("Could not find 'Next' or 'Skip' actions in the 'Cutscene' action map!", this);
-        //     this.enabled = false;
-        //     return;
-        // }
+
+        if (continueAction == null || skipAction == null)
+        {
+            Debug.LogError("Could not find 'Next' or 'Skip' actions in the 'Cutscene' action map!", this);
+            this.enabled = false;
+            return;
+        }
 
         if (nameBoxPanel != null)
         {
@@ -89,40 +89,36 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void StartDialogue(string cutsceneID)
+    void Start()
     {
-        // 1. Wake up this component and activate its input
-        this.enabled = true;
-
-        // 2. Set the new cutscene name
-        this.cutsceneName = cutsceneID;
-
-        // 3. Check if UI is assigned
+        // ... (Your Start() method is unchanged) ...
+        
+        // Check if UI is assigned
         if (dialogueBoxPanel == null || dialogueText == null || continuePrompt == null ||
             nameBoxPanel == null || characterNameText == null ||
             characterLeftSprite == null || characterRightSprite == null)
         {
             Debug.LogError("DIALOGUE MANAGER ERROR: Not all UI elements are assigned in the Inspector!");
-            StartGame(); // Fail safe
+            StartGame(); // Fail safe: just start the game
             return;
         }
 
-        // 4. Load the new dialogue
+        // Load dialogue from the database
         LoadDialogueFromDatabase();
         if (currentLines.Count == 0)
         {
-            StartGame(); // No dialogue found, just start
+            StartGame(); // No dialogue found, just start the game
             return;
         }
 
-        // 5. Pause the game and show the dialogue
+        // Pause the game and show the dialogue UI
         Time.timeScale = 0f;
-        PauseMenu.GameIsPaused = true;
-
+        PauseMenu.GameIsPaused = true; 
+        
         dialogueBoxPanel.SetActive(true);
-        nameBoxPanel.SetActive(false);
+        nameBoxPanel.SetActive(false); 
         continuePrompt.SetActive(false);
-
+        
         characterLeftSprite.sprite = wandererSprite;
         characterLeftSprite.color = silentColor;
         characterLeftSprite.gameObject.SetActive(true);
@@ -131,32 +127,15 @@ public class DialogueManager : MonoBehaviour
         characterRightSprite.color = silentColor;
         characterRightSprite.gameObject.SetActive(true);
 
-        // 6. Start the first line of dialogue
         StartCoroutine(RunDialogue());
     }
-
-    void Start()
-    {
-        // Get all the components
-        if (nameBoxPanel != null)
-        {
-            nameBoxRect = nameBoxPanel.GetComponent<RectTransform>();
-            nameBoxImage = nameBoxPanel.GetComponent<Image>();
-        }
-
-        // This will automatically run your "Intro" cutscene 
-        // using the 'cutsceneName' set in the Inspector.
-        // StartDialogue(this.cutsceneName);
-        this.enabled = false;
-    }
-
 
     private void OnEnable()
     {
         // --- MODIFIED: Enable the manually found actions ---
         continueAction?.Enable();
         skipAction?.Enable();
-
+        
         continueAction.performed += OnContinuePressed;
         skipAction.performed += OnSkipPressed;
     }
@@ -166,7 +145,7 @@ public class DialogueManager : MonoBehaviour
         // --- MODIFIED: Unsubscribe and Disable actions ---
         continueAction.performed -= OnContinuePressed;
         skipAction.performed -= OnSkipPressed;
-
+        
         continueAction?.Disable();
         skipAction?.Disable();
     }
@@ -176,15 +155,15 @@ public class DialogueManager : MonoBehaviour
         isWaitingForInput = false;
 
         if (this.enabled == false) return;
-
+        
         Time.timeScale = 1f;
-        PauseMenu.GameIsPaused = false;
+        PauseMenu.GameIsPaused = false; 
 
         dialogueBoxPanel.SetActive(false);
         nameBoxPanel.SetActive(false);
         characterLeftSprite.gameObject.SetActive(false);
         characterRightSprite.gameObject.SetActive(false);
-
+        
         // --- We no longer need to deactivate playerInput ---
         this.enabled = false;
 
@@ -205,7 +184,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Game HUD Canvas is not assigned in the DialogueManager Inspector.", this);
+             Debug.LogWarning("Game HUD Canvas is not assigned in the DialogueManager Inspector.", this);
         }
     }
 
@@ -213,7 +192,7 @@ public class DialogueManager : MonoBehaviour
     // (No changes needed for LoadDialogueFromDatabase, GetSideFromName, 
     // RunDialogue, OnContinuePressed, OnSkipPressed, NextConversation, 
     // ShowConversation, or SetAnchor)
-
+    
     // (Paste them all here)
     private void LoadDialogueFromDatabase()
     {
@@ -222,7 +201,7 @@ public class DialogueManager : MonoBehaviour
             Debug.LogError("DIALOGUE MANAGER: DialogueDatabase instance is missing! Make sure it's on a persistent object from the MainMenu scene.");
             return;
         }
-
+        
         List<DialogueDataEntry> data = DialogueDatabase.instance.GetDialogueFor(cutsceneName);
 
         if (data.Count == 0)
@@ -238,12 +217,12 @@ public class DialogueManager : MonoBehaviour
             {
                 speakerName = entry.speakerName,
                 line = entry.dialogueLine,
-                characterSide = GetSideFromName(entry.speakerName)
+                characterSide = GetSideFromName(entry.speakerName) 
             };
             currentLines.Add(newLine);
         }
     }
-
+    
     private CharacterSide GetSideFromName(string speakerName)
     {
         if (speakerName == "Wanderer")
@@ -254,7 +233,7 @@ public class DialogueManager : MonoBehaviour
         {
             return CharacterSide.Right;
         }
-
+        
         return CharacterSide.None;
     }
 
@@ -302,8 +281,8 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator ShowConversation(DialogueLine currentLine)
     {
-        nameBoxPanel.SetActive(false);
-
+        nameBoxPanel.SetActive(false); 
+        
         switch (currentLine.characterSide)
         {
             case CharacterSide.Left:
@@ -325,26 +304,26 @@ public class DialogueManager : MonoBehaviour
             nameBoxPanel.SetActive(true);
             characterNameText.text = currentLine.speakerName;
             characterNameText.gameObject.SetActive(true);
-
+            
             SetAnchor(currentLine.characterSide);
 
             if (currentLine.speakerName == "Mimi")
             {
-                nameBoxImage.sprite = mimiNameBoxSprite;
-                nameBoxImage.color = Color.white;
+                nameBoxImage.sprite = mimiNameBoxSprite; 
+                nameBoxImage.color = Color.white; 
             }
             else if (currentLine.speakerName == "Wanderer")
             {
-                nameBoxImage.sprite = wandererNameBoxSprite;
-                nameBoxImage.color = Color.white;
+                nameBoxImage.sprite = wandererNameBoxSprite; 
+                nameBoxImage.color = Color.white; 
             }
             else
             {
-                nameBoxImage.sprite = defaultNameBoxSprite;
-                nameBoxImage.color = defaultNameBoxColor;
+                nameBoxImage.sprite = defaultNameBoxSprite; 
+                nameBoxImage.color = defaultNameBoxColor; 
             }
         }
-
+        
         dialogueText.text = currentLine.line;
         yield return null;
         continuePrompt.SetActive(true);
@@ -355,7 +334,7 @@ public class DialogueManager : MonoBehaviour
     {
         Vector2 leftPos = new Vector2(50, 20);
         Vector2 rightPos = new Vector2(-50, 20);
-
+        
         if (side == CharacterSide.Left)
         {
             nameBoxRect.anchorMin = new Vector2(0, 1);
