@@ -9,6 +9,11 @@ public class PasscodeManager : MonoBehaviour
 
     [Header("Boxes in this puzzle")]
     [Tooltip("Assign all PasscodeBox objects for this puzzle")]
+
+    [Header("Linked Objects")]
+    [Tooltip("Assign the lift (AutoElevator2D) that should move when the puzzle is solved.")]
+    public AutoElevator2D lift;
+
     public PasscodeBox[] passcodeBoxes;
 
     private void Start()
@@ -50,11 +55,17 @@ public class PasscodeManager : MonoBehaviour
         }
     }
 
-
     private void OnPasscodeSolved()
     {
-        // TODO: Add your unlock logic here
-        // e.g. open a door, trigger animation, load next scene, etc.
-        SceneManager.LoadScene("MainMenu");
+        Debug.Log("✅ Correct passcode! Puzzle solved!");
+
+        if (lift != null)
+        {
+            lift.StartMoving(); // 🎯 Activate the lift
+        }
+        else
+        {
+            Debug.LogWarning("No lift assigned to PasscodeManager!");
+        }
     }
 }
