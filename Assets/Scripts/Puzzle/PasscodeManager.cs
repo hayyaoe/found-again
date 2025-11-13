@@ -11,7 +11,6 @@ public class PasscodeManager : MonoBehaviour
     [Tooltip("Assign all PasscodeBox objects for this puzzle")]
 
     [Header("Linked Objects")]
-    [Tooltip("Assign the lift (AutoElevator2D) that should move when the puzzle is solved.")]
     public AutoElevator2D lift;
 
     public PasscodeBox[] passcodeBoxes;
