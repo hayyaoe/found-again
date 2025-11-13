@@ -9970,7 +9970,7 @@ MonoBehaviour:
   maxZoom: 10
   zoomLimiter: 10
   zoomSmoothTime: 1.5
-  minBounds: {x: -100, y: -100}
+  minBounds: {x: -100, y: -10}
   maxBounds: {x: 1000, y: 100}
   lockSmoothTime: 1.5
 --- !u!114 &1182962285423474713

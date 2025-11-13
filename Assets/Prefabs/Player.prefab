@@ -483,15 +483,51 @@ MonoBehaviour:
     m_ActionId: 71bd0a9a-aa52-4134-bcd2-b48db6659338
     m_ActionName: 'Cutscene/Skip[/Keyboard/escape,/DualShock4GamepadHID/start]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4153070936669056497, guid: 621599380ab134a0c9ab15a1feafc3f4, type: 3}
+        m_TargetAssemblyTypeName: PasscodeBox, FoundAgain.Runtime
+        m_MethodName: OnChangeNumber
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: b79e03e3-e65c-4abc-bc25-a656b70a0916
     m_ActionName: 'Passcode/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3189311462096466501}
+        m_TargetAssemblyTypeName: PlayerInteraction, FoundAgain.Runtime
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 7ffa1926-9a38-46da-a487-391931ac22c7
     m_ActionName: 'Player/Change[/DualShock4GamepadHID/buttonEast,/Keyboard/e]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4153070936669056497, guid: 621599380ab134a0c9ab15a1feafc3f4, type: 3}
+        m_TargetAssemblyTypeName: PasscodeBox, FoundAgain.Runtime
+        m_MethodName: OnExit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 096e9722-e5d5-4ade-80c6-653c17e07cf7
     m_ActionName: 'Passcode/Exit[/DualShock4GamepadHID/buttonEast,/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0

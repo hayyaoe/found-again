@@ -73,7 +73,7 @@ public class PasscodeBox : MonoBehaviour
         }
     }
 
-    private void OnChangeNumber(InputAction.CallbackContext context)
+    public void OnChangeNumber(InputAction.CallbackContext context)
     {
         Vector2 input = context.ReadValue<Vector2>();
 
@@ -88,7 +88,7 @@ public class PasscodeBox : MonoBehaviour
         manager?.CheckPasscode();
     }
 
-    private void OnExit(InputAction.CallbackContext context)
+    public void OnExit(InputAction.CallbackContext context)
     {
         EndInteraction();
     }
