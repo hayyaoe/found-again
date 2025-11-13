@@ -1112,6 +1112,8 @@ GameObject:
   m_Component:
   - component: {fileID: 376523398}
   - component: {fileID: 376523396}
+  - component: {fileID: 376523399}
+  - component: {fileID: 376523400}
   m_Layer: 0
   m_Name: PrologueManager
   m_TagString: Untagged
@@ -1131,7 +1133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5bb2c263367f4bb3a8b300463b7e008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::DialogueManager
-  inputActionAsset: {fileID: -944628639613478452, guid: c68604c71beef44a1b107ae7dd4bf257, type: 3}
   dialogueBoxPanel: {fileID: 408783970}
   dialogueText: {fileID: 408783969}
   continuePrompt: {fileID: 408783968}
@@ -1146,10 +1147,15 @@ MonoBehaviour:
   mimiNameBoxSprite: {fileID: -2864314929142205475, guid: e7f6e50b196444ec89da738eae8e7c2f, type: 3}
   wandererSprite: {fileID: 5288990901110000207, guid: 644552d49f23347c390f7428e6ba319c, type: 3}
   wandererNameBoxSprite: {fileID: -7541455136272556401, guid: a434e042582f74d3ebf3d82f32dd17c9, type: 3}
+  marieOldSprite: {fileID: 5777774782740917598, guid: cb9c95d4bdb194b1da9ce27c1eef42cc, type: 3}
+  marieOldNameBoxSprite: {fileID: 0}
+  calliSprite: {fileID: 4740710322579550721, guid: fff464f040a524525959e49d439d82ac, type: 3}
+  calliNameBoxSprite: {fileID: 0}
   defaultNameBoxSprite: {fileID: 0}
   defaultNameBoxColor: {r: 0.2, g: 0.2, b: 0.2, a: 0.8}
   speakingColor: {r: 1, g: 1, b: 1, a: 1}
   silentColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  inputActionAsset: {fileID: -944628639613478452, guid: c68604c71beef44a1b107ae7dd4bf257, type: 3}
 --- !u!4 &376523398
 Transform:
   m_ObjectHideFlags: 0
@@ -1162,9 +1168,52 @@ Transform:
   m_LocalPosition: {x: 321.62582, y: 193.55734, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1595305781}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &376523399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376523395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c69f4e1b7c854e548eea5f77afe7cd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::IntroCutsceneStarter
+--- !u!114 &376523400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376523395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: 0}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &391807626
 GameObject:
   m_ObjectHideFlags: 0
@@ -1365,7 +1414,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 376523398}
     m_Modifications:
     - target: {fileID: 887445596510105726, guid: e0c481e5dbc764acf942ace310ad90f4, type: 3}
       propertyPath: m_Pivot.x
@@ -5386,6 +5435,11 @@ Transform:
   - {fileID: 2144710360}
   m_Father: {fileID: 1326084494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &1595305781 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 887445596510105726, guid: e0c481e5dbc764acf942ace310ad90f4, type: 3}
+  m_PrefabInstance: {fileID: 408783963}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1610665775
 GameObject:
   m_ObjectHideFlags: 0
@@ -12114,7 +12168,6 @@ SceneRoots:
   - {fileID: 1402719454}
   - {fileID: 128070362}
   - {fileID: 534479245}
-  - {fileID: 408783963}
   - {fileID: 833911167}
   - {fileID: 376523398}
   - {fileID: 204317348}
