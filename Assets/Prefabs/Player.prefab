@@ -530,6 +530,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 096e9722-e5d5-4ade-80c6-653c17e07cf7
     m_ActionName: 'Passcode/Exit[/DualShock4GamepadHID/buttonEast,/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 459570111840409359, guid: 74929a00e13ae4214a6ac73bda55ca94, type: 3}
+        m_TargetAssemblyTypeName: InteractableDialogue, FoundAgain.Runtime
+        m_MethodName: TriggerDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 18e360ee-4f76-490a-8fc4-669cfb79456a
+    m_ActionName: 'Player/CutsceneInteract[/Keyboard/enter,/DualShock4GamepadHID/buttonEast]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
