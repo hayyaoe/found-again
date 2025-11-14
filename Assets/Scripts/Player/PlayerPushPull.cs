@@ -89,14 +89,16 @@ public class PlayerPushPull : MonoBehaviour
         {
             interactAction = playerInput.actions.FindAction("Interact", throwIfNotFound: false);
             if (interactAction != null)
-                interactAction.performed += OnInteractToggled;
+                interactAction.performed += OnInteractPerformed;
+                interactAction.canceled  += OnInteractCanceled;
+
         }
     }
 
     private void OnDisable()
     {
-        if (interactAction != null)
-            interactAction.performed -= OnInteractToggled;
+        // if (interactAction != null)
+        //     interactAction.performed -= OnInteractToggled;
     }
 
 
@@ -246,24 +248,6 @@ public class PlayerPushPull : MonoBehaviour
 
         }
     }
-
-    // --- MODIFIED ---
-    // This one function now handles both attaching and detaching.
-    private void OnInteractToggled(InputAction.CallbackContext ctx)
-    {
-        // Check if we are currently attached to an object
-        if (currentObject != null)
-        {
-            // If we are, detach.
-            DetachObject();
-        }
-        else
-        {
-            // If we are not, try to attach.
-            TryAttachToFrontObject();
-        }
-    }
-    // --- END OF MODIFICATION ---
 
     // --- REMOVED ---
     // We don't need OnInteractCanceled anymore.
@@ -554,5 +538,17 @@ public class PlayerPushPull : MonoBehaviour
         facingRight = transform.localScale.x >= 0f;
 
         _bootstrapped = true;
+    }
+
+    private void OnInteractPerformed(InputAction.CallbackContext ctx)
+    {
+        if (currentObject == null)
+            TryAttachToFrontObject();
+    }
+
+    private void OnInteractCanceled(InputAction.CallbackContext ctx)
+    {
+        if (currentObject != null)
+            DetachObject();
     }
 }
