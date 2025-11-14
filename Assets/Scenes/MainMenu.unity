@@ -5225,10 +5225,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 100
   m_fontSizeMax: 100
   m_fontStyle: 0
@@ -5621,7 +5621,7 @@ Transform:
   m_GameObject: {fileID: 424018689}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -617, y: 201, z: -8375.765}
+  m_LocalPosition: {x: -623, y: 234, z: -8375.765}
   m_LocalScale: {x: 29.31509, y: 29.31509, z: 29.31509}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -10729,7 +10729,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25, y: 0.5}
   m_AnchorMax: {x: 0.25, y: 0.5}
-  m_AnchoredPosition: {x: 6.002296, y: 1.7466127}
+  m_AnchoredPosition: {x: 6.14, y: 2.02}
   m_SizeDelta: {x: 1200, y: 160}
   m_Pivot: {x: 0.25, y: 0.5}
 --- !u!114 &750165738
@@ -10838,7 +10838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d66ded80ba4b84e3483f71d2aae06569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::HighlighterTarget
-  highlightSize: {x: 120, y: 32}
+  highlightSize: {x: 130, y: 40}
 --- !u!1 &834199475
 GameObject:
   m_ObjectHideFlags: 0
@@ -11496,7 +11496,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25, y: 0.5}
   m_AnchorMax: {x: 0.25, y: 0.5}
-  m_AnchoredPosition: {x: 6.0022955, y: 0.68}
+  m_AnchoredPosition: {x: 6.14, y: 0.68}
   m_SizeDelta: {x: 1200, y: 160}
   m_Pivot: {x: 0.25, y: 0.5}
 --- !u!114 &1292544828
@@ -11605,7 +11605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d66ded80ba4b84e3483f71d2aae06569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::HighlighterTarget
-  highlightSize: {x: 120, y: 32}
+  highlightSize: {x: 130, y: 40}
 --- !u!1 &1296936210
 GameObject:
   m_ObjectHideFlags: 0
@@ -11724,7 +11724,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2864314929142205475, guid: e7f6e50b196444ec89da738eae8e7c2f, type: 3}
+  m_Sprite: {fileID: -4483438734390332871, guid: 8a9319c1a346f44a9900b7fa7087c0fc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11759,7 +11759,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 5.1, y: -547.3125}
-  m_SizeDelta: {x: 120, y: 32}
+  m_SizeDelta: {x: 120, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1377397522
 GameObject:
@@ -12019,10 +12019,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 40
   m_fontSizeMax: 100
   m_fontStyle: 0
@@ -17072,7 +17072,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25, y: 0.5}
   m_AnchorMax: {x: 0.25, y: 0.5}
-  m_AnchoredPosition: {x: 6.0022955, y: 1.22}
+  m_AnchoredPosition: {x: 6.14, y: 1.34}
   m_SizeDelta: {x: 1200, y: 160}
   m_Pivot: {x: 0.25, y: 0.5}
 --- !u!114 &1727068071
@@ -17181,7 +17181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d66ded80ba4b84e3483f71d2aae06569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::HighlighterTarget
-  highlightSize: {x: 120, y: 32}
+  highlightSize: {x: 130, y: 40}
 --- !u!1 &1816370379
 GameObject:
   m_ObjectHideFlags: 0
@@ -17584,10 +17584,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 40
   m_fontSizeMax: 100
   m_fontStyle: 0

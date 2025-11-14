@@ -17,6 +17,8 @@ public class PlayerCursorController : MonoBehaviour
     private float playerYOffset;
     public Sprite p1Sprite;
     public Sprite p2Sprite;
+    private Image image1;   // Left-side indicator
+    private Image image2;   // Right-side indicator
 
     // automatic Y offset for Player 2
     private float yOffset = 0f;
@@ -65,6 +67,9 @@ public class PlayerCursorController : MonoBehaviour
         {
             text.color = Color.white;
         }
+
+        image1 = selectorBox.Find("Image (1)")?.GetComponent<Image>();
+        image2 = selectorBox.Find("Image (2)")?.GetComponent<Image>();
 
         // 🧩 Determine initial Y offset dynamically
         if (playerName == "P1")
@@ -232,6 +237,8 @@ public class PlayerCursorController : MonoBehaviour
             lobbyManager.UpdatePlayerSelection(playerName, "Marie");
         else if (currentPosition == CursorPosition.Mimi)
             lobbyManager.UpdatePlayerSelection(playerName, "Mimi");
+
+        UpdateSideIndicators();
     }
 
     public void OnSubmit(InputAction.CallbackContext context)
@@ -261,6 +268,29 @@ public class PlayerCursorController : MonoBehaviour
                 return "Mimi";
             default:
                 return null;
+        }
+    }
+
+    private void UpdateSideIndicators()
+    {
+        if (image1 == null || image2 == null)
+            return;
+
+        if (currentPosition == CursorPosition.Marie)
+        {
+            image1.gameObject.SetActive(false);   // left side ON
+            image2.gameObject.SetActive(true);  // right side OFF
+        }
+        else if (currentPosition == CursorPosition.Mimi)
+        {
+            image1.gameObject.SetActive(true);  // left side OFF
+            image2.gameObject.SetActive(false);   // right side ON
+        }
+        else
+        {
+            // Center or Play → hide both
+            image1.gameObject.SetActive(true);
+            image2.gameObject.SetActive(true);
         }
     }
 }
