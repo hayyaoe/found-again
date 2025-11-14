@@ -99,6 +99,14 @@ public class Movement : MonoBehaviour
   [SerializeField] private float deceleration = 16f;
   [SerializeField] private float velocityPower = 0.9f;
 
+  [Header("Visual Slope Rotation")]
+  [SerializeField] private Transform visualRoot;
+  [SerializeField] private float slopeRotateSpeed = 12f;
+  [SerializeField] private float maxVisualSlopeAngle = 25f;
+  private float slopeSignedAngle;
+
+
+
 
   // private PlayerPushPull pushPull;
   private void Awake()
@@ -124,6 +132,9 @@ public class Movement : MonoBehaviour
     {
       Debug.LogWarning("⚠️ PlayerInput not assigned on " + gameObject.name);
     }
+
+    if (visualRoot == null)
+      visualRoot = transform;
   }
 
   private void Start()
@@ -185,13 +196,8 @@ public class Movement : MonoBehaviour
     horizontalInput = moveAction != null ? moveAction.ReadValue<Vector2>().x : Input.GetAxisRaw("Horizontal");
 
     bool pushingNow = pushPull != null && pushPull.isPushing;
-    if (!pushingNow)
-    {
-      if (horizontalInput > 0.01f)
-        transform.localScale = new Vector3(1, 1, 1);
-      else if (horizontalInput < -0.01f)
-        transform.localScale = new Vector3(-1, 1, 1);
-    }
+    HandleFacingDirection(pushingNow);
+
 
     // --- Jump (Uses the LATCHED state) ---
     if (wallJumpCooldown > 0.2f && jumpAction != null && jumpAction.WasPressedThisFrame())
@@ -200,7 +206,7 @@ public class Movement : MonoBehaviour
       if (pushPull != null && pushPull.isPushing)
         return;
 
-      Jump(); // Jump() calls isGrounded(), which correctly uses the latch
+      Jump();
     }
     else
     {
@@ -251,6 +257,12 @@ public class Movement : MonoBehaviour
       }
     }
   }
+
+  private void LateUpdate()
+  {
+    HandleSlopeVisualRotation();
+  }
+
 
   private void Jump()
   {
@@ -398,7 +410,7 @@ public class Movement : MonoBehaviour
       if (wallHit.collider != null)
       {
         // We are touching a wall, BUT WE ARE NOT GROUNDED.
-        slopeGrounded = false; // <-- This is the critical fix
+        slopeGrounded = false;
         slopeNormal = wallHit.normal;
         slopeAngle = Vector2.Angle(slopeNormal, Vector2.up);
         onSlope = slopeAngle > 0.01f;
@@ -434,6 +446,8 @@ public class Movement : MonoBehaviour
     bool slidingOnGround = slopeGrounded && (alwaysSlippery ? onSlope : (onSlope && slopeAngle > 45f));
     bool slidingOnWall = !slopeGrounded && onSlope && slopeAngle >= wallStartAngle;
     sliding = slidingOnGround || slidingOnWall;
+
+    slopeSignedAngle = Vector2.SignedAngle(Vector2.up, slopeNormal);
   }
 
   // ====== SLIDE PHYSICS ======
@@ -691,4 +705,58 @@ public class Movement : MonoBehaviour
     CheckpointManager.UnregisterPlayer(this);
   }
 
+  private void HandleSlopeVisualRotation()
+  {
+    if (visualRoot == null) return;
+
+    float targetAngle = 0f;
+
+    // Only tilt when actually standing on a floor-ish slope, not on walls
+    bool floorLikeSlope = slopeGrounded && onSlope && slopeAngle < wallStartAngle;
+
+    if (isPhysicallyGrounded && floorLikeSlope)
+    {
+      // Clamp so she doesn't lean too much
+      float clamped = Mathf.Clamp(slopeSignedAngle, -maxVisualSlopeAngle, maxVisualSlopeAngle);
+
+      targetAngle = clamped;
+    }
+
+    Quaternion targetRot = Quaternion.Euler(0f, 0f, targetAngle);
+    visualRoot.rotation = Quaternion.Lerp(
+        visualRoot.rotation,
+        targetRot,
+        slopeRotateSpeed * Time.deltaTime
+    );
+  }
+
+  private void HandleFacingDirection(bool pushingNow)
+  {
+    if (pushingNow) return; // don't flip while pushing boxes etc.
+
+    Vector3 scale = transform.localScale;
+
+    // “Floor-like” slopes (not walls)
+    bool floorLikeSlope = slopeGrounded && onSlope && slopeAngle < wallStartAngle;
+
+    // --- When on a slope, face downhill ---
+    if (sliding && isPhysicallyGrounded && floorLikeSlope)
+    {
+      // downhill direction: from slopeTangent.x
+      if (slopeTangent.x > 0.01f)
+        scale.x = 1f;    // face right
+      else if (slopeTangent.x < -0.01f)
+        scale.x = -1f;   // face left
+    }
+    else
+    {
+      // --- Normal flat / air behaviour: follow input ---
+      if (horizontalInput > 0.01f)
+        scale.x = 1f;
+      else if (horizontalInput < -0.01f)
+        scale.x = -1f;
+    }
+
+    transform.localScale = scale;
+  }
 }
