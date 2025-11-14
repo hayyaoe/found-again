@@ -1,22 +1,26 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement; // Needed to reload or change scenes
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems; // <-- 1. ADD THIS AT THE TOP
 
 public class PauseMenu : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private GameObject pauseMenuUI; // Assign your Pause Menu Panel here
 
+    // --- 2. ADD THIS VARIABLE ---
+    [Header("Controller")]
+    [Tooltip("The first button to be selected when the menu opens (e.g., Resume button)")]
+    [SerializeField] private GameObject firstSelectedButton;
+
     [Header("Input")]
     [SerializeField] private PlayerInput playerInput; // Assign one of your player's PlayerInput component
     private InputAction pauseAction;
 
-    // A static variable can be checked from any other script (e.g., to stop player movement)
     public static bool GameIsPaused { get; set; }
 
     private void Awake()
     {
-        // Find the "Pause" action from the Action Asset assigned to the PlayerInput component
         if (playerInput != null)
         {
             pauseAction = playerInput.actions["Pause"];
@@ -25,8 +29,7 @@ public class PauseMenu : MonoBehaviour
         {
             Debug.LogError("PlayerInput is not assigned in the PauseMenu script!");
         }
-
-        // Make sure the pause menu is hidden when the game starts
+        
         pauseMenuUI.SetActive(false);
     }
 
@@ -61,31 +64,39 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f; // Resumes the flow of time
+        Time.timeScale = 1f; 
         GameIsPaused = false;
         Debug.Log("Game Resumed");
+
+        // --- 3. ADD THIS LINE ---
+        // Clear the selected button so the controller doesn't get stuck
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     void Pause()
     {
         pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f; // Freezes the flow of time
+        Time.timeScale = 0f; 
         GameIsPaused = true;
         Debug.Log("Game Paused");
+
+        // --- 4. ADD THIS LINE ---
+        // Force the controller to select the "Resume" button
+        EventSystem.current.SetSelectedGameObject(firstSelectedButton);
     }
 
-    // This function can be called by a "Main Menu" button
     public void LoadMenu()
     {
-        Time.timeScale = 1f; // Important to unfreeze time before leaving the scene
-        // SceneManager.LoadScene("MainMenu"); // Replace "MainMenu" with your menu scene's name
-        Debug.Log("Loading Main Menu...");
+        Time.timeScale = 1f; 
+        GameIsPaused = false; // Set this just in case
+        EventSystem.current.SetSelectedGameObject(null); // Clear selection
         SceneManager.LoadScene("MainMenu");
     }
 
     public void RestartLevel()
     {
-        Time.timeScale = 1f; // Unpause before restarting
+        Time.timeScale = 1f; 
+        EventSystem.current.SetSelectedGameObject(null); // Clear selection
 
         if (CheckpointManager.instance != null)
         {
@@ -95,7 +106,6 @@ public class PauseMenu : MonoBehaviour
         else
         {
             Debug.LogWarning("CheckpointManager instance not found! Reloading scene instead.");
-            // Fallback: reload scene if manager not found
             Scene currentScene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(currentScene.name);
         }
@@ -104,7 +114,6 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
     }
 
-    // This function can be called by a "Quit" button
     public void QuitGame()
     {
         Debug.Log("Quitting game...");
