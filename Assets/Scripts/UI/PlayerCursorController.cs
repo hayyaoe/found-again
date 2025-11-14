@@ -15,7 +15,8 @@ public class PlayerCursorController : MonoBehaviour
     private RectTransform centerSpot;
     private Coroutine moveRoutine;
     private float playerYOffset;
-
+    public Sprite p1Sprite;
+    public Sprite p2Sprite;
 
     // automatic Y offset for Player 2
     private float yOffset = 0f;
@@ -38,13 +39,38 @@ public class PlayerCursorController : MonoBehaviour
 
         // 🧱 Instantiate the P1/P2 selector box
         selectorBox = Instantiate(selectorBoxPrefab, canvas.transform);
+        Image img = selectorBox.GetComponentInChildren<Image>();
+
+        if (img != null)
+        {
+            if (playerName == "P1")
+                img.sprite = p1Sprite;
+            else if (playerName == "P2")
+                img.sprite = p2Sprite;
+        }
+        else
+        {
+            Debug.LogWarning($"{playerName} selectorBox has NO Image component!");
+        }
+
         selectorBox.GetComponentInChildren<TMPro.TMP_Text>().text = playerName;
+        var text = selectorBox.GetComponentInChildren<TMPro.TMP_Text>();
+        if (playerName == "P2")
+        {
+            Color hexColor;
+            ColorUtility.TryParseHtmlString("#386082", out hexColor);  
+            text.color = hexColor;
+        }
+        else
+        {
+            text.color = Color.white;
+        }
 
         // 🧩 Determine initial Y offset dynamically
         if (playerName == "P1")
             selectorBox.anchoredPosition = new Vector2(0, 100f);
         else if (playerName == "P2")
-            selectorBox.anchoredPosition = new Vector2(0, -20f);
+            selectorBox.anchoredPosition = new Vector2(0, -50f);
         else
             selectorBox.anchoredPosition = Vector2.zero;
 

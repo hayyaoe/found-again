@@ -1,0 +1,1001 @@
+fileFormatVersion: 2
+guid: 8a0af867d1c2e41a2b354290eec93dd6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3546886626712520012
+    second: Character Select_Mimi Intro_0
+  - first:
+      213: 8243977005193691610
+    second: Character Select_Mimi Intro_1
+  - first:
+      213: 2489933441945713914
+    second: Character Select_Mimi Intro_2
+  - first:
+      213: 9168167527428952883
+    second: Character Select_Mimi Intro_3
+  - first:
+      213: 4136828488641427147
+    second: Character Select_Mimi Intro_4
+  - first:
+      213: 7333589942011045330
+    second: Character Select_Mimi Intro_5
+  - first:
+      213: 6838902556661409231
+    second: Character Select_Mimi Intro_6
+  - first:
+      213: -107032545671215357
+    second: Character Select_Mimi Intro_7
+  - first:
+      213: -7510309296551665092
+    second: Character Select_Mimi Intro_8
+  - first:
+      213: 8073720957779045063
+    second: Character Select_Mimi Intro_9
+  - first:
+      213: 4521723496767946754
+    second: Character Select_Mimi Intro_10
+  - first:
+      213: 8168637639931351233
+    second: Character Select_Mimi Intro_11
+  - first:
+      213: -7542280447488767802
+    second: Character Select_Mimi Intro_12
+  - first:
+      213: 3888706633871843271
+    second: Character Select_Mimi Intro_13
+  - first:
+      213: 3181622893310703946
+    second: Character Select_Mimi Intro_14
+  - first:
+      213: 3484753065304096352
+    second: Character Select_Mimi Intro_15
+  - first:
+      213: 2466480848028806410
+    second: Character Select_Mimi Intro_16
+  - first:
+      213: 4977594157029895095
+    second: Character Select_Mimi Intro_17
+  - first:
+      213: -7926816165832301721
+    second: Character Select_Mimi Intro_18
+  - first:
+      213: -6413268885259427467
+    second: Character Select_Mimi Intro_19
+  - first:
+      213: -5571058924839019998
+    second: Character Select_Mimi Intro_20
+  - first:
+      213: 1266909550913420955
+    second: Character Select_Mimi Intro_21
+  - first:
+      213: -7557771467090498312
+    second: Character Select_Mimi Intro_22
+  - first:
+      213: 2225772053329172278
+    second: Character Select_Mimi Intro_23
+  - first:
+      213: 5709474520430404623
+    second: Character Select_Mimi Intro_24
+  - first:
+      213: -6910604405157877438
+    second: Character Select_Mimi Intro_25
+  - first:
+      213: -1531897972823009447
+    second: Character Select_Mimi Intro_26
+  - first:
+      213: 5914679765177321012
+    second: Character Select_Mimi Intro_27
+  - first:
+      213: -1103019812853680873
+    second: Character Select_Mimi Intro_28
+  - first:
+      213: 1433785983035185328
+    second: Character Select_Mimi Intro_29
+  - first:
+      213: -1332344475223474086
+    second: Character Select_Mimi Intro_30
+  - first:
+      213: -5826491446421949170
+    second: Character Select_Mimi Intro_31
+  - first:
+      213: -1811751654099844028
+    second: Character Select_Mimi Intro_32
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_0
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 57
+        width: 18
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ba773cb76de6cec0800000000000000
+      internalID: -3546886626712520012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_1
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 62
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad10f03686d786270800000000000000
+      internalID: 8243977005193691610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_2
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 59
+        width: 18
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afc3a81f5450e8220800000000000000
+      internalID: 2489933441945713914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_3
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 68
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3339ca98acfdb3f70800000000000000
+      internalID: 9168167527428952883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_4
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 68
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc63032b797f86930800000000000000
+      internalID: 4136828488641427147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_5
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 68
+        width: 24
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d522fd723526c560800000000000000
+      internalID: 7333589942011045330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_6
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 67
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc5605724a9a8ee50800000000000000
+      internalID: 6838902556661409231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_7
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 84
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3078cdf777eb38ef0800000000000000
+      internalID: -107032545671215357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_8
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 76
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3269b17c7506c790800000000000000
+      internalID: -7510309296551665092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_9
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 75
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7caeb084f6e9b0070800000000000000
+      internalID: 8073720957779045063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_10
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 39
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 200046d209360ce30800000000000000
+      internalID: 4521723496767946754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_11
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 49
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c05efa77a4dc5170800000000000000
+      internalID: 8168637639931351233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_12
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 53
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c8ce0bc4ef645790800000000000000
+      internalID: -7542280447488767802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_13
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 57
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cfd2ab841677f530800000000000000
+      internalID: 3888706633871843271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_14
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 65
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a49f80d1a25672c20800000000000000
+      internalID: 3181622893310703946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_15
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 64
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06e776b23745c5030800000000000000
+      internalID: 3484753065304096352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_16
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 29
+        width: 18
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0daf086343ba3220800000000000000
+      internalID: 2466480848028806410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_17
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 45
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bba3dd6387f31540800000000000000
+      internalID: 4977594157029895095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_18
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 9
+        width: 10
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 763edbbf1ba4ef190800000000000000
+      internalID: -7926816165832301721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_19
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 6
+        width: 15
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 571eb058ded7ff6a0800000000000000
+      internalID: -6413268885259427467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_20
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 16
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22a5332bc6f9fa2b0800000000000000
+      internalID: -5571058924839019998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_21
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 35
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9e7eb03687f49110800000000000000
+      internalID: 1266909550913420955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_22
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 19
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fcec7ab4e66d1790800000000000000
+      internalID: -7557771467090498312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_23
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 23
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6375dadc3e783ee10800000000000000
+      internalID: 2225772053329172278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_24
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 29
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f04e56483d02c3f40800000000000000
+      internalID: 5709474520430404623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 21
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 249a05f48e99810a0800000000000000
+      internalID: -6910604405157877438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_26
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 20
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9575eb9f8ea9dbae0800000000000000
+      internalID: -1531897972823009447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_27
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 5
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 436c59bb8e9251250800000000000000
+      internalID: 5914679765177321012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_28
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 5
+        width: 9
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71573a2035941b0f0800000000000000
+      internalID: -1103019812853680873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_29
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 5
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b81fba41c4d5e310800000000000000
+      internalID: 1433785983035185328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_30
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 0
+        width: 17
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a50c9d342cf828de0800000000000000
+      internalID: -1332344475223474086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_31
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 8
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e05fa2946e4242fa0800000000000000
+      internalID: -5826491446421949170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Mimi Intro_32
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 14
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 444072c387d5bd6e0800000000000000
+      internalID: -1811751654099844028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Character Select_Mimi Intro_0: -3546886626712520012
+      Character Select_Mimi Intro_1: 8243977005193691610
+      Character Select_Mimi Intro_10: 4521723496767946754
+      Character Select_Mimi Intro_11: 8168637639931351233
+      Character Select_Mimi Intro_12: -7542280447488767802
+      Character Select_Mimi Intro_13: 3888706633871843271
+      Character Select_Mimi Intro_14: 3181622893310703946
+      Character Select_Mimi Intro_15: 3484753065304096352
+      Character Select_Mimi Intro_16: 2466480848028806410
+      Character Select_Mimi Intro_17: 4977594157029895095
+      Character Select_Mimi Intro_18: -7926816165832301721
+      Character Select_Mimi Intro_19: -6413268885259427467
+      Character Select_Mimi Intro_2: 2489933441945713914
+      Character Select_Mimi Intro_20: -5571058924839019998
+      Character Select_Mimi Intro_21: 1266909550913420955
+      Character Select_Mimi Intro_22: -7557771467090498312
+      Character Select_Mimi Intro_23: 2225772053329172278
+      Character Select_Mimi Intro_24: 5709474520430404623
+      Character Select_Mimi Intro_25: -6910604405157877438
+      Character Select_Mimi Intro_26: -1531897972823009447
+      Character Select_Mimi Intro_27: 5914679765177321012
+      Character Select_Mimi Intro_28: -1103019812853680873
+      Character Select_Mimi Intro_29: 1433785983035185328
+      Character Select_Mimi Intro_3: 9168167527428952883
+      Character Select_Mimi Intro_30: -1332344475223474086
+      Character Select_Mimi Intro_31: -5826491446421949170
+      Character Select_Mimi Intro_32: -1811751654099844028
+      Character Select_Mimi Intro_4: 4136828488641427147
+      Character Select_Mimi Intro_5: 7333589942011045330
+      Character Select_Mimi Intro_6: 6838902556661409231
+      Character Select_Mimi Intro_7: -107032545671215357
+      Character Select_Mimi Intro_8: -7510309296551665092
+      Character Select_Mimi Intro_9: 8073720957779045063
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

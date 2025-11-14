@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5904b6f9f4c91466c92d626070348327
+guid: 756fe6504b5f545fbbe9417c04cc0338
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1413454239832168989
-    second: A9platform_0
+      213: -2230229002620744338
+    second: Start Button_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,31 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: A9platform_0
+      name: Start Button_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1947
-        height: 351
+        x: 27
+        y: 79
+        width: 461
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape:
-      - - {x: -973.5, y: -173.5}
-        - {x: -171.5, y: -175.5}
-        - {x: -880.5, y: 118.5}
-        - {x: -973.5, y: 118.5}
-      - - {x: -818.5, y: 108.5}
-        - {x: 972.5, y: 107.5}
-        - {x: 971.5, y: 167.5}
-        - {x: -818.5, y: 167.5}
-      tessellationDetail: 0
+      physicsShape: []
+      tessellationDetail: -1
       bones: []
-      spriteID: d1a577f64299d9310800000000000000
-      internalID: 1413454239832168989
+      spriteID: e6d4403d982ac01e0800000000000000
+      internalID: -2230229002620744338
       vertices: []
       indices: 
       edges: []
@@ -159,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 347c26d80a77442359785fdc212db4db
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -169,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      A9platform_0: 1413454239832168989
+      Start Button_0: -2230229002620744338
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
