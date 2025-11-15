@@ -51,6 +51,8 @@ public class DialogueManager : MonoBehaviour
     private InputAction continueAction;
     private InputAction skipAction;
     [SerializeField] private InputActionAsset inputActionAsset;
+    private PlayerInput playerInput;
+
 
     private int currentConversationIndex = 0;
     private bool isWaitingForInput = false;
@@ -83,6 +85,7 @@ public class DialogueManager : MonoBehaviour
             nameBoxRect = nameBoxPanel.GetComponent<RectTransform>();
             nameBoxImage = nameBoxPanel.GetComponent<Image>();
         }
+        playerInput = GetComponent<PlayerInput>();
     }
 
     public void StartDialogue(string cutsceneID)
@@ -95,6 +98,12 @@ public class DialogueManager : MonoBehaviour
         
         // 2. Set the new cutscene name
         this.cutsceneName = cutsceneID;
+
+        // Switch player input to Cutscene mode
+        if (playerInput != null)
+        {
+            playerInput.SwitchCurrentActionMap("Cutscene");
+        }
 
         // 3. Check if UI is assigned
         if (dialogueBoxPanel == null || dialogueText == null || continuePrompt == null ||
@@ -115,8 +124,8 @@ public class DialogueManager : MonoBehaviour
         }
 
         // 5. Pause the game and show the dialogue
-        Time.timeScale = 0f;
-        PauseMenu.GameIsPaused = true; 
+        // Time.timeScale = 0f;
+        // PauseMenu.GameIsPaused = true; 
         
         dialogueBoxPanel.SetActive(true);
         nameBoxPanel.SetActive(false); 
@@ -270,13 +279,19 @@ public class DialogueManager : MonoBehaviour
 
         if (this.enabled == false) return;
         
-        Time.timeScale = 1f;
-        PauseMenu.GameIsPaused = false; 
+        // Time.timeScale = 1f;
+        // PauseMenu.GameIsPaused = false; 
 
         dialogueBoxPanel.SetActive(false);
         nameBoxPanel.SetActive(false);
         characterLeftSprite.gameObject.SetActive(false);
         characterRightSprite.gameObject.SetActive(false);
+
+        // Restore player controls
+        if (playerInput != null)
+        {
+            playerInput.SwitchCurrentActionMap("Player");
+        }
         
         this.enabled = false;
 
