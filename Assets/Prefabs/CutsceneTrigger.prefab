@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 279401043873976256}
   - component: {fileID: 3611439477137977997}
-  - component: {fileID: 8991932107491575690}
   - component: {fileID: 459570111840409359}
   m_Layer: 0
   m_Name: CutsceneTrigger
@@ -80,20 +79,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 7.5456543, y: 8.780323}
   m_EdgeRadius: 0
---- !u!114 &8991932107491575690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9175411761772237541}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743312fb87d84423597ab06cfe1d90cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FoundAgain.Runtime::DialogueTrigger
-  cutsceneName: cutscene_2
-  dialogueManager: {fileID: 0}
 --- !u!114 &459570111840409359
 MonoBehaviour:
   m_ObjectHideFlags: 0
