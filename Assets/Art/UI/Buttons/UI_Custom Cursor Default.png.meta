@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d2d721a9c655a4646a11ed8179e8374b
+guid: 021e58d382ccf4982855dd63f1411fbb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7528473016312389560
-    second: A9_A10_paperboatbackground_0
+      213: 1530034704604516727
+    second: UI_Custom Cursor Default_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,31 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: A9_A10_paperboatbackground_0
+      name: UI_Custom Cursor Default_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 3
-        width: 654
-        height: 319
+        x: 78
+        y: 81
+        width: 339
+        height: 329
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape:
-      - - {x: -228, y: -158.5}
-        - {x: 230, y: -158.5}
-        - {x: 326, y: -50.5}
-        - {x: 321, y: -50.5}
-        - {x: 228, y: -154.5}
-        - {x: -227, y: -154.5}
-        - {x: -323, y: -50.5}
-        - {x: -326, y: -50.5}
-      tessellationDetail: 0
+      physicsShape: []
+      tessellationDetail: -1
       bones: []
-      spriteID: 8402691edad758790800000000000000
-      internalID: -7528473016312389560
+      spriteID: 771d8f51576cb3510800000000000000
+      internalID: 1530034704604516727
       vertices: []
       indices: 
       edges: []
@@ -159,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 3cd384b4817834168b387db2bbee6e1d
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -169,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      A9_A10_paperboatbackground_0: -7528473016312389560
+      UI_Custom Cursor Default_0: 1530034704604516727
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
