@@ -10,13 +10,15 @@ public class AreaStreamer2D : MonoBehaviour
     public Transform cameraFocus;
 
     [Header("Distances (world units)")]
+    [Tooltip("Mulai preload area ketika jarak ke tepi area <= nilai ini.")]
     public float preloadDistance = 60f;
+    [Tooltip("Aktifkan scene (allowSceneActivation = true) ketika jarak <= nilai ini.")]
     public float activateDistance = 25f;
 
-    [Tooltip("Area yang sudah TERLEWAT bakal di-unload jika jarak melebihi nilai ini dari tepi area.")]
+    [Tooltip("Area yang sudah TERLEWAT bakal di-unload jika jarak melebihi nilai ini dari tepi area, mengikuti arah gerak.")]
     public float unloadAfterPassDistance = 40f;
 
-    [Tooltip("Margin tambahan untuk area yang jauh (fallback protection).")]
+    [Tooltip("Margin tambahan untuk area yang jauh dari area fokus (fallback protection).")]
     public float unloadMargin = 120f;
 
     [Header("Keep Neighbors")]
@@ -38,11 +40,12 @@ public class AreaStreamer2D : MonoBehaviour
         public float endX;
 
         public bool Contains(float x) => x >= Left && x <= Right;
-        public float Left => Mathf.Min(startX, endX);
+        public float Left  => Mathf.Min(startX, endX);
         public float Right => Mathf.Max(startX, endX);
         public float Center => (Left + Right) * 0.5f;
     }
 
+    [Tooltip("Daftar area dari kiri ke kanan (startX/endX pakai koordinat world).")]
     public List<Area> areas = new();
 
     private int _currentIndex = -1;
@@ -74,7 +77,8 @@ public class AreaStreamer2D : MonoBehaviour
         if (areas.Count == 0)
             Debug.LogWarning("[AreaStreamer2D] Daftar Areas kosong. Isi di Inspector.");
 
-        if (cameraFocus != null) _lastFocusX = cameraFocus.position.x;
+        if (cameraFocus != null)
+            _lastFocusX = cameraFocus.position.x;
     }
 
     void Update()
@@ -97,17 +101,24 @@ public class AreaStreamer2D : MonoBehaviour
         }
 
         MaintainLoads(px);
+
+        // Sapu semua area supaya area lama yang sudah di-unload bisa reload dari sisi mana pun
+        ProximityReloadSweep(px);
+
         UnloadPassedAreas(px);
     }
 
     int FindAreaIndex(float x)
     {
+        // cari area yang mengandung x
         for (int i = 0; i < areas.Count; i++)
             if (areas[i].Contains(x)) return i;
 
+        // di luar range → clamp ke area terdekat
         if (x < areas[0].Left) return 0;
         if (x > areas[^1].Right) return areas.Count - 1;
 
+        // kalau ada gap antar area, pilih yang center-nya paling dekat
         int closest = 0;
         float best = Mathf.Abs(x - areas[0].Center);
         for (int i = 1; i < areas.Count; i++)
@@ -122,20 +133,57 @@ public class AreaStreamer2D : MonoBehaviour
     {
         if (_currentIndex < 0) return;
 
-        // 1) current always loaded
+        // 1) current selalu loaded
         EnsureLoaded(_currentIndex, immediateActivate: true);
 
-        // 2) preload neighbors
+        // 2) preload neighbors (tetap dipakai untuk respons cepat)
         TryPreloadNeighbor(px, _currentIndex - 1, goingLeft: true);
         TryPreloadNeighbor(px, _currentIndex + 1, goingLeft: false);
 
-        // 3) fallback unload (jika terlalu jauh dari fokus)
+        // 3) fallback unload: area yang jauh dari fokus + bukan neighbor
         for (int i = 0; i < areas.Count; i++)
         {
             if (!ShouldKeepAsNeighbor(i) && _loaded.Contains(i) && IsFarFromFocus(i, _currentIndex))
                 StartCoroutineSafeUnload(i);
         }
     }
+
+    // --- PROXIMITY RELOAD (bisa dari kiri atau kanan) ---
+
+    void TryPreloadByProximity(float px, int idx)
+    {
+        if (idx < 0 || idx >= areas.Count) return;
+
+        var a = areas[idx];
+        float distToLeft  = Mathf.Abs(px - a.Left);
+        float distToRight = Mathf.Abs(px - a.Right);
+        float dist = Mathf.Min(distToLeft, distToRight);
+
+        if (!_loaded.Contains(idx) && !_loadingOps.ContainsKey(idx) && dist <= preloadDistance)
+        {
+            BeginPreload(idx);
+        }
+
+        if (_loadingOps.TryGetValue(idx, out var op) && !op.allowSceneActivation && dist <= activateDistance)
+        {
+            if (logEvents) Debug.Log($"[AreaStreamer2D] Activate scene {areas[idx].sceneName} (proximity)");
+            op.allowSceneActivation = true;
+        }
+    }
+
+    void ProximityReloadSweep(float px)
+    {
+        if (_currentIndex < 0) return;
+
+        // Sapu SEMUA area: kalau kamera mendekati tepi area mana pun, area itu bisa ke-load lagi
+        for (int i = 0; i < areas.Count; i++)
+        {
+            if (i == _currentIndex) continue; // current sudah di-handle EnsureLoaded
+            TryPreloadByProximity(px, i);
+        }
+    }
+
+    // --- NEIGHBOR PRELOAD ---
 
     void TryPreloadNeighbor(float px, int idx, bool goingLeft)
     {
@@ -156,6 +204,8 @@ public class AreaStreamer2D : MonoBehaviour
             op.allowSceneActivation = true;
         }
     }
+
+    // --- LOAD / UNLOAD IMPLEMENTATION ---
 
     void EnsureLoaded(int idx, bool immediateActivate)
     {
@@ -247,18 +297,18 @@ public class AreaStreamer2D : MonoBehaviour
         for (int i = 0; i < areas.Count; i++)
         {
             if (!_loaded.Contains(i)) continue;
-            if (ShouldKeepAsNeighbor(i)) continue; // jaga current ± neighbors
+            if (ShouldKeepAsNeighbor(i)) continue;
 
             var a = areas[i];
 
-            // Bergerak ke kanan: area dianggap "terlewat" jika fokus sudah melewati Right + buffer
+            // bergerak ke kanan: unload area yang sudah jauh di belakang kanan
             if (_moveDir >= 0 && px > a.Right + unloadAfterPassDistance)
             {
                 StartCoroutineSafeUnload(i);
                 continue;
             }
 
-            // Bergerak ke kiri: area dianggap "terlewat" jika fokus sudah melewati Left - buffer
+            // bergerak ke kiri: unload area yang sudah jauh di belakang kiri
             if (_moveDir <= 0 && px < a.Left - unloadAfterPassDistance)
             {
                 StartCoroutineSafeUnload(i);
@@ -272,7 +322,6 @@ public class AreaStreamer2D : MonoBehaviour
         if (idx < 0 || idx >= areas.Count) return;
         var name = areas[idx].sceneName;
 
-        // bersihkan op loading tersisa
         if (_loadingOps.ContainsKey(idx)) _loadingOps.Remove(idx);
 
         var sc = SceneManager.GetSceneByName(name);
@@ -286,7 +335,8 @@ public class AreaStreamer2D : MonoBehaviour
             op.completed += _ => Debug.Log($"[AreaStreamer2D] Unloaded {name}");
     }
 
-    string GetAreaName(int idx) => (idx >= 0 && idx < areas.Count) ? areas[idx].sceneName : "(none)";
+    string GetAreaName(int idx)
+        => (idx >= 0 && idx < areas.Count) ? areas[idx].sceneName : "(none)";
 
     void OnDrawGizmos()
     {
@@ -298,21 +348,8 @@ public class AreaStreamer2D : MonoBehaviour
             Gizmos.color = new Color(0.2f, 0.8f, 1f, 0.15f);
             Vector3 p1 = new Vector3(a.Left, -10f, 0);
             Vector3 p2 = new Vector3(a.Right, 10f, 0);
-            Gizmos.DrawCube((p1 + p2) * 0.5f, new Vector3(Mathf.Abs(a.Right - a.Left), 20f, 0.1f));
-
-#if UNITY_EDITOR
-            UnityEditor.Handles.color = Color.white;
-            UnityEditor.Handles.Label(new Vector3(a.Center, 11f, 0), $"{i}: {a.sceneName}");
-            if (cameraFocus != null)
-            {
-                // Discs untuk preload/activate di sekitar fokus kamera
-                Vector3 c = new Vector3(cameraFocus.position.x, 0f, 0f);
-                UnityEditor.Handles.color = new Color(1f, 1f, 1f, 0.4f);
-                UnityEditor.Handles.DrawWireDisc(c, Vector3.forward, preloadDistance);
-                UnityEditor.Handles.color = new Color(0.3f, 1f, 0.3f, 0.5f);
-                UnityEditor.Handles.DrawWireDisc(c, Vector3.forward, activateDistance);
-            }
-#endif
+            Gizmos.DrawCube((p1 + p2) * 0.5f,
+                new Vector3(Mathf.Abs(a.Right - a.Left), 20f, 0.1f));
         }
     }
 }
