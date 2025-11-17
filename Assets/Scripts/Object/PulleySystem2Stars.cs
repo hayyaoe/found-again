@@ -31,30 +31,25 @@ public class PulleySystem2Stars : MonoBehaviour
     public bool isAtMaxHeight;   // ⬅️ add
 
     private float baseLiftY;
+    private float baseRightX;
 
     void Start()
     {
         baseLeftDistance = Vector2.Distance(leftStar.position, pulleyPivot.position);
         baseRightDistance = Vector2.Distance(rightStar.position, pulleyPivot.position);
+        baseRightX = rightStar.position.x;   // ⬅️ NEW
         baseLiftY = lift.position.y;
     }
-
+    
     void Update()
     {
-        // --- Two-Star Pulley Math ---
-        float currentLeft  = Vector2.Distance(leftStar.position,  pulleyPivot.position);
-        float currentRight = Vector2.Distance(rightStar.position, pulleyPivot.position);
-
-        // Compare each one relative to their starting positions
-        float deltaLeft  = currentLeft  - baseLeftDistance;
-        float deltaRight = currentRight - baseRightDistance;
-
-        // Left pulls lift UP, Right pulls lift DOWN
-        float combinedDelta = deltaLeft - deltaRight;
+        float currentLeft = Vector2.Distance(leftStar.position, pulleyPivot.position);
+        float deltaLeft = currentLeft - baseLeftDistance;
+        float rightDeltaX = rightStar.position.x - baseRightX;
+        float combinedDelta = deltaLeft + rightDeltaX; 
 
         float desiredY = baseLiftY + combinedDelta * ropeRatio;
 
-        // --- Your existing clamping & flags ---
         isAtMinHeight = desiredY <= minLiftY;
         isAtMaxHeight = desiredY >= maxLiftY;
 
@@ -69,6 +64,7 @@ public class PulleySystem2Stars : MonoBehaviour
 
         UpdateRopes();
     }
+
     void UpdateRopes()
     {
         // Left rope (pulley → left star)
