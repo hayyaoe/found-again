@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 
-[RequireComponent(typeof(PlayerInput))]
 public class DialogueManager : MonoBehaviour
 {
     [Header("UI Elements")]
@@ -13,35 +12,35 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private GameObject continuePrompt;
     [SerializeField] private GameObject nameBoxPanel;
-    [SerializeField] private TextMeshProUGUI characterNameText; 
-    [SerializeField] private Image characterLeftSprite; 
+    [SerializeField] private TextMeshProUGUI characterNameText;
+    [SerializeField] private Image characterLeftSprite;
     [SerializeField] private Image characterRightSprite;
 
     [Header("Dialogue Content")]
     [SerializeField] public string cutsceneName = "Intro";
-    
+
     [Header("Game Start Dependencies")]
     [SerializeField] private ProloguePlayerSpawner playerSpawner;
     [SerializeField] private GameObject gameHUDCanvas;
 
     [Header("Character Settings")]
-    [SerializeField] private Sprite mimiSprite; 
-    [SerializeField] private Sprite mimiNameBoxSprite; 
-    
+    [SerializeField] private Sprite mimiSprite;
+    [SerializeField] private Sprite mimiNameBoxSprite;
+
     // --- Renamed 'marie' to 'wanderer' to be clear ---
     [SerializeField] private Sprite wandererSprite; // Your original WandererHD.png
     [SerializeField] private Sprite wandererNameBoxSprite; // Your original WandererLabel.png
-    
+
     // --- ADDED NEW CHARACTERS ---
     [SerializeField] private Sprite marieOldSprite; // Drag OldMarieHD.jpg here
     [SerializeField] private Sprite marieOldNameBoxSprite; // (Optional) Drag a name label for her here
     [SerializeField] private Sprite calliSprite; // Drag CalliHD.jpg here
     [SerializeField] private Sprite calliNameBoxSprite; // (Optional) Drag a name label for her here
-    // --- END OF NEW CHARACTERS ---
-    
-    [SerializeField] private Sprite defaultNameBoxSprite; 
+                                                        // --- END OF NEW CHARACTERS ---
+
+    [SerializeField] private Sprite defaultNameBoxSprite;
     [SerializeField] private Color defaultNameBoxColor = new Color(0.2f, 0.2f, 0.2f, 0.8f);
-    
+
     [SerializeField] private Color speakingColor = Color.white;
     [SerializeField] private Color silentColor = new Color(0.5f, 0.5f, 0.5f, 1f);
 
@@ -51,15 +50,14 @@ public class DialogueManager : MonoBehaviour
     private InputAction continueAction;
     private InputAction skipAction;
     [SerializeField] private InputActionAsset inputActionAsset;
-    private PlayerInput playerInput;
 
 
     private int currentConversationIndex = 0;
     private bool isWaitingForInput = false;
     private List<DialogueLine> currentLines = new List<DialogueLine>();
     private bool playersHaveSpawned = false;
-    
-    private struct DialogueLine 
+
+    private struct DialogueLine
     {
         public string speakerName;
         public string line;
@@ -85,25 +83,19 @@ public class DialogueManager : MonoBehaviour
             nameBoxRect = nameBoxPanel.GetComponent<RectTransform>();
             nameBoxImage = nameBoxPanel.GetComponent<Image>();
         }
-        playerInput = GetComponent<PlayerInput>();
     }
 
     public void StartDialogue(string cutsceneID)
     {
         // 1. Wake up this component and activate its input
         this.enabled = true;
-        
+
         // Reset the conversation index to the beginning
         this.currentConversationIndex = 0;
-        
+
         // 2. Set the new cutscene name
         this.cutsceneName = cutsceneID;
-
-        // Switch player input to Cutscene mode
-        if (playerInput != null)
-        {
-            playerInput.SwitchCurrentActionMap("Cutscene");
-        }
+        
 
         // 3. Check if UI is assigned
         if (dialogueBoxPanel == null || dialogueText == null || continuePrompt == null ||
@@ -124,15 +116,16 @@ public class DialogueManager : MonoBehaviour
         }
 
         // 5. Pause the game and show the dialogue
-        // Time.timeScale = 0f;
+        Time.timeScale = 0f;
+        SwitchAllPlayerMaps("Cutscene");
         // PauseMenu.GameIsPaused = true; 
-        
+
         dialogueBoxPanel.SetActive(true);
-        nameBoxPanel.SetActive(false); 
+        nameBoxPanel.SetActive(false);
         continuePrompt.SetActive(false);
-        
+
         // (Your character setup logic)
-        characterLeftSprite.sprite = wandererSprite; 
+        characterLeftSprite.sprite = wandererSprite;
         characterLeftSprite.color = silentColor;
         characterLeftSprite.gameObject.SetActive(true);
 
@@ -152,12 +145,12 @@ public class DialogueManager : MonoBehaviour
             nameBoxRect = nameBoxPanel.GetComponent<RectTransform>();
             nameBoxImage = nameBoxPanel.GetComponent<Image>();
         }
-        
+
         // This will automatically run your "Intro" cutscene 
         // using the 'cutsceneName' set in the Inspector.
         StartDialogue(this.cutsceneName);
     }
-    
+
     // --- UPDATED GetSideFromName ---
     private CharacterSide GetSideFromName(string speakerName)
     {
@@ -178,14 +171,65 @@ public class DialogueManager : MonoBehaviour
         {
             return CharacterSide.Right;
         }
-        
+
         return CharacterSide.None; // For "Narrator" or other speakers
     }
-    
+
+    private void SwitchAllPlayerMaps(string mapName)
+    {
+        if (CheckpointManager.instance == null || CheckpointManager.allPlayers == null)
+        {
+            Debug.LogWarning("DialogueManager: CheckpointManager or player list not found. Cannot switch player maps.");
+            return;
+        }
+
+        // Loop through all players found by the CheckpointManager
+        foreach (Movement player in CheckpointManager.allPlayers)
+        {
+            if (player != null)
+            {
+                PlayerInput pi = player.GetComponent<PlayerInput>();
+                if (pi != null)
+                {
+                    pi.SwitchCurrentActionMap(mapName);
+                }
+            }
+        }
+    }
+
+    // private void SetAllPlayerInput(bool enabled)
+    // {
+    //     if (CheckpointManager.instance == null || CheckpointManager.allPlayers == null)
+    //     {
+    //         Debug.LogWarning("DialogueManager: CheckpointManager or player list not found. Cannot toggle player input.");
+    //         return;
+    //     }
+
+    //     // Loop through all players found by the CheckpointManager
+    //     foreach (Movement player in CheckpointManager.allPlayers)
+    //     {
+    //         if (player != null)
+    //         {
+    //             PlayerInput pi = player.GetComponent<PlayerInput>();
+    //             if (pi != null)
+    //             {
+    //                 if (enabled)
+    //                 {
+    //                     pi.ActivateInput();
+    //                 }
+    //                 else
+    //                 {
+    //                     pi.DeactivateInput();
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
     // --- UPDATED ShowConversation ---
     private IEnumerator ShowConversation(DialogueLine currentLine)
     {
-        nameBoxPanel.SetActive(false); 
+        nameBoxPanel.SetActive(false);
 
         // Set character sprites and opacity
         switch (currentLine.characterSide)
@@ -210,41 +254,41 @@ public class DialogueManager : MonoBehaviour
             nameBoxPanel.SetActive(true);
             characterNameText.text = currentLine.speakerName;
             characterNameText.gameObject.SetActive(true);
-            
+
             SetAnchor(currentLine.characterSide);
 
             // --- THIS LOGIC IS NOW EXPANDED ---
             if (currentLine.speakerName == "Mimi")
             {
-                nameBoxImage.sprite = mimiNameBoxSprite; 
+                nameBoxImage.sprite = mimiNameBoxSprite;
                 nameBoxImage.color = Color.white;
                 characterRightSprite.sprite = mimiSprite; // Ensure correct sprite is showing
             }
             else if (currentLine.speakerName == "Wanderer")
             {
-                nameBoxImage.sprite = wandererNameBoxSprite; 
-                nameBoxImage.color = Color.white; 
+                nameBoxImage.sprite = wandererNameBoxSprite;
+                nameBoxImage.color = Color.white;
                 characterLeftSprite.sprite = wandererSprite; // Ensure correct sprite is showing
             }
             else if (currentLine.speakerName == "Marie") // This is Old Marie
             {
-                nameBoxImage.sprite = marieOldNameBoxSprite; 
-                nameBoxImage.color = Color.white; 
+                nameBoxImage.sprite = marieOldNameBoxSprite;
+                nameBoxImage.color = Color.white;
                 characterLeftSprite.sprite = marieOldSprite; // Show Old Marie sprite
             }
             else if (currentLine.speakerName == "Calli")
             {
-                nameBoxImage.sprite = calliNameBoxSprite; 
-                nameBoxImage.color = Color.white; 
+                nameBoxImage.sprite = calliNameBoxSprite;
+                nameBoxImage.color = Color.white;
                 characterRightSprite.sprite = calliSprite; // Show Calli sprite
             }
             else // For any other speaker
             {
-                nameBoxImage.sprite = defaultNameBoxSprite; 
-                nameBoxImage.color = defaultNameBoxColor; 
+                nameBoxImage.sprite = defaultNameBoxSprite;
+                nameBoxImage.color = defaultNameBoxColor;
             }
         }
-        
+
         dialogueText.text = currentLine.line;
         yield return null;
         continuePrompt.SetActive(true);
@@ -253,13 +297,13 @@ public class DialogueManager : MonoBehaviour
 
     // --- All other functions (StartGame, LoadDialogue, Awake, etc.) ---
     // --- are unchanged and correct. ---
-    
+
     // (Pasting the rest of your script for completeness)
     private void OnEnable()
     {
         continueAction?.Enable();
         skipAction?.Enable();
-        
+
         continueAction.performed += OnContinuePressed;
         skipAction.performed += OnSkipPressed;
     }
@@ -268,7 +312,7 @@ public class DialogueManager : MonoBehaviour
     {
         continueAction.performed -= OnContinuePressed;
         skipAction.performed -= OnSkipPressed;
-        
+
         continueAction?.Disable();
         skipAction?.Disable();
     }
@@ -278,8 +322,8 @@ public class DialogueManager : MonoBehaviour
         isWaitingForInput = false;
 
         if (this.enabled == false) return;
-        
-        // Time.timeScale = 1f;
+
+        Time.timeScale = 1f;
         // PauseMenu.GameIsPaused = false; 
 
         dialogueBoxPanel.SetActive(false);
@@ -287,20 +331,22 @@ public class DialogueManager : MonoBehaviour
         characterLeftSprite.gameObject.SetActive(false);
         characterRightSprite.gameObject.SetActive(false);
 
-        // Restore player controls
-        if (playerInput != null)
-        {
-            playerInput.SwitchCurrentActionMap("Player");
-        }
-        
+        // // Restore player controls
+        // if (playerInput != null)
+        // {
+        //     playerInput.SwitchCurrentActionMap("Player");
+        // }
+
         this.enabled = false;
+
+        SwitchAllPlayerMaps("Player");
 
         if (!playersHaveSpawned)
         {
             if (playerSpawner != null)
             {
                 playerSpawner.StartSpawning();
-                playersHaveSpawned = true; 
+                playersHaveSpawned = true;
             }
             else
             {
@@ -313,11 +359,11 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
-                 Debug.LogWarning("Game HUD Canvas is not assigned in the DialogueManager Inspector.", this);
+                Debug.LogWarning("Game HUD Canvas is not assigned in the DialogueManager Inspector.", this);
             }
         }
     }
-    
+
     private void LoadDialogueFromDatabase()
     {
         if (DialogueDatabase.instance == null)
@@ -325,7 +371,7 @@ public class DialogueManager : MonoBehaviour
             Debug.LogError("DIALOGUE MANAGER: DialogueDatabase instance is missing! Make sure it's on a persistent object from the MainMenu scene.");
             return;
         }
-        
+
         List<DialogueDataEntry> data = DialogueDatabase.instance.GetDialogueFor(cutsceneName);
 
         if (data.Count == 0)
@@ -341,7 +387,7 @@ public class DialogueManager : MonoBehaviour
             {
                 speakerName = entry.speakerName,
                 line = entry.dialogueLine,
-                characterSide = GetSideFromName(entry.speakerName) 
+                characterSide = GetSideFromName(entry.speakerName)
             };
             currentLines.Add(newLine);
         }
@@ -359,7 +405,7 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(ShowConversation(currentLines[currentConversationIndex]));
     }
 
-    private void OnContinuePressed(InputAction.CallbackContext context)
+    public void OnContinuePressed(InputAction.CallbackContext context)
     {
         if (isWaitingForInput)
         {
@@ -388,12 +434,12 @@ public class DialogueManager : MonoBehaviour
             StartGame();
         }
     }
-    
+
     private void SetAnchor(CharacterSide side)
     {
         Vector2 leftPos = new Vector2(50, -20);
         Vector2 rightPos = new Vector2(-50, -20);
-        
+
         if (side == CharacterSide.Left)
         {
             nameBoxRect.anchorMin = new Vector2(0, 1);

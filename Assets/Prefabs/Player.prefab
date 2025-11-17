@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 6870637021373921649}
   - component: {fileID: -8726400398835154012}
   - component: {fileID: 3189311462096466501}
+  - component: {fileID: -1162826849959587157}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -245,6 +246,9 @@ MonoBehaviour:
   acceleration: 12
   deceleration: 16
   velocityPower: 0.9
+  visualRoot: {fileID: 0}
+  slopeRotateSpeed: 12
+  maxVisualSlopeAngle: 25
 --- !u!95 &4587821935056208640
 Animator:
   serializedVersion: 7
@@ -475,7 +479,19 @@ MonoBehaviour:
     m_ActionId: 5746e6dd-e11a-4812-a716-32977d04d7d3
     m_ActionName: 'Cursor/Cancel[/DualShock4GamepadHID/buttonWest,/Keyboard/escape,/Mouse/rightButton]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 696907654955406652, guid: c2796d785f31845f0b1f932c70c86a81, type: 3}
+        m_TargetAssemblyTypeName: DialogueManager, FoundAgain.Runtime
+        m_MethodName: OnContinuePressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 429ded28-e19f-4980-b1ff-30650716a3cb
     m_ActionName: 'Cutscene/Next[/Keyboard/space,/DualShock4GamepadHID/buttonSouth]'
   - m_PersistentCalls:
@@ -616,3 +632,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c660e1cdfd3304dc7b05060d4edcbec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::PlayerInteraction
+--- !u!114 &-1162826849959587157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4911369873958072336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e407f9db42a1e4a73805e8f04455f122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::PlayerInteract

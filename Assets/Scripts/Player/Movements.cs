@@ -154,7 +154,7 @@ public class Movement : MonoBehaviour
 
   private void Update()
   {
-    if (isDead || PauseMenu.GameIsPaused)
+    if (isDead)
     {
       return; // Do nothing
     }

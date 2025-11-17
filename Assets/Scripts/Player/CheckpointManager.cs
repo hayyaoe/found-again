@@ -9,7 +9,7 @@ public class CheckpointManager : MonoBehaviour
 
     // --- NEW ---
     // Static lists to track all players and objects
-    private static List<Movement> allPlayers = new List<Movement>();
+    public static List<Movement> allPlayers = new List<Movement>();
     private static List<ResettableObject> allResettables = new List<ResettableObject>();
 
     private void Awake()
