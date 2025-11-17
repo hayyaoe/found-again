@@ -106,8 +106,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: FoundAgain.Runtime::MovingLift
   originXY: {x: 6.63, y: -2.47}
   targetXY: {x: 6.63, y: 4}
-  speed: 2
-  waitAtEnds: 1
+  speed: 4
+  waitAtEnds: 3
   ease:
     serializedVersion: 2
     m_Curve:
@@ -148,6 +148,11 @@ MonoBehaviour:
   reverseWhenBlocked: 1
   pauseWhenBlockedByPassenger: 1
   isMoving: 0
+  requiresPlayersAtStart: 0
+  playersNeeded: 2
+  liftSpriteRenderer: {fileID: 2711440248152048038}
+  defaultSprite: {fileID: 6005702761940061674, guid: 7bb8089dbf84543af92a2fe31a602e70, type: 3}
+  litSprite: {fileID: 5499508968208174246, guid: 78e0b010b1bb6469d8b3029b9813d6c0, type: 3}
 --- !u!61 &3282578555822484011
 BoxCollider2D:
   m_ObjectHideFlags: 0

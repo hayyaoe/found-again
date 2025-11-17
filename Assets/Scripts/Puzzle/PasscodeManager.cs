@@ -36,11 +36,16 @@ public class PasscodeManager : MonoBehaviour
 
         for (int i = 0; i < passcodeBoxes.Length; i++)
         {
-            bool isCorrect = passcodeBoxes[i].GetValue() == correctCode[i];
-            passcodeBoxes[i].SetLightState(isCorrect);
-
-            if (!isCorrect)
+            if (passcodeBoxes[i].GetValue() != correctCode[i])
+            {
                 allCorrect = false;
+            }
+        }
+
+        // Apply light state AFTER full evaluation
+        foreach (var box in passcodeBoxes)
+        {
+            box.SetLightState(allCorrect);
         }
 
         if (allCorrect)
@@ -54,13 +59,14 @@ public class PasscodeManager : MonoBehaviour
         }
     }
 
+
     private void OnPasscodeSolved()
     {
         Debug.Log("✅ Correct passcode! Puzzle solved!");
 
         if (lift != null)
         {
-            lift.StartMoving(); // 🎯 Activate the lift
+            lift.ActivateLift(); // 🎯 Activate the lift
         }
         else
         {

@@ -54,6 +54,18 @@ public class AutoElevator2D : MonoBehaviour
     private bool hasLast = false;
     private bool blockedDown = false;
 
+    [Header("Puzzle Activation")]
+    public bool requiresPlayersAtStart = true;     // Only blocks the very first move
+    public int playersNeeded = 2;                  // Two players must stand on the lift
+    private int currentPlayersOnLift = 0;          // Runtime tracking
+    private bool initialMoveDone = false;          // After first trip, lift runs freely
+
+    [Header("Lift Visuals")]
+    public SpriteRenderer liftSpriteRenderer;
+    public Sprite defaultSprite;
+    public Sprite litSprite;
+
+
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -90,10 +102,27 @@ public class AutoElevator2D : MonoBehaviour
     // ======== Public API ========
     public void StartMoving()
     {
+        // First activation: wait for both players
+        if (!initialMoveDone && requiresPlayersAtStart)
+        {
+            if (currentPlayersOnLift < playersNeeded)
+            {
+                // Do NOT move yet
+                return;
+            }
+        }
+
+        // Start normal movement
         if (isMoving) return;
+
         isMoving = true;
         mover = StartCoroutine(MoveRoutine());
+
+        // Mark first activation complete
+        if (!initialMoveDone)
+            initialMoveDone = true;
     }
+
 
     public void StopMoving(bool pause = true)
     {
@@ -271,4 +300,31 @@ public class AutoElevator2D : MonoBehaviour
         Gizmos.DrawWireCube(o, Vector3.one * 0.3f);
         Gizmos.DrawWireCube(t, Vector3.one * 0.3f);
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag(passengerTag))
+        {
+            currentPlayersOnLift++;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag(passengerTag))
+        {
+            currentPlayersOnLift--;
+            currentPlayersOnLift = Mathf.Max(0, currentPlayersOnLift);
+        }
+    }
+
+    public void ActivateLift()
+    {
+        if (liftSpriteRenderer != null && litSprite != null)
+            liftSpriteRenderer.sprite = litSprite;
+
+        // Now attempt to move (will wait for players if required)
+        StartMoving();
+    }
+
 }

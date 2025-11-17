@@ -191,6 +191,8 @@ GameObject:
   - component: {fileID: 4017682899348436592}
   - component: {fileID: 4122952013316346607}
   - component: {fileID: 4153070936669056497}
+  - component: {fileID: 2056505323111646869}
+  - component: {fileID: 7723301160410428055}
   m_Layer: 5
   m_Name: PasscodeBox
   m_TagString: Untagged
@@ -281,7 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::PasscodeBox
   displayText: {fileID: 354328571659740932}
-  passcodeValue: 0
+  passcodeValue: 7
   minValue: 0
   maxValue: 9
   leftArrow: {fileID: 2362602478328696244}
@@ -289,6 +291,45 @@ MonoBehaviour:
   bottomSpriteRenderer: {fileID: 4434655983652602558}
   defaultSprite: {fileID: 2341750067405005749, guid: 52e193e0cb1b04205a3a25e1bfd9c6ab, type: 3}
   lightSprite: {fileID: 1046751585415443378, guid: ecce4e218def241e8948fd1c726e499d, type: 3}
+--- !u!50 &2056505323111646869
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5963642992349315226}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &7723301160410428055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5963642992349315226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa236a7ce6f643d1b51d290f6c9a13f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::ResettableObject
 --- !u!1 &6077540288491490944
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,7 +677,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 7
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 39d7f46450d664faf9900484f1f88408, type: 2}
   m_sharedMaterial: {fileID: -8275886965423669599, guid: 39d7f46450d664faf9900484f1f88408, type: 2}
