@@ -9965,14 +9965,14 @@ MonoBehaviour:
   players:
   - {fileID: 1373277005914687556, guid: f7a99ab28109e4726b16f4e1da2873e2, type: 3}
   - {fileID: 7313728770847735547, guid: e5ceff893254e4222bcf861bda81d082, type: 3}
-  followSmoothTime: 2
+  followSmoothTime: 0.5
   minZoom: 15
   maxZoom: 10
   zoomLimiter: 10
   zoomSmoothTime: 1.5
   minBounds: {x: -100, y: -10}
-  maxBounds: {x: 1000, y: 100}
-  lockSmoothTime: 2
+  maxBounds: {x: 700, y: 100}
+  lockSmoothTime: 1.5
 --- !u!114 &1182962285423474713
 MonoBehaviour:
   m_ObjectHideFlags: 0
