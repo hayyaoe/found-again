@@ -62,7 +62,7 @@ MonoBehaviour:
   wandererNameBoxSprite: {fileID: -7541455136272556401, guid: a434e042582f74d3ebf3d82f32dd17c9, type: 3}
   marieOldSprite: {fileID: 21300000, guid: 5053d8fd6c3da4aa39eb06056a5c953e, type: 3}
   marieOldNameBoxSprite: {fileID: -7541455136272556401, guid: a434e042582f74d3ebf3d82f32dd17c9, type: 3}
-  calliSprite: {fileID: 21300000, guid: fb118f03b6e79408699dec6591196ddb, type: 3}
+  calliSprite: {fileID: 21300000, guid: 4aa3b23e218ba445fab4aa2990944b7e, type: 3}
   calliNameBoxSprite: {fileID: -2864314929142205475, guid: e7f6e50b196444ec89da738eae8e7c2f, type: 3}
   defaultNameBoxSprite: {fileID: 0}
   defaultNameBoxColor: {r: 0.2, g: 0.2, b: 0.2, a: 0.8}
