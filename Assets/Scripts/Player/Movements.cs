@@ -105,6 +105,12 @@ public class Movement : MonoBehaviour
   [SerializeField] private float maxVisualSlopeAngle = 25f;
   private float slopeSignedAngle;
 
+  [Header("Facing / Flip")]
+  [SerializeField] private float flipCooldownSeconds = 0.15f;
+  [SerializeField] private float downhillFlipSpeedThreshold = 4f;
+  private int currentFacing = 1;   // +1 = right, -1 = left
+  private int desiredFacing = 1;
+  private float flipTimer = 0f;
 
 
 
@@ -149,6 +155,9 @@ public class Movement : MonoBehaviour
     wasPhysicallyGroundedLastFrame = true;
     groundedLatchTimer = 0f;
     lastAirborneYVelocity = 0f;
+
+    currentFacing = transform.localScale.x >= 0f ? 1 : -1;
+    desiredFacing = currentFacing;
   }
 
 
@@ -194,6 +203,9 @@ public class Movement : MonoBehaviour
 
     // --- Input Reading ---
     horizontalInput = moveAction != null ? moveAction.ReadValue<Vector2>().x : Input.GetAxisRaw("Horizontal");
+
+    if (flipTimer > 0f)
+      flipTimer -= Time.deltaTime;
 
     bool pushingNow = pushPull != null && pushPull.isPushing;
     HandleFacingDirection(pushingNow);
@@ -360,22 +372,44 @@ public class Movement : MonoBehaviour
     bool groundedNow = isPhysicallyGrounded;
     float vy = body.linearVelocity.y;
 
-    // bool landedThisFrame = isPhysicallyGrounded && !wasPhysicallyGroundedLastFrame;
-    // if (landedThisFrame) animator.ResetTrigger("jump");
-
     bool interactingNow = pushPull != null && (pushPull.isPushing || pushPull.isPulling);
 
-    bool shouldRun = !interactingNow && Mathf.Abs(horizontalInput) > 0.01f;
+    bool floorLikeSlope = slopeGrounded && onSlope && slopeAngle < wallStartAngle;
+    bool inputAgainstSlope = IsInputAgainstSlope();
+    bool movingHoriz = Mathf.Abs(horizontalInput) > 0.01f;
+
+    // Deteksi jenis sliding secara fisik
+    bool wallSlide =
+        sliding &&
+        !slopeGrounded &&
+        onSlope &&
+        slopeAngle >= wallStartAngle;
+
+    bool floorSlide =
+        sliding &&
+        groundedNow &&
+        floorLikeSlope;
+
+    // 🔥 RULE:
+    // - Kalau searah slope (bukan melawan arus) → pakai anim slide
+    // - Kalau melawan arus → jangan anim slide (anim jalan biasa)
+    bool slidingAnim = (wallSlide || floorSlide) && !inputAgainstSlope;
+
+    // RUN hanya kalau:
+    // - ada input horizontal
+    // - tidak lagi pakai animasi slide
+    bool shouldRun = !interactingNow && movingHoriz && !slidingAnim;
 
     animator.SetBool("run", shouldRun);
     animator.SetBool("grounded", groundedNow);
     animator.SetFloat("yVelocity", vy);
-    animator.SetBool("sliding", sliding);
+    animator.SetBool("sliding", slidingAnim);
     animator.SetBool("isInteracting", interactingNow);
 
-    Debug.Log($"Grounded: {groundedNow}, vy: {vy}");
-
+    // Debug kalau mau cek
+    // Debug.Log($"grounded={groundedNow}, slidingPhys={sliding}, slidingAnim={slidingAnim}, inputAgainstSlope={inputAgainstSlope}");
   }
+
 
   // ====== SLOPE PROBING ======
   private void ProbeSlope()
@@ -711,14 +745,16 @@ public class Movement : MonoBehaviour
 
     float targetAngle = 0f;
 
-    // Only tilt when actually standing on a floor-ish slope, not on walls
     bool floorLikeSlope = slopeGrounded && onSlope && slopeAngle < wallStartAngle;
+    bool inputAgainstSlope = IsInputAgainstSlope();
 
-    if (isPhysicallyGrounded && floorLikeSlope)
+    // Hanya tilt kalau:
+    // - grounded
+    // - di slope lantai
+    // - TIDAK melawan arus
+    if (isPhysicallyGrounded && floorLikeSlope && !inputAgainstSlope)
     {
-      // Clamp so she doesn't lean too much
       float clamped = Mathf.Clamp(slopeSignedAngle, -maxVisualSlopeAngle, maxVisualSlopeAngle);
-
       targetAngle = clamped;
     }
 
@@ -730,33 +766,100 @@ public class Movement : MonoBehaviour
     );
   }
 
+
   private void HandleFacingDirection(bool pushingNow)
   {
-    if (pushingNow) return; // don't flip while pushing boxes etc.
+    if (pushingNow) return; // jangan flip waktu lagi dorong
 
-    Vector3 scale = transform.localScale;
-
-    // “Floor-like” slopes (not walls)
     bool floorLikeSlope = slopeGrounded && onSlope && slopeAngle < wallStartAngle;
+    bool inputAgainstSlope = IsInputAgainstSlope();
 
-    // --- When on a slope, face downhill ---
-    if (sliding && isPhysicallyGrounded && floorLikeSlope)
+    int newDesired = currentFacing;
+
+    // --- Di slope & sliding & TIDAK melawan arus: hadap turun slope ---
+    if (sliding && isPhysicallyGrounded && floorLikeSlope && !inputAgainstSlope)
     {
-      // downhill direction: from slopeTangent.x
+      if (IsInputAgainstSlope() && sliding)
+      {
+        return; // jangan flip
+      }
       if (slopeTangent.x > 0.01f)
-        scale.x = 1f;    // face right
+        newDesired = 1;   // hadap kanan
       else if (slopeTangent.x < -0.01f)
-        scale.x = -1f;   // face left
+        newDesired = -1;  // hadap kiri
     }
     else
     {
-      // --- Normal flat / air behaviour: follow input ---
+      // --- Normal: ikut input ---
       if (horizontalInput > 0.01f)
-        scale.x = 1f;
+        newDesired = 1;
       else if (horizontalInput < -0.01f)
-        scale.x = -1f;
+        newDesired = -1;
     }
 
-    transform.localScale = scale;
+    desiredFacing = newDesired;
+
+    // ===== NEW: auto-flip kalau sudah meluncur kencang turun slope
+    if (floorLikeSlope && isPhysicallyGrounded && inputAgainstSlope)
+    {
+      // kecepatan sepanjang arah slope (tangent)
+      Vector2 v = body.linearVelocity;
+      float vAlongSlope = Vector2.Dot(v, slopeTangent);
+
+      // lagi benar-benar meluncur turun (arah sama dengan slopeTangent)
+      bool movingDownSlope = Mathf.Abs(vAlongSlope) > downhillFlipSpeedThreshold &&
+                             Mathf.Sign(vAlongSlope) == Mathf.Sign(slopeTangent.x);
+
+      if (movingDownSlope)
+      {
+        // paksa hadap ke arah gerakan turun slope
+        desiredFacing = vAlongSlope > 0f ? 1 : -1;
+      }
+    }
+    // ===== END NEW =====
+
+    // Kalau beda arah dan cooldown habis -> baru flip
+    if (desiredFacing != currentFacing && flipTimer <= 0f)
+    {
+      currentFacing = desiredFacing;
+      flipTimer = flipCooldownSeconds;
+
+      Vector3 scale = transform.localScale;
+      scale.x = Mathf.Abs(scale.x) * currentFacing;
+      transform.localScale = scale;
+    }
+  }
+
+
+  private bool IsInputAgainstSlope()
+  {
+    bool result = false;   // default
+
+    // Harus di slope & grounded dulu
+    bool validSlope = onSlope && slopeGrounded;
+
+    // Harus ada input horizontal yang cukup
+    bool hasInput = Mathf.Abs(horizontalInput) >= 0.1f;
+
+    if (validSlope && hasInput)
+    {
+      float slopeDir = Mathf.Sign(slopeTangent.x);      // arah turun slope
+      float inputDir = Mathf.Sign(horizontalInput);     // arah input
+      float velDir = Mathf.Sign(body.linearVelocity.x); // arah gerak horisontal
+
+      bool inputOpposesSlope = inputDir != slopeDir;
+      bool movementOpposesSlope = velDir != 0f && velDir != slopeDir;
+
+      // Kalau BELUM sliding:
+      //  - cukup cek "input melawan slope" → dianggap melawan
+      // Kalau SUDAH sliding:
+      //  - harus: input melawan + movement juga melawan → benar2 nanjak
+      bool againstWhenNotSliding = !sliding && inputOpposesSlope;
+      bool againstWhenSliding = sliding && inputOpposesSlope && movementOpposesSlope;
+
+      result = againstWhenNotSliding || againstWhenSliding;
+    }
+
+    return result;
   }
 }
