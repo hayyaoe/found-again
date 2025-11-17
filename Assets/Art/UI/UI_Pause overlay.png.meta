@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 22ce7c4edc5374dd19f041c83a2d6d49
+guid: 271c6794f5ce040dfb6571ee6c1d987d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8688966414669710488
-    second: Marie 2 abnormal_0
+      213: 3967895795252487396
+    second: UI_Pause overlay_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,17 +109,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Marie 2 abnormal_0
+      name: UI_Pause overlay_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1460
-        height: 3000
+        x: 322
+        y: 87
+        width: 1310
+        height: 875
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 86bff4cf4179a6780800000000000000
-      internalID: -8688966414669710488
+      spriteID: 4e46ac5f33cc01730800000000000000
+      internalID: 3967895795252487396
       vertices: []
       indices: 
       edges: []
@@ -148,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Marie 2 abnormal_0: -8688966414669710488
+      UI_Pause overlay_0: 3967895795252487396
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
