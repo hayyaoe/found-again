@@ -57,5 +57,5 @@ EditorBuildSettings:
     path: Assets/Scenes/PrologueScenes/Area 10.unity
     guid: 3abb32c08357a4241988e422da3fd9ab
   m_configObjects:
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: c68604c71beef44a1b107ae7dd4bf257, type: 3}
   m_UseUCBPForAssetBundles: 0

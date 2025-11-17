@@ -241,20 +241,50 @@ public class PlayerCursorController : MonoBehaviour
         UpdateSideIndicators();
     }
 
+    // public void OnSubmit(InputAction.CallbackContext context)
+    // {
+    //     if (!context.performed) return;
+
+    //     // 🟢 Force re-sync selection immediately before confirm
+    //     if (currentPosition == CursorPosition.Marie)
+    //         lobbyManager.UpdatePlayerSelection(playerName, "Marie");
+    //     else if (currentPosition == CursorPosition.Mimi)
+    //         lobbyManager.UpdatePlayerSelection(playerName, "Mimi");
+
+    //     if (currentPosition == CursorPosition.Play && lobbyManager != null)
+    //     {
+    //         lobbyManager.OnPlayerConfirm(playerName);
+    //     }
+    // }
+
     public void OnSubmit(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
+        if (!EnsureLobbyManager()) return;
+        if (lobbyManager == null)
+        {
+            Debug.LogWarning($"{playerName} tried to submit but LobbyManager is NULL!");
+            return;
+        }
 
-        // 🟢 Force re-sync selection immediately before confirm
+        // Re-sync selection
         if (currentPosition == CursorPosition.Marie)
             lobbyManager.UpdatePlayerSelection(playerName, "Marie");
         else if (currentPosition == CursorPosition.Mimi)
             lobbyManager.UpdatePlayerSelection(playerName, "Mimi");
 
-        if (currentPosition == CursorPosition.Play && lobbyManager != null)
+        if (currentPosition == CursorPosition.Play)
         {
             lobbyManager.OnPlayerConfirm(playerName);
         }
+    }
+
+    private bool EnsureLobbyManager()
+    {
+        if (lobbyManager != null) return true;
+
+        lobbyManager = FindFirstObjectByType<LobbyManager>();
+        return lobbyManager != null;
     }
 
     // << Add this method here >>
