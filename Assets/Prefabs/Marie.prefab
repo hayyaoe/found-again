@@ -18,6 +18,9 @@ GameObject:
   - component: {fileID: 447920590094036645}
   - component: {fileID: 3504099724175865117}
   - component: {fileID: 696653549654381408}
+  - component: {fileID: -2395816109337047475}
+  - component: {fileID: 5507106675992484361}
+  - component: {fileID: -4181474970755738627}
   m_Layer: 12
   m_Name: Marie
   m_TagString: Player
@@ -86,7 +89,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 5
   m_Sprite: {fileID: -1886850989825926547, guid: c6207d902043e4abb8343973139ff1bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -237,10 +240,12 @@ MonoBehaviour:
   wallMaxSlideSpeed: 32
   minWallSpeed: 8
   wallStartImpulse: 3.5
-  jumpSFX: {fileID: 8300000, guid: e940c5ddb8238402499b2d74c4970897, type: 3}
-  jumpVolume: 1
-  footstepSFX: []
-  footstepVolume: 0.8
+  jumpSFX: {fileID: 0}
+  jumpVolume: 0.4
+  footstepSFX:
+  - {fileID: 8300000, guid: c3a4b11fe3ca54177b72daa6f0bd21d1, type: 3}
+  - {fileID: 8300000, guid: c3a4b11fe3ca54177b72daa6f0bd21d1, type: 3}
+  footstepVolume: 0.2
   footstepInterval: 0.35
   mimiAnimator: {fileID: 0}
   marieAnimator: {fileID: 0}
@@ -249,6 +254,9 @@ MonoBehaviour:
   acceleration: 12
   deceleration: 16
   velocityPower: 0.9
+  visualRoot: {fileID: 0}
+  slopeRotateSpeed: 12
+  maxVisualSlopeAngle: 25
 --- !u!114 &7652417905296700519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,15 +453,168 @@ MonoBehaviour:
     m_ActionId: 5746e6dd-e11a-4812-a716-32977d04d7d3
     m_ActionName: 'Cursor/Cancel[/DualShock4GamepadHID1/buttonWest,/Keyboard/escape,/Mouse/rightButton]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 696907654955406652, guid: c2796d785f31845f0b1f932c70c86a81, type: 3}
+        m_TargetAssemblyTypeName: DialogueManager, FoundAgain.Runtime
+        m_MethodName: OnContinuePressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 429ded28-e19f-4980-b1ff-30650716a3cb
     m_ActionName: 'Cutscene/Next[/Keyboard/space,/DualShock4GamepadHID1/buttonSouth]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 71bd0a9a-aa52-4134-bcd2-b48db6659338
     m_ActionName: 'Cutscene/Skip[/Keyboard/escape,/DualShock4GamepadHID1/start]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4153070936669056497, guid: 621599380ab134a0c9ab15a1feafc3f4, type: 3}
+        m_TargetAssemblyTypeName: PasscodeBox, FoundAgain.Runtime
+        m_MethodName: OnChangeNumber
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b79e03e3-e65c-4abc-bc25-a656b70a0916
+    m_ActionName: 'Passcode/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -2395816109337047475}
+        m_TargetAssemblyTypeName: PlayerInteraction, FoundAgain.Runtime
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7ffa1926-9a38-46da-a487-391931ac22c7
+    m_ActionName: 'Player/Change[/DualShock4GamepadHID/buttonEast,/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4153070936669056497, guid: 621599380ab134a0c9ab15a1feafc3f4, type: 3}
+        m_TargetAssemblyTypeName: PasscodeBox, FoundAgain.Runtime
+        m_MethodName: OnExit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 096e9722-e5d5-4ade-80c6-653c17e07cf7
+    m_ActionName: 'Passcode/Exit[/DualShock4GamepadHID/buttonEast,/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 459570111840409359, guid: 74929a00e13ae4214a6ac73bda55ca94, type: 3}
+        m_TargetAssemblyTypeName: InteractableDialogue, FoundAgain.Runtime
+        m_MethodName: TriggerDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 18e360ee-4f76-490a-8fc4-669cfb79456a
+    m_ActionName: 'Player/CutsceneInteract[/Keyboard/enter,/DualShock4GamepadHID/buttonEast]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-2395816109337047475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4441310245275456898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c660e1cdfd3304dc7b05060d4edcbec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::PlayerInteraction
+--- !u!114 &5507106675992484361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4441310245275456898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.ShadowCaster2D
+  m_ShadowGroup: 0
+  m_Priority: 0
+  m_ComponentVersion: 5
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_AlphaCutoff: 1
+  m_ApplyToSortingLayers: 8d138f3dbdcd0c3171d3cc337d9a6e7900000000
+  m_ShapePath:
+  - {x: -1.2799988, y: -1.28, z: 0}
+  - {x: -1.2799988, y: 1.28, z: 0}
+  - {x: 1.2799988, y: 1.28, z: 0}
+  - {x: 1.2799988, y: -1.28, z: 0}
+  m_ShapePathHash: 0
+  m_InstanceId: 0
+  m_ShadowShape2DComponent: {fileID: 1280524543023861686}
+  m_ShadowShape2DProvider:
+    rid: 1812787089648124106
+  m_ShadowCastingSource: 2
+  m_ShadowMesh:
+    m_Mesh: {fileID: 0}
+    m_LocalBounds:
+      m_Center: {x: 0.0947876, y: -0.009994507, z: 0}
+      m_Extent: {x: 0.47520447, y: 1.1599884, z: 0}
+    m_EdgeProcessing: 1
+    m_TrimEdge: 0.15
+    m_FlipX: 0
+    m_FlipY: 0
+    m_InitialTrim: 0.1
+  m_CastingOption: 1
+  m_PreviousTrimEdge: 0
+  m_PreviousEdgeProcessing: -1
+  m_PreviousShadowCastingSource: -1
+  m_PreviousShadowShape2DSource: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 1812787089648124106
+      type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data: 
+--- !u!114 &-4181474970755738627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4441310245275456898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e407f9db42a1e4a73805e8f04455f122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::PlayerInteract

@@ -54,8 +54,8 @@ public class CameraZoneTrigger : MonoBehaviour
         RoomZone zone = GetComponent<RoomZone>();
         if (zone == null) return;
 
-        // --- If any player leaves, unlock camera ---
-        if (playersInZone.Count < 1 && zone.lockCamera)
+        // --- Unlock as soon as ANY player leaves ---
+        if (zone.lockCamera && playersInZone.Count < 2)
         {
             cameraMovement.UnlockCamera();
             if (debugLog) Debug.Log("📸 Camera unlocked (a player left)");

@@ -15,7 +15,10 @@ public class PlayerCursorController : MonoBehaviour
     private RectTransform centerSpot;
     private Coroutine moveRoutine;
     private float playerYOffset;
-
+    public Sprite p1Sprite;
+    public Sprite p2Sprite;
+    private Image image1;   // Left-side indicator
+    private Image image2;   // Right-side indicator
 
     // automatic Y offset for Player 2
     private float yOffset = 0f;
@@ -38,13 +41,41 @@ public class PlayerCursorController : MonoBehaviour
 
         // 🧱 Instantiate the P1/P2 selector box
         selectorBox = Instantiate(selectorBoxPrefab, canvas.transform);
+        Image img = selectorBox.GetComponentInChildren<Image>();
+
+        if (img != null)
+        {
+            if (playerName == "P1")
+                img.sprite = p1Sprite;
+            else if (playerName == "P2")
+                img.sprite = p2Sprite;
+        }
+        else
+        {
+            Debug.LogWarning($"{playerName} selectorBox has NO Image component!");
+        }
+
         selectorBox.GetComponentInChildren<TMPro.TMP_Text>().text = playerName;
+        var text = selectorBox.GetComponentInChildren<TMPro.TMP_Text>();
+        if (playerName == "P2")
+        {
+            Color hexColor;
+            ColorUtility.TryParseHtmlString("#386082", out hexColor);  
+            text.color = hexColor;
+        }
+        else
+        {
+            text.color = Color.white;
+        }
+
+        image1 = selectorBox.Find("Image (1)")?.GetComponent<Image>();
+        image2 = selectorBox.Find("Image (2)")?.GetComponent<Image>();
 
         // 🧩 Determine initial Y offset dynamically
         if (playerName == "P1")
             selectorBox.anchoredPosition = new Vector2(0, 100f);
         else if (playerName == "P2")
-            selectorBox.anchoredPosition = new Vector2(0, -20f);
+            selectorBox.anchoredPosition = new Vector2(0, -50f);
         else
             selectorBox.anchoredPosition = Vector2.zero;
 
@@ -206,22 +237,54 @@ public class PlayerCursorController : MonoBehaviour
             lobbyManager.UpdatePlayerSelection(playerName, "Marie");
         else if (currentPosition == CursorPosition.Mimi)
             lobbyManager.UpdatePlayerSelection(playerName, "Mimi");
+
+        UpdateSideIndicators();
     }
+
+    // public void OnSubmit(InputAction.CallbackContext context)
+    // {
+    //     if (!context.performed) return;
+
+    //     // 🟢 Force re-sync selection immediately before confirm
+    //     if (currentPosition == CursorPosition.Marie)
+    //         lobbyManager.UpdatePlayerSelection(playerName, "Marie");
+    //     else if (currentPosition == CursorPosition.Mimi)
+    //         lobbyManager.UpdatePlayerSelection(playerName, "Mimi");
+
+    //     if (currentPosition == CursorPosition.Play && lobbyManager != null)
+    //     {
+    //         lobbyManager.OnPlayerConfirm(playerName);
+    //     }
+    // }
 
     public void OnSubmit(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
+        if (!EnsureLobbyManager()) return;
+        if (lobbyManager == null)
+        {
+            Debug.LogWarning($"{playerName} tried to submit but LobbyManager is NULL!");
+            return;
+        }
 
-        // 🟢 Force re-sync selection immediately before confirm
+        // Re-sync selection
         if (currentPosition == CursorPosition.Marie)
             lobbyManager.UpdatePlayerSelection(playerName, "Marie");
         else if (currentPosition == CursorPosition.Mimi)
             lobbyManager.UpdatePlayerSelection(playerName, "Mimi");
 
-        if (currentPosition == CursorPosition.Play && lobbyManager != null)
+        if (currentPosition == CursorPosition.Play)
         {
             lobbyManager.OnPlayerConfirm(playerName);
         }
+    }
+
+    private bool EnsureLobbyManager()
+    {
+        if (lobbyManager != null) return true;
+
+        lobbyManager = FindFirstObjectByType<LobbyManager>();
+        return lobbyManager != null;
     }
 
     // << Add this method here >>
@@ -235,6 +298,29 @@ public class PlayerCursorController : MonoBehaviour
                 return "Mimi";
             default:
                 return null;
+        }
+    }
+
+    private void UpdateSideIndicators()
+    {
+        if (image1 == null || image2 == null)
+            return;
+
+        if (currentPosition == CursorPosition.Marie)
+        {
+            image1.gameObject.SetActive(false);   // left side ON
+            image2.gameObject.SetActive(true);  // right side OFF
+        }
+        else if (currentPosition == CursorPosition.Mimi)
+        {
+            image1.gameObject.SetActive(true);  // left side OFF
+            image2.gameObject.SetActive(false);   // right side ON
+        }
+        else
+        {
+            // Center or Play → hide both
+            image1.gameObject.SetActive(true);
+            image2.gameObject.SetActive(true);
         }
     }
 }

@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
-using UnityEditor.Animations;
 
 public class Movement : MonoBehaviour
 {
@@ -62,8 +61,9 @@ public class Movement : MonoBehaviour
   [SerializeField] private float footstepVolume = 0.8f;
   [SerializeField] private float footstepInterval = 0.35f;
 
-  [SerializeField] private AnimatorController mimiAnimator;
-  [SerializeField] private AnimatorController marieAnimator;
+  // NEW ✅
+  [SerializeField] private RuntimeAnimatorController mimiAnimator;
+  [SerializeField] private RuntimeAnimatorController marieAnimator;
 
   // runtime slope state
   private bool slopeGrounded, onSlope, sliding;
@@ -99,6 +99,20 @@ public class Movement : MonoBehaviour
   [SerializeField] private float deceleration = 16f;
   [SerializeField] private float velocityPower = 0.9f;
 
+  [Header("Visual Slope Rotation")]
+  [SerializeField] private Transform visualRoot;
+  [SerializeField] private float slopeRotateSpeed = 12f;
+  [SerializeField] private float maxVisualSlopeAngle = 25f;
+  private float slopeSignedAngle;
+
+  [Header("Facing / Flip")]
+  [SerializeField] private float flipCooldownSeconds = 0.15f;
+  [SerializeField] private float downhillFlipSpeedThreshold = 4f;
+  private int currentFacing = 1;   // +1 = right, -1 = left
+  private int desiredFacing = 1;
+  private float flipTimer = 0f;
+
+
 
   // private PlayerPushPull pushPull;
   private void Awake()
@@ -124,6 +138,9 @@ public class Movement : MonoBehaviour
     {
       Debug.LogWarning("⚠️ PlayerInput not assigned on " + gameObject.name);
     }
+
+    if (visualRoot == null)
+      visualRoot = transform;
   }
 
   private void Start()
@@ -138,22 +155,25 @@ public class Movement : MonoBehaviour
     wasPhysicallyGroundedLastFrame = true;
     groundedLatchTimer = 0f;
     lastAirborneYVelocity = 0f;
+
+    currentFacing = transform.localScale.x >= 0f ? 1 : -1;
+    desiredFacing = currentFacing;
   }
 
 
   private void Update()
   {
-    if (isDead || PauseMenu.GameIsPaused)
+    if (isDead)
     {
       return; // Do nothing
     }
-    
+
     // Check if the player has fallen below the world
     if (transform.position.y < deathYLevel)
     {
-        Debug.Log("Player fell below death Y-level.");
-        Die(); 
-        return; 
+      Debug.Log("Player fell below death Y-level.");
+      Die();
+      return;
     }
 
     // --- THIS IS THE NEW CORE LOGIC ---
@@ -164,34 +184,32 @@ public class Movement : MonoBehaviour
     // --- Fall Damage Check (Uses the PHYSICAL state, ignores latch) ---
     if (isPhysicallyGrounded && !wasPhysicallyGroundedLastFrame)
     {
-        // We just physically landed. Check our stored speed.
-        if (Mathf.Abs(lastAirborneYVelocity) > fatalFallSpeed)
-        {
-            Debug.Log($"Landed with speed {lastAirborneYVelocity}. Dying.");
-            Die();
-            return; // Stop processing this frame
-        }
+      // We just physically landed. Check our stored speed.
+      if (Mathf.Abs(lastAirborneYVelocity) > fatalFallSpeed)
+      {
+        Debug.Log($"Landed with speed {lastAirborneYVelocity}. Dying.");
+        Die();
+        return; // Stop processing this frame
+      }
     }
-    
+
     // --- Record Fall Speed (Uses the PHYSICAL state) ---
     if (!isPhysicallyGrounded)
     {
-        // We are physically in the air, so record our speed.
-        lastAirborneYVelocity = body.linearVelocity.y;
+      // We are physically in the air, so record our speed.
+      lastAirborneYVelocity = body.linearVelocity.y;
     }
     // --- END OF NEW CORE LOGIC ---
 
     // --- Input Reading ---
     horizontalInput = moveAction != null ? moveAction.ReadValue<Vector2>().x : Input.GetAxisRaw("Horizontal");
 
+    if (flipTimer > 0f)
+      flipTimer -= Time.deltaTime;
+
     bool pushingNow = pushPull != null && pushPull.isPushing;
-    if (!pushingNow)
-    {
-      if (horizontalInput > 0.01f)
-        transform.localScale = new Vector3(1, 1, 1);
-      else if (horizontalInput < -0.01f)
-        transform.localScale = new Vector3(-1, 1, 1);
-    }
+    HandleFacingDirection(pushingNow);
+
 
     // --- Jump (Uses the LATCHED state) ---
     if (wallJumpCooldown > 0.2f && jumpAction != null && jumpAction.WasPressedThisFrame())
@@ -200,7 +218,7 @@ public class Movement : MonoBehaviour
       if (pushPull != null && pushPull.isPushing)
         return;
 
-      Jump(); // Jump() calls isGrounded(), which correctly uses the latch
+      Jump();
     }
     else
     {
@@ -252,13 +270,25 @@ public class Movement : MonoBehaviour
     }
   }
 
+  private void LateUpdate()
+  {
+    HandleSlopeVisualRotation();
+  }
+
+
   private void Jump()
   {
-    if (isGrounded() || isOnSteppableObject())
+    if ((isGroundedWithLatch && isPhysicallyGrounded) || isOnSteppableObject())
     {
       jumpIgnoreTimer = jumpIgnoreSlopeTime;
       body.linearVelocity = new Vector2(body.linearVelocity.x, jumpPower);
-      if (animator) animator.SetTrigger("jump");
+
+      // Immediately clear latch so you can't jump again until re-grounded
+      groundedLatchTimer = 0f;
+      isGroundedWithLatch = false;
+      isPhysicallyGrounded = false;
+
+      animator.SetTrigger("jump");
 
       // ✅ Play jump sound
       if (SoundFXManager.instance != null && jumpSFX != null)
@@ -267,6 +297,7 @@ public class Movement : MonoBehaviour
       }
     }
   }
+
 
   private void ApplyPlayerAppearance()
   {
@@ -338,19 +369,47 @@ public class Movement : MonoBehaviour
   {
     if (!animator) return;
 
-    bool groundedNow = isGrounded();
+    bool groundedNow = isPhysicallyGrounded;
     float vy = body.linearVelocity.y;
 
     bool interactingNow = pushPull != null && (pushPull.isPushing || pushPull.isPulling);
 
-    bool shouldRun = !interactingNow && Mathf.Abs(horizontalInput) > 0.01f;
+    bool floorLikeSlope = slopeGrounded && onSlope && slopeAngle < wallStartAngle;
+    bool inputAgainstSlope = IsInputAgainstSlope();
+    bool movingHoriz = Mathf.Abs(horizontalInput) > 0.01f;
+
+    // Deteksi jenis sliding secara fisik
+    bool wallSlide =
+        sliding &&
+        !slopeGrounded &&
+        onSlope &&
+        slopeAngle >= wallStartAngle;
+
+    bool floorSlide =
+        sliding &&
+        groundedNow &&
+        floorLikeSlope;
+
+    // 🔥 RULE:
+    // - Kalau searah slope (bukan melawan arus) → pakai anim slide
+    // - Kalau melawan arus → jangan anim slide (anim jalan biasa)
+    bool slidingAnim = (wallSlide || floorSlide) && !inputAgainstSlope;
+
+    // RUN hanya kalau:
+    // - ada input horizontal
+    // - tidak lagi pakai animasi slide
+    bool shouldRun = !interactingNow && movingHoriz && !slidingAnim;
 
     animator.SetBool("run", shouldRun);
     animator.SetBool("grounded", groundedNow);
     animator.SetFloat("yVelocity", vy);
-    animator.SetBool("sliding", sliding);
+    animator.SetBool("sliding", slidingAnim);
     animator.SetBool("isInteracting", interactingNow);
+
+    // Debug kalau mau cek
+    // Debug.Log($"grounded={groundedNow}, slidingPhys={sliding}, slidingAnim={slidingAnim}, inputAgainstSlope={inputAgainstSlope}");
   }
+
 
   // ====== SLOPE PROBING ======
   private void ProbeSlope()
@@ -385,7 +444,7 @@ public class Movement : MonoBehaviour
       if (wallHit.collider != null)
       {
         // We are touching a wall, BUT WE ARE NOT GROUNDED.
-        slopeGrounded = false; // <-- This is the critical fix
+        slopeGrounded = false;
         slopeNormal = wallHit.normal;
         slopeAngle = Vector2.Angle(slopeNormal, Vector2.up);
         onSlope = slopeAngle > 0.01f;
@@ -421,6 +480,8 @@ public class Movement : MonoBehaviour
     bool slidingOnGround = slopeGrounded && (alwaysSlippery ? onSlope : (onSlope && slopeAngle > 45f));
     bool slidingOnWall = !slopeGrounded && onSlope && slopeAngle >= wallStartAngle;
     sliding = slidingOnGround || slidingOnWall;
+
+    slopeSignedAngle = Vector2.SignedAngle(Vector2.up, slopeNormal);
   }
 
   // ====== SLIDE PHYSICS ======
@@ -485,10 +546,10 @@ public class Movement : MonoBehaviour
     // Check if we even collided with the ground layer
     if (((1 << c.collider.gameObject.layer) & slopeGroundLayer) == 0)
     {
-        // We didn't hit the ground, so we are definitely not on a contact slope.
-        // This is important to reset the flag if we *only* touch a wall.
-        contactHasSlope = false;
-        return;
+      // We didn't hit the ground, so we are definitely not on a contact slope.
+      // This is important to reset the flag if we *only* touch a wall.
+      contactHasSlope = false;
+      return;
     }
 
     float bestAngle = 91f; // Start with an invalid angle (steeper than any wall)
@@ -499,20 +560,20 @@ public class Movement : MonoBehaviour
     for (int i = 0; i < c.contactCount; i++)
     {
       var contact = c.GetContact(i);
-      
+
       // --- THIS IS THE NEW CHECK ---
       // Only consider contacts that are on the BOTTOM HALF of our collider
       if (contact.point.y < boxCollider2D.bounds.center.y)
       {
-          float ang = Vector2.Angle(contact.normal, Vector2.up);
-          
-          // Find the "flattest" surface we are touching
-          if (ang < bestAngle) 
-          { 
-              bestAngle = ang; 
-              bestNormal = contact.normal;
-              foundValidContact = true;
-          }
+        float ang = Vector2.Angle(contact.normal, Vector2.up);
+
+        // Find the "flattest" surface we are touching
+        if (ang < bestAngle)
+        {
+          bestAngle = ang;
+          bestNormal = contact.normal;
+          foundValidContact = true;
+        }
       }
     }
 
@@ -520,15 +581,15 @@ public class Movement : MonoBehaviour
     // Now, check if the "flattest" surface we found is actually a floor
     if (foundValidContact && bestAngle < wallStartAngle)
     {
-        // Yes, this is a valid floor or walkable slope
-        contactHasSlope = true;
-        contactNormal = bestNormal;
-        contactAngle = bestAngle;
+      // Yes, this is a valid floor or walkable slope
+      contactHasSlope = true;
+      contactNormal = bestNormal;
+      contactAngle = bestAngle;
     }
     else
     {
-        // No, this is a wall brush or a side-only collision. Ignore it.
-        contactHasSlope = false; 
+      // No, this is a wall brush or a side-only collision. Ignore it.
+      contactHasSlope = false;
     }
   }
 
@@ -540,8 +601,8 @@ public class Movement : MonoBehaviour
 
   private bool isGrounded()
   {
-      // This function now just returns the result from CheckGroundedState()
-      return isGroundedWithLatch;
+    // This function now just returns the result from CheckGroundedState()
+    return isGroundedWithLatch;
   }
 
   private void CheckGroundedState()
@@ -580,7 +641,7 @@ public class Movement : MonoBehaviour
     // 4. Update our "gameplay feel" state
     isGroundedWithLatch = isPhysicallyGrounded || groundedLatchTimer > 0f;
   }
-  
+
 
   private bool isOnSteppableObject()
   {
@@ -642,7 +703,7 @@ public class Movement : MonoBehaviour
       Debug.LogWarning("⚠️ PlayerRespawn component missing on player!");
 
     isDead = false;
-    
+
     // --- UPDATED RESET LOGIC ---
     // Force-reset all landing state variables
     wasPhysicallyGroundedLastFrame = true;
@@ -678,4 +739,127 @@ public class Movement : MonoBehaviour
     CheckpointManager.UnregisterPlayer(this);
   }
 
+  private void HandleSlopeVisualRotation()
+  {
+    if (visualRoot == null) return;
+
+    float targetAngle = 0f;
+
+    bool floorLikeSlope = slopeGrounded && onSlope && slopeAngle < wallStartAngle;
+    bool inputAgainstSlope = IsInputAgainstSlope();
+
+    // Hanya tilt kalau:
+    // - grounded
+    // - di slope lantai
+    // - TIDAK melawan arus
+    if (isPhysicallyGrounded && floorLikeSlope && !inputAgainstSlope)
+    {
+      float clamped = Mathf.Clamp(slopeSignedAngle, -maxVisualSlopeAngle, maxVisualSlopeAngle);
+      targetAngle = clamped;
+    }
+
+    Quaternion targetRot = Quaternion.Euler(0f, 0f, targetAngle);
+    visualRoot.rotation = Quaternion.Lerp(
+        visualRoot.rotation,
+        targetRot,
+        slopeRotateSpeed * Time.deltaTime
+    );
+  }
+
+
+  private void HandleFacingDirection(bool pushingNow)
+  {
+    if (pushingNow) return; // jangan flip waktu lagi dorong
+
+    bool floorLikeSlope = slopeGrounded && onSlope && slopeAngle < wallStartAngle;
+    bool inputAgainstSlope = IsInputAgainstSlope();
+
+    int newDesired = currentFacing;
+
+    // --- Di slope & sliding & TIDAK melawan arus: hadap turun slope ---
+    if (sliding && isPhysicallyGrounded && floorLikeSlope && !inputAgainstSlope)
+    {
+      if (IsInputAgainstSlope() && sliding)
+      {
+        return; // jangan flip
+      }
+      if (slopeTangent.x > 0.01f)
+        newDesired = 1;   // hadap kanan
+      else if (slopeTangent.x < -0.01f)
+        newDesired = -1;  // hadap kiri
+    }
+    else
+    {
+      // --- Normal: ikut input ---
+      if (horizontalInput > 0.01f)
+        newDesired = 1;
+      else if (horizontalInput < -0.01f)
+        newDesired = -1;
+    }
+
+    desiredFacing = newDesired;
+
+    // ===== NEW: auto-flip kalau sudah meluncur kencang turun slope
+    if (floorLikeSlope && isPhysicallyGrounded && inputAgainstSlope)
+    {
+      // kecepatan sepanjang arah slope (tangent)
+      Vector2 v = body.linearVelocity;
+      float vAlongSlope = Vector2.Dot(v, slopeTangent);
+
+      // lagi benar-benar meluncur turun (arah sama dengan slopeTangent)
+      bool movingDownSlope = Mathf.Abs(vAlongSlope) > downhillFlipSpeedThreshold &&
+                             Mathf.Sign(vAlongSlope) == Mathf.Sign(slopeTangent.x);
+
+      if (movingDownSlope)
+      {
+        // paksa hadap ke arah gerakan turun slope
+        desiredFacing = vAlongSlope > 0f ? 1 : -1;
+      }
+    }
+    // ===== END NEW =====
+
+    // Kalau beda arah dan cooldown habis -> baru flip
+    if (desiredFacing != currentFacing && flipTimer <= 0f)
+    {
+      currentFacing = desiredFacing;
+      flipTimer = flipCooldownSeconds;
+
+      Vector3 scale = transform.localScale;
+      scale.x = Mathf.Abs(scale.x) * currentFacing;
+      transform.localScale = scale;
+    }
+  }
+
+
+  private bool IsInputAgainstSlope()
+  {
+    bool result = false;   // default
+
+    // Harus di slope & grounded dulu
+    bool validSlope = onSlope && slopeGrounded;
+
+    // Harus ada input horizontal yang cukup
+    bool hasInput = Mathf.Abs(horizontalInput) >= 0.1f;
+
+    if (validSlope && hasInput)
+    {
+      float slopeDir = Mathf.Sign(slopeTangent.x);      // arah turun slope
+      float inputDir = Mathf.Sign(horizontalInput);     // arah input
+      float velDir = Mathf.Sign(body.linearVelocity.x); // arah gerak horisontal
+
+      bool inputOpposesSlope = inputDir != slopeDir;
+      bool movementOpposesSlope = velDir != 0f && velDir != slopeDir;
+
+      // Kalau BELUM sliding:
+      //  - cukup cek "input melawan slope" → dianggap melawan
+      // Kalau SUDAH sliding:
+      //  - harus: input melawan + movement juga melawan → benar2 nanjak
+      bool againstWhenNotSliding = !sliding && inputOpposesSlope;
+      bool againstWhenSliding = sliding && inputOpposesSlope && movementOpposesSlope;
+
+      result = againstWhenNotSliding || againstWhenSliding;
+    }
+
+    return result;
+  }
 }

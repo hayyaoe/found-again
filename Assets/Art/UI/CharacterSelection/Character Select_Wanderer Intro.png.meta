@@ -1,0 +1,923 @@
+fileFormatVersion: 2
+guid: 367a93475531540289eaa49210014c34
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7006141171822721927
+    second: Character Select_Wanderer Intro_0
+  - first:
+      213: 5477955964199328013
+    second: Character Select_Wanderer Intro_1
+  - first:
+      213: 1830084848355999204
+    second: Character Select_Wanderer Intro_2
+  - first:
+      213: 8869097220133595061
+    second: Character Select_Wanderer Intro_3
+  - first:
+      213: -1146951501720913934
+    second: Character Select_Wanderer Intro_4
+  - first:
+      213: -7186709568326297280
+    second: Character Select_Wanderer Intro_5
+  - first:
+      213: -1682580668675092417
+    second: Character Select_Wanderer Intro_6
+  - first:
+      213: -1971976148707097185
+    second: Character Select_Wanderer Intro_7
+  - first:
+      213: -1529224091688046818
+    second: Character Select_Wanderer Intro_8
+  - first:
+      213: 2303680504220201869
+    second: Character Select_Wanderer Intro_9
+  - first:
+      213: -1988752271726670358
+    second: Character Select_Wanderer Intro_10
+  - first:
+      213: 5123927954666529952
+    second: Character Select_Wanderer Intro_11
+  - first:
+      213: -4986291881301773093
+    second: Character Select_Wanderer Intro_12
+  - first:
+      213: -8283768213951073575
+    second: Character Select_Wanderer Intro_13
+  - first:
+      213: -485563411084229096
+    second: Character Select_Wanderer Intro_14
+  - first:
+      213: -8744548055721514206
+    second: Character Select_Wanderer Intro_15
+  - first:
+      213: -8495499020891816414
+    second: Character Select_Wanderer Intro_16
+  - first:
+      213: 7290225549305653626
+    second: Character Select_Wanderer Intro_17
+  - first:
+      213: 3249144122275638046
+    second: Character Select_Wanderer Intro_18
+  - first:
+      213: 5137143179793939563
+    second: Character Select_Wanderer Intro_19
+  - first:
+      213: -5017056358593645793
+    second: Character Select_Wanderer Intro_20
+  - first:
+      213: 281903435297090242
+    second: Character Select_Wanderer Intro_21
+  - first:
+      213: 3848705709014113086
+    second: Character Select_Wanderer Intro_22
+  - first:
+      213: 2987617083036138772
+    second: Character Select_Wanderer Intro_23
+  - first:
+      213: 3560034224341600591
+    second: Character Select_Wanderer Intro_24
+  - first:
+      213: -6569961962241246132
+    second: Character Select_Wanderer Intro_25
+  - first:
+      213: -5291113920507916921
+    second: Character Select_Wanderer Intro_26
+  - first:
+      213: 6867787871110149184
+    second: Character Select_Wanderer Intro_27
+  - first:
+      213: -4709674824610923848
+    second: Character Select_Wanderer Intro_28
+  - first:
+      213: -399741780336018880
+    second: Character Select_Wanderer Intro_29
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 78
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 974844f69bf25ce90800000000000000
+      internalID: -7006141171822721927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 65
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d09555d0deb950c40800000000000000
+      internalID: 5477955964199328013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_2
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 68
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ed751f2974c56910800000000000000
+      internalID: 1830084848355999204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_3
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 70
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b7a7746eec551b70800000000000000
+      internalID: 8869097220133595061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_4
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 70
+        width: 19
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f7f25d9fa53510f0800000000000000
+      internalID: -1146951501720913934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_5
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 70
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 049920479bda34c90800000000000000
+      internalID: -7186709568326297280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_6
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 68
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f309ea9ebc546a8e0800000000000000
+      internalID: -1682580668675092417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_7
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 65
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9545c6042222a4e0800000000000000
+      internalID: -1971976148707097185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_8
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 62
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1fe6f07aca17cae0800000000000000
+      internalID: -1529224091688046818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_9
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 57
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d83b902963158ff10800000000000000
+      internalID: 2303680504220201869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_10
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 54
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aed0b7188588664e0800000000000000
+      internalID: -1988752271726670358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_11
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 49
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a4a798b359db1740800000000000000
+      internalID: 5123927954666529952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_12
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 45
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd4f794d3f12dcab0800000000000000
+      internalID: -4986291881301773093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_13
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 37
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d236cdd2b42a0d80800000000000000
+      internalID: -8283768213951073575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_14
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 33
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 816c56676aee249f0800000000000000
+      internalID: -485563411084229096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_15
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 29
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22be269bfdf15a680800000000000000
+      internalID: -8744548055721514206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_16
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 24
+        width: 20
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22e701ec6ace91a80800000000000000
+      internalID: -8495499020891816414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_17
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 22
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7927d603851c2560800000000000000
+      internalID: 7290225549305653626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_18
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 38
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1ba9405d57471d20800000000000000
+      internalID: 3249144122275638046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_19
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 18
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6c30f7118cca4740800000000000000
+      internalID: 5137143179793939563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_20
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 8
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1339e7c2d5df5ab0800000000000000
+      internalID: -5017056358593645793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_21
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 11
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ca68d94ea589e300800000000000000
+      internalID: 281903435297090242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_22
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 9
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3bddc67379596530800000000000000
+      internalID: 3848705709014113086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_23
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 7
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41df14f68e5267920800000000000000
+      internalID: 2987617083036138772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_24
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 0
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f494d12e348c76130800000000000000
+      internalID: 3560034224341600591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_25
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 25
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4c38cc876ec2d4a0800000000000000
+      internalID: -6569961962241246132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_26
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 0
+        width: 20
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78d400e3cef2296b0800000000000000
+      internalID: -5291113920507916921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_27
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 6
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 044b1428ea84f4f50800000000000000
+      internalID: 6867787871110149184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_28
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 6
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ba377f23bfd3aeb0800000000000000
+      internalID: -4709674824610923848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character Select_Wanderer Intro_29
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 9
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04a703df7f4d37af0800000000000000
+      internalID: -399741780336018880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Character Select_Wanderer Intro_0: -7006141171822721927
+      Character Select_Wanderer Intro_1: 5477955964199328013
+      Character Select_Wanderer Intro_10: -1988752271726670358
+      Character Select_Wanderer Intro_11: 5123927954666529952
+      Character Select_Wanderer Intro_12: -4986291881301773093
+      Character Select_Wanderer Intro_13: -8283768213951073575
+      Character Select_Wanderer Intro_14: -485563411084229096
+      Character Select_Wanderer Intro_15: -8744548055721514206
+      Character Select_Wanderer Intro_16: -8495499020891816414
+      Character Select_Wanderer Intro_17: 7290225549305653626
+      Character Select_Wanderer Intro_18: 3249144122275638046
+      Character Select_Wanderer Intro_19: 5137143179793939563
+      Character Select_Wanderer Intro_2: 1830084848355999204
+      Character Select_Wanderer Intro_20: -5017056358593645793
+      Character Select_Wanderer Intro_21: 281903435297090242
+      Character Select_Wanderer Intro_22: 3848705709014113086
+      Character Select_Wanderer Intro_23: 2987617083036138772
+      Character Select_Wanderer Intro_24: 3560034224341600591
+      Character Select_Wanderer Intro_25: -6569961962241246132
+      Character Select_Wanderer Intro_26: -5291113920507916921
+      Character Select_Wanderer Intro_27: 6867787871110149184
+      Character Select_Wanderer Intro_28: -4709674824610923848
+      Character Select_Wanderer Intro_29: -399741780336018880
+      Character Select_Wanderer Intro_3: 8869097220133595061
+      Character Select_Wanderer Intro_4: -1146951501720913934
+      Character Select_Wanderer Intro_5: -7186709568326297280
+      Character Select_Wanderer Intro_6: -1682580668675092417
+      Character Select_Wanderer Intro_7: -1971976148707097185
+      Character Select_Wanderer Intro_8: -1529224091688046818
+      Character Select_Wanderer Intro_9: 2303680504220201869
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
