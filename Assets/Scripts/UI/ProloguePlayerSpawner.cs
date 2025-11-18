@@ -59,6 +59,7 @@ public class ProloguePlayerSpawner : MonoBehaviour
                 devices
             );
             FindObjectOfType<PauseMenu>()?.RegisterNewPlayer(newPlayerInput);
+            FindObjectOfType<DialogueManager>()?.RegisterNewPlayer(newPlayerInput);
 
             if (newPlayerInput == null)
             {
