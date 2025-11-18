@@ -225,8 +225,8 @@ MonoBehaviour:
   slopeGroundLayer:
     serializedVersion: 2
     m_Bits: 1024
-  slopeProbeDistance: 0.25
-  slopeFootRadius: 0.16
+  slopeProbeDistance: 0.1
+  slopeFootRadius: 0.05
   alwaysSlippery: 1
   minSlideAccel: 14
   slideAccelBoost: 1.2
@@ -257,6 +257,8 @@ MonoBehaviour:
   visualRoot: {fileID: 0}
   slopeRotateSpeed: 12
   maxVisualSlopeAngle: 25
+  flipCooldownSeconds: 0.15
+  downhillFlipSpeedThreshold: 4
 --- !u!114 &7652417905296700519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,9 +568,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.ShadowCaster2D
   m_ShadowGroup: 0
-  m_Priority: 0
+  m_Priority: 5
   m_ComponentVersion: 5
-  m_HasRenderer: 0
+  m_HasRenderer: 1
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 0
@@ -588,18 +590,18 @@ MonoBehaviour:
   m_ShadowMesh:
     m_Mesh: {fileID: 0}
     m_LocalBounds:
-      m_Center: {x: 0.0947876, y: -0.009994507, z: 0}
-      m_Extent: {x: 0.47520447, y: 1.1599884, z: 0}
+      m_Center: {x: 0.09500122, y: -0.009994507, z: 0}
+      m_Extent: {x: 0.42500305, y: 1.1100006, z: 0}
     m_EdgeProcessing: 1
     m_TrimEdge: 0.15
     m_FlipX: 0
     m_FlipY: 0
     m_InitialTrim: 0.1
   m_CastingOption: 1
-  m_PreviousTrimEdge: 0
-  m_PreviousEdgeProcessing: -1
-  m_PreviousShadowCastingSource: -1
-  m_PreviousShadowShape2DSource: {fileID: 0}
+  m_PreviousTrimEdge: 0.15
+  m_PreviousEdgeProcessing: 1
+  m_PreviousShadowCastingSource: 2
+  m_PreviousShadowShape2DSource: {fileID: 1280524543023861686}
   references:
     version: 2
     RefIds:
