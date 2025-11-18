@@ -14,6 +14,7 @@ public class PasscodeManager : MonoBehaviour
     public AutoElevator2D lift;
 
     public PasscodeBox[] passcodeBoxes;
+    public bool IsSolved { get; private set; } = false;
 
     private void Start()
     {
@@ -51,6 +52,11 @@ public class PasscodeManager : MonoBehaviour
         if (allCorrect)
         {
             Debug.Log("✅ Correct passcode! Puzzle solved!");
+
+            // Auto-stop all player interactions with boxes
+            foreach(var box in passcodeBoxes)
+                box.ForceEndInteraction();
+                
             OnPasscodeSolved();
         }
         else
@@ -62,6 +68,8 @@ public class PasscodeManager : MonoBehaviour
 
     private void OnPasscodeSolved()
     {
+        IsSolved = true;
+
         Debug.Log("✅ Correct passcode! Puzzle solved!");
 
         if (lift != null)
