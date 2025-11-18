@@ -10831,8 +10831,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 445333209}
-        m_TargetAssemblyTypeName: MainMenuLogic, FoundAgain.Runtime
-        m_MethodName: ContinueGame
+        m_TargetAssemblyTypeName: MainMenuLogic, Assembly-CSharp
+        m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
