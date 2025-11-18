@@ -139,17 +139,31 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
-        // Get all the components
-        if (nameBoxPanel != null)
+        if (SaveSystem.HasSave())
         {
-            nameBoxRect = nameBoxPanel.GetComponent<RectTransform>();
-            nameBoxImage = nameBoxPanel.GetComponent<Image>();
+            Debug.Log("Save found → skipping cutscene and spawning players after scene loads.");
+
+            // Hide UI, unpause, etc.
+            dialogueBoxPanel.SetActive(false);
+            nameBoxPanel.SetActive(false);
+            characterLeftSprite.gameObject.SetActive(false);
+            characterRightSprite.gameObject.SetActive(false);
+
+            Time.timeScale = 1f;
+            SwitchAllPlayerMaps("Player");
+
+            // 🔥 Wait for checkpoints to initialize
+            StartCoroutine(SpawnAfterDelay());
+
+            this.enabled = false;
+            return;
         }
 
-        // This will automatically run your "Intro" cutscene 
-        // using the 'cutsceneName' set in the Inspector.
+
+        // No save → Play intro normally
         StartDialogue(this.cutsceneName);
     }
+
 
     // --- UPDATED GetSideFromName ---
     private CharacterSide GetSideFromName(string speakerName)
@@ -461,5 +475,26 @@ public class DialogueManager : MonoBehaviour
             nameBoxRect.pivot = new Vector2(0, 1);
             nameBoxRect.anchoredPosition = leftPos;
         }
+    }
+
+    private IEnumerator SpawnAfterDelay()
+    {
+        // Give the scene one frame to finish initializing
+        yield return null; 
+
+        // If needed, wait again to guarantee checkpoints exist
+        yield return new WaitForSeconds(0.01f);
+
+        if (playerSpawner != null)
+        {
+            playerSpawner.StartSpawning();
+        }
+
+        if (gameHUDCanvas != null)
+        {
+            gameHUDCanvas.SetActive(true);
+        }
+
+        Debug.Log("Players spawned AFTER delay — checkpoint loading should now work.");
     }
 }
