@@ -217,8 +217,8 @@ MonoBehaviour:
   slopeGroundLayer:
     serializedVersion: 2
     m_Bits: 1024
-  slopeProbeDistance: 0.25
-  slopeFootRadius: 0.16
+  slopeProbeDistance: 0.1
+  slopeFootRadius: 0.05
   alwaysSlippery: 1
   minSlideAccel: 14
   slideAccelBoost: 1.2
@@ -249,6 +249,8 @@ MonoBehaviour:
   visualRoot: {fileID: 0}
   slopeRotateSpeed: 12
   maxVisualSlopeAngle: 25
+  flipCooldownSeconds: 0.15
+  downhillFlipSpeedThreshold: 4
 --- !u!95 &4587821935056208640
 Animator:
   serializedVersion: 7
@@ -580,7 +582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.ShadowCaster2D
   m_ShadowGroup: 0
-  m_Priority: 5
+  m_Priority: 6
   m_ComponentVersion: 5
   m_HasRenderer: 1
   m_UseRendererSilhouette: 1
