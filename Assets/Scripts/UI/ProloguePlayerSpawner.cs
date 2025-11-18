@@ -12,7 +12,6 @@ public class ProloguePlayerSpawner : MonoBehaviour
 
     private void Awake()
     {
-        // Find the camera movement script in the scene
         cameraMovement = FindObjectOfType<CameraMovement>();
     }
 
@@ -28,6 +27,9 @@ public class ProloguePlayerSpawner : MonoBehaviour
         }
 
         var spawnedPlayers = new System.Collections.Generic.List<Transform>();
+
+        // 🔥 Get saved checkpoint (if any)
+        Transform savedCheckpoint = CheckpointLocator.GetSavedCheckpoint();
 
         foreach (var selection in sm.selectedPlayers)
         {
@@ -49,7 +51,13 @@ public class ProloguePlayerSpawner : MonoBehaviour
                 .Where(d => d != null)
                 .ToArray() ?? new InputDevice[0];
 
-            PlayerInput newPlayerInput = PlayerInput.Instantiate(prefabToSpawn, selection.playerIndex, null, -1, devices);
+            PlayerInput newPlayerInput = PlayerInput.Instantiate(
+                prefabToSpawn, 
+                selection.playerIndex, 
+                null, 
+                -1, 
+                devices
+            );
 
             if (newPlayerInput == null)
             {
@@ -57,21 +65,36 @@ public class ProloguePlayerSpawner : MonoBehaviour
                 continue;
             }
 
-            int spawnIdx = selection.playerIndex;
-            if (spawnPoints != null && spawnIdx < spawnPoints.Length && spawnPoints[spawnIdx] != null)
+            // 🟢 If we have a saved checkpoint, spawn there
+            if (savedCheckpoint != null)
             {
-                newPlayerInput.transform.position = spawnPoints[spawnIdx].position;
-                newPlayerInput.transform.rotation = spawnPoints[spawnIdx].rotation;
+                newPlayerInput.transform.position = savedCheckpoint.position;
+                newPlayerInput.transform.rotation = savedCheckpoint.rotation;
+            }
+            else
+            {
+                // 🟡 No checkpoint → use regular spawn points
+                int spawnIdx = selection.playerIndex;
+                if (spawnPoints != null && spawnIdx < spawnPoints.Length && spawnPoints[spawnIdx] != null)
+                {
+                    newPlayerInput.transform.position = spawnPoints[spawnIdx].position;
+                    newPlayerInput.transform.rotation = spawnPoints[spawnIdx].rotation;
+                }
             }
 
             spawnedPlayers.Add(newPlayerInput.transform);
             Debug.Log($"Spawned {selection.characterName} for {selection.playerName}.");
         }
 
-        // ✅ Send both player transforms to the camera
+        // Update camera
         if (cameraMovement != null && spawnedPlayers.Count > 0)
         {
             cameraMovement.SetTargets(spawnedPlayers.ToArray());
+
+            // 🔥 If loading from checkpoint, instantly move camera to players
+            if (SaveSystem.HasSave())
+                cameraMovement.SnapToTargets();
+
             Debug.Log("Camera now following both players.");
         }
     }

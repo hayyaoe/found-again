@@ -6,7 +6,19 @@ public class MainMenuLogic : MonoBehaviour
     public void PlayGame()
     {
         // SceneManager.LoadScene("PlayerSelectMenu");
+        SaveSystem.ClearSave(); // Remove old checkpoint
         SceneFader.instance.FadeToScene("PlayerSelectMenu");
+    }
+
+    public void ContinueGame()
+    {
+        if (!SaveSystem.HasSave())
+        {
+            Debug.Log("No save file found!");
+            return;
+        }
+
+        SceneFader.instance.FadeToScene("PlayerSelectMenu"); // Load your level
     }
 
     public void QuitGame()
