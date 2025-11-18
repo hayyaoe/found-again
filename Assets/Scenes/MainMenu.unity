@@ -5198,7 +5198,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Options
+  m_text: New Game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7bb57e89b128644c4b755c75968d0abc, type: 2}
   m_sharedMaterial: {fileID: 6885015293790254106, guid: 7bb57e89b128644c4b755c75968d0abc, type: 2}
@@ -5733,6 +5733,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1944af4f00c4d4a9190d93418526b73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuLogic
+--- !u!1 &552615264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 552615265}
+  m_Layer: 0
+  m_Name: World
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &552615265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552615264}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.89, y: -0.80832, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1892133379}
+  - {fileID: 1185797560}
+  - {fileID: 1254602420}
+  - {fileID: 908578755}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &588799771
 GameObject:
   m_ObjectHideFlags: 0
@@ -10706,7 +10741,7 @@ GameObject:
   - component: {fileID: 750165738}
   - component: {fileID: 750165741}
   m_Layer: 5
-  m_Name: PlayButton
+  m_Name: ResumeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11200,7 +11235,7 @@ GameObject:
   - component: {fileID: 908578755}
   - component: {fileID: 908578754}
   m_Layer: 0
-  m_Name: Found Again Title Screen Art 2_0
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11273,11 +11308,11 @@ Transform:
   m_GameObject: {fileID: 908578753}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 6.89, y: 0.80832, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 552615265}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1185797558
 GameObject:
@@ -11290,7 +11325,7 @@ GameObject:
   - component: {fileID: 1185797560}
   - component: {fileID: 1185797559}
   m_Layer: 0
-  m_Name: TitleScreenLeaf_1_0
+  m_Name: Leaf1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11362,12 +11397,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1185797558}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.099319756, w: 0.9950556}
-  m_LocalPosition: {x: -0.56, y: 4.83, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.099319756, w: 0.9950556}
+  m_LocalPosition: {x: 6.33, y: 5.63832, z: 0}
   m_LocalScale: {x: 0.33060044, y: 0.33060044, z: 0.33060044}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 552615265}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 11.4}
 --- !u!1 &1254602418
 GameObject:
@@ -11380,7 +11415,7 @@ GameObject:
   - component: {fileID: 1254602420}
   - component: {fileID: 1254602419}
   m_Layer: 0
-  m_Name: TitleScreenLeaf_2_0
+  m_Name: Leaf2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11452,12 +11487,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254602418}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.03, y: 4.78, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.92, y: 5.5883203, z: 0}
   m_LocalScale: {x: 0.3585, y: 0.3585, z: 0.3585}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 552615265}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1292544826
 GameObject:
@@ -11833,7 +11868,7 @@ SpriteRenderer:
   m_Size: {x: 11.21, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1377397524
@@ -17049,7 +17084,7 @@ GameObject:
   - component: {fileID: 1727068071}
   - component: {fileID: 1727068074}
   m_Layer: 5
-  m_Name: OptionsButton
+  m_Name: NewGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17120,8 +17155,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 445333209}
-        m_TargetAssemblyTypeName: MainMenuLogic, Assembly-CSharp
-        m_MethodName: GoToOptionsMenu
+        m_TargetAssemblyTypeName: MainMenuLogic, FoundAgain.Runtime
+        m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17182,55 +17217,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::HighlighterTarget
   highlightSize: {x: 130, y: 40}
---- !u!1 &1816370379
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1816370381}
-  - component: {fileID: 1816370380}
-  m_Layer: 0
-  m_Name: Global Volume
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1816370380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816370379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
-  m_IsGlobal: 1
-  priority: 10
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 0f6bae0933d5c45829911553f5c40c8b, type: 2}
---- !u!4 &1816370381
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816370379}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.318843, y: 1.3096495, z: 100}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1858240814
 GameObject:
   m_ObjectHideFlags: 0
@@ -17492,12 +17478,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892133376}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.8, y: 1.12, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 9.69, y: 1.9283199, z: 0}
   m_LocalScale: {x: 0.60839766, y: 0.60839766, z: 0.60839766}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 552615265}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1907760616
 GameObject:
@@ -17557,7 +17543,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Play
+  m_text: Continue
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7bb57e89b128644c4b755c75968d0abc, type: 2}
   m_sharedMaterial: {fileID: 6885015293790254106, guid: 7bb57e89b128644c4b755c75968d0abc, type: 2}
@@ -17855,15 +17841,11 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1858240817}
-  - {fileID: 1816370381}
-  - {fileID: 1185797560}
-  - {fileID: 1254602420}
-  - {fileID: 908578755}
+  - {fileID: 1296936211}
+  - {fileID: 552615265}
   - {fileID: 834199479}
   - {fileID: 1715156318}
   - {fileID: 1347369378}
+  - {fileID: 156384511}
   - {fileID: 1790544741258113327}
   - {fileID: 59930361}
-  - {fileID: 156384511}
-  - {fileID: 1296936211}
-  - {fileID: 1892133379}
