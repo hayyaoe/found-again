@@ -118,10 +118,6 @@ public class AutoElevator2D : MonoBehaviour
 
         isMoving = true;
         mover = StartCoroutine(MoveRoutine());
-
-        // Mark first activation complete
-        if (!initialMoveDone)
-            initialMoveDone = true;
     }
 
 
@@ -339,16 +335,14 @@ public class AutoElevator2D : MonoBehaviour
 
     private IEnumerator DelayedFirstStart()
     {
-        // Safety: prevents multiple coroutines running
         if (initialMoveDone) yield break;
 
-        yield return new WaitForSeconds(1f);   // ← The required 1-second wait
+        yield return new WaitForSeconds(1f);
 
-        // Check again (players might have stepped off)
         if (currentPlayersOnLift >= playersNeeded)
         {
             StartMoving();
-            initialMoveDone = true;
+            initialMoveDone = true;  // ← MOVE FLAG TO HERE
         }
     }
 }
