@@ -50,7 +50,8 @@ public class DialogueManager : MonoBehaviour
     private InputAction continueAction;
     private InputAction skipAction;
     [SerializeField] private InputActionAsset inputActionAsset;
-
+    private List<InputAction> nextActions = new List<InputAction>();
+    private List<InputAction> skipActionsList = new List<InputAction>();
 
     private int currentConversationIndex = 0;
     private bool isWaitingForInput = false;
@@ -139,17 +140,31 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
-        // Get all the components
-        if (nameBoxPanel != null)
+        if (SaveSystem.HasSave())
         {
-            nameBoxRect = nameBoxPanel.GetComponent<RectTransform>();
-            nameBoxImage = nameBoxPanel.GetComponent<Image>();
+            Debug.Log("Save found → skipping cutscene and spawning players after scene loads.");
+
+            // Hide UI, unpause, etc.
+            dialogueBoxPanel.SetActive(false);
+            nameBoxPanel.SetActive(false);
+            characterLeftSprite.gameObject.SetActive(false);
+            characterRightSprite.gameObject.SetActive(false);
+
+            Time.timeScale = 1f;
+            SwitchAllPlayerMaps("Player");
+
+            // 🔥 Wait for checkpoints to initialize
+            StartCoroutine(SpawnAfterDelay());
+
+            this.enabled = false;
+            return;
         }
 
-        // This will automatically run your "Intro" cutscene 
-        // using the 'cutsceneName' set in the Inspector.
+
+        // No save → Play intro normally
         StartDialogue(this.cutsceneName);
     }
+
 
     // --- UPDATED GetSideFromName ---
     private CharacterSide GetSideFromName(string speakerName)
@@ -310,11 +325,23 @@ public class DialogueManager : MonoBehaviour
 
     private void OnDisable()
     {
-        continueAction.performed -= OnContinuePressed;
-        skipAction.performed -= OnSkipPressed;
+        // --- OLD SYSTEM CLEANUP (if still used) ---
+        if (continueAction != null)
+            continueAction.performed -= OnContinuePressed;
+
+        if (skipAction != null)
+            skipAction.performed -= OnSkipPressed;
 
         continueAction?.Disable();
         skipAction?.Disable();
+
+
+        // --- NEW MULTIPLAYER SYSTEM CLEANUP ---
+        foreach (var a in nextActions)
+            a.performed -= OnContinuePressed;
+
+        foreach (var b in skipActionsList)
+            b.performed -= OnSkipPressed;
     }
 
     private void StartGame()
@@ -460,6 +487,53 @@ public class DialogueManager : MonoBehaviour
             nameBoxRect.anchorMax = new Vector2(0, 1);
             nameBoxRect.pivot = new Vector2(0, 1);
             nameBoxRect.anchoredPosition = leftPos;
+        }
+    }
+
+    private IEnumerator SpawnAfterDelay()
+    {
+        yield return null;
+        yield return new WaitForSeconds(0.01f);
+
+        if (!playersHaveSpawned)
+        {
+            playerSpawner.StartSpawning();
+            playersHaveSpawned = true;
+        }
+        else
+        {
+            Debug.Log("Players already spawned — skipping spawn.");
+        }
+
+
+        if (gameHUDCanvas != null)
+            gameHUDCanvas.SetActive(true);
+
+        Debug.Log("Players spawned AFTER delay — checkpoint loading should now work.");
+    }
+
+    public void RegisterNewPlayer(PlayerInput player)
+    {
+        // If dialogue is active → use Cutscene map
+        if (dialogueBoxPanel != null && dialogueBoxPanel.activeInHierarchy)
+            player.SwitchCurrentActionMap("Cutscene");
+        else
+            player.SwitchCurrentActionMap("Player");
+
+        // Bind actions if the cutscene map is available
+        var next = player.actions["Next"];
+        var skip = player.actions["Skip"];
+
+        if (next != null)
+        {
+            nextActions.Add(next);
+            next.performed += OnContinuePressed;
+        }
+
+        if (skip != null)
+        {
+            skipActionsList.Add(skip);
+            skip.performed += OnSkipPressed;
         }
     }
 }

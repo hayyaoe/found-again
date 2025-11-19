@@ -14,6 +14,11 @@ public class PasscodeManager : MonoBehaviour
     public AutoElevator2D lift;
 
     public PasscodeBox[] passcodeBoxes;
+    public bool IsSolved { get; private set; } = false;
+    
+    [Header("UI Objects")]
+    public GameObject interactUIZone;
+    public GameObject jumpUIZone;
 
     private void Start()
     {
@@ -51,6 +56,11 @@ public class PasscodeManager : MonoBehaviour
         if (allCorrect)
         {
             Debug.Log("✅ Correct passcode! Puzzle solved!");
+
+            // Auto-stop all player interactions with boxes
+            foreach(var box in passcodeBoxes)
+                box.ForceEndInteraction();
+
             OnPasscodeSolved();
         }
         else
@@ -59,10 +69,13 @@ public class PasscodeManager : MonoBehaviour
         }
     }
 
-
     private void OnPasscodeSolved()
     {
+        IsSolved = true;
+
         Debug.Log("✅ Correct passcode! Puzzle solved!");
+
+        ToggleUI(true);
 
         if (lift != null)
         {
@@ -72,5 +85,14 @@ public class PasscodeManager : MonoBehaviour
         {
             Debug.LogWarning("No lift assigned to PasscodeManager!");
         }
+    }
+
+    private void ToggleUI(bool solved)
+    {
+        if (interactUIZone != null)
+            interactUIZone.SetActive(!solved);
+
+        if (jumpUIZone != null)
+            jumpUIZone.SetActive(solved);
     }
 }
