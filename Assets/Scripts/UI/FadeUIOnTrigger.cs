@@ -26,8 +26,15 @@ public class FadeUIOnTrigger : MonoBehaviour
 
     private void FadeTo(float targetAlpha)
     {
+        if (CoroutineRunner.Instance == null)
+            return; // Runner destroyed, avoid error
+
         if (fadeCoroutine != null)
-            CoroutineRunner.Instance.StopCoroutine(fadeCoroutine);
+        {
+            // Make sure the runner still exists before stopping
+            if (CoroutineRunner.Instance.gameObject != null)
+                CoroutineRunner.Instance.StopCoroutine(fadeCoroutine);
+        }
 
         fadeCoroutine = CoroutineRunner.Instance.Run(FadeRoutine(targetAlpha));
     }

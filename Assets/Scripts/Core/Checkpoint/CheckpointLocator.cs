@@ -4,7 +4,7 @@ public class CheckpointLocator : MonoBehaviour
 {
     public static Transform GetSavedCheckpoint()
     {
-        string id = SaveSystem.LoadCheckpoint();
+        string id = SaveSystem.LoadCheckpointID();
         if (string.IsNullOrEmpty(id))
             return null;  // No save
 
