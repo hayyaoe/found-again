@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class FadeUIOnTrigger : MonoBehaviour
 {
@@ -26,23 +27,31 @@ public class FadeUIOnTrigger : MonoBehaviour
     private void FadeTo(float targetAlpha)
     {
         if (fadeCoroutine != null)
-            StopCoroutine(fadeCoroutine);
+            CoroutineRunner.Instance.StopCoroutine(fadeCoroutine);
 
-        fadeCoroutine = StartCoroutine(FadeRoutine(targetAlpha));
+        fadeCoroutine = CoroutineRunner.Instance.Run(FadeRoutine(targetAlpha));
     }
 
-    private System.Collections.IEnumerator FadeRoutine(float targetAlpha)
+    private IEnumerator FadeRoutine(float targetAlpha)
     {
+        if (canvasGroup == null)
+            yield break;
+
         float startAlpha = canvasGroup.alpha;
         float elapsed = 0f;
 
         while (elapsed < fadeDuration)
         {
+            if (canvasGroup == null)   // safety check
+                yield break;
+
             elapsed += Time.deltaTime;
             canvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, elapsed / fadeDuration);
+
             yield return null;
         }
 
-        canvasGroup.alpha = targetAlpha;
+        if (canvasGroup != null)
+            canvasGroup.alpha = targetAlpha;
     }
 }
