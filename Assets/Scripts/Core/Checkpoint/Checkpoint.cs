@@ -13,7 +13,8 @@ public class Checkpoint : MonoBehaviour
             CheckpointManager.instance.SetCurrentCheckpoint(this.transform);
 
             // Save progress
-            SaveSystem.SaveCheckpoint(checkpointID);
+            SaveSystem.SaveCheckpointPosition(transform.position);
+            SaveSystem.SaveCheckpointID(checkpointID);
 
             Debug.Log("Checkpoint reached & saved: " + checkpointID);
         }
