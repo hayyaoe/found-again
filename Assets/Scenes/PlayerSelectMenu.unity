@@ -12447,6 +12447,10 @@ PrefabInstance:
       propertyPath: m_RenderMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1183218077004293568, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 822922685
+      objectReference: {fileID: 0}
     - target: {fileID: 1411876148433959995, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
       propertyPath: m_Name
       value: FadeCanvas
@@ -12454,6 +12458,10 @@ PrefabInstance:
     - target: {fileID: 1411876148433959995, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689266722126229084, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: fadeDuration
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
       propertyPath: m_Pivot.x
