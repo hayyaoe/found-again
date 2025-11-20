@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems; // <-- 1. ADD THIS AT THE TOP
+using System.Collections.Generic;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -14,40 +15,49 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject firstSelectedButton;
 
     [Header("Input")]
-    [SerializeField] private PlayerInput playerInput; // Assign one of your player's PlayerInput component
-    private InputAction pauseAction;
+    private List<PlayerInput> allPlayers = new List<PlayerInput>();
+    private List<InputAction> pauseActions = new List<InputAction>();
 
     public static bool GameIsPaused { get; set; }
 
     private void Awake()
     {
-        if (playerInput != null)
-        {
-            pauseAction = playerInput.actions["Pause"];
-        }
-        else
-        {
-            Debug.LogError("PlayerInput is not assigned in the PauseMenu script!");
-        }
-        
         pauseMenuUI.SetActive(false);
+
+        // Find all PlayerInput objects already in the scene
+        allPlayers = new List<PlayerInput>(FindObjectsOfType<PlayerInput>());
+
+        // Register Pause action for each player
+        foreach (var p in allPlayers)
+        {
+            var action = p.actions["Pause"];
+            pauseActions.Add(action);
+        }
     }
+
 
     private void OnEnable()
     {
-        if (pauseAction != null)
-        {
-            pauseAction.performed += TogglePause;
-        }
+        foreach (var action in pauseActions)
+            action.performed += TogglePause;
     }
 
     private void OnDisable()
     {
-        if (pauseAction != null)
-        {
-            pauseAction.performed -= TogglePause;
-        }
+        foreach (var action in pauseActions)
+            action.performed -= TogglePause;
     }
+
+    public void RegisterNewPlayer(PlayerInput playerInput)
+    {
+        allPlayers.Add(playerInput);
+
+        var action = playerInput.actions["Pause"];
+        pauseActions.Add(action);
+
+        action.performed += TogglePause;
+    }
+
 
     private void TogglePause(InputAction.CallbackContext context)
     {

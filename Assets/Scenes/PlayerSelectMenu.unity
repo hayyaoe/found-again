@@ -164,8 +164,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LobbyManager
   playButton: {fileID: 2016540410}
+  playButtonBackground: {fileID: 2016540411}
   playButtonText: {fileID: 1149845503}
+  backButton: {fileID: 1068542736}
+  backButtonImage: {fileID: 1068542737}
+  backButtonText: {fileID: 2024708638}
+  fadeDuration: 0.2
+  inactiveColor: {r: 1, g: 1, b: 1, a: 0.3}
+  inactiveTextColor: {r: 1, g: 1, b: 1, a: 1}
+  readyColor: {r: 1, g: 1, b: 1, a: 1}
+  readyTextColor: {r: 0, g: 0, b: 0, a: 1}
+  hoverColor: {r: 0.17, g: 0.24, b: 0.31, a: 1}
+  hoverTextColor: {r: 1, g: 1, b: 1, a: 1}
+  pressedColor: {r: 0.1, g: 0.15, b: 0.2, a: 1}
+  pressedTextColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}
   nextSceneName: Area 1
+  mainMenuSceneName: MainMenu
 --- !u!1 &81636289
 GameObject:
   m_ObjectHideFlags: 0
@@ -6085,8 +6099,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.88, y: 3.69}
-  m_SizeDelta: {x: 200, y: 120}
+  m_AnchoredPosition: {x: 0.88, y: 4}
+  m_SizeDelta: {x: 240, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1068542736
 MonoBehaviour:
@@ -6107,7 +6121,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
@@ -6151,7 +6165,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068542734}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -6164,8 +6178,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: -2230229002620744338, guid: 756fe6504b5f545fbbe9417c04cc0338, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -12447,6 +12461,10 @@ PrefabInstance:
       propertyPath: m_RenderMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1183218077004293568, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 822922685
+      objectReference: {fileID: 0}
     - target: {fileID: 1411876148433959995, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
       propertyPath: m_Name
       value: FadeCanvas
@@ -12454,6 +12472,10 @@ PrefabInstance:
     - target: {fileID: 1411876148433959995, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689266722126229084, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
+      propertyPath: fadeDuration
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3755110304703258632, guid: a7064d6f613e9462db12d62197a4c221, type: 3}
       propertyPath: m_Pivot.x
@@ -12552,6 +12574,7 @@ GameObject:
   - component: {fileID: 2016540412}
   - component: {fileID: 2016540411}
   - component: {fileID: 2016540410}
+  - component: {fileID: 2016540413}
   m_Layer: 5
   m_Name: Start
   m_TagString: Untagged
@@ -12593,13 +12616,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
@@ -12625,8 +12648,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 27097840}
-        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
-        m_MethodName: OnStartPressed
+        m_TargetAssemblyTypeName: LobbyManager, FoundAgain.Runtime
+        m_MethodName: OnPlayPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12674,6 +12697,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2016540408}
   m_CullTransparentMesh: 1
+--- !u!225 &2016540413
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016540408}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2024708636
 GameObject:
   m_ObjectHideFlags: 0
@@ -12708,7 +12743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 66.75001}
+  m_AnchoredPosition: {x: 0, y: -0.000015258789}
   m_SizeDelta: {x: 0, y: 133.49998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2024708638

@@ -87,18 +87,32 @@ public class PlayerPushPull : MonoBehaviour
         if (!playerInput) playerInput = GetComponent<PlayerInput>();
         if (playerInput != null && playerInput.actions != null)
         {
+            // Cache the action here and use the cached variable in OnDisable
             interactAction = playerInput.actions.FindAction("Interact", throwIfNotFound: false);
             if (interactAction != null)
+            {
                 interactAction.performed += OnInteractPerformed;
-                interactAction.canceled  += OnInteractCanceled;
-
+                interactAction.canceled += OnInteractCanceled;
+            }
         }
     }
 
     private void OnDisable()
     {
-        // if (interactAction != null)
-        //     interactAction.performed -= OnInteractToggled;
+        // Check if playerInput and actions are still valid before trying to access them
+        if (playerInput != null && playerInput.actions != null)
+        {
+            // Find the action again in case 'interactAction' was not set in OnEnable 
+            // (though finding it once is usually fine, being defensive is safer).
+            var interactAction = playerInput.actions.FindAction("Interact", throwIfNotFound: false);
+
+            if (interactAction != null)
+            {
+                // --- Crucial: Unsubscribe from both events ---
+                interactAction.performed -= OnInteractPerformed;
+                interactAction.canceled -= OnInteractCanceled;
+            }
+        }
     }
 
 

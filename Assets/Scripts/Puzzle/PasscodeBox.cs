@@ -41,6 +41,12 @@ public class PasscodeBox : MonoBehaviour
     {
         if (isActive) return;
 
+        if(manager != null && manager.IsSolved)
+        {
+            Debug.Log("Puzzle already solved - cannot interact anymore.");
+            return;
+        }
+
         isActive = true;
         currentPlayerInput = playerInput;
 
@@ -112,4 +118,9 @@ public class PasscodeBox : MonoBehaviour
             bottomSpriteRenderer.sprite = isCorrect ? lightSprite : defaultSprite;
     }
 
+    public void ForceEndInteraction()
+    {
+        if(isActive)
+            EndInteraction();
+    }
 }

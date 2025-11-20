@@ -128,6 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 182821077}
+  - component: {fileID: 182821078}
   m_Layer: 0
   m_Name: A10
   m_TagString: Untagged
@@ -154,6 +155,18 @@ Transform:
   - {fileID: 856280536}
   m_Father: {fileID: 1326084494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &182821078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182821076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720b45414b74d4c9495b8536eb3b0092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxBackground
 --- !u!1 &225556679
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,7 +192,7 @@ Transform:
   m_GameObject: {fileID: 225556679}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 180.2, y: -0.29350996, z: 0}
+  m_LocalPosition: {x: 179.9, y: -0.29350996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -267,7 +280,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -1153396719123807260, guid: 27e5c999fb91843adb0cf13d54513b09, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -291,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
-  parallaxFactor: 0.3
+  parallaxFactor: -0.1
 --- !u!1 &856280535
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,7 +384,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2766439654644045495, guid: 27e5c999fb91843adb0cf13d54513b09, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -395,7 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
-  parallaxFactor: 0.3
+  parallaxFactor: -0.1
 --- !u!1 &1246567517
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +522,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 720b45414b74d4c9495b8536eb3b0092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxBackground
-  parallaxCamera: {fileID: 0}
 --- !u!4 &1326084494
 Transform:
   m_ObjectHideFlags: 0
@@ -519,7 +531,7 @@ Transform:
   m_GameObject: {fileID: 1326084492}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2, y: -5.66485, z: 0}
+  m_LocalPosition: {x: -0.5, y: -5.66485, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -653,7 +665,7 @@ Transform:
   m_GameObject: {fileID: 1484054557}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.318844, y: 1.3096495, z: 0}
+  m_LocalPosition: {x: -13.618844, y: 1.3096495, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -736,8 +748,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2037291645
+  m_SortingLayer: -1
   m_SortingOrder: -1
   m_Sprite: {fileID: -6090921965440211312, guid: 816943536f91a4182af57291e4d92e2b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -762,7 +774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
-  parallaxFactor: -0.3
+  parallaxFactor: 0.1
 --- !u!1 &1843159607
 GameObject:
   m_ObjectHideFlags: 0
@@ -5624,7 +5636,7 @@ Transform:
   m_GameObject: {fileID: 1958739786}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.2, y: 1.18771, z: 0}
+  m_LocalPosition: {x: -0.5, y: 1.18771, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5708,8 +5720,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2037291645
+  m_SortingLayer: -1
   m_SortingOrder: -2
   m_Sprite: {fileID: 9187984299254587195, guid: 32f44f39fc43d4a87aff4ac0c0a3608d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5734,7 +5746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
-  parallaxFactor: -0.5
+  parallaxFactor: 0.2
 --- !u!1 &2088759350
 GameObject:
   m_ObjectHideFlags: 0
