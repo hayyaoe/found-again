@@ -106,7 +106,7 @@ public class LobbyManager : MonoBehaviour
     {
         if (!playButton.interactable || isLoading) return;
         currentHoveringPlayer = playerName;
-        TransitionToState(hoverColor, hoverTextColor, "Begin your journey");
+        TransitionToState(hoverColor, hoverTextColor, "Start");
     }
 
     public void UnhighlightPlayButton(string playerName)
