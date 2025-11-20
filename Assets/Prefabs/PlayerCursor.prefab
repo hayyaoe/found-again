@@ -194,6 +194,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 096e9722-e5d5-4ade-80c6-653c17e07cf7
     m_ActionName: 'Passcode/Exit[/DualShock4GamepadHID/buttonEast,/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 18e360ee-4f76-490a-8fc4-669cfb79456a
+    m_ActionName: 'Player/CutsceneInteract[/Keyboard/enter,/DualShock4GamepadHID1/buttonEast]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Cursor
@@ -213,5 +217,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCursorController
   playerName: 
   selectorBoxPrefab: {fileID: 3222097278600780549, guid: 28844ecbc550243bab6ac8280432b86c, type: 3}
+  backSpot: {fileID: 0}
+  startButtonBackground: {fileID: 0}
+  startButtonText: {fileID: 0}
+  inactiveButtonSprite: {fileID: -4483438734390332871, guid: 8a9319c1a346f44a9900b7fa7087c0fc, type: 3}
+  normalButtonSprite: {fileID: -2230229002620744338, guid: 756fe6504b5f545fbbe9417c04cc0338, type: 3}
+  hoverButtonSprite: {fileID: -4483438734390332871, guid: 8a9319c1a346f44a9900b7fa7087c0fc, type: 3}
+  inactiveTextColor: {r: 1, g: 1, b: 1, a: 0.5}
+  normalTextColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  hoverTextColor: {r: 1, g: 1, b: 1, a: 1}
   p1Sprite: {fileID: -5583267174598305853, guid: 833c9be27fed44fa797002a44a359a82, type: 3}
   p2Sprite: {fileID: -7539741975514616872, guid: 0e79e765cd0454704b54b92bd92b7ea9, type: 3}
+  currentPosition: 0
