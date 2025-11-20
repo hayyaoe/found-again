@@ -166,16 +166,20 @@ MonoBehaviour:
   playButton: {fileID: 2016540410}
   playButtonBackground: {fileID: 2016540411}
   playButtonText: {fileID: 1149845503}
+  backButton: {fileID: 1068542736}
+  backButtonImage: {fileID: 1068542737}
+  backButtonText: {fileID: 2024708638}
+  fadeDuration: 0.2
   inactiveColor: {r: 1, g: 1, b: 1, a: 0.3}
   inactiveTextColor: {r: 1, g: 1, b: 1, a: 1}
-  inactiveText: Begin your journey
   readyColor: {r: 1, g: 1, b: 1, a: 1}
   readyTextColor: {r: 0, g: 0, b: 0, a: 1}
-  readyText: Start
   hoverColor: {r: 0.17, g: 0.24, b: 0.31, a: 1}
   hoverTextColor: {r: 1, g: 1, b: 1, a: 1}
-  hoverText: Start
+  pressedColor: {r: 0.1, g: 0.15, b: 0.2, a: 1}
+  pressedTextColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}
   nextSceneName: Area 1
+  mainMenuSceneName: MainMenu
 --- !u!1 &81636289
 GameObject:
   m_ObjectHideFlags: 0
@@ -6095,8 +6099,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.88, y: 3.69}
-  m_SizeDelta: {x: 200, y: 120}
+  m_AnchoredPosition: {x: 0.88, y: 4}
+  m_SizeDelta: {x: 240, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1068542736
 MonoBehaviour:
@@ -6117,7 +6121,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
@@ -6161,7 +6165,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068542734}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -6174,8 +6178,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: -2230229002620744338, guid: 756fe6504b5f545fbbe9417c04cc0338, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -12739,7 +12743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 66.75001}
+  m_AnchoredPosition: {x: 0, y: -0.000015258789}
   m_SizeDelta: {x: 0, y: 133.49998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2024708638
