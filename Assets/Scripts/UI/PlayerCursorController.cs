@@ -5,6 +5,7 @@ using System.Collections;
 
 public class PlayerCursorController : MonoBehaviour
 {
+    // ... (Variables remain the same) ...
     public string playerName; 
     public RectTransform selectorBoxPrefab; 
 
@@ -30,6 +31,8 @@ public class PlayerCursorController : MonoBehaviour
     void Start()
     {
         lobbyManager = FindFirstObjectByType<LobbyManager>();
+        // ... (Start logic remains the same) ...
+        
         var canvas = GameObject.FindGameObjectWithTag("MainUICanvas");
         if (canvas == null) return;
 
@@ -75,6 +78,10 @@ public class PlayerCursorController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
+
+        // 🟢 NEW: Input Lock Check
+        if (lobbyManager != null && lobbyManager.IsLoading) return;
+
         Vector2 move = context.ReadValue<Vector2>();
 
         if (Mathf.Abs(move.x) > 0.5f)
@@ -90,22 +97,20 @@ public class PlayerCursorController : MonoBehaviour
         }
     }
 
+    // ... (MoveLeft, MoveRight, MoveDown, MoveUp methods remain exactly the same) ...
     private void MoveLeft()
     {
         if (currentPosition == CursorPosition.Back) return;
 
-        if (currentPosition == CursorPosition.Mimi)
-        {
+        if (currentPosition == CursorPosition.Mimi) {
             currentPosition = CursorPosition.Center;
             if (centerSpot != null) SnapTo(centerSpot);
         }
-        else if (currentPosition == CursorPosition.Center)
-        {
+        else if (currentPosition == CursorPosition.Center) {
             currentPosition = CursorPosition.Marie;
             if (marieSpot != null) SnapTo(marieSpot);
         }
-        else if (currentPosition == CursorPosition.Play)
-        {
+        else if (currentPosition == CursorPosition.Play) {
             lobbyManager?.UnhighlightPlayButton(playerName);
             currentPosition = CursorPosition.Marie;
             if (marieSpot != null) SnapTo(marieSpot);
@@ -117,18 +122,15 @@ public class PlayerCursorController : MonoBehaviour
     {
         if (currentPosition == CursorPosition.Back) return;
 
-        if (currentPosition == CursorPosition.Marie)
-        {
+        if (currentPosition == CursorPosition.Marie) {
             currentPosition = CursorPosition.Center;
             if (centerSpot != null) SnapTo(centerSpot);
         }
-        else if (currentPosition == CursorPosition.Center)
-        {
+        else if (currentPosition == CursorPosition.Center) {
             currentPosition = CursorPosition.Mimi;
             if (mimiSpot != null) SnapTo(mimiSpot);
         }
-        else if (currentPosition == CursorPosition.Play)
-        {
+        else if (currentPosition == CursorPosition.Play) {
             lobbyManager?.UnhighlightPlayButton(playerName);
             currentPosition = CursorPosition.Mimi;
             if (mimiSpot != null) SnapTo(mimiSpot);
@@ -138,59 +140,34 @@ public class PlayerCursorController : MonoBehaviour
 
     private void MoveDown()
     {
-        // Back -> Characters
-        if (currentPosition == CursorPosition.Back)
-        {
+        if (currentPosition == CursorPosition.Back) {
             lobbyManager?.UnhighlightBackButton(); 
-            if (playerName == "P1") 
-            {
-                currentPosition = CursorPosition.Marie;
-                if (marieSpot != null) SnapTo(marieSpot);
-            }
-            else 
-            {
-                currentPosition = CursorPosition.Mimi;
-                if (mimiSpot != null) SnapTo(mimiSpot);
-            }
+            if (playerName == "P1") { currentPosition = CursorPosition.Marie; if (marieSpot != null) SnapTo(marieSpot); }
+            else { currentPosition = CursorPosition.Mimi; if (mimiSpot != null) SnapTo(mimiSpot); }
             UpdateSelection();
             return;
         }
-
-        // Check Play Button
-        if (lobbyManager != null && lobbyManager.playButton != null)
-        {
-            if (!lobbyManager.playButton.interactable) return;
-        }
-
-        // Characters -> Play
-        if (currentPosition != CursorPosition.Play)
-        {
+        if (lobbyManager != null && lobbyManager.playButton != null && !lobbyManager.playButton.interactable) return;
+        
+        if (currentPosition != CursorPosition.Play) {
             currentPosition = CursorPosition.Play;
             lobbyManager?.HighlightPlayButton(playerName);
-            // Note: No SnapTo here, so cursor stays on character
+            // No SnapTo for Play button, keeps visual on character
         }
         UpdateSelection();
     }
 
     private void MoveUp()
     {
-        // Play -> Center
-        if (currentPosition == CursorPosition.Play)
-        {
+        if (currentPosition == CursorPosition.Play) {
             lobbyManager?.UnhighlightPlayButton(playerName);
             currentPosition = CursorPosition.Center;
             SnapTo(centerSpot);
         }
-        // Characters -> Back
-        else if (currentPosition == CursorPosition.Marie || currentPosition == CursorPosition.Mimi || currentPosition == CursorPosition.Center)
-        {
-            if (backSpot != null)
-            {
+        else if (currentPosition == CursorPosition.Marie || currentPosition == CursorPosition.Mimi || currentPosition == CursorPosition.Center) {
+            if (backSpot != null) {
                 currentPosition = CursorPosition.Back;
                 lobbyManager?.HighlightBackButton(); 
-                
-                // 🟢 FIX: Removed SnapTo(backSpot)
-                // Cursor visual now stays on Marie/Mimi/Center
             }
         }
         UpdateSelection();
@@ -200,12 +177,8 @@ public class PlayerCursorController : MonoBehaviour
     {
         if (moveRoutine != null) StopCoroutine(moveRoutine);
         if (target == null) return;
-
         Vector2 targetPos = target.anchoredPosition;
-        if (playerName == "P2" && currentPosition != CursorPosition.Play && currentPosition != CursorPosition.Back)
-        {
-            targetPos.y = playerYOffset;
-        }
+        if (playerName == "P2" && currentPosition != CursorPosition.Play && currentPosition != CursorPosition.Back) targetPos.y = playerYOffset;
         moveRoutine = StartCoroutine(MoveToTarget(targetPos));
     }
 
@@ -214,9 +187,7 @@ public class PlayerCursorController : MonoBehaviour
         float duration = 0.25f;
         float elapsed = 0f;
         Vector2 startPos = selectorBox.anchoredPosition;
-
-        while (elapsed < duration)
-        {
+        while (elapsed < duration) {
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
             t = Mathf.Sin(t * Mathf.PI * 0.5f);
@@ -229,16 +200,11 @@ public class PlayerCursorController : MonoBehaviour
     private void UpdateSelection()
     {
         if (!lobbyManager) return;
-
-        if (currentPosition == CursorPosition.Marie)
-            lobbyManager.UpdatePlayerSelection(playerName, "Marie");
-        else if (currentPosition == CursorPosition.Mimi)
-            lobbyManager.UpdatePlayerSelection(playerName, "Mimi");
+        if (currentPosition == CursorPosition.Marie) lobbyManager.UpdatePlayerSelection(playerName, "Marie");
+        else if (currentPosition == CursorPosition.Mimi) lobbyManager.UpdatePlayerSelection(playerName, "Mimi");
 
         if (currentPosition != CursorPosition.Play && currentPosition != CursorPosition.Back)
-        {
             lobbyManager.UpdatePlayerPosition(playerName, currentPosition.ToString());
-        }
         
         UpdateSideIndicators();
     }
@@ -247,53 +213,36 @@ public class PlayerCursorController : MonoBehaviour
     {
         if (!context.performed || !EnsureLobbyManager()) return;
 
-        if (currentPosition == CursorPosition.Back)
-        {
+        // 🟢 NEW: Input Lock Check
+        if (lobbyManager.IsLoading) return;
+
+        if (currentPosition == CursorPosition.Back) {
             lobbyManager.BackToMainMenu();
             return;
         }
 
-        if (currentPosition == CursorPosition.Marie)
-            lobbyManager.UpdatePlayerSelection(playerName, "Marie");
-        else if (currentPosition == CursorPosition.Mimi)
-            lobbyManager.UpdatePlayerSelection(playerName, "Mimi");
+        if (currentPosition == CursorPosition.Marie) lobbyManager.UpdatePlayerSelection(playerName, "Marie");
+        else if (currentPosition == CursorPosition.Mimi) lobbyManager.UpdatePlayerSelection(playerName, "Mimi");
 
-        if (currentPosition == CursorPosition.Play)
-        {
-            lobbyManager.OnPlayerConfirm(playerName);
-        }
+        if (currentPosition == CursorPosition.Play) lobbyManager.OnPlayerConfirm(playerName);
     }
 
-    private bool EnsureLobbyManager()
-    {
+    // ... (Helpers remain same) ...
+    private bool EnsureLobbyManager() {
         if (lobbyManager != null) return true;
         lobbyManager = FindFirstObjectByType<LobbyManager>();
         return lobbyManager != null;
     }
-
-    public string GetCurrentCharacter()
-    {
+    public string GetCurrentCharacter() {
         if (currentPosition == CursorPosition.Marie) return "Marie";
         if (currentPosition == CursorPosition.Mimi) return "Mimi";
         return null;
     }
-
-    private void UpdateSideIndicators()
-    {
+    private void UpdateSideIndicators() {
         if (image1 == null || image2 == null) return;
-
-        if (currentPosition == CursorPosition.Marie) {
-            image1.gameObject.SetActive(false);
-            image2.gameObject.SetActive(true);
-        } else if (currentPosition == CursorPosition.Mimi) {
-            image1.gameObject.SetActive(true);
-            image2.gameObject.SetActive(false);
-        } else if (currentPosition == CursorPosition.Center) {
-            image1.gameObject.SetActive(true);
-            image2.gameObject.SetActive(true);
-        } else {
-            image1.gameObject.SetActive(false);
-            image2.gameObject.SetActive(false);
-        }
+        if (currentPosition == CursorPosition.Marie) { image1.gameObject.SetActive(false); image2.gameObject.SetActive(true); }
+        else if (currentPosition == CursorPosition.Mimi) { image1.gameObject.SetActive(true); image2.gameObject.SetActive(false); }
+        else if (currentPosition == CursorPosition.Center) { image1.gameObject.SetActive(true); image2.gameObject.SetActive(true); }
+        else { image1.gameObject.SetActive(false); image2.gameObject.SetActive(false); }
     }
 }

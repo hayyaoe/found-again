@@ -29,11 +29,11 @@ public class LobbyManager : MonoBehaviour
     public Color readyColor = Color.white;       
     public Color readyTextColor = Color.black;
     
-    public Color hoverColor = new Color(0.17f, 0.24f, 0.31f); // Dark Blue
+    public Color hoverColor = new Color(0.17f, 0.24f, 0.31f); 
     public Color hoverTextColor = Color.white;
 
-    public Color pressedColor = new Color(0.1f, 0.15f, 0.2f); // 🟢 NEW: Very Dark Blue (Click)
-    public Color pressedTextColor = new Color(0.7f, 0.7f, 0.7f); // Grey Text
+    public Color pressedColor = new Color(0.1f, 0.15f, 0.2f); 
+    public Color pressedTextColor = new Color(0.7f, 0.7f, 0.7f); 
 
     [Header("Scene Loading")]
     [SerializeField] private string nextSceneName = "Prologue";
@@ -42,20 +42,19 @@ public class LobbyManager : MonoBehaviour
     private Dictionary<string, string> playerPositions = new Dictionary<string, string>();
     private string currentHoveringPlayer = null;
     
-    private Coroutine currentFadeRoutine; // Start Button Routine
-    private Coroutine backFadeRoutine;    // Back Button Routine
+    private Coroutine currentFadeRoutine; 
+    private Coroutine backFadeRoutine;    
     
-    private bool isLoading = false; 
+    // 🟢 CHANGE: Made this a Public Property so CursorController can see it
+    public bool IsLoading { get; private set; } = false;
 
     void Start()
     {
-        // --- Setup Start Button ---
         playButton.interactable = false;
         if (playButtonText == null) playButtonText = playButton.GetComponentInChildren<TMP_Text>();
         if (playButtonBackground == null) playButtonBackground = playButton.GetComponent<Image>();
         ApplyVisualsInstant(inactiveColor, inactiveTextColor, "Begin your journey");
 
-        // --- Setup Back Button ---
         if (backButtonImage != null) backButtonImage.color = readyColor;
         if (backButtonText != null) backButtonText.color = readyTextColor;
     }
@@ -74,7 +73,7 @@ public class LobbyManager : MonoBehaviour
 
     private void CheckPlayButton()
     {
-        if (isLoading) return; 
+        if (IsLoading) return; 
 
         if (!playerPositions.ContainsKey("P1") || !playerPositions.ContainsKey("P2"))
         {
@@ -99,19 +98,17 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
-    // --------------------------
-    //  START BUTTON ANIMATION
-    // --------------------------
+    // ... (Animation Helper functions remain the same) ...
     public void HighlightPlayButton(string playerName)
     {
-        if (!playButton.interactable || isLoading) return;
+        if (!playButton.interactable || IsLoading) return;
         currentHoveringPlayer = playerName;
         TransitionToState(hoverColor, hoverTextColor, "Start");
     }
 
     public void UnhighlightPlayButton(string playerName)
     {
-        if (isLoading) return;
+        if (IsLoading) return;
         if (currentHoveringPlayer == playerName)
         {
             currentHoveringPlayer = null;
@@ -119,6 +116,19 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
+    public void HighlightBackButton()
+    {
+        if (IsLoading) return;
+        TransitionBackState(hoverColor, hoverTextColor);
+    }
+
+    public void UnhighlightBackButton()
+    {
+        if (IsLoading) return;
+        TransitionBackState(readyColor, readyTextColor);
+    }
+
+    // ... (Transition Logic remains same) ...
     private void TransitionToState(Color targetBg, Color targetText, string textContent)
     {
         if (playButtonText != null) playButtonText.text = textContent;
@@ -131,7 +141,6 @@ public class LobbyManager : MonoBehaviour
         float elapsed = 0f;
         Color startBg = playButtonBackground != null ? playButtonBackground.color : targetBgColor;
         Color startText = playButtonText != null ? playButtonText.color : targetTextColor;
-
         while (elapsed < fadeDuration)
         {
             elapsed += Time.deltaTime;
@@ -145,21 +154,6 @@ public class LobbyManager : MonoBehaviour
         if (playButtonText != null) playButtonText.color = targetTextColor;
     }
 
-    // --------------------------
-    //  BACK BUTTON ANIMATION
-    // --------------------------
-    public void HighlightBackButton()
-    {
-        if (isLoading) return;
-        TransitionBackState(hoverColor, hoverTextColor);
-    }
-
-    public void UnhighlightBackButton()
-    {
-        if (isLoading) return;
-        TransitionBackState(readyColor, readyTextColor);
-    }
-
     private void TransitionBackState(Color targetBg, Color targetText)
     {
         if (backFadeRoutine != null) StopCoroutine(backFadeRoutine);
@@ -171,43 +165,31 @@ public class LobbyManager : MonoBehaviour
         float elapsed = 0f;
         Color startBg = backButtonImage != null ? backButtonImage.color : targetBgColor;
         Color startText = backButtonText != null ? backButtonText.color : targetTextColor;
-
         while (elapsed < fadeDuration)
         {
             elapsed += Time.deltaTime;
             float t = elapsed / fadeDuration;
             t = Mathf.SmoothStep(0f, 1f, t); 
-
-            if (backButtonImage != null) 
-                backButtonImage.color = Color.Lerp(startBg, targetBgColor, t);
-
-            if (backButtonText != null) 
-                backButtonText.color = Color.Lerp(startText, targetTextColor, t);
-
+            if (backButtonImage != null) backButtonImage.color = Color.Lerp(startBg, targetBgColor, t);
+            if (backButtonText != null) backButtonText.color = Color.Lerp(startText, targetTextColor, t);
             yield return null;
         }
         if (backButtonImage != null) backButtonImage.color = targetBgColor;
         if (backButtonText != null) backButtonText.color = targetTextColor;
     }
 
-    // --------------------------
-    //  SCENE LOADING & CLICK LOGIC
-    // --------------------------
-
-    // 🟢 START BUTTON PRESSED
+    // 🟢 LOADING LOGIC
     public void OnPlayPressed()
     {
-        if (!playButton.interactable || isLoading) return;
-        isLoading = true;
+        if (!playButton.interactable || IsLoading) return;
+        IsLoading = true; // Locks input
         StartCoroutine(PressedSequence());
     }
 
     private IEnumerator PressedSequence()
     {
-        // Visual: Turn Dark & say "Loading..."
         TransitionToState(pressedColor, pressedTextColor, "Loading...");
         yield return new WaitForSeconds(fadeDuration);
-
         if (!string.IsNullOrEmpty(nextSceneName))
         {
             if (SceneFader.instance != null) SceneFader.instance.FadeToScene(nextSceneName);
@@ -215,25 +197,20 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
-    // 🟢 BACK BUTTON PRESSED (New Animation Logic)
     public void BackToMainMenu()
     {
-        if (isLoading) return;
-        isLoading = true;
+        if (IsLoading) return;
+        IsLoading = true; // Locks input
         StartCoroutine(BackPressedSequence());
     }
 
     private IEnumerator BackPressedSequence()
     {
-        // Visual: Turn Dark
         TransitionBackState(pressedColor, pressedTextColor);
         yield return new WaitForSeconds(fadeDuration);
-
         if (SceneFader.instance != null) SceneFader.instance.FadeToScene(mainMenuSceneName);
         else SceneManager.LoadScene(mainMenuSceneName);
     }
-
-    // --------------------------
 
     private void ApplyVisualsInstant(Color bg, Color txt, string content)
     {
@@ -244,10 +221,7 @@ public class LobbyManager : MonoBehaviour
     public void OnPlayerConfirm(string playerName)
     {
         var cursor = FindObjectsOfType<PlayerCursorController>().FirstOrDefault(c => c.playerName == playerName);
-        if (cursor != null && playButton.interactable)
-        {
-             OnPlayPressed();
-        }
+        if (cursor != null && playButton.interactable) OnPlayPressed();
     }
 
     public void OnSubmit(InputAction.CallbackContext context)
