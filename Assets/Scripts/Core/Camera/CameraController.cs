@@ -122,4 +122,31 @@ public class CameraMovement : MonoBehaviour
         minBounds = newMin;
         maxBounds = newMax;
     }
+
+    public void SnapToTargets()
+    {
+        if (players == null || players.Length == 0)
+            return;
+
+        // Remove missing players
+        players = players.Where(p => p != null).ToArray();
+        if (players.Length == 0)
+            return;
+
+        Vector3 center = GetCenterPoint();
+        Vector3 newPos = new Vector3(center.x, center.y, transform.position.z);
+
+        // Clamp inside room bounds
+        newPos.x = Mathf.Clamp(newPos.x, minBounds.x, maxBounds.x);
+        newPos.y = Mathf.Clamp(newPos.y, minBounds.y, maxBounds.y);
+
+        // TELEPORT camera without smoothing
+        transform.position = newPos;
+
+        // Also snap zoom instantly
+        float dist = GetGreatestDistance();
+        float newZoom = Mathf.Lerp(maxZoom, minZoom, dist / zoomLimiter);
+        cam.orthographicSize = newZoom;
+    }
+
 }

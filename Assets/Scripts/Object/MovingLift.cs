@@ -64,6 +64,7 @@ public class AutoElevator2D : MonoBehaviour
     public SpriteRenderer liftSpriteRenderer;
     public Sprite defaultSprite;
     public Sprite litSprite;
+    private bool puzzleSolved = false;
 
 
     void Awake()
@@ -96,7 +97,7 @@ public class AutoElevator2D : MonoBehaviour
         PlatformVelocity = Vector2.zero;
         hasLast = true;
 
-        if (autoStart) StartMoving();
+        // if (autoStart) StartMoving();
     }
 
     // ======== Public API ========
@@ -117,10 +118,6 @@ public class AutoElevator2D : MonoBehaviour
 
         isMoving = true;
         mover = StartCoroutine(MoveRoutine());
-
-        // Mark first activation complete
-        if (!initialMoveDone)
-            initialMoveDone = true;
     }
 
 
@@ -301,15 +298,24 @@ public class AutoElevator2D : MonoBehaviour
         Gizmos.DrawWireCube(t, Vector3.one * 0.3f);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(passengerTag))
         {
             currentPlayersOnLift++;
+
+            // Only start countdown if:
+            // 1) puzzle is solved AND 
+            // 2) both players are on the lift AND
+            // 3) first move hasn't happened yet
+            if (puzzleSolved && !initialMoveDone && currentPlayersOnLift >= playersNeeded)
+            {
+                StartCoroutine(DelayedFirstStart());
+            }
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    public void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag(passengerTag))
         {
@@ -323,8 +329,20 @@ public class AutoElevator2D : MonoBehaviour
         if (liftSpriteRenderer != null && litSprite != null)
             liftSpriteRenderer.sprite = litSprite;
 
-        // Now attempt to move (will wait for players if required)
-        StartMoving();
+        puzzleSolved = true;
+        initialMoveDone = false;
     }
 
+    private IEnumerator DelayedFirstStart()
+    {
+        if (initialMoveDone) yield break;
+
+        yield return new WaitForSeconds(1f);
+
+        if (currentPlayersOnLift >= playersNeeded)
+        {
+            StartMoving();
+            initialMoveDone = true;  // ← MOVE FLAG TO HERE
+        }
+    }
 }

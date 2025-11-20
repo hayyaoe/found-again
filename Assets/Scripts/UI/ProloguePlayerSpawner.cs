@@ -12,7 +12,6 @@ public class ProloguePlayerSpawner : MonoBehaviour
 
     private void Awake()
     {
-        // Find the camera movement script in the scene
         cameraMovement = FindObjectOfType<CameraMovement>();
     }
 
@@ -29,6 +28,16 @@ public class ProloguePlayerSpawner : MonoBehaviour
 
         var spawnedPlayers = new System.Collections.Generic.List<Transform>();
 
+        // ----------------------------------------------------------
+        // 🔥 Load checkpoint data BEFORE spawning any players
+        // ----------------------------------------------------------
+        bool hasSavedPos = SaveSystem.HasSavedPosition();
+        Vector3 savedPos = SaveSystem.LoadCheckpointPosition();
+
+        Transform savedCheckpointTransform = CheckpointLocator.GetSavedCheckpoint();
+
+        // ----------------------------------------------------------
+
         foreach (var selection in sm.selectedPlayers)
         {
             GameObject prefabToSpawn = selection.characterName switch
@@ -44,12 +53,20 @@ public class ProloguePlayerSpawner : MonoBehaviour
                 continue;
             }
 
+            // Devices
             InputDevice[] devices = selection.deviceIds?
                 .Select(id => InputSystem.devices.FirstOrDefault(d => d.deviceId == id))
                 .Where(d => d != null)
                 .ToArray() ?? new InputDevice[0];
 
-            PlayerInput newPlayerInput = PlayerInput.Instantiate(prefabToSpawn, selection.playerIndex, null, -1, devices);
+            // SPAWN PLAYER
+            PlayerInput newPlayerInput = PlayerInput.Instantiate(
+                prefabToSpawn,
+                selection.playerIndex,
+                null,
+                -1,
+                devices
+            );
 
             if (newPlayerInput == null)
             {
@@ -57,22 +74,55 @@ public class ProloguePlayerSpawner : MonoBehaviour
                 continue;
             }
 
-            int spawnIdx = selection.playerIndex;
-            if (spawnPoints != null && spawnIdx < spawnPoints.Length && spawnPoints[spawnIdx] != null)
+            // Register player to other systems
+            FindObjectOfType<PauseMenu>()?.RegisterNewPlayer(newPlayerInput);
+            FindObjectOfType<DialogueManager>()?.RegisterNewPlayer(newPlayerInput);
+
+            // ----------------------------------------------------------
+            // 🔥 Apply correct spawning logic
+            // ----------------------------------------------------------
+
+            if (hasSavedPos)
             {
-                newPlayerInput.transform.position = spawnPoints[spawnIdx].position;
-                newPlayerInput.transform.rotation = spawnPoints[spawnIdx].rotation;
+                // Highest priority → saved position
+                newPlayerInput.transform.position = savedPos;
+            }
+            else if (savedCheckpointTransform != null)
+            {
+                // Second priority → checkpoint transform
+                newPlayerInput.transform.position = savedCheckpointTransform.position;
+                newPlayerInput.transform.rotation = savedCheckpointTransform.rotation;
+            }
+            else
+            {
+                // Fallback → default spawn points
+                int spawnIdx = selection.playerIndex;
+                if (spawnIdx < spawnPoints.Length && spawnPoints[spawnIdx] != null)
+                {
+                    newPlayerInput.transform.position = spawnPoints[spawnIdx].position;
+                    newPlayerInput.transform.rotation = spawnPoints[spawnIdx].rotation;
+                }
+                else
+                {
+                    Debug.LogWarning("Fallback spawn: no spawn point assigned.");
+                }
             }
 
             spawnedPlayers.Add(newPlayerInput.transform);
             Debug.Log($"Spawned {selection.characterName} for {selection.playerName}.");
         }
 
-        // ✅ Send both player transforms to the camera
+        // ----------------------------------------------------------
+        // CAMERA FOLLOW SETUP
+        // ----------------------------------------------------------
         if (cameraMovement != null && spawnedPlayers.Count > 0)
         {
             cameraMovement.SetTargets(spawnedPlayers.ToArray());
-            Debug.Log("Camera now following both players.");
+
+            if (SaveSystem.HasSave())
+                cameraMovement.SnapToTargets();
+
+            Debug.Log("Camera now following players.");
         }
     }
 }

@@ -11,13 +11,23 @@ public class MenuHighlighter : MonoBehaviour
     [Header("Navigation")]
     [SerializeField] private GameObject firstSelectedButton;
 
+    [Header("Save Data Logic")]
+    [Tooltip("The button to disable/hide if no save is found.")]
+    [SerializeField] private Button continueButton;
+    [Tooltip("The button to select by default if Continue is disabled.")]
+    [SerializeField] private GameObject newGameButton;
+    [Tooltip("The Quit button to move up if Continue is disabled.")]
+    [SerializeField] private GameObject quitButton;
+
+    [Header("Layout Adjustment")]
+    [Tooltip("How many units to move the buttons up when Continue is hidden.")]
+    [SerializeField] private float buttonMoveUpAmount = 10f;
+
     [Header("Mode")]
     [SerializeField] private bool onlyShowWhenPaused = false;
 
     [Header("Optional Polish")]
     [SerializeField] private float moveSpeed = 15f;
-    // --- PADDING IS NO LONGER NEEDED ---
-    // [SerializeField] private float padding = 20f;
 
     private GameObject lastSelectedObject;
     private RectTransform highlighterRect;
@@ -34,10 +44,60 @@ public class MenuHighlighter : MonoBehaviour
         highlighterRect = highlighterImage.GetComponent<RectTransform>();
         highlighterImage.gameObject.SetActive(false);
         highlighterImage.raycastTarget = false;
+
+        // --- NEW LOGIC START ---
+        // Check if we have a save file
+        if (SaveSystem.HasSave())
+        {
+            // Save exists: Ensure Continue is visible and interactable
+            if (continueButton != null)
+            {
+                continueButton.gameObject.SetActive(true);
+                continueButton.interactable = true;
+            }
+            // We do NOT move buttons here, assuming the scene is set up
+            // with the buttons in their "Correct" positions for having a Continue button.
+        }
+        else
+        {
+            // No save: Hide the Continue button
+            if (continueButton != null)
+            {
+                continueButton.gameObject.SetActive(false);
+            }
+
+            // Move the other buttons up to fill the empty space
+            ShiftButtonUp(newGameButton);
+            ShiftButtonUp(quitButton);
+
+            // If the "Continue" button was set as the starting button, switch to "New Game"
+            if (continueButton != null && firstSelectedButton == continueButton.gameObject)
+            {
+                if (newGameButton != null)
+                {
+                    firstSelectedButton = newGameButton;
+                }
+            }
+        }
+        // --- NEW LOGIC END ---
         
         if (firstSelectedButton != null)
         {
             EventSystem.current.SetSelectedGameObject(firstSelectedButton);
+        }
+    }
+
+    private void ShiftButtonUp(GameObject buttonObj)
+    {
+        if (buttonObj != null)
+        {
+            RectTransform rect = buttonObj.GetComponent<RectTransform>();
+            if (rect != null)
+            {
+                Vector2 newPos = rect.anchoredPosition;
+                newPos.y += buttonMoveUpAmount; // Add to Y to move UP
+                rect.anchoredPosition = newPos;
+            }
         }
     }
 
@@ -65,7 +125,6 @@ public class MenuHighlighter : MonoBehaviour
             lastSelectedObject = currentSelected;
         }
 
-        // --- THIS IS THE NEW LOGIC ---
         // 1. Get the target component from the selected button
         HighlighterTarget target = currentSelected.GetComponent<HighlighterTarget>();
 
@@ -76,19 +135,15 @@ public class MenuHighlighter : MonoBehaviour
         }
         else
         {
-            // 3. If not, fall back to the old (big) text size
-            Debug.LogWarning($"Button '{currentSelected.name}' is missing a HighlighterTarget component.", currentSelected);
+            // 3. If not, fall back to the rect transform size
             MoveAndResize(currentSelected.transform, currentSelected.GetComponent<RectTransform>().rect.size);
         }
-        // --- END OF NEW LOGIC ---
     }
 
-    // --- THIS FUNCTION IS MODIFIED ---
     private void MoveAndResize(Transform targetTransform, Vector2 targetSize)
     {
         if (targetTransform == null) return;
 
-        // The logic is now simpler: just use the values we are given
         if (moveSpeed > 0)
         {
             highlighterRect.position = Vector3.Lerp(highlighterRect.position, targetTransform.position, Time.unscaledDeltaTime * moveSpeed);

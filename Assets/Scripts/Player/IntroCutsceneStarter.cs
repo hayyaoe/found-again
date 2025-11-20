@@ -11,16 +11,20 @@ public class IntroCutsceneStarter : MonoBehaviour
         dialogueManager = GetComponent<DialogueManager>();
     }
 
-    // After the scene fades in, this will run
     private IEnumerator Start()
     {
-        // Wait for one frame to let everything initialize
-        yield return null; 
-        
-        // Get the intro cutscene name from the DialogueManager's Inspector
+        // Wait one frame
+        yield return null;
+
+        // 🚫 If save exists → DO NOT play cutscene
+        if (SaveSystem.HasSave())
+        {
+            Debug.Log("Save found → IntroCutsceneStarter will NOT play the cutscene.");
+            yield break;
+        }
+
+        // ▶ If no save → play intro normally
         string introCutsceneName = dialogueManager.cutsceneName;
-        
-        // Manually start the intro cutscene
         dialogueManager.StartDialogue(introCutsceneName);
     }
 }
