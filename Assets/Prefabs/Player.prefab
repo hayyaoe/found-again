@@ -688,7 +688,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6076578409243267241}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.6
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -763,7 +763,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.6
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4581,7 +4581,7 @@ ParticleSystem:
         m_RotationOrder: 4
     maxLights: 20
   TrailModule:
-    enabled: 1
+    enabled: 0
     mode: 0
     ratio: 0.1
     lifetime:
@@ -5430,7 +5430,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 2fc93de32fc584519bb05ba67e4d4377, type: 2}
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
