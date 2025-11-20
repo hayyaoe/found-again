@@ -5,28 +5,59 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
-
+using TMPro;
 
 public class LobbyManager : MonoBehaviour
 {
+    [Header("Start Button References")]
     public Button playButton;
-    public TMPro.TMP_Text playButtonText; // Assign in Inspector (child TMP_Text of play button)
+    public Image playButtonBackground; 
+    public TMP_Text playButtonText;
+
+    [Header("Back Button References")]
+    public Button backButton;
+    public Image backButtonImage;     
+    public TMP_Text backButtonText;   
+
+    [Header("Animation Settings")]
+    public float fadeDuration = 0.15f; 
+
+    [Header("State Colors")]
+    public Color inactiveColor = new Color(1f, 1f, 1f, 0.3f); 
+    public Color inactiveTextColor = Color.white;
+    
+    public Color readyColor = Color.white;       
+    public Color readyTextColor = Color.black;
+    
+    public Color hoverColor = new Color(0.17f, 0.24f, 0.31f); // Dark Blue
+    public Color hoverTextColor = Color.white;
+
+    public Color pressedColor = new Color(0.1f, 0.15f, 0.2f); // 🟢 NEW: Very Dark Blue (Click)
+    public Color pressedTextColor = new Color(0.7f, 0.7f, 0.7f); // Grey Text
 
     [Header("Scene Loading")]
-    [SerializeField] private string nextSceneName = "Prologue"; // <- set this in the Inspector
+    [SerializeField] private string nextSceneName = "Prologue";
+    [SerializeField] private string mainMenuSceneName = "MainMenu"; 
 
-    // Store each player's current position state
     private Dictionary<string, string> playerPositions = new Dictionary<string, string>();
-
-    // Track which player is currently hovering
     private string currentHoveringPlayer = null;
+    
+    private Coroutine currentFadeRoutine; // Start Button Routine
+    private Coroutine backFadeRoutine;    // Back Button Routine
+    
+    private bool isLoading = false; 
 
     void Start()
     {
+        // --- Setup Start Button ---
         playButton.interactable = false;
+        if (playButtonText == null) playButtonText = playButton.GetComponentInChildren<TMP_Text>();
+        if (playButtonBackground == null) playButtonBackground = playButton.GetComponent<Image>();
+        ApplyVisualsInstant(inactiveColor, inactiveTextColor, "Begin your journey");
 
-        if (playButtonText == null)
-            playButtonText = playButton.GetComponentInChildren<TMPro.TMP_Text>();
+        // --- Setup Back Button ---
+        if (backButtonImage != null) backButtonImage.color = readyColor;
+        if (backButtonText != null) backButtonText.color = readyTextColor;
     }
 
     public void UpdatePlayerPosition(string playerName, string position)
@@ -37,143 +68,195 @@ public class LobbyManager : MonoBehaviour
 
     public void UpdatePlayerSelection(string playerName, string character)
     {
-        Debug.Log($"{playerName} selected {character}");
-
         if (PlayerSelectionManager.Instance != null)
-        {
             PlayerSelectionManager.Instance.RegisterSelection(playerName, character);
-        }
     }
 
     private void CheckPlayButton()
     {
-        // Need both players registered
+        if (isLoading) return; 
+
         if (!playerPositions.ContainsKey("P1") || !playerPositions.ContainsKey("P2"))
         {
-            playButton.interactable = false;
+            TransitionToState(inactiveColor, inactiveTextColor, "Begin your journey");
             return;
         }
 
-        // Get current positions
         string p1 = playerPositions["P1"];
         string p2 = playerPositions["P2"];
+        bool isReady = (p1 == "Marie" || p1 == "Mimi") && (p2 == "Marie" || p2 == "Mimi") && (p1 != p2);
 
-        // ✅ Both must be on valid character spots
-        bool p1Valid = (p1 == "Marie" || p1 == "Mimi");
-        bool p2Valid = (p2 == "Marie" || p2 == "Mimi");
+        playButton.interactable = isReady;
 
-        // ❌ Disable if both are on the same character
-        bool sameCharacter = (p1 == p2 && p1Valid && p2Valid);
-
-        // ✅ Enable only if both on valid characters AND not on the same one
-        playButton.interactable = p1Valid && p2Valid && !sameCharacter;
-
-        // Optional: Debug info
-        Debug.Log($"CheckPlayButton → P1: {p1}, P2: {p2}, " +
-                $"BothValid: {p1Valid && p2Valid}, SameChar: {sameCharacter}, " +
-                $"Interactable: {playButton.interactable}");
-    }
-
-    // called when a player moves down to Play
-    public void HighlightPlayButton(string playerName)
-    {
-        if (!playButton.interactable) return;
-
-        currentHoveringPlayer = playerName;
-        playButton.Select();
-
-        // determine input device type
-        var cursor = FindObjectsOfType<PlayerInput>()
-            .FirstOrDefault(p => p.gameObject.name.Contains(playerName));
-
-        string text = "Press Enter to Start"; // default
-
-        if (cursor != null)
+        if (isReady)
         {
-            bool usesGamepad = cursor.devices.Any(d => d is Gamepad);
-            if (usesGamepad)
-                text = "Press X to Start";
-        }
-
-        playButtonText.text = text;
-
-        Debug.Log($"{playerName} hovering over Play ({text})");
-    }
-
-    // called when player moves away from Play
-    public void UnhighlightPlayButton(string playerName)
-    {
-        if (currentHoveringPlayer == playerName)
-        {
-            currentHoveringPlayer = null;
-            playButtonText.text = "Play";
-        }
-    }
-
-    // called when actual confirm/submit button pressed (not hover)
-    public void OnPlayPressed()
-    {
-        if (!playButton.interactable) return;
-        StartCoroutine(DelayedLoad());
-    }
-
-    private IEnumerator DelayedLoad()
-    {
-        yield return null; // wait one frame for selections to finalize
-
-        // NOTE: make sure the scene name exists in Build Settings (File → Build Settings → Scenes In Build)
-        if (!string.IsNullOrEmpty(nextSceneName))
-        {
-            // If you use a fader singleton, call it; else fall back to direct load.
-            if (SceneFader.instance != null)
-                SceneFader.instance.FadeToScene(nextSceneName);
-            else
-                SceneManager.LoadScene(nextSceneName);
+            if (currentHoveringPlayer == null)
+                TransitionToState(readyColor, readyTextColor, "Start");
         }
         else
         {
-            Debug.LogError("nextSceneName is empty. Please set it in the Inspector.");
+            TransitionToState(inactiveColor, inactiveTextColor, "Begin your journey");
         }
     }
 
+    // --------------------------
+    //  START BUTTON ANIMATION
+    // --------------------------
+    public void HighlightPlayButton(string playerName)
+    {
+        if (!playButton.interactable || isLoading) return;
+        currentHoveringPlayer = playerName;
+        TransitionToState(hoverColor, hoverTextColor, "Start");
+    }
 
-    // external call by PlayerCursorController when confirm input pressed
+    public void UnhighlightPlayButton(string playerName)
+    {
+        if (isLoading) return;
+        if (currentHoveringPlayer == playerName)
+        {
+            currentHoveringPlayer = null;
+            TransitionToState(readyColor, readyTextColor, "Start");
+        }
+    }
+
+    private void TransitionToState(Color targetBg, Color targetText, string textContent)
+    {
+        if (playButtonText != null) playButtonText.text = textContent;
+        if (currentFadeRoutine != null) StopCoroutine(currentFadeRoutine);
+        currentFadeRoutine = StartCoroutine(AnimateColors(targetBg, targetText));
+    }
+
+    private IEnumerator AnimateColors(Color targetBgColor, Color targetTextColor)
+    {
+        float elapsed = 0f;
+        Color startBg = playButtonBackground != null ? playButtonBackground.color : targetBgColor;
+        Color startText = playButtonText != null ? playButtonText.color : targetTextColor;
+
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / fadeDuration;
+            t = Mathf.SmoothStep(0f, 1f, t); 
+            if (playButtonBackground != null) playButtonBackground.color = Color.Lerp(startBg, targetBgColor, t);
+            if (playButtonText != null) playButtonText.color = Color.Lerp(startText, targetTextColor, t);
+            yield return null;
+        }
+        if (playButtonBackground != null) playButtonBackground.color = targetBgColor;
+        if (playButtonText != null) playButtonText.color = targetTextColor;
+    }
+
+    // --------------------------
+    //  BACK BUTTON ANIMATION
+    // --------------------------
+    public void HighlightBackButton()
+    {
+        if (isLoading) return;
+        TransitionBackState(hoverColor, hoverTextColor);
+    }
+
+    public void UnhighlightBackButton()
+    {
+        if (isLoading) return;
+        TransitionBackState(readyColor, readyTextColor);
+    }
+
+    private void TransitionBackState(Color targetBg, Color targetText)
+    {
+        if (backFadeRoutine != null) StopCoroutine(backFadeRoutine);
+        backFadeRoutine = StartCoroutine(AnimateBackColors(targetBg, targetText));
+    }
+
+    private IEnumerator AnimateBackColors(Color targetBgColor, Color targetTextColor)
+    {
+        float elapsed = 0f;
+        Color startBg = backButtonImage != null ? backButtonImage.color : targetBgColor;
+        Color startText = backButtonText != null ? backButtonText.color : targetTextColor;
+
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / fadeDuration;
+            t = Mathf.SmoothStep(0f, 1f, t); 
+
+            if (backButtonImage != null) 
+                backButtonImage.color = Color.Lerp(startBg, targetBgColor, t);
+
+            if (backButtonText != null) 
+                backButtonText.color = Color.Lerp(startText, targetTextColor, t);
+
+            yield return null;
+        }
+        if (backButtonImage != null) backButtonImage.color = targetBgColor;
+        if (backButtonText != null) backButtonText.color = targetTextColor;
+    }
+
+    // --------------------------
+    //  SCENE LOADING & CLICK LOGIC
+    // --------------------------
+
+    // 🟢 START BUTTON PRESSED
+    public void OnPlayPressed()
+    {
+        if (!playButton.interactable || isLoading) return;
+        isLoading = true;
+        StartCoroutine(PressedSequence());
+    }
+
+    private IEnumerator PressedSequence()
+    {
+        // Visual: Turn Dark & say "Loading..."
+        TransitionToState(pressedColor, pressedTextColor, "Loading...");
+        yield return new WaitForSeconds(fadeDuration);
+
+        if (!string.IsNullOrEmpty(nextSceneName))
+        {
+            if (SceneFader.instance != null) SceneFader.instance.FadeToScene(nextSceneName);
+            else SceneManager.LoadScene(nextSceneName);
+        }
+    }
+
+    // 🟢 BACK BUTTON PRESSED (New Animation Logic)
+    public void BackToMainMenu()
+    {
+        if (isLoading) return;
+        isLoading = true;
+        StartCoroutine(BackPressedSequence());
+    }
+
+    private IEnumerator BackPressedSequence()
+    {
+        // Visual: Turn Dark
+        TransitionBackState(pressedColor, pressedTextColor);
+        yield return new WaitForSeconds(fadeDuration);
+
+        if (SceneFader.instance != null) SceneFader.instance.FadeToScene(mainMenuSceneName);
+        else SceneManager.LoadScene(mainMenuSceneName);
+    }
+
+    // --------------------------
+
+    private void ApplyVisualsInstant(Color bg, Color txt, string content)
+    {
+        if (playButtonBackground != null) playButtonBackground.color = bg;
+        if (playButtonText != null) { playButtonText.color = txt; playButtonText.text = content; }
+    }
+
     public void OnPlayerConfirm(string playerName)
     {
-        if (currentHoveringPlayer == playerName && playButton.interactable)
+        var cursor = FindObjectsOfType<PlayerCursorController>().FirstOrDefault(c => c.playerName == playerName);
+        if (cursor != null && playButton.interactable)
         {
-            // 🔄 Force re-register latest selection before loading
-            var cursor = FindObjectsOfType<PlayerCursorController>()
-                .FirstOrDefault(c => c.playerName == playerName);
-            if (cursor != null)
-            {
-                string selectedCharacter = cursor.GetCurrentCharacter(); // ✅ get directly from PlayerCursorController
-                if (!string.IsNullOrEmpty(selectedCharacter))
-                    UpdatePlayerSelection(playerName, selectedCharacter);
-            }
-            OnPlayPressed();
+             OnPlayPressed();
         }
     }
-
 
     public void OnSubmit(InputAction.CallbackContext context)
     {
-        if (!context.performed || !playButton.interactable)
-            return;
-
-        // Check if Enter key pressed
-        if (Keyboard.current != null && Keyboard.current.enterKey.wasPressedThisFrame)
+        if (!context.performed || !playButton.interactable) return;
+        if ((Keyboard.current != null && Keyboard.current.enterKey.wasPressedThisFrame) ||
+            (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))
         {
             OnPlayPressed();
-            return;
-        }
-
-        // Check if gamepad "South" button (X / A) pressed
-        if (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame)
-        {
-            // --- END OF CHANGE ---
-            OnPlayPressed();
-            return;
         }
     }
 }
