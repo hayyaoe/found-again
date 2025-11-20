@@ -109,6 +109,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -121,12 +134,21 @@ TextureImporter:
         width: 3100
         height: 2000
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 1550, y: -600.3028}
+        - {x: 1241, y: -345}
+        - {x: 1370, y: 124}
+        - {x: 1400, y: 330}
+        - {x: 1550, y: 598.7888}
+        - {x: 1550, y: 1000}
+        - {x: -1550, y: 1000}
+        - {x: -1550, y: -1000}
+        - {x: 1550, y: -1000}
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: c017ac6ac13b90170800000000000000
       internalID: 8145238336714993932
@@ -138,7 +160,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: a29526031d0ff4ea29ef6320db9a7e70
     internalID: 0
     vertices: []
     indices: 
