@@ -596,7 +596,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 720b45414b74d4c9495b8536eb3b0092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxBackground
-  parallaxCamera: {fileID: 1182962285423474713, guid: 2db3a712037de48498ca2cce135af501, type: 3}
 --- !u!1 &710747372
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,9 +1099,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingLayerID: 2037291645
+  m_SortingLayer: -1
+  m_SortingOrder: -1
   m_Sprite: {fileID: -8742942175844255311, guid: 843b653c082b442d48d6575aa98b5a78, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1126,7 +1125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
-  parallaxFactor: 0.2
+  parallaxFactor: 0.1
 --- !u!1 &924925760
 GameObject:
   m_ObjectHideFlags: 0
@@ -1869,7 +1868,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 720b45414b74d4c9495b8536eb3b0092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxBackground
-  parallaxCamera: {fileID: 1182962285423474713, guid: 2db3a712037de48498ca2cce135af501, type: 3}
 --- !u!4 &1326084494
 Transform:
   m_ObjectHideFlags: 0
@@ -2752,7 +2750,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 5319541997033159781, guid: 24d7b045f2ac141d7a57b490692f8a65, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3222,9 +3220,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -3
+  m_SortingLayerID: 2037291645
+  m_SortingLayer: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: -7159852003832767670, guid: 297d6e57262a14727b4b13af91854f9f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3248,7 +3246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
-  parallaxFactor: 0.3
+  parallaxFactor: 0.2
 --- !u!1 &1793071564
 GameObject:
   m_ObjectHideFlags: 0
@@ -8859,7 +8857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a254be7e807414b98bc3f1a22dbef3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::ParallaxLayer
-  parallaxFactor: 0.1
+  parallaxFactor: 0
 --- !u!1 &2126439927
 GameObject:
   m_ObjectHideFlags: 0
