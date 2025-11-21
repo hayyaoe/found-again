@@ -81,6 +81,14 @@ public class DialogueManager : MonoBehaviour
             nameBoxRect = nameBoxPanel.GetComponent<RectTransform>();
             nameBoxImage = nameBoxPanel.GetComponent<Image>();
         }
+
+        // 🟢 FIX: Force hide ALL dialogue UI elements immediately on initialization.
+        // This prevents sprites from showing up if they were left active in the Editor scene.
+        if (dialogueBoxPanel != null) dialogueBoxPanel.SetActive(false);
+        if (nameBoxPanel != null) nameBoxPanel.SetActive(false);
+        if (continuePrompt != null) continuePrompt.SetActive(false);
+        if (characterLeftSprite != null) characterLeftSprite.gameObject.SetActive(false);
+        if (characterRightSprite != null) characterRightSprite.gameObject.SetActive(false);
     }
 
     public void StartDialogue(string cutsceneID)
@@ -109,7 +117,7 @@ public class DialogueManager : MonoBehaviour
         dialogueBoxPanel.SetActive(true);
         nameBoxPanel.SetActive(false);
         
-        // 🟢 Ensure prompt is visible at start
+        // Ensure prompt is visible at start (if you want it visible)
         continuePrompt.SetActive(true);
 
         characterLeftSprite.sprite = wandererSprite;
@@ -125,16 +133,25 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
+        // 🟢 NOTE: Even though Awake hid them, we keep this logic to ensure game flow is correct
         if (SaveSystem.HasSave())
         {
             Debug.Log("Save found -> skipping cutscene.");
+            
+            // Ensure they stay hidden
             dialogueBoxPanel.SetActive(false);
+            nameBoxPanel.SetActive(false);
+            characterLeftSprite.gameObject.SetActive(false);
+            characterRightSprite.gameObject.SetActive(false);
+
             Time.timeScale = 1f;
             SwitchAllPlayerMaps("Player");
             StartCoroutine(SpawnAfterDelay());
             this.enabled = false;
             return;
         }
+        
+        // If no save, we explicitly start dialogue, which will turn sprites back ON
         StartDialogue(this.cutsceneName);
     }
 
@@ -161,9 +178,6 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator ShowConversation(DialogueLine currentLine)
     {
         isWaitingForInput = false; 
-        
-        // 🟢 UPDATED: Do NOT hide prompt here. Keep it active.
-        // if (continuePrompt != null) continuePrompt.SetActive(false);
         
         nameBoxPanel.SetActive(false);
 
@@ -221,7 +235,6 @@ public class DialogueManager : MonoBehaviour
         isTyping = false;
         dialogueText.text = fullLine;
         
-        // 🟢 Ensure prompt is visible (just in case)
         if (continuePrompt != null) continuePrompt.SetActive(true);
         
         isWaitingForInput = true;
@@ -310,7 +323,7 @@ public class DialogueManager : MonoBehaviour
     {
         isWaitingForInput = false;
         
-        // 🟢 UPDATED: Do NOT hide prompt here.
+        // Keep prompt visible if desired
         // if (continuePrompt != null) continuePrompt.SetActive(false);
 
         currentConversationIndex++;
