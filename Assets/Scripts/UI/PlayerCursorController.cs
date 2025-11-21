@@ -23,6 +23,11 @@ public class PlayerCursorController : MonoBehaviour
     private Image image1;  
     private Image image2;   
 
+    public AudioClip moveSfx;
+    public AudioClip selectSfx;
+    public AudioClip clickSfx;
+    public float sfxVolume = 1f;
+
     private enum CursorPosition { Marie, Center, Mimi, Play, Back } 
     private CursorPosition currentPosition = CursorPosition.Center;
 
@@ -100,51 +105,70 @@ public class PlayerCursorController : MonoBehaviour
     // ... (MoveLeft, MoveRight, MoveDown, MoveUp methods remain exactly the same) ...
     private void MoveLeft()
     {
+        bool moved = false;
         if (currentPosition == CursorPosition.Back) return;
 
         if (currentPosition == CursorPosition.Mimi) {
             currentPosition = CursorPosition.Center;
             if (centerSpot != null) SnapTo(centerSpot);
+            moved = true;
         }
         else if (currentPosition == CursorPosition.Center) {
             currentPosition = CursorPosition.Marie;
             if (marieSpot != null) SnapTo(marieSpot);
+            moved = true;
         }
         else if (currentPosition == CursorPosition.Play) {
             lobbyManager?.UnhighlightPlayButton(playerName);
             currentPosition = CursorPosition.Marie;
             if (marieSpot != null) SnapTo(marieSpot);
+            moved = true;
         }
+
+        if (moved)
+            SoundFXManager.instance.PlaySoundFXClip(moveSfx, transform, 0.5f);
+
         UpdateSelection();
     }
 
     private void MoveRight()
     {
+        bool moved = false;
         if (currentPosition == CursorPosition.Back) return;
 
         if (currentPosition == CursorPosition.Marie) {
             currentPosition = CursorPosition.Center;
             if (centerSpot != null) SnapTo(centerSpot);
+            moved = true;
         }
         else if (currentPosition == CursorPosition.Center) {
             currentPosition = CursorPosition.Mimi;
             if (mimiSpot != null) SnapTo(mimiSpot);
+            moved = true;
         }
         else if (currentPosition == CursorPosition.Play) {
             lobbyManager?.UnhighlightPlayButton(playerName);
             currentPosition = CursorPosition.Mimi;
             if (mimiSpot != null) SnapTo(mimiSpot);
+            moved = true;
         }
+
+        if (moved)
+            SoundFXManager.instance.PlaySoundFXClip(moveSfx, transform, 0.5f);
+
         UpdateSelection();
     }
 
     private void MoveDown()
     {
+        bool moved = false;
         if (currentPosition == CursorPosition.Back) {
+            moved = true;
             lobbyManager?.UnhighlightBackButton(); 
             if (playerName == "P1") { currentPosition = CursorPosition.Marie; if (marieSpot != null) SnapTo(marieSpot); }
             else { currentPosition = CursorPosition.Mimi; if (mimiSpot != null) SnapTo(mimiSpot); }
             UpdateSelection();
+            SoundFXManager.instance.PlaySoundFXClip(moveSfx, transform, 0.5f);
             return;
         }
         if (lobbyManager != null && lobbyManager.playButton != null && !lobbyManager.playButton.interactable) return;
@@ -153,7 +177,9 @@ public class PlayerCursorController : MonoBehaviour
             currentPosition = CursorPosition.Play;
             lobbyManager?.HighlightPlayButton(playerName);
             // No SnapTo for Play button, keeps visual on character
-        }
+            SoundFXManager.instance.PlaySoundFXClip(selectSfx, transform, 0.5f);
+        }  
+
         UpdateSelection();
     }
 
@@ -163,11 +189,13 @@ public class PlayerCursorController : MonoBehaviour
             lobbyManager?.UnhighlightPlayButton(playerName);
             currentPosition = CursorPosition.Center;
             SnapTo(centerSpot);
+            SoundFXManager.instance.PlaySoundFXClip(moveSfx, transform, 0.5f);
         }
         else if (currentPosition == CursorPosition.Marie || currentPosition == CursorPosition.Mimi || currentPosition == CursorPosition.Center) {
             if (backSpot != null) {
                 currentPosition = CursorPosition.Back;
-                lobbyManager?.HighlightBackButton(); 
+                lobbyManager?.HighlightBackButton();
+                SoundFXManager.instance.PlaySoundFXClip(selectSfx, transform, 0.5f);
             }
         }
         UpdateSelection();
@@ -217,14 +245,27 @@ public class PlayerCursorController : MonoBehaviour
         if (lobbyManager.IsLoading) return;
 
         if (currentPosition == CursorPosition.Back) {
+            SoundFXManager.instance.PlaySoundFXClip(clickSfx, transform, 0.5f);
             lobbyManager.BackToMainMenu();
             return;
         }
 
-        if (currentPosition == CursorPosition.Marie) lobbyManager.UpdatePlayerSelection(playerName, "Marie");
-        else if (currentPosition == CursorPosition.Mimi) lobbyManager.UpdatePlayerSelection(playerName, "Mimi");
+        if (currentPosition == CursorPosition.Marie)
+        { 
+            lobbyManager.UpdatePlayerSelection(playerName, "Marie");
+            SoundFXManager.instance.PlaySoundFXClip(clickSfx, transform, 0.5f);
+        } 
+        else if (currentPosition == CursorPosition.Mimi)
+        {
+            lobbyManager.UpdatePlayerSelection(playerName, "Mimi");
+            SoundFXManager.instance.PlaySoundFXClip(clickSfx, transform, 0.5f);
+        }
 
-        if (currentPosition == CursorPosition.Play) lobbyManager.OnPlayerConfirm(playerName);
+        if (currentPosition == CursorPosition.Play) 
+        {
+            lobbyManager.OnPlayerConfirm(playerName);
+            SoundFXManager.instance.PlaySoundFXClip(clickSfx, transform, 0.5f);
+        }
     }
 
     // ... (Helpers remain same) ...
