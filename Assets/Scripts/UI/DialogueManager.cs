@@ -18,6 +18,12 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Dialogue Content")]
     [SerializeField] public string cutsceneName = "Intro";
+    
+    // 🟢 NEW: Typing Settings
+    [Header("Typing Settings")]
+    [SerializeField] private float typingSpeed = 0.04f; // Time between each character
+    private bool isTyping = false; 
+    private Coroutine typingCoroutine;
 
     [Header("Game Start Dependencies")]
     [SerializeField] private ProloguePlayerSpawner playerSpawner;
@@ -27,17 +33,14 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Sprite mimiSprite;
     [SerializeField] private Sprite mimiNameBoxSprite;
 
-    // --- Renamed 'marie' to 'wanderer' to be clear ---
-    [SerializeField] private Sprite wandererSprite; // Your original WandererHD.png
-    [SerializeField] private Sprite wandererNameBoxSprite; // Your original WandererLabel.png
+    [SerializeField] private Sprite wandererSprite; 
+    [SerializeField] private Sprite wandererNameBoxSprite; 
 
-    // --- ADDED NEW CHARACTERS ---
-    [SerializeField] private Sprite marieOldSprite; // Drag OldMarieHD.jpg here
-    [SerializeField] private Sprite marieOldNameBoxSprite; // (Optional) Drag a name label for her here
-    [SerializeField] private Sprite calliSprite; // Drag CalliHD.jpg here
-    [SerializeField] private Sprite calliNameBoxSprite; // (Optional) Drag a name label for her here
-                                                        // --- END OF NEW CHARACTERS ---
-
+    [SerializeField] private Sprite marieOldSprite; 
+    [SerializeField] private Sprite marieOldNameBoxSprite; 
+    [SerializeField] private Sprite calliSprite; 
+    [SerializeField] private Sprite calliNameBoxSprite; 
+                                                        
     [SerializeField] private Sprite defaultNameBoxSprite;
     [SerializeField] private Color defaultNameBoxColor = new Color(0.2f, 0.2f, 0.2f, 0.8f);
 
@@ -88,44 +91,33 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(string cutsceneID)
     {
-        // 1. Wake up this component and activate its input
         this.enabled = true;
-
-        // Reset the conversation index to the beginning
         this.currentConversationIndex = 0;
-
-        // 2. Set the new cutscene name
         this.cutsceneName = cutsceneID;
         
-
-        // 3. Check if UI is assigned
         if (dialogueBoxPanel == null || dialogueText == null || continuePrompt == null ||
             nameBoxPanel == null || characterNameText == null ||
             characterLeftSprite == null || characterRightSprite == null)
         {
             Debug.LogError("DIALOGUE MANAGER ERROR: Not all UI elements are assigned in the Inspector!");
-            StartGame(); // Fail safe
+            StartGame(); 
             return;
         }
 
-        // 4. Load the new dialogue
         LoadDialogueFromDatabase();
         if (currentLines.Count == 0)
         {
-            StartGame(); // No dialogue found, just start
+            StartGame(); 
             return;
         }
 
-        // 5. Pause the game and show the dialogue
         Time.timeScale = 0f;
         SwitchAllPlayerMaps("Cutscene");
-        // PauseMenu.GameIsPaused = true; 
 
         dialogueBoxPanel.SetActive(true);
         nameBoxPanel.SetActive(false);
         continuePrompt.SetActive(false);
 
-        // (Your character setup logic)
         characterLeftSprite.sprite = wandererSprite;
         characterLeftSprite.color = silentColor;
         characterLeftSprite.gameObject.SetActive(true);
@@ -134,7 +126,6 @@ public class DialogueManager : MonoBehaviour
         characterRightSprite.color = silentColor;
         characterRightSprite.gameObject.SetActive(true);
 
-        // 6. Start the first line of dialogue
         StartCoroutine(RunDialogue());
     }
 
@@ -144,7 +135,6 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.Log("Save found → skipping cutscene and spawning players after scene loads.");
 
-            // Hide UI, unpause, etc.
             dialogueBoxPanel.SetActive(false);
             nameBoxPanel.SetActive(false);
             characterLeftSprite.gameObject.SetActive(false);
@@ -153,97 +143,43 @@ public class DialogueManager : MonoBehaviour
             Time.timeScale = 1f;
             SwitchAllPlayerMaps("Player");
 
-            // 🔥 Wait for checkpoints to initialize
             StartCoroutine(SpawnAfterDelay());
 
             this.enabled = false;
             return;
         }
 
-
-        // No save → Play intro normally
         StartDialogue(this.cutsceneName);
     }
 
-
-    // --- UPDATED GetSideFromName ---
     private CharacterSide GetSideFromName(string speakerName)
     {
-        // This function decides which side of the screen a character is on.
-        if (speakerName == "Wanderer")
-        {
-            return CharacterSide.Left;
-        }
-        else if (speakerName == "Marie") // This is Old Marie
-        {
-            return CharacterSide.Left;
-        }
-        else if (speakerName == "Mimi")
-        {
-            return CharacterSide.Right;
-        }
-        else if (speakerName == "Calli")
-        {
-            return CharacterSide.Right;
-        }
+        if (speakerName == "Wanderer") return CharacterSide.Left;
+        else if (speakerName == "Marie") return CharacterSide.Left;
+        else if (speakerName == "Mimi") return CharacterSide.Right;
+        else if (speakerName == "Calli") return CharacterSide.Right;
 
-        return CharacterSide.None; // For "Narrator" or other speakers
+        return CharacterSide.None; 
     }
 
     private void SwitchAllPlayerMaps(string mapName)
     {
-        if (CheckpointManager.instance == null || CheckpointManager.allPlayers == null)
-        {
-            Debug.LogWarning("DialogueManager: CheckpointManager or player list not found. Cannot switch player maps.");
-            return;
-        }
+        if (CheckpointManager.instance == null || CheckpointManager.allPlayers == null) return;
 
-        // Loop through all players found by the CheckpointManager
         foreach (Movement player in CheckpointManager.allPlayers)
         {
             if (player != null)
             {
                 PlayerInput pi = player.GetComponent<PlayerInput>();
-                if (pi != null)
-                {
-                    pi.SwitchCurrentActionMap(mapName);
-                }
+                if (pi != null) pi.SwitchCurrentActionMap(mapName);
             }
         }
     }
 
-    // private void SetAllPlayerInput(bool enabled)
-    // {
-    //     if (CheckpointManager.instance == null || CheckpointManager.allPlayers == null)
-    //     {
-    //         Debug.LogWarning("DialogueManager: CheckpointManager or player list not found. Cannot toggle player input.");
-    //         return;
-    //     }
-
-    //     // Loop through all players found by the CheckpointManager
-    //     foreach (Movement player in CheckpointManager.allPlayers)
-    //     {
-    //         if (player != null)
-    //         {
-    //             PlayerInput pi = player.GetComponent<PlayerInput>();
-    //             if (pi != null)
-    //             {
-    //                 if (enabled)
-    //                 {
-    //                     pi.ActivateInput();
-    //                 }
-    //                 else
-    //                 {
-    //                     pi.DeactivateInput();
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
-    // --- UPDATED ShowConversation ---
     private IEnumerator ShowConversation(DialogueLine currentLine)
     {
+        isWaitingForInput = false; // Block input until typing starts or finishes
+        continuePrompt.SetActive(false); // Hide prompt while typing
         nameBoxPanel.SetActive(false);
 
         // Set character sprites and opacity
@@ -272,48 +208,86 @@ public class DialogueManager : MonoBehaviour
 
             SetAnchor(currentLine.characterSide);
 
-            // --- THIS LOGIC IS NOW EXPANDED ---
             if (currentLine.speakerName == "Mimi")
             {
                 nameBoxImage.sprite = mimiNameBoxSprite;
                 nameBoxImage.color = Color.white;
-                characterRightSprite.sprite = mimiSprite; // Ensure correct sprite is showing
+                characterRightSprite.sprite = mimiSprite; 
             }
             else if (currentLine.speakerName == "Wanderer")
             {
                 nameBoxImage.sprite = wandererNameBoxSprite;
                 nameBoxImage.color = Color.white;
-                characterLeftSprite.sprite = wandererSprite; // Ensure correct sprite is showing
+                characterLeftSprite.sprite = wandererSprite; 
             }
-            else if (currentLine.speakerName == "Marie") // This is Old Marie
+            else if (currentLine.speakerName == "Marie") 
             {
                 nameBoxImage.sprite = marieOldNameBoxSprite;
                 nameBoxImage.color = Color.white;
-                characterLeftSprite.sprite = marieOldSprite; // Show Old Marie sprite
+                characterLeftSprite.sprite = marieOldSprite; 
             }
             else if (currentLine.speakerName == "Calli")
             {
                 nameBoxImage.sprite = calliNameBoxSprite;
                 nameBoxImage.color = Color.white;
-                characterRightSprite.sprite = calliSprite; // Show Calli sprite
+                characterRightSprite.sprite = calliSprite; 
             }
-            else // For any other speaker
+            else 
             {
                 nameBoxImage.sprite = defaultNameBoxSprite;
                 nameBoxImage.color = defaultNameBoxColor;
             }
         }
 
-        dialogueText.text = currentLine.line;
-        yield return null;
+        // 🟢 START TYPING ANIMATION
+        if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+        typingCoroutine = StartCoroutine(TypeLine(currentLine.line));
+        yield return null; 
+    }
+
+    // 🟢 NEW: Typing Logic Coroutine
+    private IEnumerator TypeLine(string line)
+    {
+        isTyping = true;
+        dialogueText.text = ""; // Clear text initially
+
+        // Loop through characters and add them one by one
+        foreach (char letter in line.ToCharArray())
+        {
+            dialogueText.text += letter;
+            yield return new WaitForSecondsRealtime(typingSpeed); // Use Realtime because timeScale is 0
+        }
+
+        FinishTyping(line);
+    }
+
+    // 🟢 NEW: Helper to finish typing instantly
+    private void FinishTyping(string fullLine)
+    {
+        isTyping = false;
+        dialogueText.text = fullLine; // Ensure full text is displayed
         continuePrompt.SetActive(true);
         isWaitingForInput = true;
     }
 
-    // --- All other functions (StartGame, LoadDialogue, Awake, etc.) ---
-    // --- are unchanged and correct. ---
+    public void OnContinuePressed(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
 
-    // (Pasting the rest of your script for completeness)
+        // 🟢 UPDATED: Handle Typing vs Waiting
+        if (isTyping)
+        {
+            // If user presses button while typing, show full text instantly
+            if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+            FinishTyping(currentLines[currentConversationIndex].line);
+        }
+        else if (isWaitingForInput)
+        {
+            // If text is done, go to next line
+            NextConversation();
+        }
+    }
+
     private void OnEnable()
     {
         continueAction?.Enable();
@@ -325,7 +299,6 @@ public class DialogueManager : MonoBehaviour
 
     private void OnDisable()
     {
-        // --- OLD SYSTEM CLEANUP (if still used) ---
         if (continueAction != null)
             continueAction.performed -= OnContinuePressed;
 
@@ -335,8 +308,6 @@ public class DialogueManager : MonoBehaviour
         continueAction?.Disable();
         skipAction?.Disable();
 
-
-        // --- NEW MULTIPLAYER SYSTEM CLEANUP ---
         foreach (var a in nextActions)
             a.performed -= OnContinuePressed;
 
@@ -347,22 +318,16 @@ public class DialogueManager : MonoBehaviour
     private void StartGame()
     {
         isWaitingForInput = false;
+        isTyping = false;
 
         if (this.enabled == false) return;
 
         Time.timeScale = 1f;
-        // PauseMenu.GameIsPaused = false; 
 
         dialogueBoxPanel.SetActive(false);
         nameBoxPanel.SetActive(false);
         characterLeftSprite.gameObject.SetActive(false);
         characterRightSprite.gameObject.SetActive(false);
-
-        // // Restore player controls
-        // if (playerInput != null)
-        // {
-        //     playerInput.SwitchCurrentActionMap("Player");
-        // }
 
         this.enabled = false;
 
@@ -430,14 +395,6 @@ public class DialogueManager : MonoBehaviour
 
         dialogueBoxPanel.SetActive(true);
         StartCoroutine(ShowConversation(currentLines[currentConversationIndex]));
-    }
-
-    public void OnContinuePressed(InputAction.CallbackContext context)
-    {
-        if (isWaitingForInput)
-        {
-            NextConversation();
-        }
     }
 
     private void OnSkipPressed(InputAction.CallbackContext context)
@@ -514,13 +471,11 @@ public class DialogueManager : MonoBehaviour
 
     public void RegisterNewPlayer(PlayerInput player)
     {
-        // If dialogue is active → use Cutscene map
         if (dialogueBoxPanel != null && dialogueBoxPanel.activeInHierarchy)
             player.SwitchCurrentActionMap("Cutscene");
         else
             player.SwitchCurrentActionMap("Player");
 
-        // Bind actions if the cutscene map is available
         var next = player.actions["Next"];
         var skip = player.actions["Skip"];
 
