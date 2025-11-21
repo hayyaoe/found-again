@@ -32,6 +32,10 @@ public class MenuHighlighter : MonoBehaviour
     private GameObject lastSelectedObject;
     private RectTransform highlighterRect;
 
+    [Header("Sound")]
+    [SerializeField] private AudioClip cursorMoveSFX;
+    [SerializeField] private float cursorMoveVolume = 1f;
+
     void Start()
     {
         if (highlighterImage == null)
@@ -122,6 +126,7 @@ public class MenuHighlighter : MonoBehaviour
         if (currentSelected != lastSelectedObject)
         {
             highlighterImage.gameObject.SetActive(true);
+            SoundFXManager.instance.PlaySoundFXClip(cursorMoveSFX, transform, cursorMoveVolume);
             lastSelectedObject = currentSelected;
         }
 
