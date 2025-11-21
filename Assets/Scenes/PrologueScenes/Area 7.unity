@@ -2594,28 +2594,13 @@ PrefabInstance:
       addedObject: {fileID: 1470730670}
     - targetCorrespondingSourceObject: {fileID: 3377714120328511753, guid: 39b40c36382b2452780bed08a95014bc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1470730669}
+      addedObject: {fileID: 1470730671}
   m_SourcePrefab: {fileID: 100100000, guid: 39b40c36382b2452780bed08a95014bc, type: 3}
 --- !u!1 &1470730668 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3377714120328511753, guid: 39b40c36382b2452780bed08a95014bc, type: 3}
   m_PrefabInstance: {fileID: 1470730667}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1470730669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1470730668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13a0aa9b8b3674026b31cace3ee48f54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FoundAgain.Runtime::CheckpointUITrigger
-  savingCanvas: {fileID: 946413497}
-  fadeDuration: 0.5
-  displayTime: 5
 --- !u!114 &1470730670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2631,6 +2616,21 @@ MonoBehaviour:
   amplitudeX: 0.2
   amplitudeY: 0.2
   frequency: 0.5
+--- !u!114 &1470730671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470730668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1355332bc2f38490bbff519896401820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::MiniFragmentTrigger
+  fragmentCanvas: {fileID: 946413497}
+  fadeDuration: 0.5
+  displayTime: 3
 --- !u!1 &1472949332
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public static class SaveSystem
 {
@@ -65,4 +67,30 @@ public static class SaveSystem
             PlayerPrefs.GetFloat(CHECKPOINT_POS_Z)
         );
     }
+    public static void ClearAllShardData()
+    {
+        // Delete every scene shard data PlayerPref
+        foreach (var key in PlayerPrefsKeysToDelete())
+            PlayerPrefs.DeleteKey(key);
+
+        PlayerPrefs.Save();
+    }
+
+    private static IEnumerable<string> PlayerPrefsKeysToDelete()
+    {
+        foreach (var key in PlayerPrefsKeys())
+            if (key.StartsWith("shards_"))
+                yield return key;
+    }
+
+    // Helper to list all keys in PlayerPrefs
+    private static IEnumerable<string> PlayerPrefsKeys()
+    {
+        var field = typeof(PlayerPrefs).GetField("sPlayerPrefs", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+        var dict = field.GetValue(null) as System.Collections.IDictionary;
+
+        foreach (var key in dict.Keys)
+            yield return key.ToString();
+    }
+
 }
