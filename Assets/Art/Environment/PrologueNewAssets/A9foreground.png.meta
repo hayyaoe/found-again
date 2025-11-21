@@ -112,6 +112,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -124,12 +137,18 @@ TextureImporter:
         width: 418
         height: 118
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 209, y: 25.641026}
+        - {x: 85.48826, y: 59}
+        - {x: -145.95706, y: 59}
+        - {x: -208.94534, y: -25.641026}
+        - {x: -208.94534, y: -59}
+        - {x: 209, y: -59}
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: 9c6b9263f679d9310800000000000000
       internalID: 1413452361970071241
@@ -146,12 +165,18 @@ TextureImporter:
         width: 1586
         height: 506
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 793, y: 253}
+        - {x: 361.50974, y: 253}
+        - {x: -681.45905, y: 180.21977}
+        - {x: -792.7872, y: -140.65933}
+        - {x: -792.7872, y: -253}
+        - {x: 793, y: -253}
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: 692e76b13047f44a0800000000000000
       internalID: -6606934571635711338
@@ -163,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6fac8ceb6be534c1f8fb6fca230d9f19
     internalID: 0
     vertices: []
     indices: 

@@ -7,6 +7,7 @@ public class MainMenuLogic : MonoBehaviour
     {
         // SceneManager.LoadScene("PlayerSelectMenu");
         SaveSystem.ClearSave(); // Remove old checkpoint
+        PlayerPrefs.DeleteAll();
         SceneFader.instance.FadeToScene("PlayerSelectMenu");
     }
 

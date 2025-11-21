@@ -112,6 +112,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -124,12 +137,31 @@ TextureImporter:
         width: 2057
         height: 965
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 352.29492, y: -374.10257}
+        - {x: 388.91602, y: -271.53848}
+        - {x: 276.12305, y: -183.62639}
+        - {x: -173.58398, y: 126.996315}
+        - {x: -257.08008, y: 116.73991}
+        - {x: -328.85742, y: 31.758224}
+        - {x: -372.80273, y: 147.50914}
+        - {x: 236.57227, y: 124.06592}
+        - {x: 239.50195, y: 131.39192}
+        - {x: 334.7168, y: 22.967014}
+        - {x: 387.45117, y: -15.128222}
+        - {x: 427.00195, y: -16.593424}
+        - {x: 719.9707, y: -85.45789}
+        - {x: 1028.5, y: -25.384634}
+        - {x: 1028.5, y: 12.710605}
+        - {x: 312.74414, y: 482.5}
+        - {x: -1028.5, y: 482.5}
+        - {x: -1028.5, y: -482.5}
+        - {x: 88.62305, y: -482.5}
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: 25a7947ff76a592a0800000000000000
       internalID: -6731290999495493038
@@ -146,12 +178,12 @@ TextureImporter:
         width: 12
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: 97d3ae4f644e93da0800000000000000
       internalID: -5964485238067675783
@@ -163,7 +195,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 3053e674304a34fc3a992e1a4b842dc7
     internalID: 0
     vertices: []
     indices: 
