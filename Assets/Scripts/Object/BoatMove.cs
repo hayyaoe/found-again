@@ -12,7 +12,7 @@ public class BoatMove : MonoBehaviour
 
     [Header("Debug")]
     public bool logDebug = true;
-
+    [SerializeField] private GameObject roomZoneToDisable;
     public WaveMovement waveScript;
 
     private readonly List<Transform> playersOnBoard = new List<Transform>();
@@ -30,6 +30,12 @@ public class BoatMove : MonoBehaviour
     void Update()
     {
         if (playersOnBoard.Count < requiredPlayers) return;
+
+        if (roomZoneToDisable != null)
+        {
+            roomZoneToDisable.SetActive(false);
+            Debug.Log("[BoatTrigger] RoomZone disabled.");
+        }
 
         // Gerakan boat
         Vector3 oldBase = waveScript.GetBasePosition();

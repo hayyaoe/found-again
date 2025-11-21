@@ -56,7 +56,9 @@ public class Movement : MonoBehaviour
 
   [Header("Sound Effects")]
   [SerializeField] private AudioClip jumpSFX;
+  [SerializeField] private AudioClip slideSFX;
   [SerializeField] private float jumpVolume = 1f;
+  [SerializeField] private float slideVolume = 1f;
   [SerializeField] private AudioClip[] footstepSFX; // ✅ multiple footstep clips
   [SerializeField] private float footstepVolume = 0.8f;
   [SerializeField] private float footstepInterval = 0.35f;
@@ -394,6 +396,14 @@ public class Movement : MonoBehaviour
     // - Kalau searah slope (bukan melawan arus) → pakai anim slide
     // - Kalau melawan arus → jangan anim slide (anim jalan biasa)
     bool slidingAnim = (wallSlide || floorSlide) && !inputAgainstSlope;
+
+    if (slidingAnim)
+    {
+      if (SoundFXManager.instance != null && slideSFX != null)
+      {
+        SoundFXManager.instance.PlaySoundFXClip(slideSFX, transform, slideVolume);
+      }
+    }
 
     // RUN hanya kalau:
     // - ada input horizontal

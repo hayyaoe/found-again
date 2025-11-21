@@ -59,6 +59,16 @@ public class PushPullObject : MonoBehaviour
     // casts buffer
     private readonly RaycastHit2D[] castHits = new RaycastHit2D[8];
 
+    [Header("SFX")]
+    [SerializeField] private AudioSource slideSource;
+    [SerializeField] private float minSlideSpeed = 0.05f;
+    [SerializeField] private float minVolume = 0.2f;
+    [SerializeField] private float maxVolume = 1f;
+    public AudioClip slideStartSFX;
+    public float slideStartVolume = 1f;
+    public AudioClip slideStopSFX;
+    public float slideStopVolume = 1f;
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -70,9 +80,9 @@ public class PushPullObject : MonoBehaviour
         if (returnBlockerMask.value == 0)
             returnBlockerMask = LayerMask.GetMask("Pushable");
 
-        if (pulley == null && autoFindPulleyInParent)   pulley = GetComponentInParent<PulleySystem>();
+        if (pulley == null && autoFindPulleyInParent) pulley = GetComponentInParent<PulleySystem>();
         if (pulley == null && autoFindPulleyInChildren) pulley = GetComponentInChildren<PulleySystem>();
-        if (pulley == null && autoFindPulleyInScene)    pulley = FindFirstObjectByType<PulleySystem>();
+        if (pulley == null && autoFindPulleyInScene) pulley = FindFirstObjectByType<PulleySystem>();
 
         initialX = rb.position.x;
         targetReturnX = initialX;
@@ -127,7 +137,7 @@ public class PushPullObject : MonoBehaviour
         bool shouldPush = requiresTwoPlayers ? pushingPlayers.Count >= 2 : pushingPlayers.Count > 0;
 
         if (shouldPush) StartPush();
-        else            StopPush();
+        else StopPush();
     }
 
     public void StartPush()
@@ -138,6 +148,9 @@ public class PushPullObject : MonoBehaviour
         returningToStart = false;
         returnTimer = 0f;
 
+        if (slideStartSFX != null && SoundFXManager.instance != null)
+            SoundFXManager.instance.PlaySoundFXClip(slideStartSFX, transform, slideStartVolume);
+
         UnlockObject(); // Dynamic + FreezeRotation only
         Log($"StartPush → UnlockObject (cons={rb.constraints})");
     }
@@ -147,6 +160,9 @@ public class PushPullObject : MonoBehaviour
         if (!isBeingPushed) { Log("StopPush ignored: not pushing."); return; }
 
         isBeingPushed = false;
+
+        if (slideStopSFX != null && SoundFXManager.instance != null)
+            SoundFXManager.instance.PlaySoundFXClip(slideStopSFX, transform, slideStopVolume);
 
         // Lepas freeze X dari MAX supaya return bisa jalan
         if (xFrozenByMax) SetFreezeXByMax(false);
@@ -231,19 +247,19 @@ public class PushPullObject : MonoBehaviour
             ResolveInitialOverlap();
 
             // B) Hitung langkah target & batasi via sweep
-            float posX    = rb.position.x;
+            float posX = rb.position.x;
             float maxStep = returnSpeed * Time.fixedDeltaTime;
             float desired = Mathf.MoveTowards(posX, targetReturnX, maxStep);
             float rawStep = desired - posX;
 
             float safeStep = ComputeSafeStep(rawStep);
-            float nextX    = posX + safeStep;
+            float nextX = posX + safeStep;
 
             // C) Gerakkan
             rb.MovePosition(new Vector2(nextX, rb.position.y));
             rb.linearVelocity = Vector2.zero;
 
-            bool arrived  = Mathf.Abs(nextX - targetReturnX) <= returnSnapEpsilon;
+            bool arrived = Mathf.Abs(nextX - targetReturnX) <= returnSnapEpsilon;
             bool timedOut = (returnTimeout > 0f && returnTimer >= returnTimeout);
 
             if (arrived || timedOut)
@@ -271,6 +287,8 @@ public class PushPullObject : MonoBehaviour
                 Log("Idle fallback → LockObject()");
             }
         }
+
+        SlideSFX();
     }
 
     // === Helpers ===
@@ -394,6 +412,36 @@ public class PushPullObject : MonoBehaviour
         float allowed = Mathf.Min(stepAbs, safe);
         return sign * allowed;
     }
+
+    private void SlideSFX()
+{
+    // kondisi sedang sliding:
+    bool slidingNow =
+        isBeingPushed &&
+        !pulleyHardLocked &&          // jangan bunyi kalau lagi ke-lock di MAX
+        Mathf.Abs(rb.linearVelocity.x) > minSlideSpeed;
+
+    if (slidingNow)
+    {
+        if (!slideSource.isPlaying)
+        {
+            // random pitch dikit biar ga bosen
+            slideSource.pitch = Random.Range(0.95f, 1.05f);
+            slideSource.Play();
+        }
+
+        // volume skala sesuai speed
+        float speed = Mathf.Abs(rb.linearVelocity.x);
+        float t = Mathf.InverseLerp(minSlideSpeed, 2f, speed); // 2f bisa kamu adjust
+        slideSource.volume = Mathf.Lerp(minVolume, maxVolume, t);
+    }
+    else
+    {
+        if (slideSource.isPlaying)
+            slideSource.Stop();
+    }
+}
+
 
     // logging
     private void Log(string msg) { if (debugLogging) Debug.Log($"{LOG_TAG} [{name}] {msg}"); }
