@@ -77,6 +77,7 @@ public class PlayerCursorController : MonoBehaviour
         if (backObj != null) backSpot = backObj.GetComponent<RectTransform>();
 
         currentPosition = CursorPosition.Center;
+        SoundFXManager.instance.PlaySoundFXClip(selectSfx, transform, 0.5f);
         UpdateSelection();
     }
 
