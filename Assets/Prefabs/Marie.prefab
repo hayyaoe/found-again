@@ -5051,7 +5051,7 @@ MonoBehaviour:
   shortJumpMultiplier: 1
   shortHopCut: 0
   fallMultiplier: 3
-  fatalFallSpeed: 35
+  fatalFallSpeed: 25
   deathYLevel: -30
   groundLayer:
     serializedVersion: 2
