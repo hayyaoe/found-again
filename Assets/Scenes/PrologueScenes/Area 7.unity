@@ -3252,6 +3252,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   returnCastSkin: 0.02
+  slideSource: {fileID: 7640817860272433752, guid: d81cb17587607419c851dfb9cd855c40, type: 3}
+  minSlideSpeed: 0.05
+  minVolume: 0.2
+  maxVolume: 1
+  slideStartSFX: {fileID: 8300000, guid: ed53ffada4df9475bb65630ad6e82ae3, type: 3}
+  slideStartVolume: 1
+  slideStopSFX: {fileID: 0}
+  slideStopVolume: 1
 --- !u!50 &1715255125
 Rigidbody2D:
   serializedVersion: 5
@@ -8884,6 +8892,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   returnCastSkin: 0.02
+  slideSource: {fileID: 7640817860272433752, guid: d81cb17587607419c851dfb9cd855c40, type: 3}
+  minSlideSpeed: 0.05
+  minVolume: 0.2
+  maxVolume: 1
+  slideStartSFX: {fileID: 8300000, guid: ed53ffada4df9475bb65630ad6e82ae3, type: 3}
+  slideStartVolume: 1
+  slideStopSFX: {fileID: 0}
+  slideStopVolume: 1
 --- !u!50 &2039911984
 Rigidbody2D:
   serializedVersion: 5
