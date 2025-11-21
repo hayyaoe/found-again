@@ -10,7 +10,7 @@ public class DialogueManager : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private GameObject dialogueBoxPanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
-    [SerializeField] private GameObject continuePrompt;
+    [SerializeField] private GameObject continuePrompt; // "Press X to continue" text/icon
     [SerializeField] private GameObject nameBoxPanel;
     [SerializeField] private TextMeshProUGUI characterNameText;
     [SerializeField] private Image characterLeftSprite;
@@ -19,9 +19,8 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue Content")]
     [SerializeField] public string cutsceneName = "Intro";
     
-    // 🟢 NEW: Typing Settings
     [Header("Typing Settings")]
-    [SerializeField] private float typingSpeed = 0.04f; // Time between each character
+    [SerializeField] private float typingSpeed = 0.04f; 
     private bool isTyping = false; 
     private Coroutine typingCoroutine;
 
@@ -32,18 +31,14 @@ public class DialogueManager : MonoBehaviour
     [Header("Character Settings")]
     [SerializeField] private Sprite mimiSprite;
     [SerializeField] private Sprite mimiNameBoxSprite;
-
     [SerializeField] private Sprite wandererSprite; 
     [SerializeField] private Sprite wandererNameBoxSprite; 
-
     [SerializeField] private Sprite marieOldSprite; 
     [SerializeField] private Sprite marieOldNameBoxSprite; 
     [SerializeField] private Sprite calliSprite; 
     [SerializeField] private Sprite calliNameBoxSprite; 
-                                                        
     [SerializeField] private Sprite defaultNameBoxSprite;
     [SerializeField] private Color defaultNameBoxColor = new Color(0.2f, 0.2f, 0.2f, 0.8f);
-
     [SerializeField] private Color speakingColor = Color.white;
     [SerializeField] private Color silentColor = new Color(0.5f, 0.5f, 0.5f, 1f);
 
@@ -68,7 +63,6 @@ public class DialogueManager : MonoBehaviour
         public CharacterSide characterSide;
     }
     public enum CharacterSide { None, Left, Right }
-
 
     private void Awake()
     {
@@ -95,11 +89,9 @@ public class DialogueManager : MonoBehaviour
         this.currentConversationIndex = 0;
         this.cutsceneName = cutsceneID;
         
-        if (dialogueBoxPanel == null || dialogueText == null || continuePrompt == null ||
-            nameBoxPanel == null || characterNameText == null ||
-            characterLeftSprite == null || characterRightSprite == null)
+        if (dialogueBoxPanel == null || dialogueText == null || continuePrompt == null)
         {
-            Debug.LogError("DIALOGUE MANAGER ERROR: Not all UI elements are assigned in the Inspector!");
+            Debug.LogError("DIALOGUE MANAGER ERROR: UI elements missing!");
             StartGame(); 
             return;
         }
@@ -116,7 +108,9 @@ public class DialogueManager : MonoBehaviour
 
         dialogueBoxPanel.SetActive(true);
         nameBoxPanel.SetActive(false);
-        continuePrompt.SetActive(false);
+        
+        // 🟢 Ensure prompt is visible at start
+        continuePrompt.SetActive(true);
 
         characterLeftSprite.sprite = wandererSprite;
         characterLeftSprite.color = silentColor;
@@ -133,39 +127,27 @@ public class DialogueManager : MonoBehaviour
     {
         if (SaveSystem.HasSave())
         {
-            Debug.Log("Save found → skipping cutscene and spawning players after scene loads.");
-
+            Debug.Log("Save found -> skipping cutscene.");
             dialogueBoxPanel.SetActive(false);
-            nameBoxPanel.SetActive(false);
-            characterLeftSprite.gameObject.SetActive(false);
-            characterRightSprite.gameObject.SetActive(false);
-
             Time.timeScale = 1f;
             SwitchAllPlayerMaps("Player");
-
             StartCoroutine(SpawnAfterDelay());
-
             this.enabled = false;
             return;
         }
-
         StartDialogue(this.cutsceneName);
     }
 
     private CharacterSide GetSideFromName(string speakerName)
     {
-        if (speakerName == "Wanderer") return CharacterSide.Left;
-        else if (speakerName == "Marie") return CharacterSide.Left;
-        else if (speakerName == "Mimi") return CharacterSide.Right;
-        else if (speakerName == "Calli") return CharacterSide.Right;
-
+        if (speakerName == "Wanderer" || speakerName == "Marie") return CharacterSide.Left;
+        if (speakerName == "Mimi" || speakerName == "Calli") return CharacterSide.Right;
         return CharacterSide.None; 
     }
 
     private void SwitchAllPlayerMaps(string mapName)
     {
         if (CheckpointManager.instance == null || CheckpointManager.allPlayers == null) return;
-
         foreach (Movement player in CheckpointManager.allPlayers)
         {
             if (player != null)
@@ -178,11 +160,13 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator ShowConversation(DialogueLine currentLine)
     {
-        isWaitingForInput = false; // Block input until typing starts or finishes
-        continuePrompt.SetActive(false); // Hide prompt while typing
+        isWaitingForInput = false; 
+        
+        // 🟢 UPDATED: Do NOT hide prompt here. Keep it active.
+        // if (continuePrompt != null) continuePrompt.SetActive(false);
+        
         nameBoxPanel.SetActive(false);
 
-        // Set character sprites and opacity
         switch (currentLine.characterSide)
         {
             case CharacterSide.Left:
@@ -199,74 +183,47 @@ public class DialogueManager : MonoBehaviour
                 break;
         }
 
-        // Set name box and text
         if (!string.IsNullOrEmpty(currentLine.speakerName) && currentLine.speakerName != "Narrator")
         {
             nameBoxPanel.SetActive(true);
             characterNameText.text = currentLine.speakerName;
             characterNameText.gameObject.SetActive(true);
-
             SetAnchor(currentLine.characterSide);
 
-            if (currentLine.speakerName == "Mimi")
-            {
-                nameBoxImage.sprite = mimiNameBoxSprite;
-                nameBoxImage.color = Color.white;
-                characterRightSprite.sprite = mimiSprite; 
-            }
-            else if (currentLine.speakerName == "Wanderer")
-            {
-                nameBoxImage.sprite = wandererNameBoxSprite;
-                nameBoxImage.color = Color.white;
-                characterLeftSprite.sprite = wandererSprite; 
-            }
-            else if (currentLine.speakerName == "Marie") 
-            {
-                nameBoxImage.sprite = marieOldNameBoxSprite;
-                nameBoxImage.color = Color.white;
-                characterLeftSprite.sprite = marieOldSprite; 
-            }
-            else if (currentLine.speakerName == "Calli")
-            {
-                nameBoxImage.sprite = calliNameBoxSprite;
-                nameBoxImage.color = Color.white;
-                characterRightSprite.sprite = calliSprite; 
-            }
-            else 
-            {
-                nameBoxImage.sprite = defaultNameBoxSprite;
-                nameBoxImage.color = defaultNameBoxColor;
-            }
+            if (currentLine.speakerName == "Mimi") { nameBoxImage.sprite = mimiNameBoxSprite; nameBoxImage.color = Color.white; characterRightSprite.sprite = mimiSprite; }
+            else if (currentLine.speakerName == "Wanderer") { nameBoxImage.sprite = wandererNameBoxSprite; nameBoxImage.color = Color.white; characterLeftSprite.sprite = wandererSprite; }
+            else if (currentLine.speakerName == "Marie") { nameBoxImage.sprite = marieOldNameBoxSprite; nameBoxImage.color = Color.white; characterLeftSprite.sprite = marieOldSprite; }
+            else if (currentLine.speakerName == "Calli") { nameBoxImage.sprite = calliNameBoxSprite; nameBoxImage.color = Color.white; characterRightSprite.sprite = calliSprite; }
+            else { nameBoxImage.sprite = defaultNameBoxSprite; nameBoxImage.color = defaultNameBoxColor; }
         }
 
-        // 🟢 START TYPING ANIMATION
         if (typingCoroutine != null) StopCoroutine(typingCoroutine);
         typingCoroutine = StartCoroutine(TypeLine(currentLine.line));
         yield return null; 
     }
 
-    // 🟢 NEW: Typing Logic Coroutine
     private IEnumerator TypeLine(string line)
     {
         isTyping = true;
-        dialogueText.text = ""; // Clear text initially
+        dialogueText.text = ""; 
 
-        // Loop through characters and add them one by one
         foreach (char letter in line.ToCharArray())
         {
             dialogueText.text += letter;
-            yield return new WaitForSecondsRealtime(typingSpeed); // Use Realtime because timeScale is 0
+            yield return new WaitForSecondsRealtime(typingSpeed);
         }
 
         FinishTyping(line);
     }
 
-    // 🟢 NEW: Helper to finish typing instantly
     private void FinishTyping(string fullLine)
     {
         isTyping = false;
-        dialogueText.text = fullLine; // Ensure full text is displayed
-        continuePrompt.SetActive(true);
+        dialogueText.text = fullLine;
+        
+        // 🟢 Ensure prompt is visible (just in case)
+        if (continuePrompt != null) continuePrompt.SetActive(true);
+        
         isWaitingForInput = true;
     }
 
@@ -274,16 +231,13 @@ public class DialogueManager : MonoBehaviour
     {
         if (!context.performed) return;
 
-        // 🟢 UPDATED: Handle Typing vs Waiting
         if (isTyping)
         {
-            // If user presses button while typing, show full text instantly
             if (typingCoroutine != null) StopCoroutine(typingCoroutine);
             FinishTyping(currentLines[currentConversationIndex].line);
         }
         else if (isWaitingForInput)
         {
-            // If text is done, go to next line
             NextConversation();
         }
     }
@@ -292,203 +246,104 @@ public class DialogueManager : MonoBehaviour
     {
         continueAction?.Enable();
         skipAction?.Enable();
-
         continueAction.performed += OnContinuePressed;
         skipAction.performed += OnSkipPressed;
     }
 
     private void OnDisable()
     {
-        if (continueAction != null)
-            continueAction.performed -= OnContinuePressed;
-
-        if (skipAction != null)
-            skipAction.performed -= OnSkipPressed;
-
+        if (continueAction != null) continueAction.performed -= OnContinuePressed;
+        if (skipAction != null) skipAction.performed -= OnSkipPressed;
         continueAction?.Disable();
         skipAction?.Disable();
-
-        foreach (var a in nextActions)
-            a.performed -= OnContinuePressed;
-
-        foreach (var b in skipActionsList)
-            b.performed -= OnSkipPressed;
+        foreach (var a in nextActions) a.performed -= OnContinuePressed;
+        foreach (var b in skipActionsList) b.performed -= OnSkipPressed;
     }
 
     private void StartGame()
     {
         isWaitingForInput = false;
         isTyping = false;
-
         if (this.enabled == false) return;
-
         Time.timeScale = 1f;
-
         dialogueBoxPanel.SetActive(false);
         nameBoxPanel.SetActive(false);
         characterLeftSprite.gameObject.SetActive(false);
         characterRightSprite.gameObject.SetActive(false);
-
         this.enabled = false;
-
         SwitchAllPlayerMaps("Player");
-
         if (!playersHaveSpawned)
         {
-            if (playerSpawner != null)
-            {
-                playerSpawner.StartSpawning();
-                playersHaveSpawned = true;
-            }
-            else
-            {
-                Debug.LogError("PlayerSpawner is not assigned in the DialogueManager Inspector!", this);
-            }
-
-            if (gameHUDCanvas != null)
-            {
-                gameHUDCanvas.SetActive(true);
-            }
-            else
-            {
-                Debug.LogWarning("Game HUD Canvas is not assigned in the DialogueManager Inspector.", this);
-            }
+            if (playerSpawner != null) { playerSpawner.StartSpawning(); playersHaveSpawned = true; }
+            if (gameHUDCanvas != null) gameHUDCanvas.SetActive(true);
         }
     }
 
     private void LoadDialogueFromDatabase()
     {
-        if (DialogueDatabase.instance == null)
-        {
-            Debug.LogError("DIALOGUE MANAGER: DialogueDatabase instance is missing! Make sure it's on a persistent object from the MainMenu scene.");
-            return;
-        }
-
+        if (DialogueDatabase.instance == null) return;
         List<DialogueDataEntry> data = DialogueDatabase.instance.GetDialogueFor(cutsceneName);
-
-        if (data.Count == 0)
-        {
-            Debug.LogError($"DIALOGUE MANAGER: No dialogue found for cutscene '{cutsceneName}'. Check your CSV and spelling.");
-            return;
-        }
+        if (data.Count == 0) return;
 
         currentLines.Clear();
         foreach (var entry in data)
         {
-            DialogueLine newLine = new DialogueLine
+            currentLines.Add(new DialogueLine
             {
                 speakerName = entry.speakerName,
                 line = entry.dialogueLine,
                 characterSide = GetSideFromName(entry.speakerName)
-            };
-            currentLines.Add(newLine);
+            });
         }
     }
 
     private IEnumerator RunDialogue()
     {
-        if (currentLines.Count == 0)
-        {
-            StartGame();
-            yield break;
-        }
-
+        if (currentLines.Count == 0) { StartGame(); yield break; }
         dialogueBoxPanel.SetActive(true);
         StartCoroutine(ShowConversation(currentLines[currentConversationIndex]));
     }
 
-    private void OnSkipPressed(InputAction.CallbackContext context)
-    {
-        StartGame();
-    }
+    private void OnSkipPressed(InputAction.CallbackContext context) { StartGame(); }
 
     private void NextConversation()
     {
         isWaitingForInput = false;
-        continuePrompt.SetActive(false);
+        
+        // 🟢 UPDATED: Do NOT hide prompt here.
+        // if (continuePrompt != null) continuePrompt.SetActive(false);
 
         currentConversationIndex++;
-
         if (currentConversationIndex < currentLines.Count)
-        {
             StartCoroutine(ShowConversation(currentLines[currentConversationIndex]));
-        }
         else
-        {
             StartGame();
-        }
     }
 
     private void SetAnchor(CharacterSide side)
     {
         Vector2 leftPos = new Vector2(50, -20);
         Vector2 rightPos = new Vector2(-50, -20);
-
-        if (side == CharacterSide.Left)
-        {
-            nameBoxRect.anchorMin = new Vector2(0, 1);
-            nameBoxRect.anchorMax = new Vector2(0, 1);
-            nameBoxRect.pivot = new Vector2(0, 1);
-            nameBoxRect.anchoredPosition = leftPos;
-        }
-        else if (side == CharacterSide.Right)
-        {
-            nameBoxRect.anchorMin = new Vector2(1, 1);
-            nameBoxRect.anchorMax = new Vector2(1, 1);
-            nameBoxRect.pivot = new Vector2(1, 1);
-            nameBoxRect.anchoredPosition = rightPos;
-        }
-        else
-        {
-            nameBoxRect.anchorMin = new Vector2(0, 1);
-            nameBoxRect.anchorMax = new Vector2(0, 1);
-            nameBoxRect.pivot = new Vector2(0, 1);
-            nameBoxRect.anchoredPosition = leftPos;
-        }
+        if (side == CharacterSide.Left) { nameBoxRect.anchorMin = new Vector2(0, 1); nameBoxRect.anchorMax = new Vector2(0, 1); nameBoxRect.pivot = new Vector2(0, 1); nameBoxRect.anchoredPosition = leftPos; }
+        else if (side == CharacterSide.Right) { nameBoxRect.anchorMin = new Vector2(1, 1); nameBoxRect.anchorMax = new Vector2(1, 1); nameBoxRect.pivot = new Vector2(1, 1); nameBoxRect.anchoredPosition = rightPos; }
+        else { nameBoxRect.anchorMin = new Vector2(0, 1); nameBoxRect.anchorMax = new Vector2(0, 1); nameBoxRect.pivot = new Vector2(0, 1); nameBoxRect.anchoredPosition = leftPos; }
     }
 
     private IEnumerator SpawnAfterDelay()
     {
         yield return null;
         yield return new WaitForSeconds(0.01f);
-
-        if (!playersHaveSpawned)
-        {
-            playerSpawner.StartSpawning();
-            playersHaveSpawned = true;
-        }
-        else
-        {
-            Debug.Log("Players already spawned — skipping spawn.");
-        }
-
-
-        if (gameHUDCanvas != null)
-            gameHUDCanvas.SetActive(true);
-
-        Debug.Log("Players spawned AFTER delay — checkpoint loading should now work.");
+        if (!playersHaveSpawned) { playerSpawner.StartSpawning(); playersHaveSpawned = true; }
+        if (gameHUDCanvas != null) gameHUDCanvas.SetActive(true);
     }
 
     public void RegisterNewPlayer(PlayerInput player)
     {
-        if (dialogueBoxPanel != null && dialogueBoxPanel.activeInHierarchy)
-            player.SwitchCurrentActionMap("Cutscene");
-        else
-            player.SwitchCurrentActionMap("Player");
-
+        if (dialogueBoxPanel != null && dialogueBoxPanel.activeInHierarchy) player.SwitchCurrentActionMap("Cutscene");
+        else player.SwitchCurrentActionMap("Player");
         var next = player.actions["Next"];
         var skip = player.actions["Skip"];
-
-        if (next != null)
-        {
-            nextActions.Add(next);
-            next.performed += OnContinuePressed;
-        }
-
-        if (skip != null)
-        {
-            skipActionsList.Add(skip);
-            skip.performed += OnSkipPressed;
-        }
+        if (next != null) { nextActions.Add(next); next.performed += OnContinuePressed; }
+        if (skip != null) { skipActionsList.Add(skip); skip.performed += OnSkipPressed; }
     }
 }
