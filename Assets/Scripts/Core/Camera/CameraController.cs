@@ -18,6 +18,11 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private Vector2 minBounds;
     [SerializeField] private Vector2 maxBounds;
 
+    private float minX = -Mathf.Infinity;
+    private float maxX = Mathf.Infinity;
+    private float minY = -Mathf.Infinity;
+    private float maxY = Mathf.Infinity;
+
     [Header("Lock Settings")]
     [SerializeField] private float lockSmoothTime = 0.3f;
 
@@ -149,4 +154,11 @@ public class CameraMovement : MonoBehaviour
         cam.orthographicSize = newZoom;
     }
 
+    public void SetClampingBounds(float min_x, float max_x, float min_y, float max_y)
+    {
+        minX = min_x;
+        maxX = max_x;
+        minY = min_y;
+        maxY = max_y;
+    }
 }
