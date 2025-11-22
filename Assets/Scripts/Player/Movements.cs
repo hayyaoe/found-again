@@ -59,6 +59,8 @@ public class Movement : MonoBehaviour
   [SerializeField] private AudioClip slideSFX;
   [SerializeField] private float jumpVolume = 1f;
   [SerializeField] private float slideVolume = 1f;
+  private bool slideSoundPlaying = false;
+
   [SerializeField] private AudioClip[] footstepSFX; // ✅ multiple footstep clips
   [SerializeField] private float footstepVolume = 0.8f;
   [SerializeField] private float footstepInterval = 0.35f;
@@ -399,11 +401,21 @@ public class Movement : MonoBehaviour
 
     if (slidingAnim)
     {
-      if (SoundFXManager.instance != null && slideSFX != null)
-      {
-        SoundFXManager.instance.PlaySoundFXClip(slideSFX, transform, slideVolume);
-      }
+        if (!slideSoundPlaying)
+        {
+            slideSoundPlaying = true;
+
+            if (SoundFXManager.instance != null && slideSFX != null)
+            {
+                SoundFXManager.instance.PlaySoundFXClip(slideSFX, transform, slideVolume);
+            }
+        }
     }
+    else
+    {
+        slideSoundPlaying = false;
+    }
+
 
     // RUN hanya kalau:
     // - ada input horizontal
