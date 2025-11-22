@@ -1,0 +1,1603 @@
+fileFormatVersion: 2
+guid: ce36626258b424273b8deeee2f6010fe
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -252909838654570064
+    second: A5midbackground_0
+  - first:
+      213: -3970510332813723801
+    second: A5midbackground_1
+  - first:
+      213: 1361630588704590409
+    second: A5midbackground_2
+  - first:
+      213: 4613775566298260665
+    second: A5midbackground_3
+  - first:
+      213: -8689110835286675192
+    second: A5midbackground_4
+  - first:
+      213: -1057732295524365753
+    second: A5midbackground_5
+  - first:
+      213: -9053074838771351600
+    second: A5midbackground_6
+  - first:
+      213: 8595884452830577289
+    second: A5midbackground_7
+  - first:
+      213: 4187676788278414814
+    second: A5midbackground_8
+  - first:
+      213: 9158194705831672491
+    second: A5midbackground_9
+  - first:
+      213: -102512747640725177
+    second: A5midbackground_10
+  - first:
+      213: -1496863506604492108
+    second: A5midbackground_11
+  - first:
+      213: -3699838950879046525
+    second: A5midbackground_12
+  - first:
+      213: 275187057331250204
+    second: A5midbackground_13
+  - first:
+      213: -7064289711651115456
+    second: A5midbackground_14
+  - first:
+      213: -4069396152446822272
+    second: A5midbackground_15
+  - first:
+      213: -5583709465612455812
+    second: A5midbackground_16
+  - first:
+      213: -9209748379923066940
+    second: A5midbackground_17
+  - first:
+      213: -5795227479567513604
+    second: A5midbackground_18
+  - first:
+      213: 5383365978911617650
+    second: A5midbackground_19
+  - first:
+      213: 7194443542186645310
+    second: A5midbackground_20
+  - first:
+      213: 9070659124049666742
+    second: A5midbackground_21
+  - first:
+      213: 6763934063788260648
+    second: A5midbackground_22
+  - first:
+      213: -7561730068229301202
+    second: A5midbackground_23
+  - first:
+      213: 608633792516954270
+    second: A5midbackground_24
+  - first:
+      213: 2917869787243049066
+    second: A5midbackground_25
+  - first:
+      213: -6892501405989221605
+    second: A5midbackground_26
+  - first:
+      213: 7593935968913920575
+    second: A5midbackground_27
+  - first:
+      213: -3857535084580161451
+    second: A5midbackground_28
+  - first:
+      213: 6654523107537632213
+    second: A5midbackground_29
+  - first:
+      213: 3466748731286695909
+    second: A5midbackground_30
+  - first:
+      213: -6128710931926848215
+    second: A5midbackground_31
+  - first:
+      213: 7003132844198253137
+    second: A5midbackground_32
+  - first:
+      213: -2141023698337078687
+    second: A5midbackground_33
+  - first:
+      213: -1056256777498568551
+    second: A5midbackground_34
+  - first:
+      213: -8557963511880012455
+    second: A5midbackground_35
+  - first:
+      213: -6769843830228662364
+    second: A5midbackground_36
+  - first:
+      213: 8770304728596722832
+    second: A5midbackground_37
+  - first:
+      213: 8672720737299033142
+    second: A5midbackground_38
+  - first:
+      213: -7512278686525697276
+    second: A5midbackground_39
+  - first:
+      213: -8670016660400973792
+    second: A5midbackground_40
+  - first:
+      213: 1831898479319666944
+    second: A5midbackground_41
+  - first:
+      213: 7864863068290336412
+    second: A5midbackground_42
+  - first:
+      213: 676906728747157892
+    second: A5midbackground_43
+  - first:
+      213: 7446591656916622255
+    second: A5midbackground_44
+  - first:
+      213: 7244113489994181181
+    second: A5midbackground_45
+  - first:
+      213: -826261776452582356
+    second: A5midbackground_46
+  - first:
+      213: -4922212984430478655
+    second: A5midbackground_47
+  - first:
+      213: 6255700650628719570
+    second: A5midbackground_48
+  - first:
+      213: 1958757666399998091
+    second: A5midbackground_49
+  - first:
+      213: -2344664772044247910
+    second: A5midbackground_50
+  - first:
+      213: -8005936030020066436
+    second: A5midbackground_51
+  - first:
+      213: 1054156074962850923
+    second: A5midbackground_52
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: A5midbackground_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1530
+        height: 2000
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 765, y: 100.47846}
+        - {x: 765, y: 983.59534}
+        - {x: 750.58594, y: 999.99994}
+        - {x: -765, y: 999.99994}
+        - {x: -765, y: -999.99994}
+        - {x: 319.92188, y: -999.99994}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b10bca77db7d7cf0800000000000000
+      internalID: -252909838654570064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_1
+      rect:
+        serializedVersion: 2
+        x: 1674
+        y: 234
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 767be9393e9e5e8c0800000000000000
+      internalID: -3970510332813723801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_2
+      rect:
+        serializedVersion: 2
+        x: 1680
+        y: 0
+        width: 1120
+        height: 1047
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: -560, y: -523.5}
+        - {x: 560, y: -523.5}
+        - {x: 560, y: 149.00888}
+        - {x: 498.7499, y: 412.85028}
+        - {x: 316.91397, y: 523.5}
+        - {x: 72.1874, y: 523.5}
+        - {x: -37.1876, y: 423.7867}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94a0b036ecb75e210800000000000000
+      internalID: 1361630588704590409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_3
+      rect:
+        serializedVersion: 2
+        x: 1684
+        y: 247
+        width: 27
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b4a596ce6c670040800000000000000
+      internalID: 4613775566298260665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_4
+      rect:
+        serializedVersion: 2
+        x: 1715
+        y: 233
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 5.3320646, y: 6.752582}
+        - {x: -5.6054354, y: 6.752582}
+        - {x: -8, y: 1.2843665}
+        - {x: -4.238248, y: -2.8167953}
+        - {x: 5.3320646, y: -2.8167953}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8017db07bb31a6780800000000000000
+      internalID: -8689110835286675192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_5
+      rect:
+        serializedVersion: 2
+        x: 1648
+        y: 187
+        width: 33
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 16.5, y: -20.5}
+        - {x: 16.5, y: 20.5}
+        - {x: -4.246092, y: 20.5}
+        - {x: -16.5, y: 20.5}
+        - {x: -16.5, y: -20.108664}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74acfc1d41e2251f0800000000000000
+      internalID: -1057732295524365753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_6
+      rect:
+        serializedVersion: 2
+        x: 1662
+        y: 225
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dfb10e36640d5280800000000000000
+      internalID: -9053074838771351600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_7
+      rect:
+        serializedVersion: 2
+        x: 1669
+        y: 226
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 982054ded57ba4770800000000000000
+      internalID: 8595884452830577289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_8
+      rect:
+        serializedVersion: 2
+        x: 1681
+        y: 219
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eddcb770add9d1a30800000000000000
+      internalID: 4187676788278414814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_9
+      rect:
+        serializedVersion: 2
+        x: 1684
+        y: 186
+        width: 38
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 19, y: -18}
+        - {x: 9.878898, y: 26}
+        - {x: -18.83204, y: 26}
+        - {x: -19, y: -26}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: baab5f01091781f70800000000000000
+      internalID: 9158194705831672491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_10
+      rect:
+        serializedVersion: 2
+        x: 1732
+        y: 219
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 5, y: -0.4121646}
+        - {x: 1.8241405, y: 4.5}
+        - {x: -5, y: 4.5}
+        - {x: -5, y: 0.95488936}
+        - {x: -2.277422, y: -4.5}
+        - {x: 5, y: -4.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 741ecebf23dc39ef0800000000000000
+      internalID: -102512747640725177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_11
+      rect:
+        serializedVersion: 2
+        x: 1716
+        y: 214
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4baf79b42921a3be0800000000000000
+      internalID: -1496863506604492108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_12
+      rect:
+        serializedVersion: 2
+        x: 1748
+        y: 202
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38453b6a31887acc0800000000000000
+      internalID: -3699838950879046525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_13
+      rect:
+        serializedVersion: 2
+        x: 1599
+        y: 143
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c14a30fab29a1d300800000000000000
+      internalID: 275187057331250204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_14
+      rect:
+        serializedVersion: 2
+        x: 1601
+        y: 147
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04ea69a7fe996fd90800000000000000
+      internalID: -7064289711651115456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_15
+      rect:
+        serializedVersion: 2
+        x: 1607
+        y: 143
+        width: 29
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 14.5, y: -2.5912406}
+        - {x: 14.226627, y: -1.2241867}
+        - {x: 12.85944, y: 5.611083}
+        - {x: 11.492252, y: 9.5}
+        - {x: -7.6483727, y: 9.5}
+        - {x: -14.48431, y: 9.5}
+        - {x: -14.48431, y: -5.3253484}
+        - {x: -7.6483727, y: -9.42651}
+        - {x: 14.5, y: -9.42651}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 088d01b82c99687c0800000000000000
+      internalID: -4069396152446822272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_16
+      rect:
+        serializedVersion: 2
+        x: 1630
+        y: 165
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 8.5, y: 5.5}
+        - {x: -8.5, y: 5.5}
+        - {x: -8.5, y: -2.4641013}
+        - {x: -7.2071075, y: -5.1982093}
+        - {x: 8.5, y: -5.1982093}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c70fe2523dda282b0800000000000000
+      internalID: -5583709465612455812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_17
+      rect:
+        serializedVersion: 2
+        x: 1632
+        y: 175
+        width: 19
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 9.5, y: -2.033476}
+        - {x: 9.5, y: 5.5}
+        - {x: -6.5742493, y: 5.5}
+        - {x: -9.308624, y: 2.0676858}
+        - {x: -9.308624, y: -5.5}
+        - {x: 9.5, y: -5.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cfc4ffc4a6603080800000000000000
+      internalID: -9209748379923066940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_18
+      rect:
+        serializedVersion: 2
+        x: 1639
+        y: 184
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 7, y: 6.5}
+        - {x: -7, y: 6.5}
+        - {x: -7, y: -6.5}
+        - {x: 7, y: -6.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf7cbcfcf47339fa0800000000000000
+      internalID: -5795227479567513604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_19
+      rect:
+        serializedVersion: 2
+        x: 1643
+        y: 146
+        width: 28
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27233f4e5de85ba40800000000000000
+      internalID: 5383365978911617650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_20
+      rect:
+        serializedVersion: 2
+        x: 1683
+        y: 155
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3753a8a84cc7d360800000000000000
+      internalID: 7194443542186645310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_21
+      rect:
+        serializedVersion: 2
+        x: 1698
+        y: 163
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b2e2a73a6471ed70800000000000000
+      internalID: 9070659124049666742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_22
+      rect:
+        serializedVersion: 2
+        x: 1710
+        y: 178
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82d7344b1325edd50800000000000000
+      internalID: 6763934063788260648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_23
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 140
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2c5dc311965f0790800000000000000
+      internalID: -7561730068229301202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_24
+      rect:
+        serializedVersion: 2
+        x: 1757
+        y: 169
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e989549a53d427800800000000000000
+      internalID: 608633792516954270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_25
+      rect:
+        serializedVersion: 2
+        x: 1674
+        y: 124
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a607779ac1b5e7820800000000000000
+      internalID: 2917869787243049066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_26
+      rect:
+        serializedVersion: 2
+        x: 1705
+        y: 119
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 8.5, y: 4.5}
+        - {x: -6.035185, y: 4.5}
+        - {x: -8.5, y: 3.4839265}
+        - {x: -8.5, y: -4.5}
+        - {x: 8.5, y: -4.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1bc1224d7ae850a0800000000000000
+      internalID: -6892501405989221605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_27
+      rect:
+        serializedVersion: 2
+        x: 1654
+        y: 101
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f321d228784136960800000000000000
+      internalID: 7593935968913920575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_28
+      rect:
+        serializedVersion: 2
+        x: 1667
+        y: 109
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5583ef65748477ac0800000000000000
+      internalID: -3857535084580161451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_29
+      rect:
+        serializedVersion: 2
+        x: 1669
+        y: 69
+        width: 28
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 14, y: -21.5}
+        - {x: 14, y: 7.4825635}
+        - {x: 14, y: 21.5}
+        - {x: -14, y: 21.5}
+        - {x: -14, y: 11.583725}
+        - {x: -14, y: 6.1155095}
+        - {x: -14, y: -21.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dbb866528d995c50800000000000000
+      internalID: 6654523107537632213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_30
+      rect:
+        serializedVersion: 2
+        x: 1680
+        y: 104
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ef21ed7a9d5c1030800000000000000
+      internalID: 3466748731286695909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_31
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 110
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92d6273f0e172faa0800000000000000
+      internalID: -6128710931926848215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_32
+      rect:
+        serializedVersion: 2
+        x: 1705
+        y: 105
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 152de45b730203160800000000000000
+      internalID: 7003132844198253137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_33
+      rect:
+        serializedVersion: 2
+        x: 1722
+        y: 103
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 162ecec3a4e8942e0800000000000000
+      internalID: -2141023698337078687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_34
+      rect:
+        serializedVersion: 2
+        x: 1748
+        y: 109
+        width: 13
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9985991ae0c6751f0800000000000000
+      internalID: -1056256777498568551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_35
+      rect:
+        serializedVersion: 2
+        x: 1642
+        y: 27
+        width: 31
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: -15.5, y: -35}
+        - {x: -15.5, y: 35}
+        - {x: 15.5, y: 35}
+        - {x: 15.5, y: -35}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95d23a927810c3980800000000000000
+      internalID: -8557963511880012455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_36
+      rect:
+        serializedVersion: 2
+        x: 1756
+        y: 95
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a7c95297eeac02a0800000000000000
+      internalID: -6769843830228662364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_37
+      rect:
+        serializedVersion: 2
+        x: 1636
+        y: 73
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 094bfeffea166b970800000000000000
+      internalID: 8770304728596722832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_38
+      rect:
+        serializedVersion: 2
+        x: 1702
+        y: 68
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63c6fde7f81bb5870800000000000000
+      internalID: 8672720737299033142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_39
+      rect:
+        serializedVersion: 2
+        x: 1714
+        y: 75
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 403d5eb16560fb790800000000000000
+      internalID: -7512278686525697276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_40
+      rect:
+        serializedVersion: 2
+        x: 1717
+        y: 62
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 028d41878c9eda780800000000000000
+      internalID: -8670016660400973792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_41
+      rect:
+        serializedVersion: 2
+        x: 1749
+        y: 66
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0015d6c06f53c6910800000000000000
+      internalID: 1831898479319666944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_42
+      rect:
+        serializedVersion: 2
+        x: 1693
+        y: 44
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c96c8807a4b952d60800000000000000
+      internalID: 7864863068290336412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_43
+      rect:
+        serializedVersion: 2
+        x: 1744
+        y: 44
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 489cb09551bd46900800000000000000
+      internalID: 676906728747157892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_44
+      rect:
+        serializedVersion: 2
+        x: 1754
+        y: 40
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fab17e188ab975760800000000000000
+      internalID: 7446591656916622255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_45
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 31
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3ae7b396d2488460800000000000000
+      internalID: 7244113489994181181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_46
+      rect:
+        serializedVersion: 2
+        x: 1647
+        y: 0
+        width: 36
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 15, y: -11.5}
+        - {x: 17.996073, y: 11.5}
+        - {x: -18, y: 11.5}
+        - {x: -18, y: -11.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c248f03ca478884f0800000000000000
+      internalID: -826261776452582356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_47
+      rect:
+        serializedVersion: 2
+        x: 1699
+        y: 21
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cab432ae59c0bbb0800000000000000
+      internalID: -4922212984430478655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_48
+      rect:
+        serializedVersion: 2
+        x: 1749
+        y: 19
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d3a7edf896b0d650800000000000000
+      internalID: 6255700650628719570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_49
+      rect:
+        serializedVersion: 2
+        x: 1686
+        y: 12
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 5, y: 3.5}
+        - {x: -5, y: 3.5}
+        - {x: -5, y: -1.6705401}
+        - {x: -3.8437128, y: -3.037594}
+        - {x: 5, y: -3.037594}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8058da38b7ee2b10800000000000000
+      internalID: 1958757666399998091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_50
+      rect:
+        serializedVersion: 2
+        x: 1723
+        y: 10
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9c2ee8ffc3167fd0800000000000000
+      internalID: -2344664772044247910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_51
+      rect:
+        serializedVersion: 2
+        x: 1732
+        y: 11
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c732724199335e090800000000000000
+      internalID: -8005936030020066436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5midbackground_52
+      rect:
+        serializedVersion: 2
+        x: 1740
+        y: 10
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b641bf17d5d11ae00800000000000000
+      internalID: 1054156074962850923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 9c8e6b7ab97f6488fa2f0b423eb5a55c
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      A5midbackground_0: -252909838654570064
+      A5midbackground_1: -3970510332813723801
+      A5midbackground_10: -102512747640725177
+      A5midbackground_11: -1496863506604492108
+      A5midbackground_12: -3699838950879046525
+      A5midbackground_13: 275187057331250204
+      A5midbackground_14: -7064289711651115456
+      A5midbackground_15: -4069396152446822272
+      A5midbackground_16: -5583709465612455812
+      A5midbackground_17: -9209748379923066940
+      A5midbackground_18: -5795227479567513604
+      A5midbackground_19: 5383365978911617650
+      A5midbackground_2: 1361630588704590409
+      A5midbackground_20: 7194443542186645310
+      A5midbackground_21: 9070659124049666742
+      A5midbackground_22: 6763934063788260648
+      A5midbackground_23: -7561730068229301202
+      A5midbackground_24: 608633792516954270
+      A5midbackground_25: 2917869787243049066
+      A5midbackground_26: -6892501405989221605
+      A5midbackground_27: 7593935968913920575
+      A5midbackground_28: -3857535084580161451
+      A5midbackground_29: 6654523107537632213
+      A5midbackground_3: 4613775566298260665
+      A5midbackground_30: 3466748731286695909
+      A5midbackground_31: -6128710931926848215
+      A5midbackground_32: 7003132844198253137
+      A5midbackground_33: -2141023698337078687
+      A5midbackground_34: -1056256777498568551
+      A5midbackground_35: -8557963511880012455
+      A5midbackground_36: -6769843830228662364
+      A5midbackground_37: 8770304728596722832
+      A5midbackground_38: 8672720737299033142
+      A5midbackground_39: -7512278686525697276
+      A5midbackground_4: -8689110835286675192
+      A5midbackground_40: -8670016660400973792
+      A5midbackground_41: 1831898479319666944
+      A5midbackground_42: 7864863068290336412
+      A5midbackground_43: 676906728747157892
+      A5midbackground_44: 7446591656916622255
+      A5midbackground_45: 7244113489994181181
+      A5midbackground_46: -826261776452582356
+      A5midbackground_47: -4922212984430478655
+      A5midbackground_48: 6255700650628719570
+      A5midbackground_49: 1958757666399998091
+      A5midbackground_5: -1057732295524365753
+      A5midbackground_50: -2344664772044247910
+      A5midbackground_51: -8005936030020066436
+      A5midbackground_52: 1054156074962850923
+      A5midbackground_6: -9053074838771351600
+      A5midbackground_7: 8595884452830577289
+      A5midbackground_8: 4187676788278414814
+      A5midbackground_9: 9158194705831672491
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
