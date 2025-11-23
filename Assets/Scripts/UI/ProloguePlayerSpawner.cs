@@ -9,7 +9,7 @@ public class ProloguePlayerSpawner : MonoBehaviour
     public Transform[] spawnPoints;
 
     private CameraMovement cameraMovement;
-
+    [SerializeField] private AudioClip spawnSFX;
     private void Awake()
     {
         cameraMovement = FindObjectOfType<CameraMovement>();
@@ -110,6 +110,15 @@ public class ProloguePlayerSpawner : MonoBehaviour
 
             spawnedPlayers.Add(newPlayerInput.transform);
             Debug.Log($"Spawned {selection.characterName} for {selection.playerName}.");
+
+            var dissolve = newPlayerInput.GetComponent<Dissolve>();
+            if (dissolve != null){
+                dissolve.StartAppear(true);
+                if (SoundFXManager.instance != null && spawnSFX != null)
+                {
+                    SoundFXManager.instance.PlaySoundFXClip(spawnSFX, transform, 0.1f);
+                }
+            }
         }
 
         // ----------------------------------------------------------

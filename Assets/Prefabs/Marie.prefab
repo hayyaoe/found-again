@@ -4857,6 +4857,7 @@ GameObject:
   - component: {fileID: -2395816109337047475}
   - component: {fileID: 5507106675992484361}
   - component: {fileID: -4181474970755738627}
+  - component: {fileID: -3633885028784816172}
   m_Layer: 12
   m_Name: Marie
   m_TagString: Player
@@ -4905,7 +4906,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 2b3faa1ce6ecb4459aeac61177971d01, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5051,6 +5052,9 @@ MonoBehaviour:
   shortJumpMultiplier: 1
   shortHopCut: 0
   fallMultiplier: 3
+  vanishDuration: 1.5
+  spawnSFX: {fileID: 8300000, guid: 80d2bff8c6e924790a81fc5ec909a428, type: 3}
+  deathSFX: {fileID: 8300000, guid: f54229b90daa5419b903c9b0195454a0, type: 3}
   fatalFallSpeed: 25
   deathYLevel: -30
   groundLayer:
@@ -5459,3 +5463,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e407f9db42a1e4a73805e8f04455f122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::PlayerInteract
+--- !u!114 &-3633885028784816172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4441310245275456898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1edb026afa54c0f902eb7108b379fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::Dissolve
+  _dissolveTime: 1.5

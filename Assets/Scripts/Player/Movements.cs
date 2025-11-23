@@ -24,6 +24,11 @@ public class Movement : MonoBehaviour
   [SerializeField] private float shortHopCut = 0.5f;
   [SerializeField] private float fallMultiplier = 2f;
 
+  [Header("Vanish/Respawn Timing")]
+  [SerializeField] private float vanishDuration = 1.0f;
+  [SerializeField] private AudioClip spawnSFX;
+  [SerializeField] private AudioClip deathSFX;
+
   // --- MODIFIED ---
   // We only need the 'fatalFallSpeed' now
   [Header("Fall Damage")]
@@ -116,6 +121,7 @@ public class Movement : MonoBehaviour
   private int desiredFacing = 1;
   private float flipTimer = 0f;
 
+  private Dissolve dissolve;
 
 
   // private PlayerPushPull pushPull;
@@ -126,6 +132,7 @@ public class Movement : MonoBehaviour
     boxCollider2D = GetComponent<BoxCollider2D>();
     respawnHandler = GetComponent<PlayerRespawn>();
     pushPull = GetComponent<PlayerPushPull>();
+    dissolve = GetComponent<Dissolve>();
 
     body.freezeRotation = true;
     body.interpolation = RigidbodyInterpolation2D.Interpolate;
@@ -681,39 +688,67 @@ public class Movement : MonoBehaviour
     return raycastHit.collider != null;
   }
 
-  public void DieAndRespawn()
+  // OLD DieAndRespawn() logic is replaced by this function,
+  // which is called by the CheckpointManager on ALL players to start the local death sequence.
+  public void StartLocalDeathCleanup()
   {
     // Ensure this logic only runs once
     if (isDead) return;
 
     isDead = true;
-    Debug.Log($"{gameObject.name} died (local)");
+    Debug.Log($"{gameObject.name} died (local cleanup initiated)");
 
-    // --- NEW ---
     // Force detach from any object before dying
     if (pushPull != null)
     {
       pushPull.ForceDetach();
     }
 
+    if (dissolve != null){
+      dissolve.StartVanish(true);
+      if (SoundFXManager.instance != null && deathSFX != null)
+      {
+        SoundFXManager.instance.PlaySoundFXClip(deathSFX, transform, 0.2f);
+      }
+    }
+
+
     animator.SetTrigger("die");
     body.linearVelocity = Vector2.zero;
     body.simulated = false;
 
     this.enabled = false;
-    Invoke(nameof(HandleRespawn), 0.1f);
+    // CRITICAL: REMOVED Invoke(nameof(HandleRespawn), 0.1f);
+    // The respawn is now handled centrally by CheckpointManager after the vanishDuration delay.
   }
-
+  
+  // NEW: This is the entry point when a player dies (e.g., health=0, fell off cliff)
   public void Die()
   {
-    // Instead of dying locally, tell the manager to reset everything
-    if (!isDead) // Prevent this from being called 100 times
-    {
-      CheckpointManager.instance.TriggerFullRespawn();
-    }
-  }
+      if (!isDead)
+      {
+          // Sets isDead=true and triggers CheckpointManager to coordinate the death of ALL players.
+          Debug.Log($"{gameObject.name} triggered GLOBAL death sequence.");
 
-  private void HandleRespawn()
+          if (CheckpointManager.instance != null)
+          {
+              // Assumes CheckpointManager has a static instance and this method exists:
+              // 1. Finds all players.
+              // 2. Calls StartLocalDeathCleanup() on ALL of them (causing shared vanish).
+              // 3. Waits for vanishDuration.
+              // 4. Calls HandleRespawn() on ALL of them.
+              CheckpointManager.instance.TriggerGlobalDeath(vanishDuration);
+          }
+          else
+          {
+              Debug.LogError("CheckpointManager.instance is NULL! Cannot coordinate global death. Falling back to immediate local cleanup.");
+              StartLocalDeathCleanup();
+          }
+      }
+  }
+  
+  // MADE PUBLIC: This is the function the CheckpointManager calls on ALL players after the delay.
+  public void HandleRespawn()
   {
     body.simulated = true;
     this.enabled = true;
@@ -733,7 +768,17 @@ public class Movement : MonoBehaviour
     isGroundedWithLatch = true;
     groundedLatchTimer = 0f;
     lastAirborneYVelocity = 0f;
+
+    if (dissolve != null)
+    {
+      dissolve.StartAppear(true);
+      if (SoundFXManager.instance != null && spawnSFX != null)
+      {
+        SoundFXManager.instance.PlaySoundFXClip(spawnSFX, transform, 0.1f);
+      }
+    }
   }
+
 
   private void HandleFootstepSounds()
   {
