@@ -163,5 +163,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::Shard
   shardId: 40a7be55-3ac9-4ddb-94e1-457c559307cf
-  pickupSfx: {fileID: 8300000, guid: 2485f49688db24f62afb3e73b5fbc2e8, type: 3}
+  pickupSfx: {fileID: 8300000, guid: 98734bc579edd44d1a0a901d88d4d9b7, type: 3}
   pickupVfx: {fileID: 0}
