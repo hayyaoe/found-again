@@ -1,18 +1,23 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems; // <-- 1. ADD THIS AT THE TOP
+using UnityEngine.EventSystems;
+using UnityEngine.UI; 
 using System.Collections.Generic;
 
 public class PauseMenu : MonoBehaviour
 {
     [Header("UI")]
-    [SerializeField] private GameObject pauseMenuUI; // Assign your Pause Menu Panel here
+    [SerializeField] private GameObject pauseMenuUI; 
 
-    // --- 2. ADD THIS VARIABLE ---
     [Header("Controller")]
     [Tooltip("The first button to be selected when the menu opens (e.g., Resume button)")]
-    [SerializeField] private GameObject firstSelectedButton;
+    [SerializeField] private GameObject firstSelectedButton; 
+
+    [Header("Navigation Links")] 
+    [SerializeField] private Slider sfxSlider; 
+    [SerializeField] private Slider musicSlider; // 🟢 NEW
+    [SerializeField] private Slider masterSlider; // 🟢 NEW
 
     [Header("Input")]
     private List<PlayerInput> allPlayers = new List<PlayerInput>();
@@ -24,10 +29,8 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
 
-        // Find all PlayerInput objects already in the scene
         allPlayers = new List<PlayerInput>(FindObjectsOfType<PlayerInput>());
 
-        // Register Pause action for each player
         foreach (var p in allPlayers)
         {
             var action = p.actions["Pause"];
@@ -35,6 +38,10 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        SetupNavigation();
+    }
 
     private void OnEnable()
     {
@@ -58,6 +65,53 @@ public class PauseMenu : MonoBehaviour
         action.performed += TogglePause;
     }
 
+    private void SetupNavigation()
+    {
+        // Ensure we have references
+        if (firstSelectedButton == null || sfxSlider == null || musicSlider == null || masterSlider == null) 
+            return;
+
+        Selectable resumeSelectable = firstSelectedButton.GetComponent<Selectable>();
+        Selectable sfxSelectable = sfxSlider.GetComponent<Selectable>();
+        Selectable musicSelectable = musicSlider.GetComponent<Selectable>();
+        Selectable masterSelectable = masterSlider.GetComponent<Selectable>();
+
+        if (resumeSelectable != null && sfxSelectable != null && musicSelectable != null && masterSelectable != null)
+        {
+            // 1. Resume <-> SFX
+            Navigation resumeNav = resumeSelectable.navigation;
+            resumeNav.mode = Navigation.Mode.Explicit; 
+            resumeNav.selectOnUp = sfxSelectable; 
+            // resumeNav.selectOnDown = ... (Restart button handles this usually)
+            resumeSelectable.navigation = resumeNav;
+
+            Navigation sfxNav = sfxSelectable.navigation;
+            sfxNav.mode = Navigation.Mode.Explicit;
+            sfxNav.selectOnDown = resumeSelectable;
+            sfxNav.selectOnUp = musicSelectable; // Go up to Music
+            sfxNav.selectOnLeft = null;
+            sfxNav.selectOnRight = null;
+            sfxSelectable.navigation = sfxNav;
+
+            // 2. SFX <-> Music
+            Navigation musicNav = musicSelectable.navigation;
+            musicNav.mode = Navigation.Mode.Explicit;
+            musicNav.selectOnDown = sfxSelectable; // Go down to SFX
+            musicNav.selectOnUp = masterSelectable; // Go up to Master
+            musicNav.selectOnLeft = null;
+            musicNav.selectOnRight = null;
+            musicSelectable.navigation = musicNav;
+
+            // 3. Music <-> Master
+            Navigation masterNav = masterSelectable.navigation;
+            masterNav.mode = Navigation.Mode.Explicit;
+            masterNav.selectOnDown = musicSelectable; // Go down to Music
+            // masterNav.selectOnUp = null; (Top of the menu)
+            masterNav.selectOnLeft = null;
+            masterNav.selectOnRight = null;
+            masterSelectable.navigation = masterNav;
+        }
+    }
 
     private void TogglePause(InputAction.CallbackContext context)
     {
@@ -78,8 +132,6 @@ public class PauseMenu : MonoBehaviour
         GameIsPaused = false;
         Debug.Log("Game Resumed");
 
-        // --- 3. ADD THIS LINE ---
-        // Clear the selected button so the controller doesn't get stuck
         EventSystem.current.SetSelectedGameObject(null);
     }
 
@@ -90,23 +142,21 @@ public class PauseMenu : MonoBehaviour
         GameIsPaused = true;
         Debug.Log("Game Paused");
 
-        // --- 4. ADD THIS LINE ---
-        // Force the controller to select the "Resume" button
         EventSystem.current.SetSelectedGameObject(firstSelectedButton);
     }
 
     public void LoadMenu()
     {
         Time.timeScale = 1f; 
-        GameIsPaused = false; // Set this just in case
-        EventSystem.current.SetSelectedGameObject(null); // Clear selection
+        GameIsPaused = false; 
+        EventSystem.current.SetSelectedGameObject(null); 
         SceneManager.LoadScene("MainMenu");
     }
 
     public void RestartLevel()
     {
         Time.timeScale = 1f; 
-        EventSystem.current.SetSelectedGameObject(null); // Clear selection
+        EventSystem.current.SetSelectedGameObject(null); 
 
         if (CheckpointManager.instance != null)
         {
