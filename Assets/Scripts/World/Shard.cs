@@ -1,4 +1,3 @@
-// Shard.cs
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +10,7 @@ public class Shard : MonoBehaviour {
 #if UNITY_EDITOR
     void OnValidate() {
         if (string.IsNullOrEmpty(shardId)) {
-            shardId = System.Guid.NewGuid().ToString(); // auto sekali
+            shardId = System.Guid.NewGuid().ToString();
             if (!Application.isPlaying)
                 UnityEditor.EditorUtility.SetDirty(this);
         }
@@ -26,10 +25,17 @@ public class Shard : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other) {
         if (!other.CompareTag("Player")) return;
+
         var scene = SceneManager.GetActiveScene().name;
         if (SceneShardStore.Add(scene, shardId)) {
-            if (pickupSfx) AudioSource.PlayClipAtPoint(pickupSfx, transform.position);
+
+            // 🔊 Use your SoundFXManager instead of PlayClipAtPoint
+            if (pickupSfx != null && SoundFXManager.instance != null)
+                SoundFXManager.instance.PlaySoundFXClip(pickupSfx, transform, 1f);
+
+            // ✨ Spawn VFX
             if (pickupVfx) Instantiate(pickupVfx, transform.position, Quaternion.identity);
+
             gameObject.SetActive(false);
         }
     }
