@@ -220,6 +220,6 @@ MonoBehaviour:
   p1Sprite: {fileID: -5583267174598305853, guid: 833c9be27fed44fa797002a44a359a82, type: 3}
   p2Sprite: {fileID: -7539741975514616872, guid: 0e79e765cd0454704b54b92bd92b7ea9, type: 3}
   moveSfx: {fileID: 8300000, guid: f0f2361924a794761845516d880460ae, type: 3}
-  selectSfx: {fileID: 8300000, guid: 10a1709928edc414ea88e1f0a3523a57, type: 3}
+  selectSfx: {fileID: 8300000, guid: 4af22e8bdd91d4dd3bad8eec15437a2c, type: 3}
   clickSfx: {fileID: 8300000, guid: 6923180a7b7df40129448e3e8c47959c, type: 3}
   sfxVolume: 1
