@@ -41,7 +41,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3917741176106442067}
   serializedVersion: 8
-  lengthInSec: 0.4
+  lengthInSec: 0.6
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -116,7 +116,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.4
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -169,7 +169,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 0.6
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -287,8 +287,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.15
-      minScalar: 0.1
+      scalar: 0.05
+      minScalar: 0.03
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -604,7 +604,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 1
     gravitySource: 0
-    maxNumParticles: 40
+    maxNumParticles: 50
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -870,7 +870,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 40
+      scalar: 30
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -3934,7 +3934,7 @@ ParticleSystem:
         m_RotationOrder: 4
     maxLights: 20
   TrailModule:
-    enabled: 1
+    enabled: 0
     mode: 0
     ratio: 0.1
     lifetime:
@@ -4782,8 +4782,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2fc93de32fc584519bb05ba67e4d4377, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4858,6 +4857,7 @@ GameObject:
   - component: {fileID: -2395816109337047475}
   - component: {fileID: 5507106675992484361}
   - component: {fileID: -4181474970755738627}
+  - component: {fileID: -3633885028784816172}
   m_Layer: 12
   m_Name: Marie
   m_TagString: Player
@@ -4906,7 +4906,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 2b3faa1ce6ecb4459aeac61177971d01, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5052,7 +5052,10 @@ MonoBehaviour:
   shortJumpMultiplier: 1
   shortHopCut: 0
   fallMultiplier: 3
-  fatalFallSpeed: 35
+  vanishDuration: 2
+  spawnSFX: {fileID: 8300000, guid: 80d2bff8c6e924790a81fc5ec909a428, type: 3}
+  deathSFX: {fileID: 8300000, guid: f54229b90daa5419b903c9b0195454a0, type: 3}
+  fatalFallSpeed: 25
   deathYLevel: -30
   groundLayer:
     serializedVersion: 2
@@ -5079,12 +5082,19 @@ MonoBehaviour:
   minWallSpeed: 8
   wallStartImpulse: 3.5
   jumpSFX: {fileID: 0}
+  slideSFX: {fileID: 8300000, guid: ed53ffada4df9475bb65630ad6e82ae3, type: 3}
+  minSlideSpeedForSFX: 1.5
+  slideSFXSpawnDelay: 0.25
   jumpVolume: 0.4
+  slideVolume: 1
   footstepSFX:
   - {fileID: 8300000, guid: c3a4b11fe3ca54177b72daa6f0bd21d1, type: 3}
   - {fileID: 8300000, guid: c3a4b11fe3ca54177b72daa6f0bd21d1, type: 3}
   footstepVolume: 0.2
   footstepInterval: 0.35
+  slideLoopMaxVolume: 1
+  slideLoopFadeInSpeed: 10
+  slideLoopFadeOutSpeed: 12
   mimiAnimator: {fileID: 0}
   marieAnimator: {fileID: 0}
   groundedLatchSeconds: 0.5
@@ -5458,3 +5468,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e407f9db42a1e4a73805e8f04455f122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::PlayerInteract
+--- !u!114 &-3633885028784816172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4441310245275456898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1edb026afa54c0f902eb7108b379fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::Dissolve
+  _dissolveTime: 1.5
+  _dissolveStart: 0.15
+  _dissolveEnd: 1.1

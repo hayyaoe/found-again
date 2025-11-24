@@ -36,7 +36,10 @@ public class LobbyManager : MonoBehaviour
     public Color pressedTextColor = new Color(0.7f, 0.7f, 0.7f); 
 
     [Header("Scene Loading")]
-    [SerializeField] private string nextSceneName = "Prologue";
+    [SerializeField] private string newGameScene = "Cutscene";
+    [SerializeField] private string continueScene = "Area 1"; 
+    private string nextSceneName;
+
     [SerializeField] private string mainMenuSceneName = "MainMenu"; 
 
     private Dictionary<string, string> playerPositions = new Dictionary<string, string>();
@@ -57,6 +60,10 @@ public class LobbyManager : MonoBehaviour
 
         if (backButtonImage != null) backButtonImage.color = readyColor;
         if (backButtonText != null) backButtonText.color = readyTextColor;
+
+        nextSceneName = PlayerPrefs.GetInt("IsNewGame", 1) == 1
+            ? newGameScene     // New game → cutscene
+            : continueScene;   // Continue → skip cutscene
     }
 
     public void UpdatePlayerPosition(string playerName, string position)

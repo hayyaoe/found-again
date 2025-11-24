@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -129,10 +129,10 @@ TextureImporter:
       name: OldMarieHD_0
       rect:
         serializedVersion: 2
-        x: 57
-        y: 175
-        width: 577
-        height: 720
+        x: 45
+        y: 188
+        width: 602
+        height: 744
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

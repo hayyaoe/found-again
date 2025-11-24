@@ -79,4 +79,16 @@ public class SoundFXManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         activeAudioSources.Remove(source);
     }
+
+    public AudioSource CreateLoopingSFX(AudioClip clip, Vector3 pos, float volume)
+    {
+        AudioSource audioSource = Instantiate(soundFXObject, pos, Quaternion.identity);
+        audioSource.clip = clip;
+        audioSource.volume = volume;
+        audioSource.loop = true;
+        audioSource.Play();
+
+        activeAudioSources.Add(audioSource);
+        return audioSource;
+    }
 }

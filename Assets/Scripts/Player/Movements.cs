@@ -24,6 +24,11 @@ public class Movement : MonoBehaviour
   [SerializeField] private float shortHopCut = 0.5f;
   [SerializeField] private float fallMultiplier = 2f;
 
+  [Header("Vanish/Respawn Timing")]
+  [SerializeField] private float vanishDuration = 1.0f;
+  [SerializeField] private AudioClip spawnSFX;
+  [SerializeField] private AudioClip deathSFX;
+
   // --- MODIFIED ---
   // We only need the 'fatalFallSpeed' now
   [Header("Fall Damage")]
@@ -56,10 +61,26 @@ public class Movement : MonoBehaviour
 
   [Header("Sound Effects")]
   [SerializeField] private AudioClip jumpSFX;
+  [SerializeField] private AudioClip slideSFX;
+  [SerializeField] private float minSlideSpeedForSFX = 1.5f;
+  [SerializeField] private float slideSFXSpawnDelay = 0.25f;
+  private float aliveTime = 0f;
   [SerializeField] private float jumpVolume = 1f;
+  [SerializeField] private float slideVolume = 1f;
+  private bool slideSoundPlaying = false;
+
   [SerializeField] private AudioClip[] footstepSFX; // ✅ multiple footstep clips
   [SerializeField] private float footstepVolume = 0.8f;
   [SerializeField] private float footstepInterval = 0.35f;
+
+  // NEW: Slide loop SFX
+  [Header("Slide Loop SFX")]
+  [SerializeField] private float slideLoopMaxVolume = 1f;
+  [SerializeField] private float slideLoopFadeInSpeed = 10f;
+  [SerializeField] private float slideLoopFadeOutSpeed = 12f;
+  private AudioSource slideLoopSource;
+  private float slideLoopVolumeCurrent = 0f;
+
 
   // NEW ✅
   [SerializeField] private RuntimeAnimatorController mimiAnimator;
@@ -112,6 +133,7 @@ public class Movement : MonoBehaviour
   private int desiredFacing = 1;
   private float flipTimer = 0f;
 
+  private Dissolve dissolve;
 
 
   // private PlayerPushPull pushPull;
@@ -122,6 +144,7 @@ public class Movement : MonoBehaviour
     boxCollider2D = GetComponent<BoxCollider2D>();
     respawnHandler = GetComponent<PlayerRespawn>();
     pushPull = GetComponent<PlayerPushPull>();
+    dissolve = GetComponent<Dissolve>();
 
     body.freezeRotation = true;
     body.interpolation = RigidbodyInterpolation2D.Interpolate;
@@ -167,6 +190,8 @@ public class Movement : MonoBehaviour
     {
       return; // Do nothing
     }
+
+    aliveTime += Time.deltaTime;
 
     // Check if the player has fallen below the world
     if (transform.position.y < deathYLevel)
@@ -390,10 +415,62 @@ public class Movement : MonoBehaviour
         groundedNow &&
         floorLikeSlope;
 
-    // 🔥 RULE:
-    // - Kalau searah slope (bukan melawan arus) → pakai anim slide
-    // - Kalau melawan arus → jangan anim slide (anim jalan biasa)
     bool slidingAnim = (wallSlide || floorSlide) && !inputAgainstSlope;
+
+    float slideSpeed = Mathf.Abs(body.linearVelocity.x);
+    bool canPlaySlideSFX =
+        aliveTime > slideSFXSpawnDelay &&
+        slideSpeed > minSlideSpeedForSFX;
+
+    bool slidingNowForSFX = slidingAnim && canPlaySlideSFX;
+
+    // ====== SLIDE LOOP SFX ======
+    if (SoundFXManager.instance != null && slideSFX != null)
+    {
+      // START SLIDE: buat loop source
+      if (slidingNowForSFX && slideLoopSource == null)
+      {
+        slideLoopSource = SoundFXManager.instance.CreateLoopingSFX(
+            slideSFX,
+            transform.position,
+            0f // start silent, fade in
+        );
+        slideLoopVolumeCurrent = 0f;
+        slideSoundPlaying = true;
+      }
+
+      // UPDATE SLIDE: atur volume & posisi
+      if (slidingNowForSFX && slideLoopSource != null)
+      {
+        // Mapping speed -> volume
+        float t = Mathf.InverseLerp(minSlideSpeedForSFX, maxSlideSpeed, slideSpeed);
+        float targetVol = Mathf.Lerp(0.1f, slideLoopMaxVolume * slideVolume, t);
+
+        slideLoopVolumeCurrent = Mathf.MoveTowards(
+            slideLoopVolumeCurrent,
+            targetVol,
+            slideLoopFadeInSpeed * Time.deltaTime
+        );
+
+        slideLoopSource.volume = slideLoopVolumeCurrent;
+        slideLoopSource.transform.position = transform.position;
+      }
+
+      // STOP SLIDE: fade out dan kill
+      if (!slidingNowForSFX && slideLoopSource != null && slideSoundPlaying)
+      {
+        slideSoundPlaying = false;
+        StartCoroutine(FadeOutSlideLoop());
+      }
+    }
+    else
+    {
+      // Kalau nggak ada SFX manager / clip, pastikan flag mati
+      slideSoundPlaying = false;
+    }
+
+
+
 
     // RUN hanya kalau:
     // - ada input horizontal
@@ -659,39 +736,76 @@ public class Movement : MonoBehaviour
     return raycastHit.collider != null;
   }
 
-  public void DieAndRespawn()
+  // OLD DieAndRespawn() logic is replaced by this function,
+  // which is called by the CheckpointManager on ALL players to start the local death sequence.
+  public void StartLocalDeathCleanup()
   {
     // Ensure this logic only runs once
     if (isDead) return;
 
     isDead = true;
-    Debug.Log($"{gameObject.name} died (local)");
+    Debug.Log($"{gameObject.name} died (local cleanup initiated)");
 
-    // --- NEW ---
     // Force detach from any object before dying
     if (pushPull != null)
     {
       pushPull.ForceDetach();
     }
 
+    if (dissolve != null)
+    {
+      dissolve.StartVanish(true);
+      if (SoundFXManager.instance != null && deathSFX != null)
+      {
+        SoundFXManager.instance.PlaySoundFXClip(deathSFX, transform, 0.2f);
+      }
+    }
+
+
     animator.SetTrigger("die");
     body.linearVelocity = Vector2.zero;
     body.simulated = false;
 
+    if (slideLoopSource != null)
+    {
+      Destroy(slideLoopSource.gameObject);
+      slideLoopSource = null;
+      slideLoopVolumeCurrent = 0f;
+      slideSoundPlaying = false;
+    }
+
     this.enabled = false;
-    Invoke(nameof(HandleRespawn), 0.1f);
+    // CRITICAL: REMOVED Invoke(nameof(HandleRespawn), 0.1f);
+    // The respawn is now handled centrally by CheckpointManager after the vanishDuration delay.
   }
 
+  // NEW: This is the entry point when a player dies (e.g., health=0, fell off cliff)
   public void Die()
   {
-    // Instead of dying locally, tell the manager to reset everything
-    if (!isDead) // Prevent this from being called 100 times
+    if (!isDead)
     {
-      CheckpointManager.instance.TriggerFullRespawn();
+      // Sets isDead=true and triggers CheckpointManager to coordinate the death of ALL players.
+      Debug.Log($"{gameObject.name} triggered GLOBAL death sequence.");
+
+      if (CheckpointManager.instance != null)
+      {
+        // Assumes CheckpointManager has a static instance and this method exists:
+        // 1. Finds all players.
+        // 2. Calls StartLocalDeathCleanup() on ALL of them (causing shared vanish).
+        // 3. Waits for vanishDuration.
+        // 4. Calls HandleRespawn() on ALL of them.
+        CheckpointManager.instance.TriggerGlobalDeath(vanishDuration);
+      }
+      else
+      {
+        Debug.LogError("CheckpointManager.instance is NULL! Cannot coordinate global death. Falling back to immediate local cleanup.");
+        StartLocalDeathCleanup();
+      }
     }
   }
 
-  private void HandleRespawn()
+  // MADE PUBLIC: This is the function the CheckpointManager calls on ALL players after the delay.
+  public void HandleRespawn()
   {
     body.simulated = true;
     this.enabled = true;
@@ -711,7 +825,17 @@ public class Movement : MonoBehaviour
     isGroundedWithLatch = true;
     groundedLatchTimer = 0f;
     lastAirborneYVelocity = 0f;
+
+    if (dissolve != null)
+    {
+      dissolve.StartAppear(true);
+      if (SoundFXManager.instance != null && spawnSFX != null)
+      {
+        SoundFXManager.instance.PlaySoundFXClip(spawnSFX, transform, 0.1f);
+      }
+    }
   }
+
 
   private void HandleFootstepSounds()
   {
@@ -737,6 +861,12 @@ public class Movement : MonoBehaviour
   private void OnDestroy()
   {
     CheckpointManager.UnregisterPlayer(this);
+
+    if (slideLoopSource != null)
+    {
+      Destroy(slideLoopSource.gameObject);
+      slideLoopSource = null;
+    }
   }
 
   private void HandleSlopeVisualRotation()
@@ -861,5 +991,30 @@ public class Movement : MonoBehaviour
     }
 
     return result;
+  }
+
+  private IEnumerator FadeOutSlideLoop()
+  {
+    AudioSource src = slideLoopSource;
+    if (src == null) yield break;
+
+    while (slideLoopVolumeCurrent > 0.01f && src != null)
+    {
+      slideLoopVolumeCurrent -= slideLoopFadeOutSpeed * Time.deltaTime;
+      slideLoopVolumeCurrent = Mathf.Max(0f, slideLoopVolumeCurrent);
+
+      src.volume = slideLoopVolumeCurrent;
+      src.transform.position = transform.position;
+
+      yield return null;
+    }
+
+    if (src != null)
+      Destroy(src.gameObject);
+
+    if (src == slideLoopSource)
+      slideLoopSource = null;
+
+    slideLoopVolumeCurrent = 0f;
   }
 }

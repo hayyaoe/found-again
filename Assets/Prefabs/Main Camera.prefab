@@ -9823,6 +9823,7 @@ GameObject:
   - component: {fileID: 4225901810610212239}
   - component: {fileID: 3290177570624261531}
   - component: {fileID: 1182962285423474713}
+  - component: {fileID: -2834816279133506269}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -9985,3 +9986,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b05d7431181bb48acb1aad3a48451c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxCamera
+--- !u!114 &-2834816279133506269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7906383334587930938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb75ebc26ecd4ed0a6bd197c775581f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::AspectRatio
+  targetAspect: 1.7777778

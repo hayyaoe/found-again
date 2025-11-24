@@ -151,6 +151,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   returnCastSkin: 0.02
+  slideLoopSFX: {fileID: 8300000, guid: 54bd20124c5a34cf4898d94bf385141b, type: 3}
+  slideLoopVolume: 0.7
+  slideStartSpeed: 0.02
+  volumeMaxSpeed: 2
+  fadeInSpeed: 10
+  fadeOutSpeed: 15
 --- !u!61 &7225674071244428873
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -20,6 +20,12 @@ public class PasscodeManager : MonoBehaviour
     public GameObject interactUIZone;
     public GameObject jumpUIZone;
 
+    [Header("SFX")]
+    public AudioSource audioSource;
+    public AudioClip correctSfx;
+    public float correctSfxVolume = 1f;
+
+
     private void Start()
     {
         // Let each box know who the manager is
@@ -74,6 +80,10 @@ public class PasscodeManager : MonoBehaviour
         IsSolved = true;
 
         Debug.Log("✅ Correct passcode! Puzzle solved!");
+
+        // Play correct sound
+        if (audioSource != null && correctSfx != null)
+            audioSource.PlayOneShot(correctSfx, correctSfxVolume);
 
         ToggleUI(true);
 
