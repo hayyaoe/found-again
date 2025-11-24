@@ -178,7 +178,8 @@ MonoBehaviour:
   hoverTextColor: {r: 1, g: 1, b: 1, a: 1}
   pressedColor: {r: 0.1, g: 0.15, b: 0.2, a: 1}
   pressedTextColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}
-  nextSceneName: Cutscene
+  newGameScene: Cutscene
+  continueScene: Area 1
   mainMenuSceneName: MainMenu
 --- !u!1 &45753939
 GameObject:
@@ -12145,6 +12146,7 @@ GameObject:
   - component: {fileID: 1858240816}
   - component: {fileID: 1858240815}
   - component: {fileID: 1858240818}
+  - component: {fileID: 1858240819}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -12270,6 +12272,19 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &1858240819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858240814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb75ebc26ecd4ed0a6bd197c775581f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::AspectRatio
+  targetAspect: 1.7777778
 --- !u!1 &1932966298
 GameObject:
   m_ObjectHideFlags: 0

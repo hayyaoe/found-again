@@ -31,7 +31,7 @@ public class Shard : MonoBehaviour {
 
             // 🔊 Use your SoundFXManager instead of PlayClipAtPoint
             if (pickupSfx != null && SoundFXManager.instance != null)
-                SoundFXManager.instance.PlaySoundFXClip(pickupSfx, transform, 1f);
+                SoundFXManager.instance.PlaySoundFXClip(pickupSfx, transform, 0.5f);
 
             // ✨ Spawn VFX
             if (pickupVfx) Instantiate(pickupVfx, transform.position, Quaternion.identity);

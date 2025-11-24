@@ -197,14 +197,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   returnCastSkin: 0.02
-  slideSource: {fileID: 7640817860272433752, guid: d81cb17587607419c851dfb9cd855c40, type: 3}
-  minSlideSpeed: 0.05
-  minVolume: 0.2
-  maxVolume: 1
-  slideStartSFX: {fileID: 8300000, guid: 54bd20124c5a34cf4898d94bf385141b, type: 3}
-  slideStartVolume: 1
-  slideStopSFX: {fileID: 0}
-  slideStopVolume: 1
+  slideLoopSFX: {fileID: 8300000, guid: 54bd20124c5a34cf4898d94bf385141b, type: 3}
+  slideLoopVolume: 0.7
+  slideStartSpeed: 0.02
+  volumeMaxSpeed: 2
+  fadeInSpeed: 10
+  fadeOutSpeed: 12
 --- !u!114 &-1777486948420344605
 MonoBehaviour:
   m_ObjectHideFlags: 0
