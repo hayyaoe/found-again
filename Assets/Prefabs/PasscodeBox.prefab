@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 4153070936669056497}
   - component: {fileID: 2056505323111646869}
   - component: {fileID: 7723301160410428055}
+  - component: {fileID: -7769258676742925816}
   m_Layer: 5
   m_Name: PasscodeBox
   m_TagString: Untagged
@@ -283,7 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::PasscodeBox
   displayText: {fileID: 354328571659740932}
-  passcodeValue: 7
+  passcodeValue: 9
   minValue: 0
   maxValue: 9
   leftArrow: {fileID: 2362602478328696244}
@@ -291,6 +292,9 @@ MonoBehaviour:
   bottomSpriteRenderer: {fileID: 4434655983652602558}
   defaultSprite: {fileID: 2341750067405005749, guid: 52e193e0cb1b04205a3a25e1bfd9c6ab, type: 3}
   lightSprite: {fileID: 1046751585415443378, guid: ecce4e218def241e8948fd1c726e499d, type: 3}
+  audioSource: {fileID: -7769258676742925816}
+  changeNumberSfx: {fileID: 8300000, guid: f0f2361924a794761845516d880460ae, type: 3}
+  sfxVolume: 1
 --- !u!50 &2056505323111646869
 Rigidbody2D:
   serializedVersion: 5
@@ -330,6 +334,103 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa236a7ce6f643d1b51d290f6c9a13f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::ResettableObject
+--- !u!82 &-7769258676742925816
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5963642992349315226}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 4365120638424950339, guid: 59d3f0bba3a2043ffa6e4155a30da2ef, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: f0f2361924a794761845516d880460ae, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6077540288491490944
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,7 +778,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 7
+  m_text: 9
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 39d7f46450d664faf9900484f1f88408, type: 2}
   m_sharedMaterial: {fileID: -8275886965423669599, guid: 39d7f46450d664faf9900484f1f88408, type: 2}
