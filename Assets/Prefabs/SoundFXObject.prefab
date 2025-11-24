@@ -46,7 +46,7 @@ AudioSource:
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 0.99836755
+  m_Pitch: 0.96838135
   Loop: 0
   Mute: 0
   Spatialize: 0
