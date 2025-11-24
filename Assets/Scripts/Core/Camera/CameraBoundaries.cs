@@ -37,8 +37,8 @@ public class CameraBoundaries : MonoBehaviour
 
         leftWall = CreateWall(wallsParent, "LeftWall");
         rightWall = CreateWall(wallsParent, "RightWall");
-        topWall = CreateWall(wallsParent, "TopWall");
-        bottomWall = CreateWall(wallsParent, "BottomWall");
+        // topWall = CreateWall(wallsParent, "TopWall");
+        // bottomWall = CreateWall(wallsParent, "BottomWall");
     }
 
     private BoxCollider2D CreateWall(GameObject parent, string name)
@@ -68,12 +68,12 @@ public class CameraBoundaries : MonoBehaviour
         rightWall.size = new Vector2(wallThickness, camHeight + 2f);
         rightWall.transform.position = new Vector3(camPos.x + (camWidth / 2f) + (wallThickness / 2f), camPos.y, 0);
 
-        // Top Wall
-        topWall.size = new Vector2(camWidth + 2f, wallThickness);
-        topWall.transform.position = new Vector3(camPos.x, camPos.y + (camHeight / 2f) + (wallThickness / 2f), 0);
+        // // Top Wall
+        // topWall.size = new Vector2(camWidth + 2f, wallThickness);
+        // topWall.transform.position = new Vector3(camPos.x, camPos.y + (camHeight / 2f) + (wallThickness / 2f), 0);
 
-        // Bottom Wall
-        bottomWall.size = new Vector2(camWidth + 2f, wallThickness);
-        bottomWall.transform.position = new Vector3(camPos.x, camPos.y - (camHeight / 2f) - (wallThickness / 2f), 0);
+        // // Bottom Wall
+        // bottomWall.size = new Vector2(camWidth + 2f, wallThickness);
+        // bottomWall.transform.position = new Vector3(camPos.x, camPos.y - (camHeight / 2f) - (wallThickness / 2f), 0);
     }
 }

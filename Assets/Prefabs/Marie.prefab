@@ -5052,7 +5052,7 @@ MonoBehaviour:
   shortJumpMultiplier: 1
   shortHopCut: 0
   fallMultiplier: 3
-  vanishDuration: 1.5
+  vanishDuration: 2
   spawnSFX: {fileID: 8300000, guid: 80d2bff8c6e924790a81fc5ec909a428, type: 3}
   deathSFX: {fileID: 8300000, guid: f54229b90daa5419b903c9b0195454a0, type: 3}
   fatalFallSpeed: 25
@@ -5092,6 +5092,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c3a4b11fe3ca54177b72daa6f0bd21d1, type: 3}
   footstepVolume: 0.2
   footstepInterval: 0.35
+  slideLoopMaxVolume: 1
+  slideLoopFadeInSpeed: 10
+  slideLoopFadeOutSpeed: 12
   mimiAnimator: {fileID: 0}
   marieAnimator: {fileID: 0}
   groundedLatchSeconds: 0.5

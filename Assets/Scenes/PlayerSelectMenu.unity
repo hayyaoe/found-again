@@ -178,7 +178,7 @@ MonoBehaviour:
   hoverTextColor: {r: 1, g: 1, b: 1, a: 1}
   pressedColor: {r: 0.1, g: 0.15, b: 0.2, a: 1}
   pressedTextColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}
-  nextSceneName: Area 1
+  nextSceneName: Cutscene
   mainMenuSceneName: MainMenu
 --- !u!1 &45753939
 GameObject:
@@ -398,6 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1944af4f00c4d4a9190d93418526b73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuLogic
+  cutsceneScene: Cutscene
 --- !u!1 &531164344
 GameObject:
   m_ObjectHideFlags: 0
@@ -6690,6 +6691,7 @@ MonoBehaviour:
   mimiPrefab: {fileID: 4911369873958072336, guid: f7a99ab28109e4726b16f4e1da2873e2, type: 3}
   mariePrefab: {fileID: 4441310245275456898, guid: e5ceff893254e4222bcf861bda81d082, type: 3}
   spawnPoints: []
+  spawnSFX: {fileID: 0}
 --- !u!4 &1461079343
 Transform:
   m_ObjectHideFlags: 0

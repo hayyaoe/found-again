@@ -275,6 +275,19 @@ public class DialogueManager : MonoBehaviour
 
     private void StartGame()
     {
+        // FIX: Make sure input actions are disabled BEFORE destroying/disabling object 
+        if (continueAction != null) continueAction.performed -= OnContinuePressed;
+        if (skipAction != null) skipAction.performed -= OnSkipPressed;
+
+        continueAction?.Disable();
+        skipAction?.Disable();
+
+        foreach (var a in nextActions) a.performed -= OnContinuePressed;
+        foreach (var b in skipActionsList) b.performed -= OnSkipPressed;
+
+        nextActions.Clear();
+        skipActionsList.Clear();
+
         isWaitingForInput = false;
         isTyping = false;
         if (this.enabled == false) return;
@@ -317,7 +330,12 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(ShowConversation(currentLines[currentConversationIndex]));
     }
 
-    private void OnSkipPressed(InputAction.CallbackContext context) { StartGame(); }
+    private void OnSkipPressed(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        if (this == null || !this.enabled) return;  // SAFETY CHECK
+        StartGame();
+    }
 
     private void NextConversation()
     {

@@ -15,8 +15,18 @@ public class BoatMove : MonoBehaviour
     [SerializeField] private GameObject roomZoneToDisable;
     public WaveMovement waveScript;
 
+    [Header("Smoothing")]
+    public float accelerationTime = 1f;   // how long until full speed
+    private float currentSpeed = 0f;
+
     private readonly List<Transform> playersOnBoard = new List<Transform>();
     private readonly Dictionary<Transform, Transform> originalParents = new Dictionary<Transform, Transform>();
+    private bool isShuttingDown = false;
+
+    private void OnDisable()
+    {
+        isShuttingDown = true;
+    }
 
     private void Awake()
     {
@@ -39,7 +49,11 @@ public class BoatMove : MonoBehaviour
 
         // Gerakan boat
         Vector3 oldBase = waveScript.GetBasePosition();
-        Vector3 delta = (Vector3)moveDirection * (moveSpeed * Time.deltaTime);
+        // Smooth acceleration (0 → moveSpeed)
+        currentSpeed = Mathf.MoveTowards(currentSpeed, moveSpeed, Time.deltaTime * (moveSpeed / accelerationTime));
+
+        Vector3 delta = (Vector3)moveDirection * (currentSpeed * Time.deltaTime);
+
         Vector3 newBase = oldBase + delta;
         waveScript.SetBasePosition(newBase);
     }
@@ -79,7 +93,15 @@ public class BoatMove : MonoBehaviour
 
         playersOnBoard.Remove(player);
 
-        // Kembalikan parent ke semula
+        // If boat is shutting down, DO NOT parent back (Unity would throw error)
+        if (isShuttingDown)
+        {
+            if (logDebug)
+                Debug.Log("[BoatMove] Boat is disabling — skip restoring parent.");
+            return;
+        }
+
+        // Safe: restore parent only if boat is active
         if (originalParents.ContainsKey(player))
         {
             player.SetParent(originalParents[player], true);
