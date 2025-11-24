@@ -66,6 +66,12 @@ public class AutoElevator2D : MonoBehaviour
     public Sprite litSprite;
     private bool puzzleSolved = false;
 
+    [Header("Sound")]
+    public AudioClip liftMoveLoop;
+    public float liftVolume = 0.7f;
+    private AudioSource liftAudioSource;
+
+
 
     void Awake()
     {
@@ -98,6 +104,15 @@ public class AutoElevator2D : MonoBehaviour
         hasLast = true;
 
         // if (autoStart) StartMoving();
+        // 🔊 Create looping audio source for this lift
+        if (liftMoveLoop != null)
+        {
+            liftAudioSource = gameObject.AddComponent<AudioSource>();
+            liftAudioSource.clip = liftMoveLoop;
+            liftAudioSource.loop = true;
+            liftAudioSource.volume = liftVolume;
+            liftAudioSource.playOnAwake = false;
+        }
     }
 
     // ======== Public API ========
@@ -117,6 +132,11 @@ public class AutoElevator2D : MonoBehaviour
         if (isMoving) return;
 
         isMoving = true;
+
+        // 🔊 Start the looping lift sound
+        if (liftAudioSource != null && !liftAudioSource.isPlaying)
+            liftAudioSource.Play();
+
         mover = StartCoroutine(MoveRoutine());
     }
 
@@ -124,6 +144,11 @@ public class AutoElevator2D : MonoBehaviour
     public void StopMoving(bool pause = true)
     {
         isMoving = false;
+
+        // 🔇 Stop loop instantly
+        if (liftAudioSource != null && liftAudioSource.isPlaying)
+            liftAudioSource.Stop();
+
         if (mover != null) StopCoroutine(mover);
         mover = null;
         CurrentState = pause ? State.Paused : State.Idle;
@@ -182,14 +207,19 @@ public class AutoElevator2D : MonoBehaviour
             ApplyPosition(t01);
 
             if (!isMoving) break;
+
             CurrentState = State.Idle;
 
             if (waitAtEnds > 0f)
                 yield return new WaitForSeconds(waitAtEnds);
 
             if (travelMode == TravelMode.OneShot)
-            { isMoving = false; CurrentState = State.Idle; mover = null; yield break; }
-
+            {
+                isMoving = false;
+                CurrentState = State.Idle;
+                mover = null;
+                yield break;
+            }
             forward = !forward;
 
         ContinueOuter:

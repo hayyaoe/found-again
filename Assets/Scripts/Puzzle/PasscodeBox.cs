@@ -25,6 +25,10 @@ public class PasscodeBox : MonoBehaviour
     private InputAction changeNumberAction;
     private InputAction exitAction;
     private PasscodeManager manager;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip changeNumberSfx;
+    [SerializeField] private float sfxVolume = 0.2f;
+
 
     private void Start()
     {
@@ -88,9 +92,13 @@ public class PasscodeBox : MonoBehaviour
         else if (input.y < -0.5f)
             passcodeValue = Mathf.Max(passcodeValue - 1, minValue);
 
+        // Play sound
+        if (audioSource != null && changeNumberSfx != null)
+            audioSource.PlayOneShot(changeNumberSfx, sfxVolume);
+
         UpdateDisplay();
 
-        // Notify manager each time the number changes
+        // Notify manager
         manager?.CheckPasscode();
     }
 
