@@ -1,11 +1,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 [RequireComponent(typeof(Collider2D))]
 public class Shard : MonoBehaviour {
     [SerializeField] private string shardId;
     [SerializeField] private AudioClip pickupSfx;
     [SerializeField] private GameObject pickupVfx;
+    
+    [Header("Vanish/Respawn Timing")]
+    [SerializeField] private float vanishDuration = 1.0f;
+    private Dissolve dissolve;
 
 #if UNITY_EDITOR
     void OnValidate() {
@@ -16,6 +21,10 @@ public class Shard : MonoBehaviour {
         }
     }
 #endif
+    void Awake()
+    {
+        dissolve = GetComponent<Dissolve>();
+    }
 
     void Start() {
         var scene = SceneManager.GetActiveScene().name;
@@ -23,20 +32,29 @@ public class Shard : MonoBehaviour {
             gameObject.SetActive(false);
     }
 
-    void OnTriggerEnter2D(Collider2D other) {
+    void OnTriggerEnter2D(Collider2D other)
+    {
         if (!other.CompareTag("Player")) return;
 
         var scene = SceneManager.GetActiveScene().name;
-        if (SceneShardStore.Add(scene, shardId)) {
-
-            // 🔊 Use your SoundFXManager instead of PlayClipAtPoint
-            if (pickupSfx != null && SoundFXManager.instance != null)
-                SoundFXManager.instance.PlaySoundFXClip(pickupSfx, transform, 0.5f);
-
-            // ✨ Spawn VFX
-            if (pickupVfx) Instantiate(pickupVfx, transform.position, Quaternion.identity);
-
-            gameObject.SetActive(false);
+        if (SceneShardStore.Add(scene, shardId))
+        {
+            StartCoroutine(HandlePickup());
         }
     }
+    
+    private IEnumerator HandlePickup()
+    {
+        // SFX
+        if (pickupSfx != null && SoundFXManager.instance != null)
+            SoundFXManager.instance.PlaySoundFXClip(pickupSfx, transform, 0.25f);
+
+        // dissolve first
+        if (dissolve != null)
+            yield return dissolve.StartVanishRoutine(true);
+
+        // THEN disable object
+        gameObject.SetActive(false);
+    }
+
 }

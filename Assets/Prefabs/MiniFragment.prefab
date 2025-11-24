@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1050439074087184599}
   - component: {fileID: 74681503593346624}
   - component: {fileID: 2142924913360490282}
+  - component: {fileID: 3049960216560906787}
   m_Layer: 0
   m_Name: MiniFragment
   m_TagString: Untagged
@@ -59,7 +60,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 8d35ef74fa1c54d168843c689c4d6b3f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -165,3 +166,19 @@ MonoBehaviour:
   shardId: 40a7be55-3ac9-4ddb-94e1-457c559307cf
   pickupSfx: {fileID: 8300000, guid: 98734bc579edd44d1a0a901d88d4d9b7, type: 3}
   pickupVfx: {fileID: 0}
+  vanishDuration: 0.5
+--- !u!114 &3049960216560906787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3377714120328511753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1edb026afa54c0f902eb7108b379fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FoundAgain.Runtime::Dissolve
+  _dissolveTime: 0.5
+  _dissolveStart: 0.25
+  _dissolveEnd: 0.9

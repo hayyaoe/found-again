@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class Dissolve : MonoBehaviour
 {
     [SerializeField] private float _dissolveTime = 0.75f;
+    [SerializeField] private float _dissolveStart = 0.2f;
+    [SerializeField] private float _dissolveEnd = 1.1f;
 
     private SpriteRenderer[] _spriteRenderers;
     private Material[] _materials;
@@ -30,7 +32,7 @@ public class Dissolve : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
 
-            float lerpedDissolve = Mathf.Lerp(0.2f, 1.1f, (elapsedTime / _dissolveTime));
+            float lerpedDissolve = Mathf.Lerp(_dissolveStart, _dissolveEnd, (elapsedTime / _dissolveTime));
             float lerpedVerticalDissolve = Mathf.Lerp(0f, 0.3f, (elapsedTime / _dissolveTime));
 
             for (int i = 0; i < _materials.Length; i++)
@@ -51,7 +53,7 @@ public class Dissolve : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
 
-            float lerpedDissolve = Mathf.Lerp(1.1f, 0f, (elapsedTime / _dissolveTime));
+            float lerpedDissolve = Mathf.Lerp(_dissolveEnd, _dissolveStart, (elapsedTime / _dissolveTime));
             float lerpedVerticalDissolve = Mathf.Lerp(0.4f, 0f, (elapsedTime / _dissolveTime));
 
             for (int i = 0; i < _materials.Length; i++)
@@ -64,10 +66,20 @@ public class Dissolve : MonoBehaviour
             yield return null;
         }
     }
+    // public void StartVanish(bool useDissolve = true, bool useVertical = false)
+    // {
+    //     StartCoroutine(Vanish(useDissolve, useVertical));
+    // }
+    public IEnumerator StartVanishRoutine(bool useDissolve = true, bool useVertical = false)
+    {
+        yield return Vanish(useDissolve, useVertical);
+    }
+
     public void StartVanish(bool useDissolve = true, bool useVertical = false)
     {
-        StartCoroutine(Vanish(useDissolve, useVertical));
+        StartCoroutine(StartVanishRoutine(useDissolve, useVertical));
     }
+
 
     public void StartAppear(bool useDissolve = true, bool useVertical = false)
     {

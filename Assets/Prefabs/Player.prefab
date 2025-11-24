@@ -671,6 +671,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::Dissolve
   _dissolveTime: 1.5
+  _dissolveStart: 0.15
+  _dissolveEnd: 1.1
 --- !u!1 &6076578409243267241
 GameObject:
   m_ObjectHideFlags: 0
