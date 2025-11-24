@@ -55,6 +55,10 @@ public class DialogueManager : MonoBehaviour
     private bool isWaitingForInput = false;
     private List<DialogueLine> currentLines = new List<DialogueLine>();
     private bool playersHaveSpawned = false;
+    [Header("SFX Settings")]
+    [SerializeField] private AudioClip nextSFX;
+    [SerializeField] private AudioClip skipSFX;
+    [SerializeField] private float sfxVolume = 1f;
 
     private struct DialogueLine
     {
@@ -244,6 +248,10 @@ public class DialogueManager : MonoBehaviour
     {
         if (!context.performed) return;
 
+        // 🔊 Play SFX when pressing next
+        if (nextSFX != null)
+            SoundFXManager.instance.PlaySoundFXClip(nextSFX, transform, sfxVolume);
+
         if (isTyping)
         {
             if (typingCoroutine != null) StopCoroutine(typingCoroutine);
@@ -334,6 +342,10 @@ public class DialogueManager : MonoBehaviour
     {
         if (!context.performed) return;
         if (this == null || !this.enabled) return;  // SAFETY CHECK
+        // 🔊 Play SFX for skipping dialogue
+        if (skipSFX != null)
+            SoundFXManager.instance.PlaySoundFXClip(skipSFX, transform, sfxVolume);
+
         StartGame();
     }
 
