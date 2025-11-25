@@ -23,6 +23,8 @@ public class BoatMove : MonoBehaviour
     private readonly Dictionary<Transform, Transform> originalParents = new Dictionary<Transform, Transform>();
     private bool isShuttingDown = false;
 
+    public bool IsMoving => playersOnBoard.Count >= requiredPlayers;
+
     private void OnDisable()
     {
         isShuttingDown = true;
