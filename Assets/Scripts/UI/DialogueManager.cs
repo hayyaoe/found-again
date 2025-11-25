@@ -60,6 +60,11 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private AudioClip skipSFX;
     [SerializeField] private float sfxVolume = 1f;
 
+    [SerializeField] private AudioClip typingLoopSFX;
+    [SerializeField] private float typingLoopVolume = 1f;
+
+    private AudioSource typingLoopSource;
+
     private struct DialogueLine
     {
         public string speakerName;
@@ -223,7 +228,23 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator TypeLine(string line)
     {
         isTyping = true;
-        dialogueText.text = ""; 
+        dialogueText.text = "";
+
+        // Start typing loop SFX
+        if (typingLoopSFX != null)
+        {
+            // Destroy previous loop if something went wrong
+            if (typingLoopSource != null)
+            {
+                Destroy(typingLoopSource.gameObject);
+            }
+
+            typingLoopSource = SoundFXManager.instance.CreateLoopingSFX(
+                typingLoopSFX,
+                transform.position,       // sound comes from UI object
+                typingLoopVolume
+            );
+        }
 
         foreach (char letter in line.ToCharArray())
         {
@@ -238,9 +259,15 @@ public class DialogueManager : MonoBehaviour
     {
         isTyping = false;
         dialogueText.text = fullLine;
-        
+
+        // Stop typing loop SFX
+        if (typingLoopSource != null)
+        {
+            Destroy(typingLoopSource.gameObject);
+            typingLoopSource = null;
+        }
+
         if (continuePrompt != null) continuePrompt.SetActive(true);
-        
         isWaitingForInput = true;
     }
 
@@ -286,6 +313,12 @@ public class DialogueManager : MonoBehaviour
 
     private void StartGame()
     {
+        if (typingLoopSource != null)
+        {
+            Destroy(typingLoopSource.gameObject);
+            typingLoopSource = null;
+        }
+
         // FIX: Make sure input actions are disabled BEFORE destroying/disabling object 
         if (continueAction != null) continueAction.performed -= OnContinuePressed;
         if (skipAction != null) skipAction.performed -= OnSkipPressed;
@@ -344,8 +377,23 @@ public class DialogueManager : MonoBehaviour
     private void OnSkipPressed(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-        if (this == null || !this.enabled) return;  // SAFETY CHECK
-        // 🔊 Play SFX for skipping dialogue
+
+        // Stop typing SFX immediately
+        if (typingLoopSource != null)
+        {
+            Destroy(typingLoopSource.gameObject);
+            typingLoopSource = null;
+        }
+
+        if (isTyping)
+        {
+            StopAllCoroutines();
+            FinishTyping(currentLines[currentConversationIndex].line);
+            return;
+        }
+
+        if (this == null || !this.enabled) return;
+
         if (skipSFX != null)
             SoundFXManager.instance.PlaySoundFXClip(skipSFX, transform, sfxVolume);
 
