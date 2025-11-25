@@ -329,13 +329,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1246567517}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.99904823, w: -0.04361941}
-  m_LocalPosition: {x: 565.10004, y: 34.4, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
+  m_LocalPosition: {x: 547.8, y: 24.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 225556680}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -185}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
 --- !u!114 &1246567519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,7 +472,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1480842322}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
@@ -901,7 +901,7 @@ Transform:
   m_GameObject: {fileID: 2088759350}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
-  m_LocalPosition: {x: 531.9, y: 34.3, z: 0}
+  m_LocalPosition: {x: 547.7, y: 30.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -924,10 +924,10 @@ MonoBehaviour:
   m_BlendStyleIndex: 1
   m_FalloffIntensity: 0.558
   m_Color: {r: 0.27843142, g: 1, b: 0.9095827, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 0.8
   m_LightVolumeIntensity: 0.1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 000000007d9a6e798d138f3dbdcd0c31
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -946,9 +946,9 @@ MonoBehaviour:
     m_Center: {x: 0, y: -0.00000011920929, z: 0}
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 49.285713
-  m_PointLightOuterAngle: 142.99998
+  m_PointLightOuterAngle: 139.45319
   m_PointLightInnerRadius: 33.3
-  m_PointLightOuterRadius: 79.7
+  m_PointLightOuterRadius: 79.92
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
