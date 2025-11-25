@@ -17413,7 +17413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acb75ebc26ecd4ed0a6bd197c775581f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::AspectRatio
-  targetAspect: 1.9
+  targetAspect: 1.7777778
 --- !u!1 &1892133376
 GameObject:
   m_ObjectHideFlags: 0
