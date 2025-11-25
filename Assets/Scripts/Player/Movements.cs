@@ -135,6 +135,21 @@ public class Movement : MonoBehaviour
 
   private Dissolve dissolve;
 
+  // 🟢 NEW: Helper to check boat state
+  private bool IsOnActiveBoat()
+  {
+    // Check if our parent has the BoatMove component
+    if (transform.parent != null)
+    {
+      BoatMove boat = transform.parent.GetComponent<BoatMove>();
+      // If found, check if the boat is actually moving (enough players)
+      if (boat != null && boat.IsMoving)
+      {
+        return true;
+      }
+    }
+    return false;
+  }
 
   // private PlayerPushPull pushPull;
   private void Awake()
@@ -186,14 +201,21 @@ public class Movement : MonoBehaviour
 
   private void Update()
   {
-    if (isDead)
+    if (isDead) return;
+
+    // 🟢 NEW: If on active boat, force idle animation and stop logic
+    if (IsOnActiveBoat())
     {
-      return; // Do nothing
+      horizontalInput = 0f;
+      if (animator != null)
+      {
+        animator.SetBool("run", false);
+        animator.SetBool("grounded", true);
+        animator.SetBool("sliding", false);
+      }
+      return;
     }
 
-    aliveTime += Time.deltaTime;
-
-    // Check if the player has fallen below the world
     if (transform.position.y < deathYLevel)
     {
       Debug.Log("Player fell below death Y-level.");
@@ -201,32 +223,23 @@ public class Movement : MonoBehaviour
       return;
     }
 
-    // --- THIS IS THE NEW CORE LOGIC ---
-    // Run all ground checks ONCE at the start of the frame.
-    // This updates both 'isPhysicallyGrounded' and 'isGroundedWithLatch'.
     CheckGroundedState();
 
-    // --- Fall Damage Check (Uses the PHYSICAL state, ignores latch) ---
     if (isPhysicallyGrounded && !wasPhysicallyGroundedLastFrame)
     {
-      // We just physically landed. Check our stored speed.
       if (Mathf.Abs(lastAirborneYVelocity) > fatalFallSpeed)
       {
-        Debug.Log($"Landed with speed {lastAirborneYVelocity}. Dying.");
+        Debug.Log($"💀 Fatal Fall! Speed {Mathf.Abs(lastAirborneYVelocity)} > Limit {fatalFallSpeed}");
         Die();
-        return; // Stop processing this frame
+        return;
       }
     }
 
-    // --- Record Fall Speed (Uses the PHYSICAL state) ---
     if (!isPhysicallyGrounded)
     {
-      // We are physically in the air, so record our speed.
       lastAirborneYVelocity = body.linearVelocity.y;
     }
-    // --- END OF NEW CORE LOGIC ---
 
-    // --- Input Reading ---
     horizontalInput = moveAction != null ? moveAction.ReadValue<Vector2>().x : Input.GetAxisRaw("Horizontal");
 
     if (flipTimer > 0f)
@@ -235,8 +248,6 @@ public class Movement : MonoBehaviour
     bool pushingNow = pushPull != null && pushPull.isPushing;
     HandleFacingDirection(pushingNow);
 
-
-    // --- Jump (Uses the LATCHED state) ---
     if (wallJumpCooldown > 0.2f && jumpAction != null && jumpAction.WasPressedThisFrame())
     {
       var pushPull = GetComponent<PlayerPushPull>();
@@ -250,12 +261,10 @@ public class Movement : MonoBehaviour
       wallJumpCooldown += Time.deltaTime;
     }
 
-    // --- These functions all use the LATCHED state from isGrounded() ---
     HandleAirbornePhysics();
     HandleAnimations();
     HandleFootstepSounds();
 
-    // --- Update the 'last frame' state (uses the PHYSICAL state) ---
     wasPhysicallyGroundedLastFrame = isPhysicallyGrounded;
   }
 
@@ -263,6 +272,15 @@ public class Movement : MonoBehaviour
   {
     if (jumpIgnoreTimer > 0f)
       jumpIgnoreTimer -= Time.deltaTime;
+
+    // 🟢 NEW: Stop physics movement if on active boat
+    if (IsOnActiveBoat())
+    {
+      // Optional: Allow Y velocity for gravity, or freeze it.
+      // Generally fine to just zero X velocity so they don't slide off.
+      body.linearVelocity = new Vector2(0f, body.linearVelocity.y);
+      return;
+    }
 
     ProbeSlope();
 
@@ -277,17 +295,14 @@ public class Movement : MonoBehaviour
       float targetSpeed = horizontalInput * speed;
       float speedDiff = targetSpeed - body.linearVelocity.x;
 
-      // Choose accel rate depending on whether we're accelerating or decelerating
       float accelRate = (Mathf.Abs(targetSpeed) > 0.01f)
           ? acceleration
           : deceleration;
 
-      // Apply acceleration curve (power < 1 makes it snappier, > 1 makes it smoother)
       float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, velocityPower) * Mathf.Sign(speedDiff);
 
       body.AddForce(movement * Vector2.right);
 
-      // Optional clamp: limit X speed so you don’t overshoot
       if (Mathf.Abs(body.linearVelocity.x) > speed)
       {
         body.linearVelocity = new Vector2(Mathf.Sign(body.linearVelocity.x) * speed, body.linearVelocity.y);
