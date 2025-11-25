@@ -248,6 +248,9 @@ public class DialogueManager : MonoBehaviour
     {
         if (!context.performed) return;
 
+        // 🟢 FIX: If the game has started (manager disabled), ignore ALL inputs and sounds
+        if (!this.enabled) return;
+
         // 🔊 Play SFX when pressing next
         if (nextSFX != null)
             SoundFXManager.instance.PlaySoundFXClip(nextSFX, transform, sfxVolume);
