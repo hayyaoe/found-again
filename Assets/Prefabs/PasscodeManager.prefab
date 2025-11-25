@@ -679,7 +679,7 @@ MonoBehaviour:
   jumpUIZone: {fileID: 0}
   audioSource: {fileID: 5541938598605325659}
   correctSfx: {fileID: 8300000, guid: 2649c8a907fa54078b93a0c5352e792c, type: 3}
-  correctSfxVolume: 0.8
+  correctSfxVolume: 1.5
 --- !u!82 &5541938598605325659
 AudioSource:
   m_ObjectHideFlags: 0

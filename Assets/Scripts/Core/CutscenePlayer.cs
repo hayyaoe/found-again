@@ -6,6 +6,9 @@ public class CutscenePlayer : MonoBehaviour
 {
     public VideoPlayer videoPlayer;
     public string nextScene = "Area 1";   // default after cutscene
+    [Header("SFX Settings")]
+    [SerializeField] private AudioClip skipSFX;
+    [SerializeField] private float sfxVolume = 1f;
 
     void Start()
     {
@@ -21,6 +24,8 @@ public class CutscenePlayer : MonoBehaviour
     {
         if (Input.anyKeyDown)
         {
+            if (skipSFX != null)
+                SoundFXManager.instance.PlaySoundFXClip(skipSFX, transform, sfxVolume);
             SceneFader.instance.FadeToScene(nextScene);
         }
     }

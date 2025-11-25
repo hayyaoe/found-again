@@ -127,7 +127,7 @@ public class PlayerCursorController : MonoBehaviour
         }
 
         if (moved)
-            SoundFXManager.instance.PlaySoundFXClip(moveSfx, transform, 0.5f);
+            SoundFXManager.instance.PlaySoundFXClip(moveSfx, transform, 0.3f);
 
         UpdateSelection();
     }
@@ -155,7 +155,7 @@ public class PlayerCursorController : MonoBehaviour
         }
 
         if (moved)
-            SoundFXManager.instance.PlaySoundFXClip(moveSfx, transform, 0.5f);
+            SoundFXManager.instance.PlaySoundFXClip(moveSfx, transform, 0.3f);
 
         UpdateSelection();
     }
@@ -169,7 +169,7 @@ public class PlayerCursorController : MonoBehaviour
             if (playerName == "P1") { currentPosition = CursorPosition.Marie; if (marieSpot != null) SnapTo(marieSpot); }
             else { currentPosition = CursorPosition.Mimi; if (mimiSpot != null) SnapTo(mimiSpot); }
             UpdateSelection();
-            SoundFXManager.instance.PlaySoundFXClip(moveSfx, transform, 0.5f);
+            SoundFXManager.instance.PlaySoundFXClip(moveSfx, transform, 0.3f);
             return;
         }
         if (lobbyManager != null && lobbyManager.playButton != null && !lobbyManager.playButton.interactable) return;
@@ -190,7 +190,7 @@ public class PlayerCursorController : MonoBehaviour
             lobbyManager?.UnhighlightPlayButton(playerName);
             currentPosition = CursorPosition.Center;
             SnapTo(centerSpot);
-            SoundFXManager.instance.PlaySoundFXClip(moveSfx, transform, 0.5f);
+            SoundFXManager.instance.PlaySoundFXClip(moveSfx, transform, 0.3f);
         }
         else if (currentPosition == CursorPosition.Marie || currentPosition == CursorPosition.Mimi || currentPosition == CursorPosition.Center) {
             if (backSpot != null) {

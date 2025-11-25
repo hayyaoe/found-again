@@ -222,4 +222,4 @@ MonoBehaviour:
   moveSfx: {fileID: 8300000, guid: f0f2361924a794761845516d880460ae, type: 3}
   selectSfx: {fileID: 8300000, guid: 4af22e8bdd91d4dd3bad8eec15437a2c, type: 3}
   clickSfx: {fileID: 8300000, guid: 6923180a7b7df40129448e3e8c47959c, type: 3}
-  sfxVolume: 1
+  sfxVolume: 0.5
