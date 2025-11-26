@@ -86,8 +86,8 @@ public class PettingSystem : MonoBehaviour
         player2 = found[1].GetComponent<Movement>();
 
         // Hook up input events programmatically
-        var p1Input = player1.GetComponent<PlayerInput>();
-        var p2Input = player2.GetComponent<PlayerInput>();
+        p1Input = player1.GetComponent<PlayerInput>();
+        p2Input = player2.GetComponent<PlayerInput>();
 
         p1Input.actions["Pet"].performed -= OnPetPerformed; 
         p2Input.actions["Pet"].performed -= OnPetPerformed;
@@ -229,4 +229,29 @@ public class PettingSystem : MonoBehaviour
 
         petCanvasGroup.alpha = targetAlpha;
     }
+    private void OnDestroy()
+    {
+        UnsubscribeEvents();
+    }
+
+    private void OnDisable()
+    {
+        UnsubscribeEvents();
+    }
+
+    private void UnsubscribeEvents()
+    {
+        if (player1)
+        {
+            var p1 = player1.GetComponent<PlayerInput>();
+            if (p1) p1.actions["Pet"].performed -= OnPetPerformed;
+        }
+
+        if (player2)
+        {
+            var p2 = player2.GetComponent<PlayerInput>();
+            if (p2) p2.actions["Pet"].performed -= OnPetPerformed;
+        }
+    }
+
 }

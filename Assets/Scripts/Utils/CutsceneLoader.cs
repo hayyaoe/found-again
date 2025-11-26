@@ -13,6 +13,7 @@ public class CutsceneSceneLoader : MonoBehaviour
             return;
         }
 
-        SceneManager.LoadScene(sceneToLoad);
+        if (SceneFader.instance != null) SceneFader.instance.FadeToScene(sceneToLoad);
+        else SceneManager.LoadScene(sceneToLoad);
     }
 }
