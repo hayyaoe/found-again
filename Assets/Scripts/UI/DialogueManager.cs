@@ -10,7 +10,7 @@ public class DialogueManager : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private GameObject dialogueBoxPanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
-    [SerializeField] private GameObject continuePrompt; // "Press X to continue" text/icon
+    [SerializeField] private GameObject continuePrompt; 
     [SerializeField] private GameObject nameBoxPanel;
     [SerializeField] private TextMeshProUGUI characterNameText;
     [SerializeField] private Image characterLeftSprite;
@@ -45,9 +45,12 @@ public class DialogueManager : MonoBehaviour
     private RectTransform nameBoxRect;
     private Image nameBoxImage;
 
+    // Global actions (kept for fallback)
     private InputAction continueAction;
     private InputAction skipAction;
     [SerializeField] private InputActionAsset inputActionAsset;
+    
+    // 🟢 NEW: Lists to track per-player input actions
     private List<InputAction> nextActions = new List<InputAction>();
     private List<InputAction> skipActionsList = new List<InputAction>();
 
@@ -91,8 +94,6 @@ public class DialogueManager : MonoBehaviour
             nameBoxImage = nameBoxPanel.GetComponent<Image>();
         }
 
-        // 🟢 FIX: Force hide ALL dialogue UI elements immediately on initialization.
-        // This prevents sprites from showing up if they were left active in the Editor scene.
         if (dialogueBoxPanel != null) dialogueBoxPanel.SetActive(false);
         if (nameBoxPanel != null) nameBoxPanel.SetActive(false);
         if (continuePrompt != null) continuePrompt.SetActive(false);
@@ -121,12 +122,15 @@ public class DialogueManager : MonoBehaviour
         }
 
         Time.timeScale = 0f;
+        
+        // 🟢 FIX: Bind inputs for ALL active players so both can control dialogue
+        BindAllPlayersToDialogue();
+        
         SwitchAllPlayerMaps("Cutscene");
 
         dialogueBoxPanel.SetActive(true);
         nameBoxPanel.SetActive(false);
         
-        // Ensure prompt is visible at start (if you want it visible)
         continuePrompt.SetActive(true);
 
         characterLeftSprite.sprite = wandererSprite;
@@ -142,12 +146,10 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
-        // 🟢 NOTE: Even though Awake hid them, we keep this logic to ensure game flow is correct
         if (SaveSystem.HasSave())
         {
             Debug.Log("Save found -> skipping cutscene.");
             
-            // Ensure they stay hidden
             dialogueBoxPanel.SetActive(false);
             nameBoxPanel.SetActive(false);
             characterLeftSprite.gameObject.SetActive(false);
@@ -160,9 +162,64 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         
-        // If no save, we explicitly start dialogue, which will turn sprites back ON
         StartDialogue(this.cutsceneName);
     }
+
+    // 🟢 NEW HELPER: Bind every player found in CheckpointManager to dialogue controls
+    private void BindAllPlayersToDialogue()
+    {
+        UnbindAllPlayers(); // Clear old bindings first
+
+        if (CheckpointManager.instance == null || CheckpointManager.allPlayers == null) return;
+
+        foreach (Movement movement in CheckpointManager.allPlayers)
+        {
+            if (movement == null) continue;
+            
+            PlayerInput pi = movement.GetComponent<PlayerInput>();
+            if (pi != null)
+            {
+                // Ensure they are in the correct action map
+                pi.SwitchCurrentActionMap("Cutscene");
+
+                InputAction next = pi.actions["Next"];
+                InputAction skip = pi.actions["Skip"];
+
+                if (next != null)
+                {
+                    nextActions.Add(next);
+                    next.performed += OnContinuePressed;
+                    next.Enable();
+                }
+
+                if (skip != null)
+                {
+                    skipActionsList.Add(skip);
+                    skip.performed += OnSkipPressed;
+                    skip.Enable();
+                }
+            }
+        }
+    }
+
+    private void UnbindAllPlayers()
+    {
+        foreach (var a in nextActions) 
+        {
+            a.performed -= OnContinuePressed;
+            a.Disable();
+        }
+        foreach (var b in skipActionsList) 
+        {
+            b.performed -= OnSkipPressed;
+            b.Disable();
+        }
+
+        nextActions.Clear();
+        skipActionsList.Clear();
+    }
+
+    // ... (Rest of the class remains mostly same) ...
 
     private CharacterSide GetSideFromName(string speakerName)
     {
@@ -187,7 +244,6 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator ShowConversation(DialogueLine currentLine)
     {
         isWaitingForInput = false; 
-        
         nameBoxPanel.SetActive(false);
 
         switch (currentLine.characterSide)
@@ -230,20 +286,10 @@ public class DialogueManager : MonoBehaviour
         isTyping = true;
         dialogueText.text = "";
 
-        // Start typing loop SFX
         if (typingLoopSFX != null)
         {
-            // Destroy previous loop if something went wrong
-            if (typingLoopSource != null)
-            {
-                Destroy(typingLoopSource.gameObject);
-            }
-
-            typingLoopSource = SoundFXManager.instance.CreateLoopingSFX(
-                typingLoopSFX,
-                transform.position,       // sound comes from UI object
-                typingLoopVolume
-            );
+            if (typingLoopSource != null) Destroy(typingLoopSource.gameObject);
+            typingLoopSource = SoundFXManager.instance.CreateLoopingSFX(typingLoopSFX, transform.position, typingLoopVolume);
         }
 
         foreach (char letter in line.ToCharArray())
@@ -260,7 +306,6 @@ public class DialogueManager : MonoBehaviour
         isTyping = false;
         dialogueText.text = fullLine;
 
-        // Stop typing loop SFX
         if (typingLoopSource != null)
         {
             Destroy(typingLoopSource.gameObject);
@@ -274,11 +319,8 @@ public class DialogueManager : MonoBehaviour
     public void OnContinuePressed(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-
-        // 🟢 FIX: If the game has started (manager disabled), ignore ALL inputs and sounds
         if (!this.enabled) return;
 
-        // 🔊 Play SFX when pressing next
         if (nextSFX != null)
             SoundFXManager.instance.PlaySoundFXClip(nextSFX, transform, sfxVolume);
 
@@ -307,8 +349,9 @@ public class DialogueManager : MonoBehaviour
         if (skipAction != null) skipAction.performed -= OnSkipPressed;
         continueAction?.Disable();
         skipAction?.Disable();
-        foreach (var a in nextActions) a.performed -= OnContinuePressed;
-        foreach (var b in skipActionsList) b.performed -= OnSkipPressed;
+        
+        // 🟢 Unbind player specific actions
+        UnbindAllPlayers();
     }
 
     private void StartGame()
@@ -319,28 +362,28 @@ public class DialogueManager : MonoBehaviour
             typingLoopSource = null;
         }
 
-        // FIX: Make sure input actions are disabled BEFORE destroying/disabling object 
+        // Unbind global actions
         if (continueAction != null) continueAction.performed -= OnContinuePressed;
         if (skipAction != null) skipAction.performed -= OnSkipPressed;
-
         continueAction?.Disable();
         skipAction?.Disable();
 
-        foreach (var a in nextActions) a.performed -= OnContinuePressed;
-        foreach (var b in skipActionsList) b.performed -= OnSkipPressed;
-
-        nextActions.Clear();
-        skipActionsList.Clear();
+        // 🟢 Unbind player specific actions
+        UnbindAllPlayers();
 
         isWaitingForInput = false;
         isTyping = false;
+        
         if (this.enabled == false) return;
+        
         Time.timeScale = 1f;
         dialogueBoxPanel.SetActive(false);
         nameBoxPanel.SetActive(false);
         characterLeftSprite.gameObject.SetActive(false);
         characterRightSprite.gameObject.SetActive(false);
+        
         this.enabled = false;
+        
         SwitchAllPlayerMaps("Player");
         if (!playersHaveSpawned)
         {
@@ -377,36 +420,16 @@ public class DialogueManager : MonoBehaviour
     private void OnSkipPressed(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-
-        // Stop typing SFX immediately
-        if (typingLoopSource != null)
-        {
-            Destroy(typingLoopSource.gameObject);
-            typingLoopSource = null;
-        }
-
-        if (isTyping)
-        {
-            StopAllCoroutines();
-            FinishTyping(currentLines[currentConversationIndex].line);
-            return;
-        }
-
-        if (this == null || !this.enabled) return;
-
-        if (skipSFX != null)
-            SoundFXManager.instance.PlaySoundFXClip(skipSFX, transform, sfxVolume);
-
+        if (typingLoopSource != null) { Destroy(typingLoopSource.gameObject); typingLoopSource = null; }
+        if (isTyping) { StopAllCoroutines(); FinishTyping(currentLines[currentConversationIndex].line); return; }
+        if (this == null || !this.enabled) return; 
+        if (skipSFX != null) SoundFXManager.instance.PlaySoundFXClip(skipSFX, transform, sfxVolume);
         StartGame();
     }
 
     private void NextConversation()
     {
         isWaitingForInput = false;
-        
-        // Keep prompt visible if desired
-        // if (continuePrompt != null) continuePrompt.SetActive(false);
-
         currentConversationIndex++;
         if (currentConversationIndex < currentLines.Count)
             StartCoroutine(ShowConversation(currentLines[currentConversationIndex]));
@@ -435,6 +458,8 @@ public class DialogueManager : MonoBehaviour
     {
         if (dialogueBoxPanel != null && dialogueBoxPanel.activeInHierarchy) player.SwitchCurrentActionMap("Cutscene");
         else player.SwitchCurrentActionMap("Player");
+        
+        // Also bind specific actions for this new player
         var next = player.actions["Next"];
         var skip = player.actions["Skip"];
         if (next != null) { nextActions.Add(next); next.performed += OnContinuePressed; }

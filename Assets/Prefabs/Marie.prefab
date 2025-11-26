@@ -5086,7 +5086,7 @@ MonoBehaviour:
   minSlideSpeedForSFX: 1.5
   slideSFXSpawnDelay: 0.25
   jumpVolume: 0.4
-  slideVolume: 1
+  slideVolume: 2
   footstepSFX:
   - {fileID: 8300000, guid: c3a4b11fe3ca54177b72daa6f0bd21d1, type: 3}
   - {fileID: 8300000, guid: c3a4b11fe3ca54177b72daa6f0bd21d1, type: 3}
