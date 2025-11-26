@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: FoundAgain.Runtime::CutscenePlayer
   videoPlayer: {fileID: 587303460}
-  nextScene: Area 1
+  nextScene: IntroCutscene
 --- !u!328 &587303460
 VideoPlayer:
   m_ObjectHideFlags: 0
