@@ -98,7 +98,7 @@ public class Movement : MonoBehaviour
   private Vector2 contactNormal;
   private float contactAngle;
 
-  private bool isPhysicallyGrounded;    // Is the player *actually* touching ground?
+  public bool isPhysicallyGrounded;    // Is the player *actually* touching ground?
   private bool isGroundedWithLatch;     // Is the player on ground OR in coyote time?
   private bool wasPhysicallyGroundedLastFrame; // Was the player touching ground last frame?
   private float lastAirborneYVelocity; // Stores our speed just before landing
@@ -691,7 +691,7 @@ public class Movement : MonoBehaviour
     contactHasSlope = false;
   }
 
-  private bool isGrounded()
+  public bool isGrounded()
   {
     // This function now just returns the result from CheckGroundedState()
     return isGroundedWithLatch;
@@ -914,7 +914,11 @@ public class Movement : MonoBehaviour
 
   private void HandleFacingDirection(bool pushingNow)
   {
+    
     if (pushingNow) return; // jangan flip waktu lagi dorong
+        // 🟢 Block flipping during petting
+    if (PettingSystem.PettingInProgress)
+        return;
 
     bool floorLikeSlope = slopeGrounded && onSlope && slopeAngle < wallStartAngle;
     bool inputAgainstSlope = IsInputAgainstSlope();
