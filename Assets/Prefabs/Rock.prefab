@@ -157,6 +157,10 @@ MonoBehaviour:
   volumeMaxSpeed: 2
   fadeInSpeed: 10
   fadeOutSpeed: 15
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 6144
+  topCheckHeight: 0.1
 --- !u!61 &7225674071244428873
 BoxCollider2D:
   m_ObjectHideFlags: 0

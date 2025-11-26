@@ -203,6 +203,10 @@ MonoBehaviour:
   volumeMaxSpeed: 2
   fadeInSpeed: 10
   fadeOutSpeed: 12
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 6144
+  topCheckHeight: 0.1
 --- !u!114 &-1777486948420344605
 MonoBehaviour:
   m_ObjectHideFlags: 0

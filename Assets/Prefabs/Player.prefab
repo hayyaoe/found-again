@@ -242,7 +242,7 @@ MonoBehaviour:
   minSlideSpeedForSFX: 1.5
   slideSFXSpawnDelay: 0.25
   jumpVolume: 1
-  slideVolume: 1
+  slideVolume: 2
   footstepSFX:
   - {fileID: 8300000, guid: 61b66e297db814462ac2db5c92aaf2b7, type: 3}
   - {fileID: 8300000, guid: 61ea5189f7b9f479d88b76cc78d79a64, type: 3}
@@ -253,6 +253,7 @@ MonoBehaviour:
   slideLoopFadeOutSpeed: 12
   mimiAnimator: {fileID: 0}
   marieAnimator: {fileID: 0}
+  isPhysicallyGrounded: 0
   groundedLatchSeconds: 0.5
   groundCheckWidthReduction: 0.1
   acceleration: 12
@@ -576,6 +577,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 18e360ee-4f76-490a-8fc4-669cfb79456a
     m_ActionName: 'Player/CutsceneInteract[/Keyboard/enter,/DualShock4GamepadHID/buttonEast]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d4e60f7c-21c5-4b43-84f6-7fbef97b2b15
+    m_ActionName: 'Player/Pet[/Keyboard/f,/DualShock4GamepadHID/buttonNorth]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

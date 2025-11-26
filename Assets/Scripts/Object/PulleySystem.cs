@@ -24,6 +24,13 @@ public class PulleySystem : MonoBehaviour
 
     private float baseLeftDistance;
     private float baseLiftY;
+    private Rigidbody2D liftRb;
+
+    void Awake()
+    {
+        liftRb = lift.GetComponent<Rigidbody2D>();
+    }
+
 
     void Start()
     {
@@ -31,7 +38,7 @@ public class PulleySystem : MonoBehaviour
         baseLiftY = lift.position.y;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         float currentLeftDistance = Vector2.Distance(leftStar.position, pulleyPivot.position);
         float ropeDelta = currentLeftDistance - baseLeftDistance;
@@ -42,9 +49,13 @@ public class PulleySystem : MonoBehaviour
         isAtMinHeight = desiredY <= minLiftY;
         isAtMaxHeight = desiredY >= maxLiftY;
 
-        Vector3 liftPos = lift.position;
-        liftPos.y = Mathf.Clamp(desiredY, minLiftY, maxLiftY);
-        lift.position = liftPos;
+        Vector2 nextPos = new Vector2(
+            lift.position.x,
+            Mathf.Clamp(desiredY, minLiftY, maxLiftY)
+        );
+
+        liftRb.MovePosition(nextPos);
+
 
         if (isAtMaxHeight)
         {
@@ -54,7 +65,10 @@ public class PulleySystem : MonoBehaviour
         {
             Debug.Log("⬇️ Pulley reached MIN height");
         }
+    }
 
+    void Update()
+    {
         UpdateRopes();
     }
 

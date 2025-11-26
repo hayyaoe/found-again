@@ -79,6 +79,17 @@ public class PushPullObject : MonoBehaviour
     private float currentVolume = 0f;
     // ===================== END SFX =====================
 
+    [SerializeField] private LayerMask playerMask;
+    [SerializeField] private float topCheckHeight = 0.1f;
+
+    private readonly List<Rigidbody2D> playersOnTop = new();
+    private Vector2 lastPosition;
+
+    private void Start()
+    {
+        lastPosition = rb.position;
+    }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -294,6 +305,8 @@ public class PushPullObject : MonoBehaviour
         }
 
         SlideSFX();
+        DetectPlayersOnTop();
+        LateFixedUpdatePassengers();
     }
 
     // === Helpers ===
@@ -488,6 +501,42 @@ public class PushPullObject : MonoBehaviour
     }
 
     // ================== END SFX ==================
+
+    private void DetectPlayersOnTop()
+    {
+        playersOnTop.Clear();
+
+        Bounds b = col.bounds;
+        Vector2 origin = new Vector2(b.center.x, b.max.y + 0.01f);
+        Vector2 size = new Vector2(b.size.x * 0.95f, topCheckHeight);
+
+        Collider2D[] hits = Physics2D.OverlapBoxAll(origin, size, 0f, playerMask);
+
+        foreach (var h in hits)
+        {
+            Rigidbody2D prb = h.attachedRigidbody;
+            if (prb != null)
+                playersOnTop.Add(prb);
+        }
+    }
+
+    private void LateFixedUpdatePassengers()
+    {
+        Vector2 currentPos = rb.position;
+        float deltaX = currentPos.x - lastPosition.x;
+
+        if (Mathf.Abs(deltaX) > 0.0001f)
+        {
+            foreach (var p in playersOnTop)
+            {
+                // Only move if the player is actually "grounded" on you
+                p.transform.position += new Vector3(deltaX, 0f, 0f);
+            }
+        }
+
+        lastPosition = currentPos;
+    }
+
 
     // logging
     private void Log(string msg) { if (debugLogging) Debug.Log($"{LOG_TAG} [{name}] {msg}"); }

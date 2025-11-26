@@ -54,6 +54,7 @@ MonoBehaviour:
   characterLeftSprite: {fileID: 6734050066549718189}
   characterRightSprite: {fileID: 721788699728849452}
   cutsceneName: cutscene_1
+  typingSpeed: 0.04
   playerSpawner: {fileID: 0}
   gameHUDCanvas: {fileID: 0}
   mimiSprite: {fileID: 21300000, guid: b211cec6b751f47c7a6d9c8847504f97, type: 3}
@@ -69,6 +70,11 @@ MonoBehaviour:
   speakingColor: {r: 1, g: 1, b: 1, a: 1}
   silentColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   inputActionAsset: {fileID: -944628639613478452, guid: c68604c71beef44a1b107ae7dd4bf257, type: 3}
+  nextSFX: {fileID: 0}
+  skipSFX: {fileID: 0}
+  sfxVolume: 1
+  typingLoopSFX: {fileID: 8300000, guid: c96ced79b9eb340e0816d879f933130f, type: 3}
+  typingLoopVolume: 0.3
 --- !u!114 &2563551876807322454
 MonoBehaviour:
   m_ObjectHideFlags: 0
