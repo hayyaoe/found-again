@@ -59,7 +59,7 @@ public class PettingSystem : MonoBehaviour
         bool p1Grounded = Mathf.Abs(p1Rb.linearVelocity.y) < 0.2f;
         bool p2Grounded = Mathf.Abs(p2Rb.linearVelocity.y) < 0.2f;
 
-        if (closeEnough && p1Still && p2Still && p1Grounded && p2Grounded)
+        if (!BoatMove.AnyPlayerOnBoat && closeEnough && p1Still && p2Still && p1Grounded && p2Grounded)
         {
             timer += Time.deltaTime;
         }
@@ -70,7 +70,7 @@ public class PettingSystem : MonoBehaviour
         }
 
         if (timer >= stationaryTime)
-        {
+        { 
             FadeTo(1f);
         }
     }
@@ -106,6 +106,9 @@ public class PettingSystem : MonoBehaviour
     // -------------------------
     public void OnPetInput()
     {
+        if (BoatMove.AnyPlayerOnBoat)   // 👈 NEW
+            return;
+            
         if (petting || timer < stationaryTime)
             return;
 
@@ -127,8 +130,8 @@ public class PettingSystem : MonoBehaviour
         player1.enabled = false;
         player2.enabled = false;
 
-        p1Input.enabled = false;
-        p2Input.enabled = false;
+        p1Input.DeactivateInput();
+        p2Input.DeactivateInput();
 
         var rb1 = player1.GetComponent<Rigidbody2D>();
         var rb2 = player2.GetComponent<Rigidbody2D>();
@@ -197,8 +200,8 @@ public class PettingSystem : MonoBehaviour
         player1.enabled = true;
         player2.enabled = true;
 
-        p1Input.enabled = true;
-        p2Input.enabled = true;
+        p1Input.ActivateInput();
+        p2Input.ActivateInput();
 
         petting = false;
         timer = 0f;

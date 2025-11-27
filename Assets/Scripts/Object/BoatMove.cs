@@ -24,6 +24,8 @@ public class BoatMove : MonoBehaviour
     private bool isShuttingDown = false;
 
     public bool IsMoving => playersOnBoard.Count >= requiredPlayers;
+    public static bool AnyPlayerOnBoat = false;
+
 
     private void OnDisable()
     {
@@ -71,6 +73,9 @@ public class BoatMove : MonoBehaviour
         {
             playersOnBoard.Add(player);
 
+            if (playersOnBoard.Count > 0)
+                AnyPlayerOnBoat = true;
+
             // Simpan parent asli
             if (!originalParents.ContainsKey(player))
                 originalParents[player] = player.parent;
@@ -94,6 +99,9 @@ public class BoatMove : MonoBehaviour
         Transform player = other.transform;
 
         playersOnBoard.Remove(player);
+        
+        if (playersOnBoard.Count == 0)
+            AnyPlayerOnBoat = false;      // 👈 NEW
 
         // If boat is shutting down, DO NOT parent back (Unity would throw error)
         if (isShuttingDown)
