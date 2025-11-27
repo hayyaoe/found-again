@@ -76,4 +76,11 @@ public class CameraBoundaries : MonoBehaviour
         // bottomWall.size = new Vector2(camWidth + 2f, wallThickness);
         // bottomWall.transform.position = new Vector3(camPos.x, camPos.y - (camHeight / 2f) - (wallThickness / 2f), 0);
     }
+
+    public void SetBoundariesActive(bool active)
+    {
+        if (leftWall != null) leftWall.enabled = active;
+        if (rightWall != null) rightWall.enabled = active;
+    }
+
 }

@@ -31,6 +31,9 @@ public class CameraMovement : MonoBehaviour
     private bool cameraLocked = false;
     private Vector3 lockedPosition;
     private float targetZoom;
+    [SerializeField] private float lookAheadAmount = 6f;  // You can tune this
+    private float movementDirection = 0f;
+
 
     private void Awake()
     {
@@ -53,6 +56,12 @@ public class CameraMovement : MonoBehaviour
         if (players.Length == 0)
             return;
 
+        // Detect average horizontal movement direction
+        float avgXVel = players.Average(p => p.GetComponent<Rigidbody2D>()?.linearVelocity.x ?? 0f);
+
+        // Smooth movement direction so camera doesn't jitter
+        movementDirection = Mathf.Lerp(movementDirection, Mathf.Sign(avgXVel), Time.deltaTime * 4f);
+
         Move();
         Zoom();
     }
@@ -60,7 +69,11 @@ public class CameraMovement : MonoBehaviour
     private void Move()
     {
         Vector3 centerPoint = GetCenterPoint();
-        Vector3 newPosition = new Vector3(centerPoint.x, centerPoint.y, transform.position.z);
+
+        // Always push the camera to the right
+        float look = lookAheadAmount;
+
+        Vector3 newPosition = new Vector3(centerPoint.x + look, centerPoint.y, transform.position.z);
 
         // Clamp camera inside bounds
         newPosition.x = Mathf.Clamp(newPosition.x, minBounds.x, maxBounds.x);

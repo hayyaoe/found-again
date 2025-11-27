@@ -247,7 +247,7 @@ MonoBehaviour:
   defaultSprite: {fileID: 6005702761940061674, guid: 7bb8089dbf84543af92a2fe31a602e70, type: 3}
   litSprite: {fileID: 5499508968208174246, guid: 78e0b010b1bb6469d8b3029b9813d6c0, type: 3}
   liftMoveLoop: {fileID: 8300000, guid: 19a42b69c4bbb45e59daf69907620c9f, type: 3}
-  liftVolume: 1
+  liftVolume: 0
 --- !u!61 &3282578555822484011
 BoxCollider2D:
   m_ObjectHideFlags: 0

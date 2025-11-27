@@ -206,12 +206,22 @@ public class Movement : MonoBehaviour
     // 🟢 NEW: If on active boat, force idle animation and stop logic
     if (IsOnActiveBoat())
     {
+      // --- START MODIFICATION ---
+      // Force internal state to grounded so that if we leave the boat,
+      // we don't think we are instantly airborne.
+      isPhysicallyGrounded = true;
+      isGroundedWithLatch = true;
+      groundedLatchTimer = groundedLatchSeconds;
+      lastAirborneYVelocity = 0f;
+      // --- END MODIFICATION ---
+
       horizontalInput = 0f;
       if (animator != null)
       {
         animator.SetBool("run", false);
         animator.SetBool("grounded", true);
         animator.SetBool("sliding", false);
+        animator.SetFloat("yVelocity", 0f); // New: Also zero yVelocity for clean transition
       }
       return;
     }
@@ -850,28 +860,25 @@ public class Movement : MonoBehaviour
       }
     }
   }
-
-
   private void HandleFootstepSounds()
   {
-    // Don't play footsteps if dead or not grounded
-    if (!isWalking || isDead) return;
+      if (!isPhysicallyGrounded || isDead) return;
+      if (Mathf.Abs(horizontalInput) < 0.1f) return;
 
-    // Countdown timer
-    footstepTimer -= Time.deltaTime;
+      footstepTimer -= Time.deltaTime;
 
-    if (footstepTimer <= 0f)
-    {
-      footstepTimer = footstepInterval;
-
-      // Pick a random footstep sound
-      if (footstepSFX != null && footstepSFX.Length > 0 && SoundFXManager.instance != null)
+      if (footstepTimer <= 0f)
       {
-        AudioClip randomStep = footstepSFX[Random.Range(0, footstepSFX.Length)];
-        SoundFXManager.instance.PlaySoundFXClip(randomStep, transform, footstepVolume);
+          footstepTimer = footstepInterval;
+
+          if (footstepSFX != null && footstepSFX.Length > 0 && SoundFXManager.instance != null)
+          {
+              AudioClip randomStep = footstepSFX[Random.Range(0, footstepSFX.Length)];
+              SoundFXManager.instance.PlaySoundFXClip(randomStep, transform, footstepVolume);
+          }
       }
-    }
   }
+
 
   private void OnDestroy()
   {

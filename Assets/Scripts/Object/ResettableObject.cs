@@ -3,11 +3,13 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class ResettableObject : MonoBehaviour
 {
-    private Vector3 startPosition;
-    private Quaternion startRotation;
-    private Rigidbody2D rb;
+    // Changed to protected so derived classes (like BoatReset) can use them
+    protected Vector3 startPosition;
+    protected Quaternion startRotation;
+    protected Rigidbody2D rb;
 
-    private void Awake()
+    // Changed to 'protected new' so derived classes can provide their own Awake logic.
+    protected void Awake()
     {
         // Save our starting state
         startPosition = transform.position;
@@ -24,6 +26,8 @@ public class ResettableObject : MonoBehaviour
         CheckpointManager.UnregisterResettable(this);
     }
 
+    // Changed to 'public new' to allow derived classes to override, although
+    // the derived class must be careful to call the base method if it needs to.
     public void ResetObject()
     {
         // Stop all physics and move back to the start
