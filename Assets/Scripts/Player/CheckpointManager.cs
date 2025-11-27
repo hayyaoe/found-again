@@ -12,6 +12,9 @@ public class CheckpointManager : MonoBehaviour
     // Static lists to track all players and objects
     public static List<Movement> allPlayers = new List<Movement>();
     private static List<ResettableObject> allResettables = new List<ResettableObject>();
+    
+    // 🟢 NEW: List specifically for BoatReset objects (or other non-Rigidbody resettables)
+    private static List<BoatReset> allBoatResets = new List<BoatReset>();
 
     // Prevents multiple respawn sequences from starting simultaneously
     private bool isRespawning = false;
@@ -29,7 +32,7 @@ public class CheckpointManager : MonoBehaviour
         }
     }
 
-    // --- Player Registration ---
+    // --- Player Registration (No Change) ---
     public static void RegisterPlayer(Movement player)
     {
         if (!allPlayers.Contains(player))
@@ -45,7 +48,7 @@ public class CheckpointManager : MonoBehaviour
         }
     }
 
-    // --- Resettable Object Registration ---
+    // --- Resettable Object Registration (No Change) ---
     public static void RegisterResettable(ResettableObject obj)
     {
         if (!allResettables.Contains(obj))
@@ -60,13 +63,30 @@ public class CheckpointManager : MonoBehaviour
             allResettables.Remove(obj);
         }
     }
+    
+    // 🟢 NEW: Boat Reset Registration
+    public static void RegisterBoatReset(BoatReset boat)
+    {
+        if (!allBoatResets.Contains(boat))
+        {
+            allBoatResets.Add(boat);
+        }
+    }
+    public static void UnregisterBoatReset(BoatReset boat)
+    {
+        if (allBoatResets.Contains(boat))
+        {
+            allBoatResets.Remove(boat);
+        }
+    }
+
 
     public void SetCurrentCheckpoint(Transform newCheckpoint)
     {
         currentCheckpoint = newCheckpoint;
     }
 
-    // --- NEW: Coordinated Death & Respawn Logic ---
+    // --- Coordinated Death & Respawn Logic ---
 
     // Public entry point called by a dying player.
     public void TriggerGlobalDeath(float vanishDuration)
@@ -97,6 +117,12 @@ public class CheckpointManager : MonoBehaviour
         foreach (ResettableObject obj in allResettables)
         {
             obj.ResetObject();
+        }
+        
+        // 🟢 MODIFICATION: Reset Boat-specific objects
+        foreach (BoatReset boat in allBoatResets)
+        {
+            boat.ResetObject();
         }
 
         // PHASE 3: Respawn ALL Players

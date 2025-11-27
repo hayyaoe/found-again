@@ -17,7 +17,7 @@ public class BoatMove : MonoBehaviour
 
     [Header("Smoothing")]
     public float accelerationTime = 1f;   // how long until full speed
-    private float currentSpeed = 0f;
+    private float currentSpeed = 0f; // <-- IMPORTANT: This needs to be reset
 
     private readonly List<Transform> playersOnBoard = new List<Transform>();
     private readonly Dictionary<Transform, Transform> originalParents = new Dictionary<Transform, Transform>();
@@ -43,25 +43,75 @@ public class BoatMove : MonoBehaviour
 
     void Update()
     {
-        if (playersOnBoard.Count < requiredPlayers) return;
-
-        if (roomZoneToDisable != null)
+        if (playersOnBoard.Count < requiredPlayers)
         {
-            roomZoneToDisable.SetActive(false);
-            Debug.Log("[BoatTrigger] RoomZone disabled.");
+            // Decelerate if players leave before reaching the destination
+            currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, Time.deltaTime * (moveSpeed / accelerationTime));
+            
+            // Re-enable the room zone if needed
+            if (roomZoneToDisable != null && roomZoneToDisable.activeSelf == false && currentSpeed < 0.01f)
+            {
+                roomZoneToDisable.SetActive(true);
+                Debug.Log("[BoatTrigger] RoomZone re-enabled due to player exit/deceleration.");
+            }
+        }
+        else
+        {
+             // Smooth acceleration (0 → moveSpeed)
+            currentSpeed = Mathf.MoveTowards(currentSpeed, moveSpeed, Time.deltaTime * (moveSpeed / accelerationTime));
+
+            if (roomZoneToDisable != null)
+            {
+                roomZoneToDisable.SetActive(false);
+                Debug.Log("[BoatTrigger] RoomZone disabled.");
+            }
         }
 
-        // Gerakan boat
-        Vector3 oldBase = waveScript.GetBasePosition();
-        // Smooth acceleration (0 → moveSpeed)
-        currentSpeed = Mathf.MoveTowards(currentSpeed, moveSpeed, Time.deltaTime * (moveSpeed / accelerationTime));
 
-        Vector3 delta = (Vector3)moveDirection * (currentSpeed * Time.deltaTime);
-
-        Vector3 newBase = oldBase + delta;
-        waveScript.SetBasePosition(newBase);
+        // Gerakan boat (Only move if there is *some* speed, even during deceleration)
+        if (currentSpeed > 0.001f)
+        {
+            Vector3 oldBase = waveScript.GetBasePosition();
+            Vector3 delta = (Vector3)moveDirection * (currentSpeed * Time.deltaTime);
+            Vector3 newBase = oldBase + delta;
+            waveScript.SetBasePosition(newBase);
+        }
     }
 
+    // 🟢 NEW: Public method to reset the boat's movement state
+    public void ResetMovementState()
+    {
+        // 1. Stop the boat instantly
+        currentSpeed = 0f;
+        
+        // 2. Clear players and restore their parenting (if possible)
+        foreach(Transform player in playersOnBoard)
+        {
+             if (originalParents.ContainsKey(player))
+            {
+                // Restore original parent
+                player.SetParent(originalParents[player], true);
+            }
+        }
+        
+        // Clear lists
+        playersOnBoard.Clear();
+        originalParents.Clear();
+
+        // 3. Reset static flag
+        AnyPlayerOnBoat = false;
+
+        // 4. Re-enable the room zone
+        if (roomZoneToDisable != null)
+        {
+            roomZoneToDisable.SetActive(true);
+            Debug.Log("[BoatMove] RoomZone reset and re-enabled.");
+        }
+
+        if (logDebug)
+            Debug.Log("[BoatMove] Boat movement state fully reset.");
+    }
+    
     // Trigger masuk boat
     public void NotifyEnter(Collider2D other)
     {
@@ -101,7 +151,7 @@ public class BoatMove : MonoBehaviour
         playersOnBoard.Remove(player);
         
         if (playersOnBoard.Count == 0)
-            AnyPlayerOnBoat = false;      // 👈 NEW
+            AnyPlayerOnBoat = false;
 
         // If boat is shutting down, DO NOT parent back (Unity would throw error)
         if (isShuttingDown)
