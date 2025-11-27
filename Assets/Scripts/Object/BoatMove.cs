@@ -147,21 +147,19 @@ public class BoatMove : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         Transform player = other.transform;
-
         playersOnBoard.Remove(player);
-        
+
         if (playersOnBoard.Count == 0)
             AnyPlayerOnBoat = false;
 
-        // If boat is shutting down, DO NOT parent back (Unity would throw error)
-        if (isShuttingDown)
+        // --- HARD PROTECTION ---
+        if (isShuttingDown || !gameObject.activeInHierarchy || this == null)
         {
             if (logDebug)
-                Debug.Log("[BoatMove] Boat is disabling — skip restoring parent.");
+                Debug.Log("[BoatMove] Boat disabling/unloading — skip restoring parent.");
             return;
         }
 
-        // Safe: restore parent only if boat is active
         if (originalParents.ContainsKey(player))
         {
             player.SetParent(originalParents[player], true);

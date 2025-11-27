@@ -860,28 +860,25 @@ public class Movement : MonoBehaviour
       }
     }
   }
-
-
   private void HandleFootstepSounds()
   {
-    // Don't play footsteps if dead or not grounded
-    if (!isWalking || isDead) return;
+      if (!isPhysicallyGrounded || isDead) return;
+      if (Mathf.Abs(horizontalInput) < 0.1f) return;
 
-    // Countdown timer
-    footstepTimer -= Time.deltaTime;
+      footstepTimer -= Time.deltaTime;
 
-    if (footstepTimer <= 0f)
-    {
-      footstepTimer = footstepInterval;
-
-      // Pick a random footstep sound
-      if (footstepSFX != null && footstepSFX.Length > 0 && SoundFXManager.instance != null)
+      if (footstepTimer <= 0f)
       {
-        AudioClip randomStep = footstepSFX[Random.Range(0, footstepSFX.Length)];
-        SoundFXManager.instance.PlaySoundFXClip(randomStep, transform, footstepVolume);
+          footstepTimer = footstepInterval;
+
+          if (footstepSFX != null && footstepSFX.Length > 0 && SoundFXManager.instance != null)
+          {
+              AudioClip randomStep = footstepSFX[Random.Range(0, footstepSFX.Length)];
+              SoundFXManager.instance.PlaySoundFXClip(randomStep, transform, footstepVolume);
+          }
       }
-    }
   }
+
 
   private void OnDestroy()
   {

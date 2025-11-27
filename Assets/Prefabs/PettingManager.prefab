@@ -51,3 +51,5 @@ MonoBehaviour:
   petCanvasGroup: {fileID: 0}
   fadeDuration: 0.2
   stillThreshold: 0.5
+  pettingRandomSFX:
+  - {fileID: 8300000, guid: 3701b0807980e40b3bdf7c0499a48cdd, type: 3}

@@ -43,7 +43,7 @@ public class PlayerRespawn : MonoBehaviour
         // --- END OF FIX ---
 
         // 3. Wait for camera to catch up, then enable boundaries
-            StartCoroutine(ReenableBoundsAfterDelay(1.5f));
+            StartCoroutine(ReenableBoundsAfterDelay(4f));
 
         if (anim != null)
         {

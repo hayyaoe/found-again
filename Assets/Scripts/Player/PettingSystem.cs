@@ -25,6 +25,9 @@ public class PettingSystem : MonoBehaviour
     private bool petting;
     private Coroutine fadeCoroutine;
     public static bool PettingInProgress = false;
+    
+    [Header("Sound")]
+    public AudioClip[] pettingRandomSFX;
 
 
     private void Start()
@@ -119,6 +122,16 @@ public class PettingSystem : MonoBehaviour
     {
         petting = true;
         PettingInProgress = true;
+
+        // Play petting SFX once
+        if (pettingRandomSFX != null && pettingRandomSFX.Length > 0)
+        {
+            SoundFXManager.instance.PlayRandomSoundFXClip(
+                pettingRandomSFX,
+                player1.transform, // or player2
+                0.5f
+            );
+        }
 
         FadeTo(0f);
         float originalP1X = player1.transform.position.x;

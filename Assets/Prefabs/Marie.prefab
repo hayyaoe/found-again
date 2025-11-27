@@ -5081,11 +5081,11 @@ MonoBehaviour:
   wallMaxSlideSpeed: 32
   minWallSpeed: 8
   wallStartImpulse: 3.5
-  jumpSFX: {fileID: 0}
+  jumpSFX: {fileID: 8300000, guid: c358ad5cead7745b98da4267b405784f, type: 3}
   slideSFX: {fileID: 8300000, guid: ed53ffada4df9475bb65630ad6e82ae3, type: 3}
   minSlideSpeedForSFX: 1.5
   slideSFXSpawnDelay: 0.25
-  jumpVolume: 0.4
+  jumpVolume: 0.05
   slideVolume: 2
   footstepSFX:
   - {fileID: 8300000, guid: c3a4b11fe3ca54177b72daa6f0bd21d1, type: 3}

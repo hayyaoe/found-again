@@ -105,14 +105,14 @@ public class AutoElevator2D : MonoBehaviour
 
         // if (autoStart) StartMoving();
         // 🔊 Create looping audio source for this lift
-        if (liftMoveLoop != null)
-        {
-            liftAudioSource = gameObject.AddComponent<AudioSource>();
-            liftAudioSource.clip = liftMoveLoop;
-            liftAudioSource.loop = true;
-            liftAudioSource.volume = liftVolume;
-            liftAudioSource.playOnAwake = false;
-        }
+        // if (liftMoveLoop != null)
+        // {
+        //     liftAudioSource = gameObject.AddComponent<AudioSource>();
+        //     liftAudioSource.clip = liftMoveLoop;
+        //     liftAudioSource.loop = true;
+        //     liftAudioSource.volume = liftVolume;
+        //     liftAudioSource.playOnAwake = false;
+        // }
     }
 
     // ======== Public API ========
