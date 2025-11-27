@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerRespawn : MonoBehaviour
 {
@@ -9,17 +10,26 @@ public class PlayerRespawn : MonoBehaviour
     
     private Animator anim;
     private Vector3 startPosition; // Each player still has its own start position
+    private CameraBoundaries CameraBoundariesInstance;
+
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
         startPosition = transform.position;
+
+        // Automatically find the CameraBoundaries script in the scene
+        CameraBoundariesInstance = FindObjectOfType<CameraBoundaries>();
     }
 
     public void Respawn()
     {
         // --- THIS IS THE FIX ---
         // Ask the CheckpointManager where to go
+        // 1. Disable boundaries temporarily
+        if (CameraBoundariesInstance != null)
+            CameraBoundariesInstance.SetBoundariesActive(false);
+
         if (CheckpointManager.instance.currentCheckpoint != null)
         {
             // If the manager has a checkpoint, go there
@@ -31,6 +41,9 @@ public class PlayerRespawn : MonoBehaviour
             transform.position = startPosition;
         }
         // --- END OF FIX ---
+
+        // 3. Wait for camera to catch up, then enable boundaries
+            StartCoroutine(ReenableBoundsAfterDelay(1.5f));
 
         if (anim != null)
         {
@@ -51,5 +64,12 @@ public class PlayerRespawn : MonoBehaviour
             // SoundManager.instance.PlaySound(checkpointSound); 
             collision.GetComponent<Collider2D>().enabled = false; // Deactivate checkpoint collider 
         } 
+    }
+    private IEnumerator ReenableBoundsAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (CameraBoundariesInstance != null)
+            CameraBoundariesInstance.SetBoundariesActive(true);
     }
 }
