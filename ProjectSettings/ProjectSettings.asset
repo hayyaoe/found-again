@@ -206,8 +206,8 @@ PlayerSettings:
   uIStatusBarHidden: 1
   uIExitOnSuspend: 0
   uIStatusBarStyle: 0
-  appleTVSplashScreen: {fileID: 0}
-  appleTVSplashScreen2x: {fileID: 0}
+  appleTVSplashScreen: {fileID: 2800000, guid: 8782b167309cb4d16a49ec1a54a018fe, type: 3}
+  appleTVSplashScreen2x: {fileID: 2800000, guid: 8782b167309cb4d16a49ec1a54a018fe, type: 3}
   tvOSSmallIconLayers: []
   tvOSSmallIconLayers2x: []
   tvOSLargeIconLayers: []
@@ -362,25 +362,25 @@ PlayerSettings:
       m_Kind: 0
       m_SubKind: 
     - m_Textures:
-      - {fileID: 0}
+      - {fileID: 2800000, guid: 2bfe371a161df4a95935ab04c64d13af, type: 3}
       m_Width: 4640
       m_Height: 1440
       m_Kind: 1
       m_SubKind: 
     - m_Textures:
-      - {fileID: 0}
+      - {fileID: 2800000, guid: 2bfe371a161df4a95935ab04c64d13af, type: 3}
       m_Width: 2320
       m_Height: 720
       m_Kind: 1
       m_SubKind: 
     - m_Textures:
-      - {fileID: 0}
+      - {fileID: 2800000, guid: cb7b22fb43f6241c6b29a46103bdbb14, type: 3}
       m_Width: 3840
       m_Height: 1440
       m_Kind: 1
       m_SubKind: 
     - m_Textures:
-      - {fileID: 2800000, guid: 0aba431b7c5f6494cb9d84c47b1de24d, type: 3}
+      - {fileID: 2800000, guid: cb7b22fb43f6241c6b29a46103bdbb14, type: 3}
       m_Width: 1920
       m_Height: 720
       m_Kind: 1
