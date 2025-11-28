@@ -129,7 +129,7 @@ public class PettingSystem : MonoBehaviour
             SoundFXManager.instance.PlayRandomSoundFXClip(
                 pettingRandomSFX,
                 player1.transform, // or player2
-                0.5f
+                0.65f
             );
         }
 
@@ -197,7 +197,7 @@ public class PettingSystem : MonoBehaviour
         player1.GetComponent<Animator>()?.SetBool("petting", true);
         player2.GetComponent<Animator>()?.SetBool("petting", true);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
 
         player1.GetComponent<Animator>()?.SetBool("petting", false);
         player2.GetComponent<Animator>()?.SetBool("petting", false);
