@@ -28,6 +28,9 @@ public class OutroCutsceneController : MonoBehaviour
         if (!hasPlayed)
         {
             hasPlayed = true;
+
+            BoatMove.OutroRunning = true;
+
             StartCoroutine(OutroSequence());
         }
     }
@@ -38,12 +41,15 @@ public class OutroCutsceneController : MonoBehaviour
         if (whiteFade != null)
             yield return Fade(whiteFade, 0f, 1f, fadeToWhiteDuration);
 
+        // ✅ Freeze AFTER screen is fully white
+        Time.timeScale = 0f;
+
         // 2) Fade in logo
         if (logoImage != null)
             yield return Fade(logoImage, 0f, 1f, logoFadeInDuration);
 
         // 3) Hold logo
-        yield return new WaitForSeconds(logoHoldDuration);
+        yield return new WaitForSecondsRealtime(logoHoldDuration);
 
         // 🟢 NEW: Clear Save Data so "Continue" disappears
         Debug.Log("Outro finished. Clearing save data.");
@@ -74,7 +80,8 @@ public class OutroCutsceneController : MonoBehaviour
 
         while (t < time)
         {
-            t += Time.deltaTime;
+            // t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             float lerp = Mathf.Clamp01(t / time);
             c.a = Mathf.Lerp(from, to, lerp);
             img.color = c;

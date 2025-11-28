@@ -25,11 +25,17 @@ public class BoatMove : MonoBehaviour
 
     public bool IsMoving => playersOnBoard.Count >= requiredPlayers;
     public static bool AnyPlayerOnBoat = false;
-
+    public static bool OutroRunning = false;
 
     private void OnDisable()
     {
         isShuttingDown = true;
+        if (BoatMove.OutroRunning)
+        {
+            if (logDebug) Debug.Log("[BoatMove] Outro running — skip OnDisable cleanup.");
+            return;
+        }
+
     }
 
     private void Awake()
@@ -170,5 +176,12 @@ public class BoatMove : MonoBehaviour
 
         if (logDebug)
             Debug.Log($"[BoatMove] {player.name} turun boat. OnBoard={playersOnBoard.Count}");
+
+        if (BoatMove.OutroRunning)
+        {
+            if (logDebug) Debug.Log("[BoatMove] Outro running — DO NOT unparent player.");
+            return;
+        }
+
     }
 }
