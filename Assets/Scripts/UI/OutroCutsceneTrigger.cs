@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class OutroCutsceneTrigger : MonoBehaviour
 {
@@ -6,8 +7,17 @@ public class OutroCutsceneTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            // Lock movement
+            Movement move = other.GetComponent<Movement>();
+            if (move != null) move.enabled = false;
+
+            PlayerInput input = other.GetComponent<PlayerInput>();
+            if (input != null) input.enabled = false;
+
+            // Play Outro
             OutroCutsceneController outro = FindFirstObjectByType<OutroCutsceneController>();
             outro?.PlayOutro();
         }
     }
+
 }
