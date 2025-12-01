@@ -141,8 +141,8 @@ PlayerSettings:
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
-  tvOSBundleVersion: 1.2
-  bundleVersion: 1.2
+  tvOSBundleVersion: 1.21
+  bundleVersion: 1.21
   preloadedAssets:
   - {fileID: 0}
   - {fileID: -944628639613478452, guid: c68604c71beef44a1b107ae7dd4bf257, type: 3}
@@ -170,10 +170,10 @@ PlayerSettings:
     Standalone: com.karir-meong.found-again
     tvOS: com.karir-meong.found-again
   buildNumber:
-    Standalone: 4
+    Standalone: 5
     VisionOS: 0
     iPhone: 0
-    tvOS: 4
+    tvOS: 5
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 23
